@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security report
+    url: mailto:security@openings.dev
+    about: Report vulnerabilities privately
+  - name: Community support
+    url: https://github.com/user/openings/discussions
+    about: Ask questions and share ideas
