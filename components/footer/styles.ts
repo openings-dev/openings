@@ -1,15 +1,15 @@
 import { cva } from "class-variance-authority";
 
 export const footerRootStyles = cva(
-  "relative mt-20 border-t border-border/70 bg-muted/70 text-foreground shadow-[0_-24px_64px_-56px_rgb(0_0_0/0.45)] dark:bg-card/75",
+  "relative mt-20 border-t border-border/40 bg-background text-foreground dark:bg-background",
 );
 
 export const footerTopDividerStyles = cva(
-  "pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border/90 to-transparent",
+  "pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border/60 to-transparent",
 );
 
 export const footerSurfaceStyles = cva(
-  "pointer-events-none absolute inset-0 bg-[radial-gradient(120%_140%_at_100%_0%,rgba(148,163,184,0.12)_0%,transparent_62%)] dark:bg-[radial-gradient(120%_150%_at_100%_0%,rgba(148,163,184,0.18)_0%,transparent_66%)]",
+  "pointer-events-none absolute inset-0 bg-[radial-gradient(120%_140%_at_100%_0%,rgba(148,163,184,0.08)_0%,transparent_50%)] dark:bg-[radial-gradient(120%_150%_at_100%_0%,rgba(255,255,255,0.03)_0%,transparent_50%)]",
 );
 
 export const footerContainerStyles = cva(
@@ -60,7 +60,7 @@ export const footerSocialButtonStyles = cva(
 );
 
 export const footerLinksGridStyles = cva(
-  "grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-6",
+  "grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:gap-x-12",
 );
 
 export const footerLinksGroupStyles = cva("space-y-3");

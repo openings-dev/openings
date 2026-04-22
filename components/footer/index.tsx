@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { AtSign, Globe, Link2 } from "lucide-react";
 import { cn } from "@/lib/utils/tailwind";
+import { motion } from "framer-motion";
+import { Link2 } from "lucide-react";
 import { FooterBottom } from "./footer-bottom";
 import { FooterBrand } from "./footer-brand";
 import { FooterLinks } from "./footer-links";
@@ -17,46 +17,31 @@ import type { FooterLinkGroup, FooterProps, FooterSocialLink } from "./types";
 
 const DEFAULT_LINK_GROUPS: FooterLinkGroup[] = [
   {
-    id: "product",
-    title: "Product",
+    id: "project",
+    title: "Project",
     links: [
-      { label: "Features", href: "/features" },
-      { label: "Pricing", href: "/pricing" },
-      { label: "Changelog", href: "/changelog" },
-      { label: "Roadmap", href: "/roadmap" },
+      { label: "Overview", href: "/" },
+      { label: "API Reference", href: "/docs/api" },
+      { label: "Status", href: "https://status.openings.dev", external: true },
     ],
   },
   {
-    id: "company",
-    title: "Company",
+    id: "open-source",
+    title: "Open Source",
     links: [
-      { label: "About", href: "/about" },
-      { label: "Careers", href: "/careers" },
-      { label: "Contact", href: "/contact" },
-    ],
-  },
-  {
-    id: "resources",
-    title: "Resources",
-    links: [
-      { label: "Documentation", href: "/docs" },
-      { label: "Blog", href: "/blog" },
-      { label: "Community", href: "/community" },
-    ],
-  },
-  {
-    id: "contribution",
-    title: "Contribution",
-    links: [
-      { label: "GitHub", href: "https://github.com", external: true },
+      {
+        label: "GitHub",
+        href: "https://github.com/user/openings",
+        external: true,
+      },
       {
         label: "Contributing",
-        href: "https://github.com/openings-dev/openings.dev/blob/main/CONTRIBUTING.md",
+        href: "https://github.com/user/openings/blob/main/CONTRIBUTING.md",
         external: true,
       },
       {
         label: "Report issue",
-        href: "https://github.com/openings-dev/openings.dev/issues/new",
+        href: "https://github.com/user/openings/issues/new",
         external: true,
       },
     ],
@@ -67,7 +52,6 @@ const DEFAULT_LINK_GROUPS: FooterLinkGroup[] = [
     links: [
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms of Service", href: "/terms" },
-      { label: "Cookies", href: "/cookies" },
     ],
   },
 ];
@@ -75,21 +59,8 @@ const DEFAULT_LINK_GROUPS: FooterLinkGroup[] = [
 const DEFAULT_SOCIAL_LINKS: FooterSocialLink[] = [
   {
     label: "GitHub",
-    href: "https://github.com",
+    href: "https://github.com/GuilhermeAlbert/openings",
     icon: Link2,
-    external: true,
-  },
-  {
-    label: "X",
-    href: "https://x.com",
-    icon: Globe,
-    external: true,
-    ariaLabel: "X social profile",
-  },
-  {
-    label: "LinkedIn",
-    href: "https://linkedin.com",
-    icon: AtSign,
     external: true,
   },
 ];

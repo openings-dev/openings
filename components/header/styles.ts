@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const headerStyles = cva(
-  "z-40 w-full border-b border-border/70 bg-background/85 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70",
+  "z-40 w-full border-b border-border/40 bg-background/70 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60",
   {
     variants: {
       position: {

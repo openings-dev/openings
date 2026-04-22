@@ -18,6 +18,15 @@ import {
   languageSwitcherWrapperStyles,
 } from "./styles";
 
+const LOCALE_FLAGS: Record<string, string> = {
+  en: "🇺🇸",
+  pt: "🇧🇷",
+  es: "🇪🇸",
+  it: "🇮🇹",
+  fr: "🇫🇷",
+  de: "🇩🇪",
+};
+
 export function LanguageSwitcher({
   className,
   locale,
@@ -59,19 +68,14 @@ export function LanguageSwitcher({
           aria-label={ariaLabel}
           className={languageSwitcherTriggerStyles()}
         >
-          <span className="inline-flex min-w-0 items-center gap-2">
-            <Languages size={16} className="text-muted-foreground" />
-            <SelectValue placeholder={placeholder} />
-          </span>
+          <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent className={languageSwitcherContentStyles()} align="end">
           {locales.map((entry) => (
             <SelectItem key={entry.code} value={entry.code}>
-              <span className="inline-flex items-center gap-2">
-                <span className="font-medium tracking-[0.02em] uppercase text-xs text-muted-foreground">
-                  {entry.code}
-                </span>
-                <span>{entry.nativeLabel}</span>
+              <span className="flex items-center gap-2">
+                <span className="text-base leading-none">{LOCALE_FLAGS[entry.code] || "🌐"}</span>
+                <span className="text-[13px] font-medium">{entry.nativeLabel}</span>
               </span>
             </SelectItem>
           ))}

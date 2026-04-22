@@ -49,11 +49,9 @@ export function Header({
       className={cn(headerStyles({ position }), className)}
     >
       <div className={headerContainerStyles()}>
-        <BrandLogo
-          href={logoHref}
-          brandName={messages.header.brandName}
-          brandTagline={messages.header.brandTagline}
-        />
+        <div className="flex items-center gap-6">
+          <BrandLogo href={logoHref} brandName={messages.header.brandName} />
+        </div>
         <div className={headerActionsStyles()}>
           <ThemeToggle />
           <LanguageSwitcher

@@ -42,7 +42,6 @@ export function BrandLogo({
       </span>
       <span className={brandLogoTextStyles()}>
         <span className={brandLogoTitleStyles()}>{brandName}</span>
-        <span className={brandLogoSubtitleStyles()}>{brandTagline}</span>
       </span>
     </Link>
   );
