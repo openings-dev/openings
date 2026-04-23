@@ -12,7 +12,7 @@ Thanks for helping improve openings.dev.
 ## Development setup
 
 ```bash
-git clone https://github.com/GuilhermeAlbert/openings
+git clone https://github.com/openings-dev/openings
 cd openings
 npm install
 npm run dev

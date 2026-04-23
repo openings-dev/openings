@@ -20,6 +20,93 @@ export const frTranslations: TranslationMessages = {
     description:
       "openings.dev suit les issues d'emploi publiées par des communautés fiables, normalise chaque offre et permet de filtrer par stack, séniorité, localisation et politique remote sans passer d'un dépôt à l'autre.",
   },
+  opportunities: {
+    header: {
+      kicker: "Explorateur d'opportunités",
+      title: "Découvrez des offres tech premium",
+      description:
+        "Recherchez des communautés et des dépôts avec des filtres précis, basculez entre liste et grille, et analysez les opportunités avec une clarté inspirée de GitHub et une finition premium.",
+    },
+    feedback: {
+      filtersReset: "Filtres réinitialisés",
+      loadError: "Impossible de charger les opportunités en direct depuis GitHub.",
+      loadMoreError:
+        "Impossible de charger davantage d'opportunités depuis GitHub.",
+      rateLimited:
+        "La limite de l'API GitHub est atteinte. Réessayez dans quelques minutes.",
+    },
+    range: {
+      zeroResults: "0 résultat",
+      rangeOfTotal: "{start}-{end} sur {total}",
+    },
+    filters: {
+      ariaLabel: "Filtres d'opportunités",
+      title: "Filtres",
+      activeCount: "{count} actifs",
+      hide: "Masquer les filtres",
+      show: "Afficher les filtres",
+      reset: "Réinitialiser",
+      searchLabel: "Rechercher une opportunité",
+      searchPlaceholder:
+        "Rechercher par titre, entreprise, dépôt ou mot-clé",
+      repositoryLabel: "Dépôt",
+      repositoryPlaceholder: "Tous les dépôts",
+      allRepositories: "Tous les dépôts",
+      regionLabel: "Région",
+      regionPlaceholder: "Toutes les régions",
+      allRegions: "Toutes les régions",
+      countryLabel: "Pays",
+      countryPlaceholder: "Tous les pays",
+      allCountries: "Tous les pays",
+      tagsLabel: "Tags",
+      tagsPlaceholder: "Ajouter un filtre de tag",
+      noTagsSelected: "Aucun tag sélectionné",
+      authorLabel: "Auteur de l'issue",
+      authorPlaceholder: "Ajouter un filtre d'auteur",
+      noAuthorsSelected: "Aucun auteur sélectionné",
+      itemsPerPageLabel: "Éléments par page",
+      itemsPerPagePlaceholder: "Éléments par page",
+      itemsPerPageOption: "{count} éléments",
+      sortLabel: "Trier par date",
+      sortPlaceholder: "Trier par date",
+      sortRecent: "Plus récentes",
+      sortOldest: "Plus anciennes d'abord",
+    },
+    toolbar: {
+      opportunitiesCount: "{count} opportunités",
+      pageSummary: "{range} • Page {page} sur {totalPages}",
+      sortPlaceholder: "Trier par date",
+      sortRecent: "Plus récentes",
+      sortOldest: "Plus anciennes d'abord",
+    },
+    list: {
+      totalMatches: "{count} résultats au total",
+      noMatchesTitle: "Aucun résultat pour les filtres actuels",
+      noResultsTitle: "Aucune opportunité disponible",
+      noMatchesDescription:
+        "Essayez de retirer certains filtres ou d'ajuster votre recherche pour élargir les résultats.",
+      noResultsDescription:
+        "Les nouvelles opportunités apparaîtront ici dès que les sources seront chargées.",
+      clearFilters: "Effacer les filtres",
+      loadedPage: "Page {page} sur {totalPages} chargée",
+      scrollToLoadMore: "Faites défiler pour charger plus",
+      allResultsLoaded: "Tous les résultats sont chargés",
+      loadingMore: "Chargement de nouvelles opportunités...",
+    },
+    viewMode: {
+      ariaLabel: "Mode d'affichage",
+      list: "Liste",
+      grid: "Grille",
+    },
+    card: {
+      statusOpen: "Ouverte",
+      salaryPeriodMonth: "mois",
+      salaryPeriodYear: "an",
+      salaryPeriodHour: "heure",
+      communityAvatarAlt: "Avatar de la communauté {name}",
+      authorAvatarAlt: "Avatar de {name}",
+    },
+  },
   footer: {
     brandTagline: "Intelligence emploi portée par les communautés",
     description:

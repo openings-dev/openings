@@ -20,6 +20,87 @@ export interface TranslationMessages {
     title: string;
     description: string;
   };
+  opportunities: {
+    header: {
+      kicker: string;
+      title: string;
+      description: string;
+    };
+    feedback: {
+      filtersReset: string;
+      loadError: string;
+      loadMoreError: string;
+      rateLimited: string;
+    };
+    range: {
+      zeroResults: string;
+      rangeOfTotal: string;
+    };
+    filters: {
+      ariaLabel: string;
+      title: string;
+      activeCount: string;
+      hide: string;
+      show: string;
+      reset: string;
+      searchLabel: string;
+      searchPlaceholder: string;
+      repositoryLabel: string;
+      repositoryPlaceholder: string;
+      allRepositories: string;
+      regionLabel: string;
+      regionPlaceholder: string;
+      allRegions: string;
+      countryLabel: string;
+      countryPlaceholder: string;
+      allCountries: string;
+      tagsLabel: string;
+      tagsPlaceholder: string;
+      noTagsSelected: string;
+      authorLabel: string;
+      authorPlaceholder: string;
+      noAuthorsSelected: string;
+      itemsPerPageLabel: string;
+      itemsPerPagePlaceholder: string;
+      itemsPerPageOption: string;
+      sortLabel: string;
+      sortPlaceholder: string;
+      sortRecent: string;
+      sortOldest: string;
+    };
+    toolbar: {
+      opportunitiesCount: string;
+      pageSummary: string;
+      sortPlaceholder: string;
+      sortRecent: string;
+      sortOldest: string;
+    };
+    list: {
+      totalMatches: string;
+      noMatchesTitle: string;
+      noResultsTitle: string;
+      noMatchesDescription: string;
+      noResultsDescription: string;
+      clearFilters: string;
+      loadedPage: string;
+      scrollToLoadMore: string;
+      allResultsLoaded: string;
+      loadingMore: string;
+    };
+    viewMode: {
+      ariaLabel: string;
+      list: string;
+      grid: string;
+    };
+    card: {
+      statusOpen: string;
+      salaryPeriodMonth: string;
+      salaryPeriodYear: string;
+      salaryPeriodHour: string;
+      communityAvatarAlt: string;
+      authorAvatarAlt: string;
+    };
+  };
   footer: {
     brandTagline: string;
     description: string;

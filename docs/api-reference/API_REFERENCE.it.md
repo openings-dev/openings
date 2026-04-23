@@ -19,4 +19,4 @@ La API e pubblica ed evolutiva. Alcuni contratti possono cambiare mentre filtri 
 
 Per domande o feedback di integrazione:
 
-- [GitHub Issues](https://github.com/GuilhermeAlbert/openings/issues)
+- [GitHub Issues](https://github.com/openings-dev/openings/issues)

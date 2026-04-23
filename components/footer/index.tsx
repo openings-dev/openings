@@ -29,8 +29,8 @@ export function Footer({
   supportText,
   copyrightText,
   signature,
-  lightLogoSrc = "/light-mode-favicon.svg",
-  darkLogoSrc = "/dark-mode-favicon.svg",
+  lightLogoSrc = "/brand-mark-light.svg",
+  darkLogoSrc = "/brand-mark-dark.svg",
   linkGroups,
   socialLinks,
 }: FooterProps) {
@@ -58,7 +58,7 @@ export function Footer({
       links: [
         {
           label: footerMessages.links.github,
-          href: "https://github.com/GuilhermeAlbert/openings",
+          href: "https://github.com/openings-dev/openings",
           external: true,
         },
         {
@@ -67,7 +67,7 @@ export function Footer({
         },
         {
           label: footerMessages.links.reportIssue,
-          href: "https://github.com/GuilhermeAlbert/openings/issues/new",
+          href: "https://github.com/openings-dev/openings/issues/new",
           external: true,
         },
       ],
@@ -85,15 +85,19 @@ export function Footer({
   const defaultSocialLinks: FooterSocialLink[] = [
     {
       label: footerMessages.links.github,
-      href: "https://github.com/GuilhermeAlbert/openings",
+      href: "https://github.com/openings-dev/openings",
       icon: GithubIcon,
       external: true,
       ariaLabel: footerMessages.social.githubAriaLabel,
     },
   ];
 
-  const resolvedLinkGroups = linkGroups?.length ? linkGroups : defaultLinkGroups;
-  const resolvedSocialLinks = socialLinks?.length ? socialLinks : defaultSocialLinks;
+  const resolvedLinkGroups = linkGroups?.length
+    ? linkGroups
+    : defaultLinkGroups;
+  const resolvedSocialLinks = socialLinks?.length
+    ? socialLinks
+    : defaultSocialLinks;
   const resolvedBrandTagline = brandTagline ?? footerMessages.brandTagline;
   const resolvedDescription = description ?? footerMessages.description;
   const resolvedSupportText = supportText ?? footerMessages.supportText;

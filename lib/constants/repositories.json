@@ -13,7 +13,16 @@
     "trabajos",
     "emploi",
     "emplois",
-    "annonces"
+    "annonces",
+    "internship",
+    "internships",
+    "new grad",
+    "entry level",
+    "graduate",
+    "hiring",
+    "vacature",
+    "vacatures",
+    "stellen"
   ],
   "repositories": [
     {
@@ -57,6 +66,25 @@
       ]
     },
     {
+      "repository": "ambicuity/New-Grad-Jobs",
+      "owner": "ambicuity",
+      "name": "New-Grad-Jobs",
+      "url": "https://github.com/ambicuity/New-Grad-Jobs",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "North America",
+      "locale": "en-US",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "internships",
+        "new grad",
+        "entry level",
+        "opportunities"
+      ]
+    },
+    {
       "repository": "android-cn/android-jobs",
       "owner": "android-cn",
       "name": "android-jobs",
@@ -92,6 +120,24 @@
         "vacancies",
         "opportunities",
         "emprego"
+      ]
+    },
+    {
+      "repository": "awesome-jobs/china",
+      "owner": "awesome-jobs",
+      "name": "china",
+      "url": "https://github.com/awesome-jobs/china",
+      "country": "China",
+      "countryCode": "CN",
+      "region": "Asia",
+      "locale": "zh-CN",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "work",
+        "vacancies",
+        "opportunities"
       ]
     },
     {
@@ -232,6 +278,101 @@
       ]
     },
     {
+      "repository": "BlackFalconData-org/emprego-sapo-scraper",
+      "owner": "BlackFalconData-org",
+      "name": "emprego-sapo-scraper",
+      "url": "https://github.com/BlackFalconData-org/emprego-sapo-scraper",
+      "country": "Portugal",
+      "countryCode": "PT",
+      "region": "Europe",
+      "locale": "pt-PT",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "vagas",
+        "emprego",
+        "jobs",
+        "vacancies",
+        "opportunities"
+      ]
+    },
+    {
+      "repository": "BlackFalconData-org/itjobs-scraper",
+      "owner": "BlackFalconData-org",
+      "name": "itjobs-scraper",
+      "url": "https://github.com/BlackFalconData-org/itjobs-scraper",
+      "country": "Portugal",
+      "countryCode": "PT",
+      "region": "Europe",
+      "locale": "pt-PT",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "vagas",
+        "emprego",
+        "jobs",
+        "vacancies",
+        "opportunities"
+      ]
+    },
+    {
+      "repository": "BlackFalconData-org/jobbird-scraper",
+      "owner": "BlackFalconData-org",
+      "name": "jobbird-scraper",
+      "url": "https://github.com/BlackFalconData-org/jobbird-scraper",
+      "country": "Netherlands",
+      "countryCode": "NL",
+      "region": "Europe",
+      "locale": "nl-NL",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "vacature",
+        "vacatures",
+        "jobs",
+        "opportunities",
+        "werk"
+      ]
+    },
+    {
+      "repository": "BlackFalconData-org/nationalevacaturebank-scraper",
+      "owner": "BlackFalconData-org",
+      "name": "nationalevacaturebank-scraper",
+      "url": "https://github.com/BlackFalconData-org/nationalevacaturebank-scraper",
+      "country": "Netherlands",
+      "countryCode": "NL",
+      "region": "Europe",
+      "locale": "nl-NL",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "vacature",
+        "vacatures",
+        "jobs",
+        "opportunities",
+        "werk"
+      ]
+    },
+    {
+      "repository": "BlackFalconData-org/werk-scraper",
+      "owner": "BlackFalconData-org",
+      "name": "werk-scraper",
+      "url": "https://github.com/BlackFalconData-org/werk-scraper",
+      "country": "Netherlands",
+      "countryCode": "NL",
+      "region": "Europe",
+      "locale": "nl-NL",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "vacature",
+        "vacatures",
+        "jobs",
+        "opportunities",
+        "werk"
+      ]
+    },
+    {
       "repository": "brasil-php/vagas",
       "owner": "brasil-php",
       "name": "vagas",
@@ -348,6 +489,25 @@
         "vacancies",
         "opportunities",
         "emprego"
+      ]
+    },
+    {
+      "repository": "danielbayerlein/remote-jobs-germany",
+      "owner": "danielbayerlein",
+      "name": "remote-jobs-germany",
+      "url": "https://github.com/danielbayerlein/remote-jobs-germany",
+      "country": "Germany",
+      "countryCode": "DE",
+      "region": "Europe",
+      "locale": "de-DE",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "stellen",
+        "arbeit",
+        "remote",
+        "opportunities"
       ]
     },
     {
@@ -509,6 +669,25 @@
       ]
     },
     {
+      "repository": "diggerhq/awesome-devops-jobs",
+      "owner": "diggerhq",
+      "name": "awesome-devops-jobs",
+      "url": "https://github.com/diggerhq/awesome-devops-jobs",
+      "country": "Global",
+      "countryCode": "GLOBAL",
+      "region": "Global",
+      "locale": "en-US",
+      "scope": "global",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "devops",
+        "work",
+        "vacancies",
+        "opportunities"
+      ]
+    },
+    {
       "repository": "dotnetdevbr/vagas",
       "owner": "dotnetdevbr",
       "name": "vagas",
@@ -581,6 +760,25 @@
         "jobs",
         "work",
         "vacancies",
+        "opportunities"
+      ]
+    },
+    {
+      "repository": "fitly-work/2025-New-Grad-Jobs-USA-Hourly-Updated",
+      "owner": "fitly-work",
+      "name": "2025-New-Grad-Jobs-USA-Hourly-Updated",
+      "url": "https://github.com/fitly-work/2025-New-Grad-Jobs-USA-Hourly-Updated",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "North America",
+      "locale": "en-US",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "internships",
+        "new grad",
+        "entry level",
         "opportunities"
       ]
     },
@@ -723,6 +921,25 @@
       ]
     },
     {
+      "repository": "germanitjobs/awesome-jobs-in-germany",
+      "owner": "germanitjobs",
+      "name": "awesome-jobs-in-germany",
+      "url": "https://github.com/germanitjobs/awesome-jobs-in-germany",
+      "country": "Germany",
+      "countryCode": "DE",
+      "region": "Europe",
+      "locale": "de-DE",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "stellen",
+        "arbeit",
+        "opportunities",
+        "tech jobs"
+      ]
+    },
+    {
       "repository": "golangtw/jobs",
       "owner": "golangtw",
       "name": "jobs",
@@ -781,6 +998,82 @@
       ]
     },
     {
+      "repository": "hanzili/canada_sde_intern_position",
+      "owner": "hanzili",
+      "name": "canada_sde_intern_position",
+      "url": "https://github.com/hanzili/canada_sde_intern_position",
+      "country": "Canada",
+      "countryCode": "CA",
+      "region": "North America",
+      "locale": "en-CA",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "internships",
+        "new grad",
+        "entry level",
+        "opportunities"
+      ]
+    },
+    {
+      "repository": "hanzili/canada_sde_junior_new_grad_position",
+      "owner": "hanzili",
+      "name": "canada_sde_junior_new_grad_position",
+      "url": "https://github.com/hanzili/canada_sde_junior_new_grad_position",
+      "country": "Canada",
+      "countryCode": "CA",
+      "region": "North America",
+      "locale": "en-CA",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "internships",
+        "new grad",
+        "entry level",
+        "opportunities"
+      ]
+    },
+    {
+      "repository": "HassanChowdhry/Canadian-Tech-Internships-2025",
+      "owner": "HassanChowdhry",
+      "name": "Canadian-Tech-Internships-2025",
+      "url": "https://github.com/HassanChowdhry/Canadian-Tech-Internships-2025",
+      "country": "Canada",
+      "countryCode": "CA",
+      "region": "North America",
+      "locale": "en-CA",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "internships",
+        "new grad",
+        "entry level",
+        "opportunities"
+      ]
+    },
+    {
+      "repository": "hoeberigs/ai-job-tracker-nl",
+      "owner": "hoeberigs",
+      "name": "ai-job-tracker-nl",
+      "url": "https://github.com/hoeberigs/ai-job-tracker-nl",
+      "country": "Netherlands",
+      "countryCode": "NL",
+      "region": "Europe",
+      "locale": "nl-NL",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "vacature",
+        "vacatures",
+        "jobs",
+        "opportunities",
+        "werk"
+      ]
+    },
+    {
       "repository": "hurbcom/vagas",
       "owner": "hurbcom",
       "name": "vagas",
@@ -798,6 +1091,44 @@
         "vacancies",
         "opportunities",
         "emprego"
+      ]
+    },
+    {
+      "repository": "hypervillain/FrenchJobMarketCrawler",
+      "owner": "hypervillain",
+      "name": "FrenchJobMarketCrawler",
+      "url": "https://github.com/hypervillain/FrenchJobMarketCrawler",
+      "country": "France",
+      "countryCode": "FR",
+      "region": "Europe",
+      "locale": "fr-FR",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "emploi",
+        "emplois",
+        "jobs",
+        "opportunities",
+        "stages"
+      ]
+    },
+    {
+      "repository": "idimetrix/awesome-job-boards",
+      "owner": "idimetrix",
+      "name": "awesome-job-boards",
+      "url": "https://github.com/idimetrix/awesome-job-boards",
+      "country": "Global",
+      "countryCode": "GLOBAL",
+      "region": "Global",
+      "locale": "en-US",
+      "scope": "global",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "work",
+        "vacancies",
+        "opportunities",
+        "job boards"
       ]
     },
     {
@@ -861,6 +1192,44 @@
       ]
     },
     {
+      "repository": "isaiahiruoha/Canadian-Tech-And-Business-Internships-Summer-2025",
+      "owner": "isaiahiruoha",
+      "name": "Canadian-Tech-And-Business-Internships-Summer-2025",
+      "url": "https://github.com/isaiahiruoha/Canadian-Tech-And-Business-Internships-Summer-2025",
+      "country": "Canada",
+      "countryCode": "CA",
+      "region": "North America",
+      "locale": "en-CA",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "internships",
+        "new grad",
+        "entry level",
+        "opportunities"
+      ]
+    },
+    {
+      "repository": "jenndryden/Canadian-Tech-Internships-and-New-Grad-2025",
+      "owner": "jenndryden",
+      "name": "Canadian-Tech-Internships-and-New-Grad-2025",
+      "url": "https://github.com/jenndryden/Canadian-Tech-Internships-and-New-Grad-2025",
+      "country": "Canada",
+      "countryCode": "CA",
+      "region": "North America",
+      "locale": "en-CA",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "internships",
+        "new grad",
+        "entry level",
+        "opportunities"
+      ]
+    },
+    {
       "repository": "kotlin-br/vagas",
       "owner": "kotlin-br",
       "name": "vagas",
@@ -878,6 +1247,44 @@
         "vacancies",
         "opportunities",
         "emprego"
+      ]
+    },
+    {
+      "repository": "lamarisme/TheFrenchTech",
+      "owner": "lamarisme",
+      "name": "TheFrenchTech",
+      "url": "https://github.com/lamarisme/TheFrenchTech",
+      "country": "France",
+      "countryCode": "FR",
+      "region": "Europe",
+      "locale": "fr-FR",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "emploi",
+        "emplois",
+        "jobs",
+        "opportunities",
+        "stages"
+      ]
+    },
+    {
+      "repository": "Lamiiine/Awesome-daily-list-of-visa-sponsored-jobs",
+      "owner": "Lamiiine",
+      "name": "Awesome-daily-list-of-visa-sponsored-jobs",
+      "url": "https://github.com/Lamiiine/Awesome-daily-list-of-visa-sponsored-jobs",
+      "country": "Global",
+      "countryCode": "GLOBAL",
+      "region": "Global",
+      "locale": "en-US",
+      "scope": "global",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "work",
+        "vacancies",
+        "opportunities",
+        "visa sponsorship"
       ]
     },
     {
@@ -919,6 +1326,25 @@
       ]
     },
     {
+      "repository": "lucianlavric/CanadaTechInternships-Summer2026",
+      "owner": "lucianlavric",
+      "name": "CanadaTechInternships-Summer2026",
+      "url": "https://github.com/lucianlavric/CanadaTechInternships-Summer2026",
+      "country": "Canada",
+      "countryCode": "CA",
+      "region": "North America",
+      "locale": "en-CA",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "internships",
+        "new grad",
+        "entry level",
+        "opportunities"
+      ]
+    },
+    {
       "repository": "MacaeTech/vagas",
       "owner": "MacaeTech",
       "name": "vagas",
@@ -936,6 +1362,25 @@
         "vacancies",
         "opportunities",
         "emprego"
+      ]
+    },
+    {
+      "repository": "marmelo/tech-companies-in-portugal",
+      "owner": "marmelo",
+      "name": "tech-companies-in-portugal",
+      "url": "https://github.com/marmelo/tech-companies-in-portugal",
+      "country": "Portugal",
+      "countryCode": "PT",
+      "region": "Europe",
+      "locale": "pt-PT",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "vagas",
+        "emprego",
+        "jobs",
+        "vacancies",
+        "opportunities"
       ]
     },
     {
@@ -1036,6 +1481,25 @@
         "vacancies",
         "opportunities",
         "emprego"
+      ]
+    },
+    {
+      "repository": "pogopaule/awesome-sustainability-jobs",
+      "owner": "pogopaule",
+      "name": "awesome-sustainability-jobs",
+      "url": "https://github.com/pogopaule/awesome-sustainability-jobs",
+      "country": "Global",
+      "countryCode": "GLOBAL",
+      "region": "Global",
+      "locale": "en-US",
+      "scope": "global",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "work",
+        "vacancies",
+        "opportunities",
+        "sustainability"
       ]
     },
     {
@@ -1272,6 +1736,25 @@
       ]
     },
     {
+      "repository": "samyrjob/Traineeplus",
+      "owner": "samyrjob",
+      "name": "Traineeplus",
+      "url": "https://github.com/samyrjob/Traineeplus",
+      "country": "France",
+      "countryCode": "FR",
+      "region": "Europe",
+      "locale": "fr-FR",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "emploi",
+        "emplois",
+        "jobs",
+        "opportunities",
+        "stages"
+      ]
+    },
+    {
       "repository": "seujobtech/vagas",
       "owner": "seujobtech",
       "name": "vagas",
@@ -1292,6 +1775,101 @@
       ]
     },
     {
+      "repository": "shintalha/New-Grad-Europe-2024",
+      "owner": "shintalha",
+      "name": "New-Grad-Europe-2024",
+      "url": "https://github.com/shintalha/New-Grad-Europe-2024",
+      "country": "Global",
+      "countryCode": "GLOBAL",
+      "region": "Europe",
+      "locale": "en-US",
+      "scope": "regional",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "new grad",
+        "entry level",
+        "europe",
+        "opportunities"
+      ]
+    },
+    {
+      "repository": "SimplifyJobs/New-Grad-Positions",
+      "owner": "SimplifyJobs",
+      "name": "New-Grad-Positions",
+      "url": "https://github.com/SimplifyJobs/New-Grad-Positions",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "North America",
+      "locale": "en-US",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "internships",
+        "new grad",
+        "entry level",
+        "opportunities"
+      ]
+    },
+    {
+      "repository": "SimplifyJobs/Summer2026-Internships",
+      "owner": "SimplifyJobs",
+      "name": "Summer2026-Internships",
+      "url": "https://github.com/SimplifyJobs/Summer2026-Internships",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "North America",
+      "locale": "en-US",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "internships",
+        "new grad",
+        "entry level",
+        "opportunities"
+      ]
+    },
+    {
+      "repository": "suarezafelipe/awesome-jobs-colombia",
+      "owner": "suarezafelipe",
+      "name": "awesome-jobs-colombia",
+      "url": "https://github.com/suarezafelipe/awesome-jobs-colombia",
+      "country": "Colombia",
+      "countryCode": "CO",
+      "region": "South America",
+      "locale": "es-CO",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "trabajos",
+        "empleos",
+        "vacantes",
+        "jobs",
+        "opportunities"
+      ]
+    },
+    {
+      "repository": "thatmlopsguy/remote-pt",
+      "owner": "thatmlopsguy",
+      "name": "remote-pt",
+      "url": "https://github.com/thatmlopsguy/remote-pt",
+      "country": "Portugal",
+      "countryCode": "PT",
+      "region": "Europe",
+      "locale": "pt-PT",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "vagas",
+        "emprego",
+        "jobs",
+        "remote",
+        "opportunities"
+      ]
+    },
+    {
       "repository": "timqian/open-source-jobs",
       "owner": "timqian",
       "name": "open-source-jobs",
@@ -1306,6 +1884,63 @@
         "jobs",
         "work",
         "vacancies",
+        "opportunities"
+      ]
+    },
+    {
+      "repository": "TorontoTechCommunity/CanadaJobSearch2023",
+      "owner": "TorontoTechCommunity",
+      "name": "CanadaJobSearch2023",
+      "url": "https://github.com/TorontoTechCommunity/CanadaJobSearch2023",
+      "country": "Canada",
+      "countryCode": "CA",
+      "region": "North America",
+      "locale": "en-CA",
+      "scope": "national",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "internships",
+        "new grad",
+        "entry level",
+        "opportunities"
+      ]
+    },
+    {
+      "repository": "trinhminhtriet/awesome-job-boards",
+      "owner": "trinhminhtriet",
+      "name": "awesome-job-boards",
+      "url": "https://github.com/trinhminhtriet/awesome-job-boards",
+      "country": "Global",
+      "countryCode": "GLOBAL",
+      "region": "Global",
+      "locale": "en-US",
+      "scope": "global",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "work",
+        "vacancies",
+        "opportunities",
+        "job boards"
+      ]
+    },
+    {
+      "repository": "vanshb03/New-Grad-2026",
+      "owner": "vanshb03",
+      "name": "New-Grad-2026",
+      "url": "https://github.com/vanshb03/New-Grad-2026",
+      "country": "Global",
+      "countryCode": "GLOBAL",
+      "region": "North America",
+      "locale": "en-US",
+      "scope": "regional",
+      "source": "github-search",
+      "queryHints": [
+        "jobs",
+        "internships",
+        "new grad",
+        "entry level",
         "opportunities"
       ]
     },

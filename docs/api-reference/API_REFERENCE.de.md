@@ -19,4 +19,4 @@ Die API ist oeffentlich und entwickelt sich weiter. Vertragsdetails koennen sich
 
 Bei Fragen oder Integrationsfeedback:
 
-- [GitHub Issues](https://github.com/GuilhermeAlbert/openings/issues)
+- [GitHub Issues](https://github.com/openings-dev/openings/issues)

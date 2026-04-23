@@ -11,9 +11,9 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/stars/GuilhermeAlbert/openings" />
-  <img src="https://img.shields.io/github/license/GuilhermeAlbert/openings" />
-  <img src="https://img.shields.io/github/contributors/GuilhermeAlbert/openings" />
+  <img src="https://img.shields.io/github/stars/openings-dev/openings" />
+  <img src="https://img.shields.io/github/license/openings-dev/openings" />
+  <img src="https://img.shields.io/github/contributors/openings-dev/openings" />
 </p>
 
 ---
@@ -53,14 +53,14 @@ flowchart LR
 Visit [openings.dev](https://openings.dev) or run locally:
 
 ```bash
-git clone https://github.com/GuilhermeAlbert/openings
+git clone https://github.com/openings-dev/openings
 npm install
 npm run dev
 ```
 
 ## Contributing
 
-Know a repo that posts jobs as issues? [Open a PR](https://github.com/GuilhermeAlbert/openings/pulls) adding it to our sources.
+Know a repo that posts jobs as issues? [Open a PR](https://github.com/openings-dev/openings/pulls) adding it to our sources.
 
 Please read:
 

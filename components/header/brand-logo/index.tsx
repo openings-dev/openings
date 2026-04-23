@@ -15,8 +15,8 @@ export function BrandLogo({
   className,
   href = "/",
   brandName = "openings.dev",
-  lightLogoSrc = "/light-mode-favicon.svg",
-  darkLogoSrc = "/dark-mode-favicon.svg",
+  lightLogoSrc = "/brand-mark-light.svg",
+  darkLogoSrc = "/brand-mark-dark.svg",
 }: BrandLogoProps) {
   return (
     <Link href={href} className={cn(brandLogoRootStyles(), className)}>
@@ -27,7 +27,7 @@ export function BrandLogo({
           fill
           sizes="36px"
           priority
-          className="object-cover dark:hidden"
+          className="object-contain dark:hidden"
         />
         <Image
           src={darkLogoSrc}
@@ -35,7 +35,7 @@ export function BrandLogo({
           fill
           sizes="36px"
           priority
-          className="hidden object-cover dark:block"
+          className="hidden object-contain dark:block"
         />
       </span>
       <span className={brandLogoTextStyles()}>

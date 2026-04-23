@@ -41,14 +41,14 @@ export function FooterBrand({
             alt={`${brandName} light logo`}
             fill
             sizes="36px"
-            className="object-cover dark:hidden"
+            className="object-contain dark:hidden"
           />
           <Image
             src={darkLogoSrc}
             alt={`${brandName} dark logo`}
             fill
             sizes="36px"
-            className="hidden object-cover dark:block"
+            className="hidden object-contain dark:block"
           />
         </span>
         <span className={footerBrandTextStyles()}>

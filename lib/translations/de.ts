@@ -18,6 +18,93 @@ export const deTranslations: TranslationMessages = {
     description:
       "openings.dev verfolgt Job-Issues aus verlässlichen Communities, normalisiert jeden Eintrag und ermöglicht Filter nach Stack, Seniorität, Standort und Remote-Regelung ohne Wechsel zwischen Repositories.",
   },
+  opportunities: {
+    header: {
+      kicker: "Opportunity Explorer",
+      title: "Premium-Tech-Jobs entdecken",
+      description:
+        "Durchsuche Communities und Repositories mit präzisen Filtern, wechsle zwischen Listen- und Rasteransicht und prüfe Chancen mit GitHub-ähnlicher Klarheit und hochwertigem Finish.",
+    },
+    feedback: {
+      filtersReset: "Filter zurückgesetzt",
+      loadError: "Live-Opportunities von GitHub konnten nicht geladen werden.",
+      loadMoreError:
+        "Weitere Opportunities von GitHub konnten nicht geladen werden.",
+      rateLimited:
+        "GitHub-API-Limit erreicht. Bitte in ein paar Minuten erneut versuchen.",
+    },
+    range: {
+      zeroResults: "0 Ergebnisse",
+      rangeOfTotal: "{start}-{end} von {total}",
+    },
+    filters: {
+      ariaLabel: "Opportunity-Filter",
+      title: "Filter",
+      activeCount: "{count} aktiv",
+      hide: "Filter ausblenden",
+      show: "Filter anzeigen",
+      reset: "Zurücksetzen",
+      searchLabel: "Opportunity suchen",
+      searchPlaceholder:
+        "Nach Titel, Unternehmen, Repository oder Stichwort suchen",
+      repositoryLabel: "Repository",
+      repositoryPlaceholder: "Alle Repositories",
+      allRepositories: "Alle Repositories",
+      regionLabel: "Region",
+      regionPlaceholder: "Alle Regionen",
+      allRegions: "Alle Regionen",
+      countryLabel: "Land",
+      countryPlaceholder: "Alle Länder",
+      allCountries: "Alle Länder",
+      tagsLabel: "Tags",
+      tagsPlaceholder: "Tag-Filter hinzufügen",
+      noTagsSelected: "Keine Tags ausgewählt",
+      authorLabel: "Issue-Autor",
+      authorPlaceholder: "Autorenfilter hinzufügen",
+      noAuthorsSelected: "Keine Autoren ausgewählt",
+      itemsPerPageLabel: "Einträge pro Seite",
+      itemsPerPagePlaceholder: "Einträge pro Seite",
+      itemsPerPageOption: "{count} Einträge",
+      sortLabel: "Nach Datum sortieren",
+      sortPlaceholder: "Nach Datum sortieren",
+      sortRecent: "Neueste zuerst",
+      sortOldest: "Älteste zuerst",
+    },
+    toolbar: {
+      opportunitiesCount: "{count} Opportunities",
+      pageSummary: "{range} • Seite {page} von {totalPages}",
+      sortPlaceholder: "Nach Datum sortieren",
+      sortRecent: "Neueste zuerst",
+      sortOldest: "Älteste zuerst",
+    },
+    list: {
+      totalMatches: "{count} Treffer gesamt",
+      noMatchesTitle: "Keine Treffer für die aktuellen Filter",
+      noResultsTitle: "Keine Opportunities verfügbar",
+      noMatchesDescription:
+        "Versuche einige Filter zu entfernen oder die Suche anzupassen, um mehr Ergebnisse zu sehen.",
+      noResultsDescription:
+        "Neue Opportunities erscheinen hier, sobald Quellen geladen sind.",
+      clearFilters: "Filter löschen",
+      loadedPage: "Seite {page} von {totalPages} geladen",
+      scrollToLoadMore: "Scrollen, um mehr zu laden",
+      allResultsLoaded: "Alle Ergebnisse geladen",
+      loadingMore: "Weitere Opportunities werden geladen...",
+    },
+    viewMode: {
+      ariaLabel: "Ansichtsmodus",
+      list: "Liste",
+      grid: "Raster",
+    },
+    card: {
+      statusOpen: "Offen",
+      salaryPeriodMonth: "Monat",
+      salaryPeriodYear: "Jahr",
+      salaryPeriodHour: "Stunde",
+      communityAvatarAlt: "Community-Avatar {name}",
+      authorAvatarAlt: "Avatar von {name}",
+    },
+  },
   footer: {
     brandTagline: "Community-getriebene Job-Intelligence",
     description:

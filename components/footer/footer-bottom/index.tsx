@@ -43,8 +43,8 @@ export function FooterBottom({
 
   const signatureLogoSrc =
     resolvedTheme === "dark"
-      ? "/trebla-solid-white-logo-inline.svg"
-      : "/trebla-solid-primary-logo-inline.svg";
+      ? "/brand-mark-dark.svg"
+      : "/brand-mark-light.svg";
 
   return (
     <motion.div
@@ -79,11 +79,14 @@ export function FooterBottom({
           <p className={footerSignatureStyles()}>{signature}</p>
           <Image
             src={signatureLogoSrc}
-            alt="Trebla logo"
-            width={62}
-            height={16}
-            className="opacity-95"
+            alt="openings.dev logo"
+            width={18}
+            height={18}
+            className="rounded-[4px] border border-border/70 bg-card"
           />
+          <span className="text-sm font-semibold tracking-[-0.01em] text-foreground">
+            openings.dev
+          </span>
         </div>
       </div>
     </motion.div>

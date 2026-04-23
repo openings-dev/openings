@@ -33,4 +33,4 @@ Backward-incompatible updates should be versioned and communicated in changelog 
 
 For API questions, examples, and integration help, open an issue in the repository:
 
-- [GitHub Issues](https://github.com/GuilhermeAlbert/openings/issues)
+- [GitHub Issues](https://github.com/openings-dev/openings/issues)
