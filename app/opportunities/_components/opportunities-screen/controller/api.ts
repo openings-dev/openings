@@ -13,23 +13,30 @@ export function buildApiUrl(
   cursor: string | null,
   limit: number,
 ) {
-  void filters;
-  void cursor;
-  void limit;
-  return "/api/opportunities";
+  const params = new URLSearchParams();
+
+  if (filters.repository !== "all") params.set("repository", filters.repository);
+  if (filters.region !== "all") params.set("region", filters.region);
+  if (filters.country !== "all") params.set("country", filters.country);
+  if (filters.sortOrder !== "recent") params.set("sort", filters.sortOrder);
+  if (cursor) params.set("cursor", cursor);
+  params.set("limit", String(limit));
+
+  const query = params.toString();
+  return query ? `/api/opportunities?${query}` : "/api/opportunities";
 }
 
 export function parseApiPayload(payload: unknown): OpportunitiesApiPayload {
   if (!payload || typeof payload !== "object") {
     return { items: [], nextCursor: null, hasMore: false, rateLimited: false, retryAfterSeconds: null };
   }
+
   const data = payload as Partial<OpportunitiesApiPayload>;
   const retryAfterSeconds =
-    typeof data.retryAfterSeconds === "number" &&
-    Number.isFinite(data.retryAfterSeconds) &&
-    data.retryAfterSeconds > 0
+    typeof data.retryAfterSeconds === "number" && Number.isFinite(data.retryAfterSeconds) && data.retryAfterSeconds > 0
       ? Math.floor(data.retryAfterSeconds)
       : null;
+
   return {
     items: Array.isArray(data.items) ? data.items : [],
     nextCursor: typeof data.nextCursor === "string" ? data.nextCursor : null,
@@ -48,9 +55,14 @@ export async function fetchOpportunitiesPage(
     signal: params.signal,
   });
   const payload = parseApiPayload(await response.json().catch(() => null));
+
   if (response.status === 429 || payload.rateLimited) {
     return { ...payload, rateLimited: true };
   }
-  if (!response.ok) throw new Error(`Failed to load opportunities (${response.status})`);
+
+  if (!response.ok) {
+    throw new Error(`Failed to load opportunities (${response.status})`);
+  }
+
   return payload;
 }

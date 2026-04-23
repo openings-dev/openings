@@ -1,5 +1,6 @@
 const DEFAULT_SNAPSHOT_URL =
-  "https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities.json";
+  "https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities/index.json";
+const SNAPSHOT_FETCH_BATCH_SIZE = 12;
 
 type UnknownRecord = Record<string, unknown>;
 
@@ -29,7 +30,17 @@ function resolveSnapshotUrl() {
   );
 }
 
-function normalizeSnapshotItems(payload: unknown) {
+async function fetchJson(url: string) {
+  const response = await fetch(url, { headers: { Accept: "application/json" } });
+
+  if (!response.ok) {
+    throw new Error(`Snapshot source unavailable (${response.status}) at ${url}`);
+  }
+
+  return response.json().catch(() => null);
+}
+
+function normalizeLegacySnapshotItems(payload: unknown) {
   if (Array.isArray(payload)) {
     return payload;
   }
@@ -43,26 +54,81 @@ function normalizeSnapshotItems(payload: unknown) {
   return record.items;
 }
 
-async function loadSnapshotItemsUncached() {
-  const snapshotUrl = resolveSnapshotUrl();
-  const response = await fetch(snapshotUrl, {
-    headers: { Accept: "application/json" },
-  });
+function sortAndDedupeSnapshotItems(items: unknown[]) {
+  const byId = new Map<string, unknown>();
 
-  if (!response.ok) {
-    throw new Error(
-      `Snapshot source unavailable (${response.status}) at ${snapshotUrl}`,
-    );
+  for (const item of items) {
+    const id = stringOrNull(asRecord(item)?.id);
+
+    if (id) {
+      byId.set(id, item);
+    }
   }
 
-  const payload = await response.json().catch(() => null);
-  const items = normalizeSnapshotItems(payload);
+  return Array.from(byId.values()).sort((left, right) => {
+    const leftUpdatedAt = Date.parse(stringOrNull(asRecord(left)?.updatedAt) ?? "");
+    const rightUpdatedAt = Date.parse(stringOrNull(asRecord(right)?.updatedAt) ?? "");
+    return rightUpdatedAt - leftUpdatedAt;
+  });
+}
 
-  if (!items) {
+async function fetchJsonInBatches(urls: string[]) {
+  const payloads: unknown[] = [];
+
+  for (let start = 0; start < urls.length; start += SNAPSHOT_FETCH_BATCH_SIZE) {
+    const batch = urls.slice(start, start + SNAPSHOT_FETCH_BATCH_SIZE);
+    payloads.push(...(await Promise.all(batch.map((url) => fetchJson(url)))));
+  }
+
+  return payloads;
+}
+
+async function loadSegmentedSnapshotItems(snapshotUrl: string, payload: unknown) {
+  const record = asRecord(payload);
+
+  if (!record || !Array.isArray(record.countries)) {
     throw new Error(`Invalid snapshot payload at ${snapshotUrl}`);
   }
 
-  return items;
+  const countryIndexUrls = record.countries
+    .map((entry) => stringOrNull(asRecord(entry)?.indexFile))
+    .filter((indexFile): indexFile is string => Boolean(indexFile))
+    .map((indexFile) => new URL(indexFile, snapshotUrl).toString());
+
+  const countryIndexes = await fetchJsonInBatches(countryIndexUrls);
+  const shardUrls = countryIndexes
+    .flatMap((countryIndex) => {
+      const repositories = asRecord(countryIndex)?.byRepository;
+
+      if (!Array.isArray(repositories)) {
+        return [];
+      }
+
+      return repositories
+        .map((repository) => stringOrNull(asRecord(repository)?.file))
+        .filter((file): file is string => Boolean(file));
+    })
+    .map((file) => new URL(file, snapshotUrl).toString());
+
+  const shardPayloads = await fetchJsonInBatches(shardUrls);
+  const items = shardPayloads.flatMap((shard) => {
+    const shardItems = asRecord(shard)?.items;
+    return Array.isArray(shardItems) ? shardItems : [];
+  });
+
+  return sortAndDedupeSnapshotItems(items);
+}
+
+async function loadSnapshotItemsUncached() {
+  const snapshotUrl = resolveSnapshotUrl();
+  const payload = await fetchJson(snapshotUrl);
+  const legacyItems = normalizeLegacySnapshotItems(payload);
+
+  if (legacyItems) {
+    return sortAndDedupeSnapshotItems(legacyItems);
+  }
+
+  return loadSegmentedSnapshotItems(snapshotUrl, payload);
 }
 
 export function loadSnapshotItems() {
@@ -85,9 +151,7 @@ export async function listSnapshotRepositories() {
     }
   }
 
-  return Array.from(repositories).sort((left, right) =>
-    left.localeCompare(right),
-  );
+  return Array.from(repositories).sort((left, right) => left.localeCompare(right));
 }
 
 export async function listSnapshotAuthorHandles() {
@@ -109,7 +173,5 @@ export async function listSnapshotAuthorHandles() {
     }
   }
 
-  return Array.from(handles).sort((left, right) =>
-    left.localeCompare(right),
-  );
+  return Array.from(handles).sort((left, right) => left.localeCompare(right));
 }

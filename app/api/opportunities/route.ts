@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import type {
   OpportunityItem,
   OpportunitySalary,
@@ -8,6 +8,12 @@ import { loadSnapshotItems } from "@/lib/opportunities/snapshot";
 
 export const dynamic = "force-static";
 
+const DEFAULT_LIMIT = 40;
+const MIN_LIMIT = 10;
+const MAX_LIMIT = 80;
+
+type SortOrder = "recent" | "oldest";
+
 interface OpportunitiesApiPayload {
   items: OpportunityItem[];
   nextCursor: string | null;
@@ -16,7 +22,33 @@ interface OpportunitiesApiPayload {
   retryAfterSeconds: number | null;
 }
 
-type SortOrder = "recent" | "oldest";
+function clamp(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function parseLimit(value: string | null) {
+  const parsed = Number.parseInt(value ?? "", 10);
+
+  if (!Number.isFinite(parsed)) {
+    return DEFAULT_LIMIT;
+  }
+
+  return clamp(parsed, MIN_LIMIT, MAX_LIMIT);
+}
+
+function parseOffset(value: string | null) {
+  const parsed = Number.parseInt(value ?? "", 10);
+
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    return 0;
+  }
+
+  return parsed;
+}
+
+function normalizeSortOrder(value: string | null): SortOrder {
+  return value === "oldest" ? "oldest" : "recent";
+}
 
 function asRecord(value: unknown) {
   if (!value || typeof value !== "object") {
@@ -92,26 +124,12 @@ function normalizeOpportunity(value: unknown): OpportunityItem | null {
   const createdAt = stringOrNull(record.createdAt);
   const updatedAt = stringOrNull(record.updatedAt) ?? createdAt;
 
-  if (
-    !id ||
-    !title ||
-    !repository ||
-    !repositoryUrl ||
-    !region ||
-    !country ||
-    !url ||
-    !createdAt ||
-    !updatedAt
-  ) {
+  if (!id || !title || !repository || !repositoryUrl || !region || !country || !url || !createdAt || !updatedAt) {
     return null;
   }
 
   const authorRecord = asRecord(record.author) ?? {};
-  const authorHandle =
-    stringOrNull(authorRecord.handle) ??
-    stringOrNull(authorRecord.name) ??
-    stringOrNull(authorRecord.id) ??
-    "unknown";
+  const authorHandle = stringOrNull(authorRecord.handle) ?? stringOrNull(authorRecord.name) ?? "unknown";
   const authorId = stringOrNull(authorRecord.id) ?? authorHandle;
   const authorName = stringOrNull(authorRecord.name) ?? authorHandle;
   const authorAvatarUrl = stringOrNull(authorRecord.avatarUrl) ?? "";
@@ -120,25 +138,14 @@ function normalizeOpportunity(value: unknown): OpportunityItem | null {
   const communityRepository = stringOrNull(communityRecord.repository) ?? repository;
   const communityUrl = stringOrNull(communityRecord.url) ?? repositoryUrl;
   const communityName =
-    stringOrNull(communityRecord.name) ??
-    stringOrNull(communityRecord.id) ??
-    repository.split("/")[0] ??
-    "unknown";
+    stringOrNull(communityRecord.name) ?? stringOrNull(communityRecord.id) ?? repository.split("/")[0] ?? "unknown";
   const communityId = stringOrNull(communityRecord.id) ?? communityName;
   const communityAvatarUrl = stringOrNull(communityRecord.avatarUrl) ?? "";
 
   const tags = Array.isArray(record.tags)
-    ? Array.from(
-        new Set(
-          record.tags.filter(
-            (tag): tag is string =>
-              typeof tag === "string" && tag.trim().length > 0,
-          ),
-        ),
-      ).slice(0, 12)
+    ? Array.from(new Set(record.tags.filter((tag): tag is string => typeof tag === "string" && tag.trim().length > 0))).slice(0, 12)
     : [];
 
-  const issueState = record.issueState === "closed" ? "closed" : "open";
   const excerpt = stringOrNull(record.excerpt) ?? title;
   const companyName = stringOrNull(record.companyName) ?? undefined;
   const salary = normalizeSalary(record.salary);
@@ -147,18 +154,13 @@ function normalizeOpportunity(value: unknown): OpportunityItem | null {
     id,
     title,
     excerpt,
-    issueState,
+    issueState: record.issueState === "closed" ? "closed" : "open",
     repository,
     repositoryUrl,
     region,
     country,
     tags,
-    author: {
-      id: authorId,
-      name: authorName,
-      handle: authorHandle,
-      avatarUrl: authorAvatarUrl,
-    },
+    author: { id: authorId, name: authorName, handle: authorHandle, avatarUrl: authorAvatarUrl },
     community: {
       id: communityId,
       name: communityName,
@@ -175,40 +177,63 @@ function normalizeOpportunity(value: unknown): OpportunityItem | null {
   };
 }
 
+function filterItems(items: OpportunityItem[], searchParams: URLSearchParams) {
+  const repositoryFilter = searchParams.get("repository");
+  const regionFilter = searchParams.get("region");
+  const countryFilter = searchParams.get("country");
+
+  return items.filter((item) => {
+    const matchesRepository = !repositoryFilter || repositoryFilter === "all" || item.repository === repositoryFilter;
+    const matchesRegion = !regionFilter || regionFilter === "all" || item.region === regionFilter;
+    const matchesCountry = !countryFilter || countryFilter === "all" || item.country === countryFilter;
+    return matchesRepository && matchesRegion && matchesCountry;
+  });
+}
+
 function sortItems(items: OpportunityItem[], sortOrder: SortOrder) {
   return [...items].sort((left, right) => {
     const leftDate = new Date(left.createdAt).getTime();
     const rightDate = new Date(right.createdAt).getTime();
-
     return sortOrder === "oldest" ? leftDate - rightDate : rightDate - leftDate;
   });
 }
 
-export async function GET() {
+function paginateItems(items: OpportunityItem[], offset: number, limit: number): OpportunitiesApiPayload {
+  const start = clamp(offset, 0, items.length);
+  const slice = items.slice(start, start + limit);
+  const nextOffset = start + slice.length;
+
+  return {
+    items: slice,
+    nextCursor: nextOffset < items.length ? String(nextOffset) : null,
+    hasMore: nextOffset < items.length,
+    rateLimited: false,
+    retryAfterSeconds: null,
+  };
+}
+
+export async function GET(request: NextRequest) {
   try {
+    const searchParams = request.nextUrl.searchParams;
     const snapshotItems = await loadSnapshotItems();
     const normalizedItems = snapshotItems
       .map((item) => normalizeOpportunity(item))
       .filter((item): item is OpportunityItem => item !== null);
 
-    return NextResponse.json({
-      items: sortItems(normalizedItems, "recent"),
-      nextCursor: null,
-      hasMore: false,
-      rateLimited: false,
-      retryAfterSeconds: null,
-    } satisfies OpportunitiesApiPayload);
+    const filteredItems = filterItems(normalizedItems, searchParams);
+    const sortedItems = sortItems(filteredItems, normalizeSortOrder(searchParams.get("sort")));
+    const payload = paginateItems(
+      sortedItems,
+      parseOffset(searchParams.get("cursor")),
+      parseLimit(searchParams.get("limit")),
+    );
+
+    return NextResponse.json(payload satisfies OpportunitiesApiPayload);
   } catch (error) {
     console.error(error);
 
     return NextResponse.json(
-      {
-        items: [],
-        nextCursor: null,
-        hasMore: false,
-        rateLimited: false,
-        retryAfterSeconds: null,
-      } satisfies OpportunitiesApiPayload,
+      { items: [], nextCursor: null, hasMore: false, rateLimited: false, retryAfterSeconds: null } satisfies OpportunitiesApiPayload,
       { status: 502 },
     );
   }
