@@ -10,28 +10,29 @@ export function normalizeAuthorHandle(handle: string) {
   return handle.trim().replace(/^@+/, "");
 }
 
-export function buildCommunityPath(repository: string) {
-  const segments = repository
-    .split("/")
-    .map((segment) => segment.trim())
-    .filter(Boolean)
-    .map((segment) => encodeURIComponent(segment));
+function buildHomePathWithParam(key: string, value: string) {
+  const normalized = value.trim();
 
-  if (segments.length === 0) {
-    return "/community";
+  if (!normalized) {
+    return "/";
   }
 
-  return `/community/${segments.join("/")}`;
+  const params = new URLSearchParams({ [key]: normalized });
+  return `/?${params.toString()}`;
+}
+
+export function buildOpportunityPath(id: string) {
+  return buildHomePathWithParam("job", id);
+}
+
+export function buildCommunityPath(repository: string) {
+  return buildHomePathWithParam("repository", repository);
 }
 
 export function buildUserPath(handle: string) {
   const normalized = normalizeAuthorHandle(handle);
 
-  if (!normalized) {
-    return "/users";
-  }
-
-  return `/users/${encodeURIComponent(normalized)}`;
+  return buildHomePathWithParam("authors", normalized);
 }
 
 export function repositoryFromCommunitySegments(segments: string[]) {

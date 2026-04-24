@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useI18n } from "@/components/providers/i18n-provider";
+import { buildOpportunityPath } from "@/lib/opportunities/routing";
 import { formatSalary } from "@/app/opportunities/_components/opportunities-screen/shared/format-salary";
 import { formatTemplate } from "@/lib/utils/format-template";
 import { panelStyles } from "@/app/opportunities/_components/opportunities-screen/styles";
@@ -37,8 +38,9 @@ export function OpportunityDrawer({
   }, [onClose, open]);
   const shareUrl = React.useMemo(() => {
     if (!item) return "";
-    if (typeof window === "undefined") return `/jobs/${item.id}`;
-    return new URL(`/jobs/${item.id}`, window.location.origin).toString();
+    const path = buildOpportunityPath(item.id);
+    if (typeof window === "undefined") return path;
+    return new URL(path, window.location.origin).toString();
   }, [item]);
 
   if (!open || !item) return null;

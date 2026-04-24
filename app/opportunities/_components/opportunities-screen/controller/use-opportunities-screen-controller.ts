@@ -2,7 +2,8 @@ import * as React from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useResponsiveFilterPanel } from "@/app/_hooks/use-responsive-filter-panel";
 import { useI18n } from "@/components/providers/i18n-provider";
-import { buildCommunityPath, buildUserPath } from "@/lib/opportunities/routing";
+import { fetchOpportunityById } from "@/lib/opportunities/api";
+import { DEFAULT_FILTERS } from "./defaults";
 import { buildServerFilters } from "./server-filters";
 import { normalizeFilterDependencies } from "./filter-dependencies";
 import { normalizeForcedAuthor } from "./normalize-forced-author";
@@ -165,6 +166,11 @@ function resolveCommunityProfileSummary(params: {
   return buildFallbackCommunityProfile(forcedRepository, communityOpportunities);
 }
 
+function normalizeSelectedOpportunityId(id: string | null) {
+  const normalized = id?.trim();
+  return normalized ? normalized : null;
+}
+
 export function useOpportunitiesScreenController({
   forcedRepository,
   forcedAuthor,
@@ -178,8 +184,12 @@ export function useOpportunitiesScreenController({
   const opportunitiesMessages = messages.opportunities;
   const normalizedForcedRepository = forcedRepository?.trim() || null;
   const normalizedForcedAuthor = normalizeForcedAuthor(forcedAuthor);
+  const selectedOpportunityIdFromUrl = normalizeSelectedOpportunityId(searchParams.get("job"));
   const repositoryRegistry = useRepositoryFilterRegistry();
-  const [selectedOpportunityId, setSelectedOpportunityId] = React.useState<string | null>(null);
+  const [selectedOpportunityId, setSelectedOpportunityId] = React.useState<string | null>(
+    selectedOpportunityIdFromUrl,
+  );
+  const [directOpportunity, setDirectOpportunity] = React.useState<OpportunityItem | null>(null);
   const [filtersExpanded, setFiltersExpanded] = useResponsiveFilterPanel({
     desktopQuery: "(min-width: 1024px)",
   });
@@ -219,6 +229,21 @@ export function useOpportunitiesScreenController({
       repositoryRegistry.registry,
     ],
   );
+  React.useEffect(() => {
+    let isCurrent = true;
+
+    queueMicrotask(() => {
+      if (!isCurrent) return;
+      setSelectedOpportunityId((previous) =>
+        previous === selectedOpportunityIdFromUrl ? previous : selectedOpportunityIdFromUrl,
+      );
+    });
+
+    return () => {
+      isCurrent = false;
+    };
+  }, [selectedOpportunityIdFromUrl]);
+
   const handleBeforeReload = React.useCallback(() => {
     setSelectedOpportunityId(null);
     setFilters((previous) => (previous.page === 1 ? previous : { ...previous, page: 1 }));
@@ -241,6 +266,36 @@ export function useOpportunitiesScreenController({
     locale,
     rangeMessages: opportunitiesMessages.range,
   });
+  React.useEffect(() => {
+    if (!selectedOpportunityId || derived.selectedOpportunity?.id === selectedOpportunityId) {
+      return;
+    }
+
+    let cancelled = false;
+
+    fetchOpportunityById(selectedOpportunityId)
+      .then((item) => {
+        if (!cancelled) {
+          setDirectOpportunity(item);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setDirectOpportunity(null);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [derived.selectedOpportunity?.id, selectedOpportunityId]);
+
+  const selectedOpportunity = React.useMemo(
+    () =>
+      derived.selectedOpportunity ??
+      (directOpportunity?.id === selectedOpportunityId ? directOpportunity : null),
+    [derived.selectedOpportunity, directOpportunity, selectedOpportunityId],
+  );
   const userProfileSummary = React.useMemo(
     () =>
       resolveUserProfileSummary({
@@ -341,7 +396,17 @@ export function useOpportunitiesScreenController({
       ),
     [derived.currentPage, filters, repositoryRegistry.registry],
   );
-  useUrlSync({ pathname, router, currentSearch: searchParams.toString(), filtersForUrl });
+  const preservedParamsForUrl = React.useMemo(
+    () => ({ job: selectedOpportunityId }),
+    [selectedOpportunityId],
+  );
+  useUrlSync({
+    pathname,
+    router,
+    currentSearch: searchParams.toString(),
+    filtersForUrl,
+    preservedParams: preservedParamsForUrl,
+  });
   const hasMore = derived.currentPage < derived.totalPages || remote.hasMoreRemote;
   useEnsurePageLoaded({
     currentPage: derived.currentPage,
@@ -395,9 +460,9 @@ export function useOpportunitiesScreenController({
     handleClearFilters,
     handleLoadMore,
     hasMore,
-    selectedOpportunity: derived.selectedOpportunity,
-    isDetailsOpen: derived.isDetailsOpen,
-    selectedOpportunityId: derived.selectedOpportunity?.id ?? null,
+    selectedOpportunity,
+    isDetailsOpen: Boolean(selectedOpportunity),
+    selectedOpportunityId,
     options: derived.options,
     normalizedFilters: derived.normalizedFilters,
     rangeLabel: derived.rangeLabel,
@@ -410,7 +475,33 @@ export function useOpportunitiesScreenController({
     isLoading: remote.isLoading,
     isFetchingMore: remote.isFetchingMore,
     setSelectedOpportunityId,
-    onCommunitySelect: (repository: string) => router.push(buildCommunityPath(repository)),
-    onAuthorSelect: (authorHandle: string) => router.push(buildUserPath(authorHandle)),
+    onCommunitySelect: (repository: string) => {
+      setSelectedOpportunityId(null);
+      setFilters((previous) =>
+        normalizeFilterDependencies(
+          {
+            ...DEFAULT_FILTERS,
+            repository,
+            viewMode: previous.viewMode,
+          },
+          repositoryRegistry.registry,
+        ),
+      );
+    },
+    onAuthorSelect: (authorHandle: string) => {
+      const normalizedAuthorHandle = normalizeForcedAuthor(authorHandle);
+
+      setSelectedOpportunityId(null);
+      setFilters((previous) =>
+        normalizeFilterDependencies(
+          {
+            ...DEFAULT_FILTERS,
+            authors: normalizedAuthorHandle ? [normalizedAuthorHandle] : [],
+            viewMode: previous.viewMode,
+          },
+          repositoryRegistry.registry,
+        ),
+      );
+    },
   };
 }

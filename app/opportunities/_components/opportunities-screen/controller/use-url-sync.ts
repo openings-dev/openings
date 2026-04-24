@@ -8,6 +8,7 @@ interface UseUrlSyncParams {
   currentSearch: string;
   router: AppRouterInstance;
   filtersForUrl: OpportunityFiltersState;
+  preservedParams?: Record<string, string | null | undefined>;
 }
 
 function normalizeSearchValue(value: string) {
@@ -26,23 +27,42 @@ function normalizeSearchValue(value: string) {
   return normalized.toString();
 }
 
+function serializeSearchParams(
+  filtersForUrl: OpportunityFiltersState,
+  preservedParams: Record<string, string | null | undefined> = {},
+) {
+  const params = buildSearchParamsFromFilters(filtersForUrl);
+
+  for (const [key, value] of Object.entries(preservedParams)) {
+    params.delete(key);
+
+    const normalized = value?.trim();
+    if (normalized) {
+      params.set(key, normalized);
+    }
+  }
+
+  return params.toString();
+}
+
 export function useUrlSync({
   pathname,
   currentSearch,
   router,
   filtersForUrl,
+  preservedParams,
 }: UseUrlSyncParams) {
-  const serializedFilters = React.useMemo(
-    () => buildSearchParamsFromFilters(filtersForUrl).toString(),
-    [filtersForUrl],
+  const serializedSearch = React.useMemo(
+    () => serializeSearchParams(filtersForUrl, preservedParams),
+    [filtersForUrl, preservedParams],
   );
   const normalizedCurrentSearch = React.useMemo(
     () => normalizeSearchValue(currentSearch),
     [currentSearch],
   );
   const normalizedSerializedFilters = React.useMemo(
-    () => normalizeSearchValue(serializedFilters),
-    [serializedFilters],
+    () => normalizeSearchValue(serializedSearch),
+    [serializedSearch],
   );
   const pendingReplaceRef = React.useRef<{
     href: string;
@@ -55,7 +75,7 @@ export function useUrlSync({
       return;
     }
 
-    const href = serializedFilters ? `${pathname}?${serializedFilters}` : pathname;
+    const href = serializedSearch ? `${pathname}?${serializedSearch}` : pathname;
     const pendingReplace = pendingReplaceRef.current;
 
     if (
@@ -73,6 +93,6 @@ export function useUrlSync({
     normalizedSerializedFilters,
     pathname,
     router,
-    serializedFilters,
+    serializedSearch,
   ]);
 }
