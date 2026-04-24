@@ -1,7 +1,5 @@
 "use client";
 
-import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { cn } from "@/lib/utils/tailwind";
 import { DEFAULT_LOCALE } from "@/lib/constants/locales";
@@ -13,7 +11,6 @@ import {
   documentPageIntroKickerStyles,
   documentPageIntroTitleStyles,
   documentPageMainStyles,
-  documentPageRootStyles,
   documentPageSourceStyles,
 } from "./styles";
 import type { DocumentPageProps } from "./types";
@@ -30,22 +27,18 @@ export function DocumentPage({
   const sourceLabel = messages.documents.sourceLabel.replace("{file}", sourceFile);
 
   return (
-    <div className={documentPageRootStyles()}>
-      <Header />
-      <main className={documentPageMainStyles()}>
-        <section className={documentPageIntroCardStyles()}>
-          <p className={documentPageIntroKickerStyles()}>{messages.header.brandTagline}</p>
-          <h1 className={documentPageIntroTitleStyles()}>{copy.title}</h1>
-          <p className={documentPageIntroDescriptionStyles()}>{copy.description}</p>
-        </section>
+    <section className={documentPageMainStyles()}>
+      <header className={documentPageIntroCardStyles()}>
+        <p className={documentPageIntroKickerStyles()}>{messages.header.brandTagline}</p>
+        <h1 className={documentPageIntroTitleStyles()}>{copy.title}</h1>
+        <p className={documentPageIntroDescriptionStyles()}>{copy.description}</p>
+      </header>
 
-        <section className={documentPageContentCardStyles()}>
-          <DocumentMarkdown markdown={markdown} />
-        </section>
+      <section className={documentPageContentCardStyles()}>
+        <DocumentMarkdown markdown={markdown} />
+      </section>
 
-        <p className={cn(documentPageSourceStyles())}>{sourceLabel}</p>
-      </main>
-      <Footer />
-    </div>
+      <p className={cn(documentPageSourceStyles())}>{sourceLabel}</p>
+    </section>
   );
 }

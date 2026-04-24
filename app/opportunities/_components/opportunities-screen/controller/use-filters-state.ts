@@ -1,11 +1,12 @@
 import * as React from "react";
 import { toast } from "sonner";
 import { DEFAULT_FILTERS } from "./defaults";
+import {
+  createFilterFieldChangeHandler,
+  normalizeFilterDependencies,
+} from "./filter-dependencies";
 import { parseFiltersFromSearchParams } from "./url-filters";
-import type {
-  OnFilterFieldChange,
-  OpportunityFiltersState,
-} from "@/app/opportunities/_components/opportunities-screen/types";
+import type { OpportunityFiltersState } from "@/app/opportunities/_components/opportunities-screen/types";
 
 interface UseFiltersStateParams {
   searchParamsValue: string;
@@ -14,25 +15,68 @@ interface UseFiltersStateParams {
   resetSuccessMessage: string;
 }
 
-export function useFiltersState(params: UseFiltersStateParams) {
-  const [filters, setFilters] = React.useState<OpportunityFiltersState>(() => {
-    const parsed = parseFiltersFromSearchParams(new URLSearchParams(params.searchParamsValue));
-    if (params.forcedRepository) parsed.repository = params.forcedRepository;
-    if (params.forcedAuthor) parsed.authors = [params.forcedAuthor];
-    return parsed;
-  });
+function resolveFiltersFromParams(params: UseFiltersStateParams) {
+  const parsed = parseFiltersFromSearchParams(new URLSearchParams(params.searchParamsValue));
+  if (params.forcedRepository) parsed.repository = params.forcedRepository;
+  if (params.forcedAuthor) parsed.authors = [params.forcedAuthor];
+  return normalizeFilterDependencies(parsed);
+}
 
-  const handleFieldChange = React.useCallback<OnFilterFieldChange>(
-    (field, value) => {
-      setFilters((previous) => {
-        if (field === "repository" && params.forcedRepository) return previous;
-        if (field === "authors" && params.forcedAuthor) return previous;
-        const next = { ...previous, [field]: value } as OpportunityFiltersState;
-        if (field !== "page" && field !== "viewMode") next.page = 1;
-        return next;
-      });
-    },
-    [params.forcedAuthor, params.forcedRepository],
+function filtersAreEqual(left: OpportunityFiltersState, right: OpportunityFiltersState) {
+  return (
+    left.repository === right.repository &&
+    left.region === right.region &&
+    left.country === right.country &&
+    left.searchText === right.searchText &&
+    left.sortOrder === right.sortOrder &&
+    left.itemsPerPage === right.itemsPerPage &&
+    left.viewMode === right.viewMode &&
+    left.page === right.page &&
+    left.tags.length === right.tags.length &&
+    left.tags.every((tag, index) => tag === right.tags[index]) &&
+    left.authors.length === right.authors.length &&
+    left.authors.every((author, index) => author === right.authors[index])
+  );
+}
+
+export function useFiltersState(params: UseFiltersStateParams) {
+  const {
+    searchParamsValue,
+    forcedRepository,
+    forcedAuthor,
+    resetSuccessMessage,
+  } = params;
+  const [filters, setFilters] = React.useState<OpportunityFiltersState>(() =>
+    resolveFiltersFromParams(params),
+  );
+
+  React.useEffect(() => {
+    const next = resolveFiltersFromParams({
+      searchParamsValue,
+      forcedRepository,
+      forcedAuthor,
+      resetSuccessMessage,
+    });
+
+    let isCurrent = true;
+    queueMicrotask(() => {
+      if (!isCurrent) return;
+      setFilters((previous) => (filtersAreEqual(previous, next) ? previous : next));
+    });
+
+    return () => {
+      isCurrent = false;
+    };
+  }, [forcedAuthor, forcedRepository, resetSuccessMessage, searchParamsValue]);
+
+  const handleFieldChange = React.useMemo(
+    () =>
+      createFilterFieldChangeHandler({
+        forcedRepository,
+        forcedAuthor,
+        setFilters,
+      }),
+    [forcedAuthor, forcedRepository],
   );
 
   const handleToggleTag = React.useCallback((tag: string) => {
@@ -46,7 +90,7 @@ export function useFiltersState(params: UseFiltersStateParams) {
   }, []);
 
   const handleToggleAuthor = React.useCallback((authorHandle: string) => {
-    if (params.forcedAuthor) return;
+    if (forcedAuthor) return;
     setFilters((previous) => ({
       ...previous,
       authors: previous.authors.includes(authorHandle)
@@ -54,17 +98,19 @@ export function useFiltersState(params: UseFiltersStateParams) {
         : [...previous.authors, authorHandle],
       page: 1,
     }));
-  }, [params.forcedAuthor]);
+  }, [forcedAuthor]);
 
   const handleClearFilters = React.useCallback(() => {
-    setFilters((previous) => ({
-      ...DEFAULT_FILTERS,
-      repository: params.forcedRepository ?? DEFAULT_FILTERS.repository,
-      authors: params.forcedAuthor ? [params.forcedAuthor] : [],
-      viewMode: previous.viewMode,
-    }));
-    toast.success(params.resetSuccessMessage);
-  }, [params.forcedAuthor, params.forcedRepository, params.resetSuccessMessage]);
+    setFilters((previous) =>
+      normalizeFilterDependencies({
+        ...DEFAULT_FILTERS,
+        repository: forcedRepository ?? DEFAULT_FILTERS.repository,
+        authors: forcedAuthor ? [forcedAuthor] : [],
+        viewMode: previous.viewMode,
+      }),
+    );
+    toast.success(resetSuccessMessage);
+  }, [forcedAuthor, forcedRepository, resetSuccessMessage]);
 
   return {
     filters,

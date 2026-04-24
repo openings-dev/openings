@@ -1,14 +1,3 @@
-import { DocumentPage } from "@/app/_components/document-page";
-import { readProjectDocumentBundle } from "@/lib/content/markdown";
+import { createProjectDocumentPage } from "@/app/_components/document-page/create-project-document-page";
 
-export default async function PrivacyPolicyPage() {
-  const document = await readProjectDocumentBundle("privacy");
-
-  return (
-    <DocumentPage
-      documentKey="privacy"
-      markdownByLocale={document.markdownByLocale}
-      sourceFileByLocale={document.sourceFileByLocale}
-    />
-  );
-}
+export default createProjectDocumentPage("privacy", "privacy");

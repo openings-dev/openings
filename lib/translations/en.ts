@@ -38,6 +38,8 @@ export const enTranslations: TranslationMessages = {
       allCountries: "All countries",
       allRegions: "All regions",
       optionWithCount: "{label} ({count})",
+      hide: "Hide filters",
+      show: "Show filters",
       clear: "Clear filters",
     },
     list: {
@@ -65,6 +67,8 @@ export const enTranslations: TranslationMessages = {
       allCountries: "All countries",
       allRegions: "All regions",
       optionWithCount: "{label} ({count})",
+      hide: "Hide filters",
+      show: "Show filters",
       clear: "Clear filters",
     },
     list: {

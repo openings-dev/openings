@@ -37,6 +37,8 @@ export const deTranslations: TranslationMessages = {
       allCountries: "Alle Länder",
       allRegions: "Alle Regionen",
       optionWithCount: "{label} ({count})",
+      hide: "Filter ausblenden",
+      show: "Filter anzeigen",
       clear: "Filter löschen",
     },
     list: {
@@ -64,6 +66,8 @@ export const deTranslations: TranslationMessages = {
       allCountries: "Alle Länder",
       allRegions: "Alle Regionen",
       optionWithCount: "{label} ({count})",
+      hide: "Filter ausblenden",
+      show: "Filter anzeigen",
       clear: "Filter löschen",
     },
     list: {

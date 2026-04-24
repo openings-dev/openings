@@ -17,6 +17,7 @@ interface UseDerivedOpportunitiesParams {
   selectedOpportunityId: string | null;
   forcedRepository: string | null;
   forcedAuthor: string | null;
+  remoteFilteredCount: number | null;
   locale: string;
   rangeMessages: { zeroResults: string; rangeOfTotal: string };
 }
@@ -34,17 +35,17 @@ export function useDerivedOpportunities(params: UseDerivedOpportunitiesParams) {
     () =>
       normalizeFilters(
         params.filters,
-        options,
         params.forcedRepository,
         params.forcedAuthor,
       ),
-    [options, params.filters, params.forcedAuthor, params.forcedRepository],
+    [params.filters, params.forcedAuthor, params.forcedRepository],
   );
   const filteredOpportunities = React.useMemo(
     () => getFilteredOpportunities(params.opportunities, normalizedFilters),
     [normalizedFilters, params.opportunities],
   );
-  const totalCount = filteredOpportunities.length;
+  const loadedCount = filteredOpportunities.length;
+  const totalCount = params.remoteFilteredCount ?? loadedCount;
   const totalPages = Math.max(1, Math.ceil(totalCount / normalizedFilters.itemsPerPage));
   const currentPage = Math.min(normalizedFilters.page, totalPages);
   const visibleOpportunities = React.useMemo(() => {
@@ -91,6 +92,7 @@ export function useDerivedOpportunities(params: UseDerivedOpportunitiesParams) {
     visibleOpportunities,
     selectedOpportunity,
     activeFiltersCount,
+    loadedCount,
     totalCount,
     totalPages,
     currentPage,

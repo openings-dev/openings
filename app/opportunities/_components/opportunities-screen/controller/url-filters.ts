@@ -1,4 +1,8 @@
-import { DEFAULT_FILTERS, ITEMS_PER_PAGE_OPTIONS } from "./defaults";
+import {
+  ALL_FILTER_VALUE,
+  DEFAULT_FILTERS,
+  ITEMS_PER_PAGE_OPTIONS,
+} from "./defaults";
 import type {
   OpportunityFiltersState,
   OpportunitySortOrder,
@@ -36,10 +40,19 @@ function parsePage(value: string | null) {
 }
 
 export function parseFiltersFromSearchParams(searchParams: URLSearchParams) {
+  const repository = searchParams.get("repository") ?? DEFAULT_FILTERS.repository;
+  const region = searchParams.get("region") ?? DEFAULT_FILTERS.region;
+  const countryFromUrl = searchParams.get("country");
+  const shouldFallbackCountryToAll =
+    countryFromUrl === null &&
+    (repository !== DEFAULT_FILTERS.repository ||
+      region !== DEFAULT_FILTERS.region);
+
   return {
-    repository: searchParams.get("repository") ?? DEFAULT_FILTERS.repository,
-    region: searchParams.get("region") ?? DEFAULT_FILTERS.region,
-    country: searchParams.get("country") ?? DEFAULT_FILTERS.country,
+    repository,
+    region,
+    country: countryFromUrl ??
+      (shouldFallbackCountryToAll ? ALL_FILTER_VALUE : DEFAULT_FILTERS.country),
     tags: parseListParam(searchParams.get("tags")),
     authors: parseListParam(searchParams.get("authors")),
     searchText: searchParams.get("search") ?? DEFAULT_FILTERS.searchText,
@@ -54,7 +67,13 @@ export function buildSearchParamsFromFilters(state: OpportunityFiltersState) {
   const params = new URLSearchParams();
   if (state.repository !== DEFAULT_FILTERS.repository) params.set("repository", state.repository);
   if (state.region !== DEFAULT_FILTERS.region) params.set("region", state.region);
-  if (state.country !== DEFAULT_FILTERS.country) params.set("country", state.country);
+  const countryIsImplicitAll =
+    state.country === ALL_FILTER_VALUE &&
+    (state.repository !== DEFAULT_FILTERS.repository ||
+      state.region !== DEFAULT_FILTERS.region);
+  if (state.country !== DEFAULT_FILTERS.country && !countryIsImplicitAll) {
+    params.set("country", state.country);
+  }
   if (state.tags.length > 0) params.set("tags", state.tags.join(","));
   if (state.authors.length > 0) params.set("authors", state.authors.join(","));
   if (state.searchText.trim()) params.set("search", state.searchText.trim());

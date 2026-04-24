@@ -5,6 +5,9 @@ import type { OpportunityFiltersState } from "@/app/opportunities/_components/op
 interface UseLoadMoreHandlerParams {
   currentPage: number;
   totalPages: number;
+  loadedCount: number;
+  totalCount: number;
+  itemsPerPage: number;
   isLoading: boolean;
   isFetchingMore: boolean;
   hasMoreRemote: boolean;
@@ -18,6 +21,9 @@ export function useLoadMoreHandler(params: UseLoadMoreHandlerParams) {
   const {
     currentPage,
     totalPages,
+    loadedCount,
+    totalCount,
+    itemsPerPage,
     isLoading,
     isFetchingMore,
     hasMoreRemote,
@@ -32,10 +38,32 @@ export function useLoadMoreHandler(params: UseLoadMoreHandlerParams) {
     if (loadLockRef.current || isLoading || isFetchingMore) return;
 
     if (currentPage < totalPages) {
-      setFilters((previous) => ({
-        ...previous,
-        page: Math.min(previous.page + 1, totalPages),
-      }));
+      const nextPage = currentPage + 1;
+      const requiredLoadedCount = Math.min(nextPage * itemsPerPage, totalCount);
+
+      if (loadedCount >= requiredLoadedCount || !hasMoreRemote || !nextCursor) {
+        setFilters((previous) => ({
+          ...previous,
+          page: Math.min(previous.page + 1, totalPages),
+        }));
+        return;
+      }
+
+      loadLockRef.current = true;
+      setIsFetchingMore(true);
+      try {
+        const hasNewItems = await loadMoreFromApi();
+
+        if (hasNewItems) {
+          setFilters((previous) => ({
+            ...previous,
+            page: Math.min(previous.page + 1, totalPages),
+          }));
+        }
+      } finally {
+        setIsFetchingMore(false);
+        loadLockRef.current = false;
+      }
       return;
     }
 
@@ -56,12 +84,15 @@ export function useLoadMoreHandler(params: UseLoadMoreHandlerParams) {
   }, [
     currentPage,
     hasMoreRemote,
+    itemsPerPage,
+    loadedCount,
     isFetchingMore,
     isLoading,
     loadMoreFromApi,
     nextCursor,
     setFilters,
     setIsFetchingMore,
+    totalCount,
     totalPages,
   ]);
 }

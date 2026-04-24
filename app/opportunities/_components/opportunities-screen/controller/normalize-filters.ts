@@ -1,40 +1,43 @@
-import { DEFAULT_FILTERS } from "./defaults";
+import {
+  ALL_FILTER_VALUE,
+  DEFAULT_FILTERS,
+  KNOWN_COUNTRIES,
+  KNOWN_REGIONS,
+  KNOWN_REPOSITORIES,
+} from "./defaults";
+import { normalizeFilterDependencies } from "./filter-dependencies";
 import { canonicalTagValue } from "./tag-normalization";
-import type {
-  OpportunityFilterOptions,
-  OpportunityFiltersState,
-} from "@/app/opportunities/_components/opportunities-screen/types";
+import type { OpportunityFiltersState } from "@/app/opportunities/_components/opportunities-screen/types";
+
+function uniqueValues(values: string[]) {
+  return [...new Set(values.map((value) => value.trim()).filter(Boolean))];
+}
 
 export function normalizeFilters(
   filters: OpportunityFiltersState,
-  options: OpportunityFilterOptions,
   forcedRepository: string | null,
   forcedAuthor: string | null,
 ) {
-  const repositoryValues = new Set(options.repositories.map((option) => option.value));
-  const regionValues = new Set(options.regions.map((option) => option.value));
-  const countryValues = new Set(options.countries.map((option) => option.value));
-  const tagValues = new Set(options.tags.map((option) => option.value));
-  const authorValues = new Set(options.authors.map((option) => option.value));
   const normalizedTags = [...new Set(filters.tags.map((tag) => canonicalTagValue(tag)).filter(Boolean))];
-
-  return {
-    ...filters,
+  const locationFilters = normalizeFilterDependencies({
     repository: forcedRepository ??
-      (filters.repository === "all" || repositoryValues.has(filters.repository)
+      (filters.repository === ALL_FILTER_VALUE || KNOWN_REPOSITORIES.has(filters.repository)
         ? filters.repository
         : DEFAULT_FILTERS.repository),
     region:
-      filters.region === "all" || regionValues.has(filters.region)
+      filters.region === ALL_FILTER_VALUE || KNOWN_REGIONS.has(filters.region)
         ? filters.region
-        : DEFAULT_FILTERS.region,
+        : ALL_FILTER_VALUE,
     country:
-      filters.country === "all" || countryValues.has(filters.country)
+      filters.country === ALL_FILTER_VALUE || KNOWN_COUNTRIES.has(filters.country)
         ? filters.country
-        : DEFAULT_FILTERS.country,
-    tags: normalizedTags.filter((tag) => tagValues.has(tag)),
-    authors: forcedAuthor
-      ? [forcedAuthor]
-      : filters.authors.filter((author) => authorValues.has(author)),
+        : ALL_FILTER_VALUE,
+  });
+
+  return {
+    ...filters,
+    ...locationFilters,
+    tags: normalizedTags,
+    authors: forcedAuthor ? [forcedAuthor] : uniqueValues(filters.authors),
   };
 }

@@ -38,6 +38,8 @@ export interface TranslationMessages {
       allCountries: string;
       allRegions: string;
       optionWithCount: string;
+      hide: string;
+      show: string;
       clear: string;
     };
     list: {
@@ -64,6 +66,8 @@ export interface TranslationMessages {
       allCountries: string;
       allRegions: string;
       optionWithCount: string;
+      hide: string;
+      show: string;
       clear: string;
     };
     list: {

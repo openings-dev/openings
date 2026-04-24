@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AppShell } from "@/app/_components/app-shell";
 import { I18nProvider } from "@/components/providers/i18n-provider";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
@@ -58,7 +59,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <I18nProvider>{children}</I18nProvider>
+          <I18nProvider>
+            <AppShell>{children}</AppShell>
+          </I18nProvider>
           <Toaster position="top-right" richColors={false} />
         </ThemeProvider>
       </body>

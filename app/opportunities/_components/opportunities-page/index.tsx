@@ -1,6 +1,4 @@
 import { Suspense } from "react";
-import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
 import { OpportunitiesScreen } from "@/app/opportunities/_components/opportunities-screen";
 import type {
   CommunityProfileSummary,
@@ -33,19 +31,13 @@ export function OpportunitiesPage({
   forcedRepositoryProfile,
 }: OpportunitiesPageProps) {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
-      <Header />
-      <main className="flex-1">
-        <Suspense fallback={<OpportunitiesFallback />}>
-          <OpportunitiesScreen
-            forcedRepository={forcedRepository}
-            forcedAuthor={forcedAuthor}
-            forcedAuthorProfile={forcedAuthorProfile}
-            forcedRepositoryProfile={forcedRepositoryProfile}
-          />
-        </Suspense>
-      </main>
-      <Footer />
-    </div>
+    <Suspense fallback={<OpportunitiesFallback />}>
+      <OpportunitiesScreen
+        forcedRepository={forcedRepository}
+        forcedAuthor={forcedAuthor}
+        forcedAuthorProfile={forcedAuthorProfile}
+        forcedRepositoryProfile={forcedRepositoryProfile}
+      />
+    </Suspense>
   );
 }

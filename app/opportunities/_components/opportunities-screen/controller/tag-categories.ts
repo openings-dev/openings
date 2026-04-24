@@ -1,26 +1,9 @@
 import type { FilterOption, OpportunityTagCategoryOptions } from "@/app/opportunities/_components/opportunities-screen/types";
+import { canonicalTagValue } from "./tag-normalization";
 
-const WORK_MODEL_KEYWORDS = [
-  "remote",
-  "remoto",
-  "hibrido",
-  "hybrid",
-  "onsite",
-  "on-site",
-  "on site",
-  "presencial",
-  "alocado",
-  "work remotely",
-  "local",
-];
+const WORK_MODEL_VALUES = new Set(["remote", "hybrid", "on-site"]);
 
-const STACK_KEYWORDS = [
-  "react", "php", "node", "typescript", "javascript", "java", "python", "golang",
-  "go", "ruby", "mysql", "postgres", "sql", "aws", "docker", "kotlin", "frontend",
-  "backend", "fullstack", "devops", "angular", "vue", "next", "laravel", "django",
-];
-
-const SENIORITY_KEYWORDS = [
+const SENIORITY_VALUES = new Set([
   "junior",
   "pleno",
   "senior",
@@ -33,17 +16,56 @@ const SENIORITY_KEYWORDS = [
   "internship",
   "trainee",
   "estagio",
-];
+]);
 
-function normalizeTag(tag: string) {
-  return tag
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/\p{Diacritic}/gu, "");
-}
+const STACK_VALUES = new Set([
+  "javascript",
+  "typescript",
+  "nodejs",
+  "react",
+  "react-native",
+  "nextjs",
+  "vue",
+  "angular",
+  "python",
+  "django",
+  "flask",
+  "fastapi",
+  "java",
+  "spring",
+  "kotlin",
+  "php",
+  "laravel",
+  "ruby",
+  "ruby-on-rails",
+  "go",
+  "rust",
+  "csharp",
+  "dotnet",
+  "mysql",
+  "postgres",
+  "mongodb",
+  "redis",
+  "aws",
+  "gcp",
+  "azure",
+  "docker",
+  "kubernetes",
+  "terraform",
+  "frontend",
+  "backend",
+  "fullstack",
+  "mobile",
+  "devops",
+  "qa",
+  "data-engineering",
+  "data-science",
+  "ai",
+  "ml",
+]);
 
-function hasAnyKeyword(tag: string, keywords: string[]) {
-  return keywords.some((keyword) => tag.includes(keyword));
+function isStackCanonicalTag(value: string) {
+  return STACK_VALUES.has(value) || value.includes("sql");
 }
 
 export function groupTagOptionsByCategory(
@@ -57,17 +79,18 @@ export function groupTagOptionsByCategory(
   };
 
   for (const option of tagOptions) {
-    const normalized = normalizeTag(option.value);
+    const canonical = canonicalTagValue(option.value);
+    const normalized = canonical || option.value;
 
-    if (hasAnyKeyword(normalized, WORK_MODEL_KEYWORDS)) {
+    if (WORK_MODEL_VALUES.has(normalized)) {
       grouped.workModel.push(option);
       continue;
     }
-    if (hasAnyKeyword(normalized, SENIORITY_KEYWORDS)) {
+    if (SENIORITY_VALUES.has(normalized)) {
       grouped.seniority.push(option);
       continue;
     }
-    if (hasAnyKeyword(normalized, STACK_KEYWORDS)) {
+    if (isStackCanonicalTag(normalized)) {
       grouped.stack.push(option);
       continue;
     }

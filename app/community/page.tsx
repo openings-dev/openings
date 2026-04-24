@@ -1,17 +1,16 @@
-import { CommunitiesPage } from "@/app/community/_components/communities-page";
+import { CommunitiesScreen } from "@/app/community/_components/communities-screen";
+import { loadSafely } from "@/app/_lib/load-safe";
 import type { CommunitySummary } from "@/lib/opportunities/communities";
 import { listSnapshotCommunities } from "@/lib/opportunities/communities";
 
 export const revalidate = 10800;
 
 export default async function CommunityIndexPage() {
-  let communities: CommunitySummary[] = [];
+  const communities = await loadSafely<CommunitySummary[]>({
+    load: () => listSnapshotCommunities(),
+    fallback: [],
+    errorMessage: "Failed to load communities page",
+  });
 
-  try {
-    communities = await listSnapshotCommunities();
-  } catch (error) {
-    console.error("Failed to load communities page", error);
-  }
-
-  return <CommunitiesPage communities={communities} />;
+  return <CommunitiesScreen communities={communities} />;
 }

@@ -5,13 +5,14 @@ import type {
   OpportunitySalary,
   OpportunitySourceType,
 } from "@/app/opportunities/_components/opportunities-screen/types";
+import { canonicalTagValue } from "@/app/opportunities/_components/opportunities-screen/controller/tag-normalization";
 import { loadSnapshotDataset } from "@/lib/opportunities/snapshot";
 
 export const dynamic = "force-static";
 
-const DEFAULT_LIMIT = 40;
+const DEFAULT_LIMIT = 5000;
 const MIN_LIMIT = 10;
-const MAX_LIMIT = 80;
+const MAX_LIMIT = 5000;
 
 type SortOrder = "recent" | "oldest";
 type ScopeFilterKey = "repository" | "region" | "country";
@@ -20,6 +21,9 @@ interface ScopeFilters {
   repository: string | null;
   region: string | null;
   country: string | null;
+  tags: string[];
+  authors: string[];
+  searchText: string;
 }
 
 const EMPTY_FACETS: OpportunityFilterFacets = {
@@ -106,11 +110,27 @@ function normalizeScopeFilter(value: string | null) {
   return value;
 }
 
+function parseListParam(value: string | null) {
+  return [
+    ...new Set(
+      (value ?? "")
+        .split(",")
+        .map((entry) => entry.trim())
+        .filter(Boolean),
+    ),
+  ];
+}
+
 function parseScopeFilters(searchParams: URLSearchParams): ScopeFilters {
   return {
     repository: normalizeScopeFilter(searchParams.get("repository")),
     region: normalizeScopeFilter(searchParams.get("region")),
     country: normalizeScopeFilter(searchParams.get("country")),
+    tags: parseListParam(searchParams.get("tags"))
+      .map((tag) => canonicalTagValue(tag))
+      .filter(Boolean),
+    authors: parseListParam(searchParams.get("authors")),
+    searchText: searchParams.get("search")?.trim() ?? "",
   };
 }
 
@@ -260,6 +280,14 @@ function filterItems(
   scopeFilters: ScopeFilters,
   ignoredKeys: ScopeFilterKey[] = [],
 ) {
+  const selectedTags = scopeFilters.tags.length > 0
+    ? new Set(scopeFilters.tags)
+    : null;
+  const selectedAuthors = scopeFilters.authors.length > 0
+    ? new Set(scopeFilters.authors)
+    : null;
+  const searchQuery = scopeFilters.searchText.toLowerCase();
+
   return items.filter((item) => {
     const matchesRepository = ignoredKeys.includes("repository") ||
       !scopeFilters.repository ||
@@ -270,9 +298,39 @@ function filterItems(
     const matchesCountry = ignoredKeys.includes("country") ||
       !scopeFilters.country ||
       item.country === scopeFilters.country;
+    const matchesTags =
+      !selectedTags ||
+      item.tags.some((tag) => selectedTags.has(canonicalTagValue(tag)));
+    const matchesAuthors = !selectedAuthors || selectedAuthors.has(item.author.handle);
+    const matchesSearch =
+      !searchQuery ||
+      [
+        item.title,
+        item.excerpt,
+        item.description,
+        item.repository,
+        item.country,
+        item.region,
+        item.companyName,
+        item.author.name,
+        item.author.handle,
+        item.tags.join(" "),
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase()
+        .includes(searchQuery);
     const matchesOpenIssue = item.issueState === "open";
 
-    return matchesOpenIssue && matchesRepository && matchesRegion && matchesCountry;
+    return (
+      matchesOpenIssue &&
+      matchesRepository &&
+      matchesRegion &&
+      matchesCountry &&
+      matchesTags &&
+      matchesAuthors &&
+      matchesSearch
+    );
   });
 }
 

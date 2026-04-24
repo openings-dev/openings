@@ -1,8 +1,8 @@
 import type {
   OpportunityFilterFacets,
-  OpportunityFiltersState,
   OpportunityItem,
 } from "@/app/opportunities/_components/opportunities-screen/types";
+import type { OpportunityServerFilters } from "./server-filters";
 
 const EMPTY_FACETS: OpportunityFilterFacets = {
   repositories: {},
@@ -78,7 +78,7 @@ function parseFacets(value: unknown): OpportunityFilterFacets {
 }
 
 export function buildApiUrl(
-  filters: Pick<OpportunityFiltersState, "repository" | "region" | "country" | "sortOrder">,
+  filters: OpportunityServerFilters,
   cursor: string | null,
   limit: number,
 ) {
@@ -87,6 +87,9 @@ export function buildApiUrl(
   if (filters.repository !== "all") params.set("repository", filters.repository);
   if (filters.region !== "all") params.set("region", filters.region);
   if (filters.country !== "all") params.set("country", filters.country);
+  if (filters.tags.length > 0) params.set("tags", filters.tags.join(","));
+  if (filters.authors.length > 0) params.set("authors", filters.authors.join(","));
+  if (filters.searchText.trim()) params.set("search", filters.searchText.trim());
   if (filters.sortOrder !== "recent") params.set("sort", filters.sortOrder);
   if (cursor) params.set("cursor", cursor);
   params.set("limit", String(limit));
@@ -161,7 +164,7 @@ export function parseApiPayload(payload: unknown): OpportunitiesApiPayload {
 }
 
 export async function fetchOpportunitiesPage(
-  filters: Pick<OpportunityFiltersState, "repository" | "region" | "country" | "sortOrder">,
+  filters: OpportunityServerFilters,
   params: { cursor: string | null; limit: number; signal?: AbortSignal },
 ) {
   const response = await fetch(buildApiUrl(filters, params.cursor, params.limit), {

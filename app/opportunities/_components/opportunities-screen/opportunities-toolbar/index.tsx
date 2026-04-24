@@ -14,20 +14,12 @@ import {
   compactSelectTriggerStyles,
   controlBarStyles,
 } from "@/app/opportunities/_components/opportunities-screen/styles";
+import { formatTemplate } from "@/app/opportunities/_components/opportunities-screen/shared/format-template";
 import type {
   OpportunitiesToolbarProps,
   OpportunitySortOrder,
 } from "@/app/opportunities/_components/opportunities-screen/types";
 import { ViewModeToggle } from "@/app/opportunities/_components/opportunities-screen/view-mode-toggle";
-
-function formatTemplate(
-  template: string,
-  values: Record<string, string | number>,
-) {
-  return template.replace(/\{(\w+)\}/g, (match, key: string) =>
-    key in values ? String(values[key]) : match,
-  );
-}
 
 export function OpportunitiesToolbar({
   totalCount,

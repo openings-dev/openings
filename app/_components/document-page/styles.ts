@@ -1,7 +1,5 @@
 import { cva } from "class-variance-authority";
 
-export const documentPageRootStyles = cva("flex min-h-screen flex-col bg-background");
-
 export const documentPageMainStyles = cva(
   "mx-auto w-full max-w-6xl flex-1 px-4 pb-20 pt-20 sm:px-6 lg:px-8",
 );

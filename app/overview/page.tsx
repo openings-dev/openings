@@ -1,14 +1,3 @@
-import { DocumentPage } from "@/app/_components/document-page";
-import { readProjectDocumentBundle } from "@/lib/content/markdown";
+import { createProjectDocumentPage } from "@/app/_components/document-page/create-project-document-page";
 
-export default async function OverviewPage() {
-  const document = await readProjectDocumentBundle("overview");
-
-  return (
-    <DocumentPage
-      documentKey="overview"
-      markdownByLocale={document.markdownByLocale}
-      sourceFileByLocale={document.sourceFileByLocale}
-    />
-  );
-}
+export default createProjectDocumentPage("overview", "overview");

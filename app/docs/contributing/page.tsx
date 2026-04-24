@@ -1,14 +1,3 @@
-import { DocumentPage } from "@/app/_components/document-page";
-import { readProjectDocumentBundle } from "@/lib/content/markdown";
+import { createProjectDocumentPage } from "@/app/_components/document-page/create-project-document-page";
 
-export default async function ContributingPage() {
-  const document = await readProjectDocumentBundle("contributing");
-
-  return (
-    <DocumentPage
-      documentKey="contributing"
-      markdownByLocale={document.markdownByLocale}
-      sourceFileByLocale={document.sourceFileByLocale}
-    />
-  );
-}
+export default createProjectDocumentPage("contributing", "contributing");

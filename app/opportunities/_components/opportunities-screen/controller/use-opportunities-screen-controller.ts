@@ -1,10 +1,13 @@
 import * as React from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useResponsiveFilterPanel } from "@/app/_hooks/use-responsive-filter-panel";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { buildCommunityPath, buildUserPath } from "@/lib/opportunities/routing";
 import { buildServerFilters } from "./server-filters";
+import { normalizeFilterDependencies } from "./filter-dependencies";
 import { normalizeForcedAuthor } from "./normalize-forced-author";
 import { useDerivedOpportunities } from "./use-derived-opportunities";
+import { useEnsurePageLoaded } from "./use-ensure-page-loaded";
 import { useFiltersState } from "./use-filters-state";
 import { useForcedAuthorAutoload } from "./use-forced-author-autoload";
 import { useLoadMoreHandler } from "./use-load-more-handler";
@@ -175,7 +178,9 @@ export function useOpportunitiesScreenController({
   const normalizedForcedRepository = forcedRepository?.trim() || null;
   const normalizedForcedAuthor = normalizeForcedAuthor(forcedAuthor);
   const [selectedOpportunityId, setSelectedOpportunityId] = React.useState<string | null>(null);
-  const [filtersExpanded, setFiltersExpanded] = React.useState(true);
+  const [filtersExpanded, setFiltersExpanded] = useResponsiveFilterPanel({
+    desktopQuery: "(min-width: 1024px)",
+  });
   const { filters, setFilters, handleFieldChange, handleToggleTag, handleToggleAuthor, handleClearFilters } = useFiltersState({
     searchParamsValue: searchParams.toString(),
     forcedRepository: normalizedForcedRepository,
@@ -190,14 +195,22 @@ export function useOpportunitiesScreenController({
           region: filters.region,
           country: filters.country,
           sortOrder: filters.sortOrder,
+          searchText: filters.searchText,
+          tags: filters.tags,
+          authors: filters.authors,
         },
         normalizedForcedRepository,
+        normalizedForcedAuthor,
       ),
     [
+      filters.authors,
       filters.country,
       filters.region,
       filters.repository,
+      filters.searchText,
       filters.sortOrder,
+      filters.tags,
+      normalizedForcedAuthor,
       normalizedForcedRepository,
     ],
   );
@@ -217,6 +230,7 @@ export function useOpportunitiesScreenController({
     selectedOpportunityId,
     forcedRepository: normalizedForcedRepository,
     forcedAuthor: normalizedForcedAuthor,
+    remoteFilteredCount: remote.filteredCount,
     locale,
     rangeMessages: opportunitiesMessages.range,
   });
@@ -313,14 +327,29 @@ export function useOpportunitiesScreenController({
     userProfileSummary,
   ]);
   const filtersForUrl = React.useMemo(
-    () => ({ ...derived.normalizedFilters, page: derived.currentPage }),
-    [derived.currentPage, derived.normalizedFilters],
+    () => normalizeFilterDependencies({ ...filters, page: derived.currentPage }),
+    [derived.currentPage, filters],
   );
   useUrlSync({ pathname, router, currentSearch: searchParams.toString(), filtersForUrl });
   const hasMore = derived.currentPage < derived.totalPages || remote.hasMoreRemote;
+  useEnsurePageLoaded({
+    currentPage: derived.currentPage,
+    itemsPerPage: derived.normalizedFilters.itemsPerPage,
+    loadedCount: derived.loadedCount,
+    totalCount: derived.totalCount,
+    isLoading: remote.isLoading,
+    isFetchingMore: remote.isFetchingMore,
+    hasMoreRemote: remote.hasMoreRemote,
+    nextCursor: remote.nextCursor,
+    setIsFetchingMore: remote.setIsFetchingMore,
+    loadMoreFromApi: remote.loadMoreFromApi,
+  });
   const handleLoadMore = useLoadMoreHandler({
     currentPage: derived.currentPage,
     totalPages: derived.totalPages,
+    loadedCount: derived.loadedCount,
+    totalCount: derived.totalCount,
+    itemsPerPage: derived.normalizedFilters.itemsPerPage,
     isLoading: remote.isLoading,
     isFetchingMore: remote.isFetchingMore,
     hasMoreRemote: remote.hasMoreRemote,

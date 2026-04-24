@@ -39,6 +39,8 @@ export const frTranslations: TranslationMessages = {
       allCountries: "Tous les pays",
       allRegions: "Toutes les régions",
       optionWithCount: "{label} ({count})",
+      hide: "Masquer les filtres",
+      show: "Afficher les filtres",
       clear: "Effacer les filtres",
     },
     list: {
@@ -66,6 +68,8 @@ export const frTranslations: TranslationMessages = {
       allCountries: "Tous les pays",
       allRegions: "Toutes les régions",
       optionWithCount: "{label} ({count})",
+      hide: "Masquer les filtres",
+      show: "Afficher les filtres",
       clear: "Effacer les filtres",
     },
     list: {

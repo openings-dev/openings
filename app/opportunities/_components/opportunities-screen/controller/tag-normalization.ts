@@ -1,6 +1,116 @@
 import type { FilterOption } from "@/app/opportunities/_components/opportunities-screen/types";
 import { canonicalTagLabel } from "./tag-labels";
 
+const CONTEXT_TOKENS = new Set([
+  "lang",
+  "language",
+  "stack",
+  "tech",
+  "technology",
+  "tecnologia",
+  "framework",
+  "skill",
+  "skills",
+  "role",
+  "cargo",
+  "seniority",
+  "nivel",
+  "level",
+  "work",
+  "model",
+  "modelo",
+  "modalidade",
+  "type",
+  "tipo",
+]);
+
+const DIRECT_ALIASES: Record<string, string> = {
+  jr: "junior",
+  junior: "junior",
+  mid: "pleno",
+  middle: "pleno",
+  pleno: "pleno",
+  senior: "senior",
+  especialista: "especialista",
+  specialist: "especialista",
+  intern: "estagio",
+  internship: "estagio",
+  trainee: "estagio",
+  estagio: "estagio",
+  lead: "lead",
+  principal: "principal",
+  staff: "staff",
+  remote: "remote",
+  remoto: "remote",
+  hybrid: "hybrid",
+  hibrido: "hybrid",
+  onsite: "on-site",
+  "on site": "on-site",
+  presencial: "on-site",
+  js: "javascript",
+  "java script": "javascript",
+  javascript: "javascript",
+  ts: "typescript",
+  "type script": "typescript",
+  typescript: "typescript",
+  "node js": "nodejs",
+  nodejs: "nodejs",
+  node: "nodejs",
+  reactjs: "react",
+  "react js": "react",
+  react: "react",
+  "react native": "react-native",
+  nextjs: "nextjs",
+  "next js": "nextjs",
+  vuejs: "vue",
+  "vue js": "vue",
+  golang: "go",
+  postgres: "postgres",
+  postgresql: "postgres",
+  mongodb: "mongodb",
+  "mongo db": "mongodb",
+  frontend: "frontend",
+  "front end": "frontend",
+  backend: "backend",
+  "back end": "backend",
+  fullstack: "fullstack",
+  "full stack": "fullstack",
+  devops: "devops",
+  "dev ops": "devops",
+  qa: "qa",
+  "quality assurance": "qa",
+};
+
+const PATTERN_ALIASES: Array<[RegExp, string]> = [
+  [/(^| )junior( |$)|(^| )jr( |$)/, "junior"],
+  [/(^| )pleno( |$)|(^| )mid(dle)?( |$)/, "pleno"],
+  [/(^| )senior( |$)/, "senior"],
+  [/(^| )(especialista|specialist)( |$)/, "especialista"],
+  [/(^| )(intern|internship|trainee|estagio)( |$)/, "estagio"],
+  [/(^| )lead( |$)/, "lead"],
+  [/(^| )principal( |$)/, "principal"],
+  [/(^| )staff( |$)/, "staff"],
+  [/(^| )(remote|remoto|home office|work from home|wfh)( |$)/, "remote"],
+  [/(^| )(hybrid|hibrido)( |$)/, "hybrid"],
+  [/(^| )(onsite|on site|presencial|in person)( |$)/, "on-site"],
+  [/(^| )(ruby on rails|rails)( |$)/, "ruby-on-rails"],
+  [/(^| )(javascript|java script|js)( |$)/, "javascript"],
+  [/(^| )(typescript|type script|ts)( |$)/, "typescript"],
+  [/(^| )(nodejs|node js|node)( |$)/, "nodejs"],
+  [/(^| )(react native)( |$)/, "react-native"],
+  [/(^| )(reactjs|react js|react)( |$)/, "react"],
+  [/(^| )(nextjs|next js)( |$)/, "nextjs"],
+  [/(^| )(vuejs|vue js|vue)( |$)/, "vue"],
+  [/(^| )golang( |$)/, "go"],
+  [/(^| )(postgresql|postgres)( |$)/, "postgres"],
+  [/(^| )(mongodb|mongo db)( |$)/, "mongodb"],
+  [/(^| )(front end|frontend)( |$)/, "frontend"],
+  [/(^| )(back end|backend)( |$)/, "backend"],
+  [/(^| )(full stack|fullstack)( |$)/, "fullstack"],
+  [/(^| )(dev ops|devops)( |$)/, "devops"],
+  [/(^| )(quality assurance|qa)( |$)/, "qa"],
+];
+
 function normalizeBase(value: string) {
   return value
     .toLowerCase()
@@ -13,6 +123,33 @@ function normalizeBase(value: string) {
     .trim();
 }
 
+function stripContextTokens(value: string) {
+  const tokens = value.split(" ").filter(Boolean);
+  let start = 0;
+  let end = tokens.length;
+
+  while (start < end && CONTEXT_TOKENS.has(tokens[start])) {
+    start += 1;
+  }
+
+  while (end > start && CONTEXT_TOKENS.has(tokens[end - 1])) {
+    end -= 1;
+  }
+
+  return tokens.slice(start, end).join(" ").trim();
+}
+
+function resolveCanonicalAlias(value: string) {
+  if (!value) return null;
+  if (DIRECT_ALIASES[value]) return DIRECT_ALIASES[value];
+
+  for (const [pattern, canonical] of PATTERN_ALIASES) {
+    if (pattern.test(value)) return canonical;
+  }
+
+  return null;
+}
+
 function cleanLabel(value: string) {
   const cleaned = value.trim().replace(/^[^\p{Letter}\p{Number}]+/gu, "").trim();
   return cleaned || value.trim();
@@ -21,20 +158,16 @@ function cleanLabel(value: string) {
 export function canonicalTagValue(value: string) {
   const base = normalizeBase(value);
   if (!base) return "";
-  if (/(^| )junior( |$)|(^| )jr( |$)/.test(base)) return "junior";
-  if (base.includes("pleno") || /(^| )mid(dle)?( |$)/.test(base)) return "pleno";
-  if (base.includes("senior")) return "senior";
-  if (base.includes("especialista") || base.includes("specialist")) return "especialista";
-  if (base.includes("estagio") || base.includes("intern") || base.includes("trainee")) return "estagio";
-  if (/(^| )lead( |$)/.test(base)) return "lead";
-  if (base.includes("principal")) return "principal";
-  if (/(^| )staff( |$)/.test(base)) return "staff";
-  if (base.includes("remoto") || base.includes("remote")) return "remote";
-  if (base.includes("hibrido") || base.includes("hybrid")) return "hybrid";
-  if (base.includes("onsite") || base.includes("on site") || base.includes("presencial")) {
-    return "on-site";
-  }
-  return base.replace(/\s+/g, "-");
+  const stripped = stripContextTokens(base);
+  const candidate = stripped || base;
+
+  const alias =
+    resolveCanonicalAlias(candidate) ??
+    resolveCanonicalAlias(base);
+
+  if (alias) return alias;
+
+  return candidate.replace(/\s+/g, "-");
 }
 
 export function condenseTagOptions(counts: Record<string, number>, locale: string) {

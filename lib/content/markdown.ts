@@ -1,5 +1,4 @@
 import { readFile } from "node:fs/promises";
-import path from "node:path";
 import {
   AVAILABLE_LOCALES,
   type LocaleCode,
@@ -13,32 +12,142 @@ export type ProjectDocumentKey =
   | "terms";
 
 interface ProjectDocumentPathConfig {
-  defaultFileName: string;
-  localizedDirectory?: string;
+  url: URL;
+  displayPath: string;
 }
 
-const PROJECT_DOCUMENT_PATH: Record<ProjectDocumentKey, ProjectDocumentPathConfig> = {
+const PROJECT_DOCUMENT_PATH = {
   overview: {
-    defaultFileName: "OVERVIEW.md",
-    localizedDirectory: "docs/overview",
+    en: {
+      url: new URL("../../OVERVIEW.md", import.meta.url),
+      displayPath: "OVERVIEW.md",
+    },
+    pt: {
+      url: new URL("../../docs/overview/OVERVIEW.pt.md", import.meta.url),
+      displayPath: "docs/overview/OVERVIEW.pt.md",
+    },
+    es: {
+      url: new URL("../../docs/overview/OVERVIEW.es.md", import.meta.url),
+      displayPath: "docs/overview/OVERVIEW.es.md",
+    },
+    it: {
+      url: new URL("../../docs/overview/OVERVIEW.it.md", import.meta.url),
+      displayPath: "docs/overview/OVERVIEW.it.md",
+    },
+    fr: {
+      url: new URL("../../docs/overview/OVERVIEW.fr.md", import.meta.url),
+      displayPath: "docs/overview/OVERVIEW.fr.md",
+    },
+    de: {
+      url: new URL("../../docs/overview/OVERVIEW.de.md", import.meta.url),
+      displayPath: "docs/overview/OVERVIEW.de.md",
+    },
   },
   "api-reference": {
-    defaultFileName: "API_REFERENCE.md",
-    localizedDirectory: "docs/api-reference",
+    en: {
+      url: new URL("../../API_REFERENCE.md", import.meta.url),
+      displayPath: "API_REFERENCE.md",
+    },
+    pt: {
+      url: new URL("../../docs/api-reference/API_REFERENCE.pt.md", import.meta.url),
+      displayPath: "docs/api-reference/API_REFERENCE.pt.md",
+    },
+    es: {
+      url: new URL("../../docs/api-reference/API_REFERENCE.es.md", import.meta.url),
+      displayPath: "docs/api-reference/API_REFERENCE.es.md",
+    },
+    it: {
+      url: new URL("../../docs/api-reference/API_REFERENCE.it.md", import.meta.url),
+      displayPath: "docs/api-reference/API_REFERENCE.it.md",
+    },
+    fr: {
+      url: new URL("../../docs/api-reference/API_REFERENCE.fr.md", import.meta.url),
+      displayPath: "docs/api-reference/API_REFERENCE.fr.md",
+    },
+    de: {
+      url: new URL("../../docs/api-reference/API_REFERENCE.de.md", import.meta.url),
+      displayPath: "docs/api-reference/API_REFERENCE.de.md",
+    },
   },
   contributing: {
-    defaultFileName: "CONTRIBUTING.md",
-    localizedDirectory: "docs/contributing",
+    en: {
+      url: new URL("../../CONTRIBUTING.md", import.meta.url),
+      displayPath: "CONTRIBUTING.md",
+    },
+    pt: {
+      url: new URL("../../docs/contributing/CONTRIBUTING.pt.md", import.meta.url),
+      displayPath: "docs/contributing/CONTRIBUTING.pt.md",
+    },
+    es: {
+      url: new URL("../../docs/contributing/CONTRIBUTING.es.md", import.meta.url),
+      displayPath: "docs/contributing/CONTRIBUTING.es.md",
+    },
+    it: {
+      url: new URL("../../docs/contributing/CONTRIBUTING.it.md", import.meta.url),
+      displayPath: "docs/contributing/CONTRIBUTING.it.md",
+    },
+    fr: {
+      url: new URL("../../docs/contributing/CONTRIBUTING.fr.md", import.meta.url),
+      displayPath: "docs/contributing/CONTRIBUTING.fr.md",
+    },
+    de: {
+      url: new URL("../../docs/contributing/CONTRIBUTING.de.md", import.meta.url),
+      displayPath: "docs/contributing/CONTRIBUTING.de.md",
+    },
   },
   privacy: {
-    defaultFileName: "PRIVACY.md",
-    localizedDirectory: "docs/privacy",
+    en: {
+      url: new URL("../../PRIVACY.md", import.meta.url),
+      displayPath: "PRIVACY.md",
+    },
+    pt: {
+      url: new URL("../../docs/privacy/PRIVACY.pt.md", import.meta.url),
+      displayPath: "docs/privacy/PRIVACY.pt.md",
+    },
+    es: {
+      url: new URL("../../docs/privacy/PRIVACY.es.md", import.meta.url),
+      displayPath: "docs/privacy/PRIVACY.es.md",
+    },
+    it: {
+      url: new URL("../../docs/privacy/PRIVACY.it.md", import.meta.url),
+      displayPath: "docs/privacy/PRIVACY.it.md",
+    },
+    fr: {
+      url: new URL("../../docs/privacy/PRIVACY.fr.md", import.meta.url),
+      displayPath: "docs/privacy/PRIVACY.fr.md",
+    },
+    de: {
+      url: new URL("../../docs/privacy/PRIVACY.de.md", import.meta.url),
+      displayPath: "docs/privacy/PRIVACY.de.md",
+    },
   },
   terms: {
-    defaultFileName: "TERMS.md",
-    localizedDirectory: "docs/terms",
+    en: {
+      url: new URL("../../TERMS.md", import.meta.url),
+      displayPath: "TERMS.md",
+    },
+    pt: {
+      url: new URL("../../docs/terms/TERMS.pt.md", import.meta.url),
+      displayPath: "docs/terms/TERMS.pt.md",
+    },
+    es: {
+      url: new URL("../../docs/terms/TERMS.es.md", import.meta.url),
+      displayPath: "docs/terms/TERMS.es.md",
+    },
+    it: {
+      url: new URL("../../docs/terms/TERMS.it.md", import.meta.url),
+      displayPath: "docs/terms/TERMS.it.md",
+    },
+    fr: {
+      url: new URL("../../docs/terms/TERMS.fr.md", import.meta.url),
+      displayPath: "docs/terms/TERMS.fr.md",
+    },
+    de: {
+      url: new URL("../../docs/terms/TERMS.de.md", import.meta.url),
+      displayPath: "docs/terms/TERMS.de.md",
+    },
   },
-};
+} satisfies Record<ProjectDocumentKey, Record<LocaleCode, ProjectDocumentPathConfig>>;
 
 export interface ProjectDocumentContent {
   fileName: string;
@@ -50,87 +159,25 @@ export interface ProjectDocumentBundle {
   sourceFileByLocale: Record<LocaleCode, string>;
 }
 
-function toLocalizedFileName(fileName: string, locale: LocaleCode) {
-  if (locale === "en") {
-    return fileName;
-  }
-
-  const extension = path.extname(fileName);
-  const baseName = fileName.slice(0, -extension.length);
-  return `${baseName}.${locale}${extension}`;
-}
-
-function toPosixPath(value: string) {
-  return value.replaceAll(path.sep, "/");
-}
-
-function resolveDocumentPath(
-  key: ProjectDocumentKey,
-  locale: LocaleCode,
-): { absolutePath: string; displayPath: string } {
-  const config = PROJECT_DOCUMENT_PATH[key];
-  const defaultFileName = config.defaultFileName;
-
-  if (locale === "en") {
-    return {
-      absolutePath: path.join(process.cwd(), defaultFileName),
-      displayPath: defaultFileName,
-    };
-  }
-
-  const localizedFileName = toLocalizedFileName(defaultFileName, locale);
-  const localizedDirectory = config.localizedDirectory;
-
-  if (!localizedDirectory) {
-    return {
-      absolutePath: path.join(process.cwd(), localizedFileName),
-      displayPath: localizedFileName,
-    };
-  }
-
-  const relativePath = path.join(localizedDirectory, localizedFileName);
-  return {
-    absolutePath: path.join(process.cwd(), relativePath),
-    displayPath: toPosixPath(relativePath),
-  };
-}
-
-export async function readProjectDocument(
-  key: ProjectDocumentKey,
-): Promise<ProjectDocumentContent> {
-  const fileName = PROJECT_DOCUMENT_PATH[key].defaultFileName;
-  const filePath = path.join(process.cwd(), fileName);
-
-  try {
-    const markdown = await readFile(filePath, "utf-8");
-    return { fileName, markdown };
-  } catch {
-    return {
-      fileName,
-      markdown: `# Missing file\n\nCould not read \`${fileName}\` from the project root.`,
-    };
-  }
-}
-
 export async function readProjectDocumentBundle(
   key: ProjectDocumentKey,
 ): Promise<ProjectDocumentBundle> {
-  const fileName = PROJECT_DOCUMENT_PATH[key].defaultFileName;
-  const baseFilePath = path.join(process.cwd(), fileName);
+  const paths = PROJECT_DOCUMENT_PATH[key];
+  const fallbackTarget = paths.en;
   let baseMarkdown = "";
 
   try {
-    baseMarkdown = await readFile(baseFilePath, "utf-8");
+    baseMarkdown = await readFile(fallbackTarget.url, "utf-8");
   } catch {
-    baseMarkdown = `# Missing file\n\nCould not read \`${fileName}\` from the project root.`;
+    baseMarkdown = `# Missing file\n\nCould not read \`${fallbackTarget.displayPath}\` from the project root.`;
   }
 
   const entries = await Promise.all(
     AVAILABLE_LOCALES.map(async ({ code }) => {
-      const localizedTarget = resolveDocumentPath(key, code);
+      const localizedTarget = paths[code];
 
       try {
-        const localizedMarkdown = await readFile(localizedTarget.absolutePath, "utf-8");
+        const localizedMarkdown = await readFile(localizedTarget.url, "utf-8");
         return [
           code,
           {
@@ -143,7 +190,7 @@ export async function readProjectDocumentBundle(
           code,
           {
             markdown: baseMarkdown,
-            fileName,
+            fileName: fallbackTarget.displayPath,
           },
         ] as const;
       }

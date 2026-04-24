@@ -1,17 +1,16 @@
-import { UsersPage } from "@/app/users/_components/users-page";
+import { UsersScreen } from "@/app/users/_components/users-screen";
+import { loadSafely } from "@/app/_lib/load-safe";
 import type { UserSummary } from "@/lib/opportunities/users";
 import { listSnapshotUsers } from "@/lib/opportunities/users";
 
 export const revalidate = 10800;
 
 export default async function UsersIndexPage() {
-  let users: UserSummary[] = [];
+  const users = await loadSafely<UserSummary[]>({
+    load: () => listSnapshotUsers(),
+    fallback: [],
+    errorMessage: "Failed to load users page",
+  });
 
-  try {
-    users = await listSnapshotUsers();
-  } catch (error) {
-    console.error("Failed to load users page", error);
-  }
-
-  return <UsersPage users={users} />;
+  return <UsersScreen users={users} />;
 }
