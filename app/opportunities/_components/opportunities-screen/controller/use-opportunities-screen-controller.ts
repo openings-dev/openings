@@ -6,6 +6,7 @@ import { buildCommunityPath, buildUserPath } from "@/lib/opportunities/routing";
 import { buildServerFilters } from "./server-filters";
 import { normalizeFilterDependencies } from "./filter-dependencies";
 import { normalizeForcedAuthor } from "./normalize-forced-author";
+import { useRepositoryFilterRegistry } from "./repository-filter-registry";
 import { useDerivedOpportunities } from "./use-derived-opportunities";
 import { useEnsurePageLoaded } from "./use-ensure-page-loaded";
 import { useFiltersState } from "./use-filters-state";
@@ -177,6 +178,7 @@ export function useOpportunitiesScreenController({
   const opportunitiesMessages = messages.opportunities;
   const normalizedForcedRepository = forcedRepository?.trim() || null;
   const normalizedForcedAuthor = normalizeForcedAuthor(forcedAuthor);
+  const repositoryRegistry = useRepositoryFilterRegistry();
   const [selectedOpportunityId, setSelectedOpportunityId] = React.useState<string | null>(null);
   const [filtersExpanded, setFiltersExpanded] = useResponsiveFilterPanel({
     desktopQuery: "(min-width: 1024px)",
@@ -185,6 +187,7 @@ export function useOpportunitiesScreenController({
     searchParamsValue: searchParams.toString(),
     forcedRepository: normalizedForcedRepository,
     forcedAuthor: normalizedForcedAuthor,
+    registry: repositoryRegistry.registry,
     resetSuccessMessage: opportunitiesMessages.feedback.filtersReset,
   });
   const serverFilters = React.useMemo(
@@ -201,6 +204,7 @@ export function useOpportunitiesScreenController({
         },
         normalizedForcedRepository,
         normalizedForcedAuthor,
+        repositoryRegistry.registry,
       ),
     [
       filters.authors,
@@ -212,6 +216,7 @@ export function useOpportunitiesScreenController({
       filters.tags,
       normalizedForcedAuthor,
       normalizedForcedRepository,
+      repositoryRegistry.registry,
     ],
   );
   const handleBeforeReload = React.useCallback(() => {
@@ -220,6 +225,7 @@ export function useOpportunitiesScreenController({
   }, [setFilters]);
   const remote = useRemoteOpportunities({
     serverFilters,
+    enabled: !repositoryRegistry.isLoading,
     onBeforeReload: handleBeforeReload,
     messages: opportunitiesMessages.feedback,
   });
@@ -230,6 +236,7 @@ export function useOpportunitiesScreenController({
     selectedOpportunityId,
     forcedRepository: normalizedForcedRepository,
     forcedAuthor: normalizedForcedAuthor,
+    registry: repositoryRegistry.registry,
     remoteFilteredCount: remote.filteredCount,
     locale,
     rangeMessages: opportunitiesMessages.range,
@@ -327,8 +334,12 @@ export function useOpportunitiesScreenController({
     userProfileSummary,
   ]);
   const filtersForUrl = React.useMemo(
-    () => normalizeFilterDependencies({ ...filters, page: derived.currentPage }),
-    [derived.currentPage, filters],
+    () =>
+      normalizeFilterDependencies(
+        { ...filters, page: derived.currentPage },
+        repositoryRegistry.registry,
+      ),
+    [derived.currentPage, filters, repositoryRegistry.registry],
   );
   useUrlSync({ pathname, router, currentSearch: searchParams.toString(), filtersForUrl });
   const hasMore = derived.currentPage < derived.totalPages || remote.hasMoreRemote;

@@ -1,5 +1,6 @@
 import type { Dispatch, SetStateAction } from "react";
-import { ALL_FILTER_VALUE, REGIONS_BY_COUNTRY } from "./defaults";
+import { ALL_FILTER_VALUE } from "./defaults";
+import type { RepositoryFilterRegistry } from "./repository-filter-registry";
 import type {
   OnFilterFieldChange,
   OpportunityFiltersState,
@@ -10,12 +11,18 @@ type OpportunityLocationScope = Pick<
   "repository" | "region" | "country"
 >;
 
-function countryBelongsToRegion(country: string, region: string) {
-  return REGIONS_BY_COUNTRY.get(country)?.has(region) ?? false;
+function countryBelongsToRegion(
+  country: string,
+  region: string,
+  registry: RepositoryFilterRegistry | null,
+) {
+  if (!registry) return true;
+  return registry.regionsByCountry.get(country)?.has(region) ?? false;
 }
 
 export function normalizeFilterDependencies<TFilters extends OpportunityLocationScope>(
   filters: TFilters,
+  registry: RepositoryFilterRegistry | null = null,
 ): TFilters {
   const next = { ...filters };
 
@@ -28,7 +35,7 @@ export function normalizeFilterDependencies<TFilters extends OpportunityLocation
   if (
     next.region !== ALL_FILTER_VALUE &&
     next.country !== ALL_FILTER_VALUE &&
-    !countryBelongsToRegion(next.country, next.region)
+    !countryBelongsToRegion(next.country, next.region, registry)
   ) {
     next.country = ALL_FILTER_VALUE;
   }
@@ -40,6 +47,7 @@ export function applyFilterFieldChange<TField extends keyof OpportunityFiltersSt
   previous: OpportunityFiltersState,
   field: TField,
   value: OpportunityFiltersState[TField],
+  registry: RepositoryFilterRegistry | null = null,
 ) {
   if (Object.is(previous[field], value)) {
     return previous;
@@ -60,12 +68,13 @@ export function applyFilterFieldChange<TField extends keyof OpportunityFiltersSt
     next.page = 1;
   }
 
-  return normalizeFilterDependencies(next);
+  return normalizeFilterDependencies(next, registry);
 }
 
 export function createFilterFieldChangeHandler(params: {
   forcedRepository: string | null;
   forcedAuthor: string | null;
+  registry: RepositoryFilterRegistry | null;
   setFilters: Dispatch<SetStateAction<OpportunityFiltersState>>;
 }) {
   return function handleFieldChange<TField extends keyof OpportunityFiltersState>(
@@ -81,7 +90,7 @@ export function createFilterFieldChangeHandler(params: {
         return previous;
       }
 
-      return applyFilterFieldChange(previous, field, value);
+      return applyFilterFieldChange(previous, field, value, params.registry);
     });
   } satisfies OnFilterFieldChange;
 }

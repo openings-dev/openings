@@ -12,6 +12,7 @@ import type { OpportunityServerFilters } from "./server-filters";
 
 interface UseRemoteOpportunitiesParams {
   serverFilters: OpportunityServerFilters;
+  enabled: boolean;
   messages: { loadError: string; rateLimited: string; loadMoreError: string };
   onBeforeReload: () => void;
 }
@@ -53,6 +54,7 @@ function resolveRemoteFilteredCount(
 
 export function useRemoteOpportunities({
   serverFilters,
+  enabled,
   messages,
   onBeforeReload,
 }: UseRemoteOpportunitiesParams) {
@@ -70,18 +72,24 @@ export function useRemoteOpportunities({
   const inFlightCursorRef = React.useRef<string | null>(null);
   const exhaustedCursorsRef = React.useRef(new Set<string>());
   const previousFiltersKeyRef = React.useRef<string | null>(null);
+  const activeFiltersKeyRef = React.useRef<string | null>(null);
   const serverFiltersKey = React.useMemo(
     () => JSON.stringify(serverFilters),
     [serverFilters],
   );
 
   React.useEffect(() => {
+    if (!enabled) {
+      return;
+    }
+
     const controller = new AbortController();
     const previousFiltersKey = previousFiltersKeyRef.current;
     const shouldRunBeforeReload =
       previousFiltersKey !== null && previousFiltersKey !== serverFiltersKey;
 
     previousFiltersKeyRef.current = serverFiltersKey;
+    activeFiltersKeyRef.current = serverFiltersKey;
     fetchAbortRef.current?.abort();
     fetchAbortRef.current = controller;
 
@@ -139,7 +147,14 @@ export function useRemoteOpportunities({
       });
 
     return () => controller.abort();
-  }, [messages.loadError, messages.rateLimited, onBeforeReload, serverFilters, serverFiltersKey]);
+  }, [
+    enabled,
+    messages.loadError,
+    messages.rateLimited,
+    onBeforeReload,
+    serverFilters,
+    serverFiltersKey,
+  ]);
 
   const loadMoreFromApi = React.useCallback(async () => {
     if (!nextCursor || !hasMoreRemote) return false;
@@ -148,12 +163,14 @@ export function useRemoteOpportunities({
     if (exhaustedCursorsRef.current.has(requestedCursor)) return false;
 
     inFlightCursorRef.current = requestedCursor;
+    const requestFiltersKey = serverFiltersKey;
 
     try {
       const payload = await fetchOpportunitiesPage(serverFilters, {
         cursor: requestedCursor,
         limit: LOAD_MORE_BATCH_SIZE,
       });
+      if (activeFiltersKeyRef.current !== requestFiltersKey) return false;
       let hasNewItems = false;
       setOpportunities((previous) => {
         const merged = dedupeOpportunities([...previous, ...payload.items]);
@@ -193,7 +210,14 @@ export function useRemoteOpportunities({
         inFlightCursorRef.current = null;
       }
     }
-  }, [hasMoreRemote, messages.loadMoreError, messages.rateLimited, nextCursor, serverFilters]);
+  }, [
+    hasMoreRemote,
+    messages.loadMoreError,
+    messages.rateLimited,
+    nextCursor,
+    serverFilters,
+    serverFiltersKey,
+  ]);
 
   return {
     opportunities,

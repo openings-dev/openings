@@ -5,6 +5,7 @@ import {
   createFilterFieldChangeHandler,
   normalizeFilterDependencies,
 } from "./filter-dependencies";
+import type { RepositoryFilterRegistry } from "./repository-filter-registry";
 import { parseFiltersFromSearchParams } from "./url-filters";
 import type { OpportunityFiltersState } from "@/app/opportunities/_components/opportunities-screen/types";
 
@@ -12,6 +13,7 @@ interface UseFiltersStateParams {
   searchParamsValue: string;
   forcedRepository: string | null;
   forcedAuthor: string | null;
+  registry: RepositoryFilterRegistry | null;
   resetSuccessMessage: string;
 }
 
@@ -19,7 +21,7 @@ function resolveFiltersFromParams(params: UseFiltersStateParams) {
   const parsed = parseFiltersFromSearchParams(new URLSearchParams(params.searchParamsValue));
   if (params.forcedRepository) parsed.repository = params.forcedRepository;
   if (params.forcedAuthor) parsed.authors = [params.forcedAuthor];
-  return normalizeFilterDependencies(parsed);
+  return normalizeFilterDependencies(parsed, params.registry);
 }
 
 function filtersAreEqual(left: OpportunityFiltersState, right: OpportunityFiltersState) {
@@ -44,6 +46,7 @@ export function useFiltersState(params: UseFiltersStateParams) {
     searchParamsValue,
     forcedRepository,
     forcedAuthor,
+    registry,
     resetSuccessMessage,
   } = params;
   const [filters, setFilters] = React.useState<OpportunityFiltersState>(() =>
@@ -55,6 +58,7 @@ export function useFiltersState(params: UseFiltersStateParams) {
       searchParamsValue,
       forcedRepository,
       forcedAuthor,
+      registry,
       resetSuccessMessage,
     });
 
@@ -67,16 +71,17 @@ export function useFiltersState(params: UseFiltersStateParams) {
     return () => {
       isCurrent = false;
     };
-  }, [forcedAuthor, forcedRepository, resetSuccessMessage, searchParamsValue]);
+  }, [forcedAuthor, forcedRepository, registry, resetSuccessMessage, searchParamsValue]);
 
   const handleFieldChange = React.useMemo(
     () =>
       createFilterFieldChangeHandler({
         forcedRepository,
         forcedAuthor,
+        registry,
         setFilters,
       }),
-    [forcedAuthor, forcedRepository],
+    [forcedAuthor, forcedRepository, registry],
   );
 
   const handleToggleTag = React.useCallback((tag: string) => {
@@ -107,10 +112,10 @@ export function useFiltersState(params: UseFiltersStateParams) {
         repository: forcedRepository ?? DEFAULT_FILTERS.repository,
         authors: forcedAuthor ? [forcedAuthor] : [],
         viewMode: previous.viewMode,
-      }),
+      }, registry),
     );
     toast.success(resetSuccessMessage);
-  }, [forcedAuthor, forcedRepository, resetSuccessMessage]);
+  }, [forcedAuthor, forcedRepository, registry, resetSuccessMessage]);
 
   return {
     filters,

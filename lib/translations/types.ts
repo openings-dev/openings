@@ -178,6 +178,9 @@ export interface TranslationMessages {
       postedAt: string;
       updatedAt: string;
       openOriginal: string;
+      share: string;
+      shareCopied: string;
+      shareFailed: string;
       salaryPeriodMonth: string;
       salaryPeriodYear: string;
       salaryPeriodHour: string;

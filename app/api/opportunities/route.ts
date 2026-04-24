@@ -240,6 +240,7 @@ function normalizeOpportunity(value: unknown): OpportunityItem | null {
 
   return {
     id,
+    ...(stringOrNull(record.sourceId) ? { sourceId: stringOrNull(record.sourceId) ?? undefined } : {}),
     title,
     description,
     excerpt,

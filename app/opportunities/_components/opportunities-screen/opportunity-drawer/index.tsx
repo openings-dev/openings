@@ -35,6 +35,11 @@ export function OpportunityDrawer({
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [onClose, open]);
+  const shareUrl = React.useMemo(() => {
+    if (!item) return "";
+    if (typeof window === "undefined") return `/jobs/${item.id}`;
+    return new URL(`/jobs/${item.id}`, window.location.origin).toString();
+  }, [item]);
 
   if (!open || !item) return null;
 
@@ -60,7 +65,14 @@ export function OpportunityDrawer({
           onCommunitySelect={onCommunitySelect}
           onAuthorSelect={onAuthorSelect}
         />
-        <DrawerAction openOriginalLabel={cardMessages.openOriginal} url={item.url} />
+        <DrawerAction
+          openOriginalLabel={cardMessages.openOriginal}
+          shareLabel={cardMessages.share}
+          shareCopiedLabel={cardMessages.shareCopied}
+          shareFailedLabel={cardMessages.shareFailed}
+          shareUrl={shareUrl}
+          url={item.url}
+        />
         <DrawerTags tags={item.tags} />
         <OpportunityMarkdown body={item.description} />
         <DrawerMetadata postedAt={postedAt} updatedAt={updatedAt} repository={item.community.repository} country={item.country} companyName={item.companyName} salaryLabel={salaryLabel} />

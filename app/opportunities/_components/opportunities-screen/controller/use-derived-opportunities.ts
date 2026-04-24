@@ -4,6 +4,7 @@ import { getActiveFiltersCount } from "./active-filters";
 import { buildRangeLabel } from "./range-label";
 import { getFilteredOpportunities } from "./filtering";
 import { normalizeFilters } from "./normalize-filters";
+import type { RepositoryFilterRegistry } from "./repository-filter-registry";
 import type {
   OpportunityFilterFacets,
   OpportunityFiltersState,
@@ -17,6 +18,7 @@ interface UseDerivedOpportunitiesParams {
   selectedOpportunityId: string | null;
   forcedRepository: string | null;
   forcedAuthor: string | null;
+  registry: RepositoryFilterRegistry | null;
   remoteFilteredCount: number | null;
   locale: string;
   rangeMessages: { zeroResults: string; rangeOfTotal: string };
@@ -37,8 +39,9 @@ export function useDerivedOpportunities(params: UseDerivedOpportunitiesParams) {
         params.filters,
         params.forcedRepository,
         params.forcedAuthor,
+        params.registry,
       ),
-    [params.filters, params.forcedAuthor, params.forcedRepository],
+    [params.filters, params.forcedAuthor, params.forcedRepository, params.registry],
   );
   const filteredOpportunities = React.useMemo(
     () => getFilteredOpportunities(params.opportunities, normalizedFilters),

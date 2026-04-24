@@ -1,5 +1,3 @@
-import type { RepositoryConfig } from "@/lib/constants/repositories";
-
 export type OpportunitySortOrder = "recent" | "oldest";
 export type OpportunityViewMode = "list" | "grid";
 export type OpportunitySourceType =
@@ -31,11 +29,12 @@ export interface OpportunitySalary {
 
 export interface OpportunityItem {
   id: string;
+  sourceId?: string;
   title: string;
   description: string;
   excerpt: string;
   issueState: "open" | "closed";
-  repository: RepositoryConfig["repository"];
+  repository: string;
   repositoryUrl: string;
   region: string;
   country: string;
