@@ -2,8 +2,8 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { Copy, Mail } from "lucide-react";
 import Image from "next/image";
-import { useTheme } from "next-themes";
 import { toast } from "sonner";
+import { useTheme } from "@/components/providers/theme-provider";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils/tailwind";
 import type { FooterBottomProps } from "../types";
@@ -87,8 +87,8 @@ export function FooterBottom({
             src={signatureLogoSrc}
             alt="openings.dev logo"
             width={72}
-            height={72}
-            className="bg-card"
+            height={15}
+            className="h-auto w-[72px] bg-card"
           />
         </a>
       </div>

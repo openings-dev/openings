@@ -9,8 +9,8 @@ interface FilterSectionProps {
 
 export function FilterSection({ label, className, children }: FilterSectionProps) {
   return (
-    <section className={cn("space-y-2.5 rounded-lg bg-muted/20 p-3", className)}>
-      <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-muted-foreground/70">
+    <section className={cn("space-y-2.5 border-t border-border/65 pt-4 first:border-t-0 first:pt-0", className)}>
+      <p className="text-[10px] font-semibold uppercase tracking-[0.11em] text-foreground/72">
         {label}
       </p>
       {children}

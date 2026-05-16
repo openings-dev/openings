@@ -2,7 +2,9 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
+import { ExternalLink } from "lucide-react";
 import { useI18n } from "@/components/providers/i18n-provider";
+import { GithubIcon } from "@/components/icons/github";
 import { AVAILABLE_LOCALES } from "@/lib/constants/locales";
 import { cn } from "@/lib/utils/tailwind";
 import { BrandLogo } from "./brand-logo";
@@ -55,13 +57,12 @@ export function Header({
       className={cn(headerStyles({ position }), className)}
     >
       <div className={headerContainerStyles()}>
-        <div className="flex items-center gap-6">
-          <BrandLogo href={logoHref} brandName={messages.header.brandName} />
-          <HeaderNav items={navItems} />
-        </div>
+        <BrandLogo href={logoHref} brandName={messages.header.brandName} />
+        <HeaderNav items={navItems} />
         <div className={headerActionsStyles()}>
           <ThemeToggle />
           <LanguageSwitcher
+            className="hidden xl:block"
             locale={activeLocale}
             locales={availableLocales}
             placeholder={messages.header.languagePlaceholder}
@@ -69,6 +70,17 @@ export function Header({
             changedTemplate={messages.header.languageChanged}
             onLocaleChange={handleLocaleChange}
           />
+          <a
+            href="https://github.com/openings-dev/openings"
+            target="_blank"
+            rel="noreferrer"
+            className="hidden h-9 items-center gap-1.5 rounded-md px-2.5 text-sm font-medium text-foreground/82 transition-colors hover:bg-muted/55 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background lg:inline-flex"
+            aria-label={messages.footer.social.githubAriaLabel}
+          >
+            <GithubIcon className="size-4" />
+            <span>GitHub</span>
+            <ExternalLink className="size-3.5" />
+          </a>
         </div>
       </div>
     </motion.header>

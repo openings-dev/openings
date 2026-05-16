@@ -43,7 +43,7 @@ export function DrawerAction({
     <div className={cn("grid gap-2 pt-1 sm:grid-cols-2", className)}>
       <Button
         type="button"
-        className="w-full"
+        className="w-full rounded-md shadow-[0_14px_36px_-24px_rgb(0_0_0/0.75)]"
         onClick={() => window.open(url, "_blank", "noopener,noreferrer")}
       >
         <ExternalLink className="size-4" />
@@ -53,7 +53,7 @@ export function DrawerAction({
         <Button
           type="button"
           variant="outline"
-          className="w-full"
+          className="w-full rounded-md border-primary/25 bg-background/45 text-foreground hover:bg-primary/8"
           onClick={handleShare}
         >
           <Share2 className="size-4" />

@@ -28,7 +28,7 @@ export function OpportunityCardFooter({
   }
 
   return (
-    <div className="mt-auto flex items-center gap-3 border-t border-border/50 pt-2.5">
+    <div className="mt-auto flex items-center justify-between gap-3 border-t border-border/60 pt-3">
       {showCommunityIdentity ? (
         <button
           type="button"

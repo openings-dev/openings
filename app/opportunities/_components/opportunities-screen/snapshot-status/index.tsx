@@ -54,25 +54,25 @@ export function SnapshotStatus({ totalCount, lastUpdatedAt }: SnapshotStatusProp
   return (
     <section className={opportunitiesSnapshotStatusStyles()} aria-label={statusMessages.ariaLabel}>
       <div className="flex flex-wrap items-center gap-3">
-        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/35 bg-primary/10 text-primary">
+        <span className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-primary/30 bg-primary/10 text-primary">
           <Activity className="size-4" />
         </span>
 
-        <div className="min-w-0 flex-1">
-          <p className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+        <div className="grid min-w-0 flex-1 gap-x-4 gap-y-1 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-muted-foreground">
             {statusMessages.title}
           </p>
-          <p className="text-xl font-semibold tracking-[-0.02em] text-foreground sm:text-2xl">
+          <p className="text-sm font-semibold text-foreground sm:justify-self-end">
             {formatTemplate(statusMessages.opportunitiesFound, {
               count: totalCount.toLocaleString(locale),
             })}
           </p>
-          <p className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">
+          <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
             <Clock3 className="size-3.5 shrink-0" />
             {relativeStatus}
           </p>
           {absoluteStatus ? (
-            <p className="mt-0.5 text-xs text-muted-foreground/80">
+            <p className="text-xs text-muted-foreground/75 sm:justify-self-end">
               {absoluteStatus}
             </p>
           ) : null}

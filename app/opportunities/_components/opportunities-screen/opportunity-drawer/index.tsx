@@ -67,18 +67,19 @@ export function OpportunityDrawer({
           onCommunitySelect={onCommunitySelect}
           onAuthorSelect={onAuthorSelect}
         />
-        <DrawerAction
-          openOriginalLabel={cardMessages.openOriginal}
-          shareLabel={cardMessages.share}
-          shareCopiedLabel={cardMessages.shareCopied}
-          shareFailedLabel={cardMessages.shareFailed}
-          shareUrl={shareUrl}
-          url={item.url}
-        />
         <DrawerTags tags={item.tags} />
         <OpportunityMarkdown body={item.description} />
         <DrawerMetadata postedAt={postedAt} updatedAt={updatedAt} repository={item.community.repository} country={item.country} companyName={item.companyName} salaryLabel={salaryLabel} />
       </div>
+      <DrawerAction
+        openOriginalLabel={cardMessages.openOriginal}
+        shareLabel={cardMessages.share}
+        shareCopiedLabel={cardMessages.shareCopied}
+        shareFailedLabel={cardMessages.shareFailed}
+        shareUrl={shareUrl}
+        url={item.url}
+        className="border-t border-border/70 bg-card/58 px-4 py-4"
+      />
     </div>
   );
 

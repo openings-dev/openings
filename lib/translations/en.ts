@@ -10,7 +10,7 @@ export const enTranslations: TranslationMessages = {
     brandName: "openings.dev",
     brandTagline: "Tech jobs from GitHub communities",
     nav: {
-      discover: "Discover",
+      discover: "Jobs",
       communities: "Communities",
       users: "Users",
     },
@@ -85,9 +85,9 @@ export const enTranslations: TranslationMessages = {
   opportunities: {
     header: {
       kicker: "Opportunity Explorer",
-      title: "Discover premium tech openings",
+      title: "Tech jobs straight from GitHub.",
       description:
-        "Search communities and repositories with high-signal filters, switch between compact list and grid views, and review opportunities with GitHub-like clarity and refined visual density.",
+        "Discover opportunities in trusted community projects with fast filters and a cleaner reading flow.",
     },
     feedback: {
       filtersReset: "Filters reset",

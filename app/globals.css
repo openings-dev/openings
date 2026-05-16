@@ -1,32 +1,32 @@
 @import "tailwindcss";
 
 :root {
-  --background: oklch(0.985 0.004 250);
-  --foreground: oklch(0.22 0.008 255);
-  --card: oklch(0.995 0.002 250);
-  --card-foreground: oklch(0.22 0.008 255);
-  --muted: oklch(0.965 0.004 250);
-  --muted-foreground: oklch(0.52 0.012 255);
-  --border: oklch(0.92 0.004 250);
-  --input: oklch(0.92 0.004 250);
-  --ring: oklch(0.56 0.03 255);
-  --primary: oklch(0.26 0.024 257);
-  --primary-foreground: oklch(0.98 0.002 250);
-  --radius: 0.75rem;
+  --background: oklch(0.985 0.006 70);
+  --foreground: oklch(0.2 0.035 45);
+  --card: oklch(0.995 0.004 70);
+  --card-foreground: oklch(0.2 0.035 45);
+  --muted: oklch(0.955 0.009 70);
+  --muted-foreground: oklch(0.52 0.022 48);
+  --border: oklch(0.89 0.012 70);
+  --input: oklch(0.89 0.012 70);
+  --ring: oklch(0.45 0.085 42);
+  --primary: oklch(0.28 0.08 42);
+  --primary-foreground: oklch(0.985 0.004 70);
+  --radius: 0.625rem;
 }
 
 .dark {
-  --background: oklch(0.17 0.008 255);
-  --foreground: oklch(0.94 0.006 255);
-  --card: oklch(0.2 0.01 255);
-  --card-foreground: oklch(0.94 0.006 255);
-  --muted: oklch(0.24 0.01 255);
-  --muted-foreground: oklch(0.72 0.012 255);
-  --border: oklch(0.33 0.01 255 / 0.7);
-  --input: oklch(0.33 0.01 255 / 0.7);
-  --ring: oklch(0.74 0.02 255);
-  --primary: oklch(0.92 0.008 255);
-  --primary-foreground: oklch(0.2 0.01 255);
+  --background: oklch(0.145 0.012 245);
+  --foreground: oklch(0.955 0.006 70);
+  --card: oklch(0.18 0.012 245);
+  --card-foreground: oklch(0.955 0.006 70);
+  --muted: oklch(0.23 0.013 245);
+  --muted-foreground: oklch(0.72 0.014 70);
+  --border: oklch(0.31 0.018 245 / 0.78);
+  --input: oklch(0.34 0.018 245 / 0.78);
+  --ring: oklch(0.72 0.085 62);
+  --primary: oklch(0.72 0.12 62);
+  --primary-foreground: oklch(0.16 0.014 245);
 }
 
 @theme inline {
@@ -56,9 +56,14 @@
 body {
   background:
     radial-gradient(
-      120% 90% at 50% 0%,
-      color-mix(in oklab, var(--muted) 45%, transparent) 0%,
-      transparent 60%
+      95% 70% at 50% -10%,
+      color-mix(in oklab, var(--primary) 9%, transparent) 0%,
+      transparent 58%
+    ),
+    radial-gradient(
+      75% 55% at 5% 12%,
+      color-mix(in oklab, var(--muted) 42%, transparent) 0%,
+      transparent 64%
     ),
     var(--background);
   color: var(--foreground);
@@ -71,6 +76,10 @@ body {
     -apple-system,
     sans-serif;
   text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--primary) 22%, transparent);
 }
 
 a[href],

@@ -10,7 +10,7 @@ export const ptTranslations: TranslationMessages = {
     brandName: "openings.dev",
     brandTagline: "Inteligência de vagas movida por comunidades",
     nav: {
-      discover: "Descobrir",
+      discover: "Vagas",
       communities: "Comunidades",
       users: "Usuários",
     },
@@ -85,9 +85,9 @@ export const ptTranslations: TranslationMessages = {
   opportunities: {
     header: {
       kicker: "Explorador de vagas",
-      title: "Descubra vagas premium em tecnologia",
+      title: "Vagas de tecnologia direto do GitHub.",
       description:
-        "Pesquise comunidades e repositórios com filtros de alto sinal, alterne entre visualização em lista e grid, e analise oportunidades com clareza no estilo GitHub e acabamento refinado.",
+        "Descubra oportunidades em projetos confiáveis da comunidade, com filtros rápidos e uma leitura mais limpa.",
     },
     feedback: {
       filtersReset: "Filtros redefinidos",

@@ -15,18 +15,18 @@ export function DrawerHeader({
   onClose,
 }: DrawerHeaderProps) {
   return (
-    <div className="flex items-start justify-between gap-3 border-b border-border/70 px-4 py-3">
+    <div className="flex items-start justify-between gap-3 border-b border-border/70 bg-card/52 px-4 py-4">
       <div className="space-y-1">
-        <p className="text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.13em] text-primary/80">
           {detailsLabel}
         </p>
-        <h2 className="text-base font-semibold tracking-[-0.02em] text-foreground">{title}</h2>
+        <h2 className="text-lg font-semibold leading-snug text-foreground">{title}</h2>
       </div>
       <Button
         type="button"
         variant="ghost"
         size="icon"
-        className="size-8 shrink-0"
+        className="size-8 shrink-0 rounded-md text-muted-foreground hover:text-foreground"
         onClick={onClose}
         aria-label={closeLabel}
       >

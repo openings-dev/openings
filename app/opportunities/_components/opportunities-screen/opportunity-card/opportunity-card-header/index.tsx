@@ -12,10 +12,10 @@ export function OpportunityCardHeader({
 }: OpportunityCardHeaderProps) {
   return (
     <div className="space-y-1.5">
-      <p className="text-base font-semibold tracking-[-0.01em] text-foreground">
+      <p className="text-base font-semibold leading-snug text-foreground">
         {title}
       </p>
-      <div className="line-clamp-2 max-w-[62ch] text-sm leading-6 text-muted-foreground">
+      <div className="line-clamp-2 max-w-[62ch] text-sm leading-6 text-muted-foreground/88">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           components={{

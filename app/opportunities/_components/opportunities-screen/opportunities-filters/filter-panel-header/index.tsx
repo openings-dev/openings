@@ -26,10 +26,10 @@ export function FilterPanelHeader({
   return (
     <div className="flex flex-wrap items-center justify-between gap-3">
       <div className="flex items-center gap-2">
-        <SlidersHorizontal className="size-3.5 text-muted-foreground" />
-        <h2 className="text-sm font-medium text-foreground">{title}</h2>
+        <SlidersHorizontal className="size-3.5 text-primary" />
+        <h2 className="text-sm font-semibold text-foreground">{title}</h2>
         {activeFiltersCount > 0 ? (
-          <span className="inline-flex items-center rounded-full bg-foreground/10 px-1.5 py-0.5 text-[10px] font-semibold tabular-nums text-foreground/80">
+          <span className="inline-flex items-center rounded-full bg-primary/12 px-1.5 py-0.5 text-[10px] font-semibold tabular-nums text-primary">
             {activeFiltersCount}
           </span>
         ) : null}

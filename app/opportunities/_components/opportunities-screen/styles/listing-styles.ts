@@ -13,12 +13,12 @@ export const resultsGridStyles = cva("grid gap-2.5", {
 });
 
 export const opportunityCardStyles = cva(
-  "group relative h-full rounded-xl border border-border/60 bg-card/70 p-4 text-left transition-all duration-150 hover:border-border/90 hover:bg-card/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card",
+  "group relative h-full rounded-lg border border-border/70 bg-card/46 p-4 text-left shadow-[0_20px_80px_-68px_rgb(0_0_0/0.65)] backdrop-blur transition-all duration-150 hover:-translate-y-0.5 hover:border-primary/28 hover:bg-card/72 hover:shadow-[0_26px_90px_-64px_rgb(0_0_0/0.72)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card",
   {
     variants: {
       viewMode: { list: "", grid: "" },
       selected: {
-        true: "border-primary/30 bg-primary/5 hover:border-primary/40",
+        true: "border-primary/45 bg-primary/10 hover:border-primary/55",
         false: "",
       },
     },
@@ -34,5 +34,5 @@ export const metadataRowStyles = cva(
 );
 
 export const cardPersonButtonStyles = cva(
-  "-mx-1.5 -my-1 flex items-center gap-2.5 rounded-md px-1.5 py-1 transition-colors hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card",
+  "-mx-1.5 -my-1 flex items-center gap-2.5 rounded-md px-1.5 py-1 transition-colors hover:bg-muted/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card",
 );

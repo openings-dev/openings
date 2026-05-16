@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const headerStyles = cva(
-  "z-40 w-full border-b border-border/40 bg-background/70 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60",
+  "z-40 w-full border-b border-border/65 bg-background/82 backdrop-blur-2xl supports-[backdrop-filter]:bg-background/72",
   {
     variants: {
       position: {
@@ -16,9 +16,9 @@ export const headerStyles = cva(
 );
 
 export const headerContainerStyles = cva(
-  "mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8",
+  "mx-auto grid h-16 w-full max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-3 px-4 sm:px-6 lg:px-8",
 );
 
 export const headerActionsStyles = cva(
-  "flex items-center justify-end gap-2 sm:gap-3",
+  "flex min-w-0 items-center justify-end gap-1.5 sm:gap-2.5",
 );
