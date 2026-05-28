@@ -45,6 +45,7 @@ export function Footer({
       links: [
         { label: footerMessages.links.overview, href: "/overview" },
         { label: footerMessages.links.communities, href: "/community" },
+        { label: footerMessages.links.maintainers, href: "/docs/maintainers" },
         { label: footerMessages.links.users, href: "/users" },
         { label: footerMessages.links.apiReference, href: "/docs/api" },
         {

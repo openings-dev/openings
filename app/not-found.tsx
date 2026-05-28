@@ -3,7 +3,6 @@
 import * as React from "react";
 import Link from "next/link";
 import {
-  buildCommunityPath,
   buildOpportunityPath,
   buildUserPath,
 } from "@/lib/opportunities/routing";
@@ -26,11 +25,6 @@ function resolveLegacyRedirect(pathname: string) {
 
   if (scope === "users" && rest[0]) {
     return buildUserPath(safeDecode(rest[0]));
-  }
-
-  if (scope === "community" && rest.length > 0) {
-    const repository = rest.map(safeDecode).join("/");
-    return buildCommunityPath(repository);
   }
 
   return null;

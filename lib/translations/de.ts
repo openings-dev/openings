@@ -214,6 +214,7 @@ export const deTranslations: TranslationMessages = {
       communities: "Communities",
       users: "Nutzer",
       apiReference: "API-Referenz",
+      maintainers: "Für Maintainer",
       status: "Status",
       github: "GitHub",
       contributing: "Mitwirken",
@@ -236,6 +237,11 @@ export const deTranslations: TranslationMessages = {
       title: "API-Referenz",
       description:
         "Zentrale Endpunkte, Filter und Antwortformate der öffentlichen Jobs-API.",
+    },
+    maintainers: {
+      title: "Für Maintainer",
+      description:
+        "Kanonische Links, README-Snippets, Badges und Outreach-Texte für gelistete Communities.",
     },
     contributing: {
       title: "Mitwirken",

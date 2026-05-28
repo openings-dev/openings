@@ -207,6 +207,7 @@ export interface TranslationMessages {
       communities: string;
       users: string;
       apiReference: string;
+      maintainers: string;
       status: string;
       github: string;
       contributing: string;
@@ -222,6 +223,7 @@ export interface TranslationMessages {
     sourceLabel: string;
     overview: DocumentMessages;
     apiReference: DocumentMessages;
+    maintainers: DocumentMessages;
     contributing: DocumentMessages;
     privacy: DocumentMessages;
     terms: DocumentMessages;

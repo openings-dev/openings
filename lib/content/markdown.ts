@@ -7,6 +7,7 @@ import {
 export type ProjectDocumentKey =
   | "overview"
   | "api-reference"
+  | "maintainers"
   | "contributing"
   | "privacy"
   | "terms";
@@ -67,6 +68,32 @@ const PROJECT_DOCUMENT_PATH = {
     de: {
       url: new URL("../../docs/api-reference/API_REFERENCE.de.md", import.meta.url),
       displayPath: "docs/api-reference/API_REFERENCE.de.md",
+    },
+  },
+  maintainers: {
+    en: {
+      url: new URL("../../MAINTAINERS.md", import.meta.url),
+      displayPath: "MAINTAINERS.md",
+    },
+    pt: {
+      url: new URL("../../docs/maintainers/MAINTAINERS.pt.md", import.meta.url),
+      displayPath: "docs/maintainers/MAINTAINERS.pt.md",
+    },
+    es: {
+      url: new URL("../../docs/maintainers/MAINTAINERS.es.md", import.meta.url),
+      displayPath: "docs/maintainers/MAINTAINERS.es.md",
+    },
+    it: {
+      url: new URL("../../docs/maintainers/MAINTAINERS.it.md", import.meta.url),
+      displayPath: "docs/maintainers/MAINTAINERS.it.md",
+    },
+    fr: {
+      url: new URL("../../docs/maintainers/MAINTAINERS.fr.md", import.meta.url),
+      displayPath: "docs/maintainers/MAINTAINERS.fr.md",
+    },
+    de: {
+      url: new URL("../../docs/maintainers/MAINTAINERS.de.md", import.meta.url),
+      displayPath: "docs/maintainers/MAINTAINERS.de.md",
     },
   },
   contributing: {

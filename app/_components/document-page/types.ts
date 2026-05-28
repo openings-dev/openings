@@ -3,6 +3,7 @@ import type { LocaleCode } from "@/lib/constants/locales";
 export type DocumentPageKey =
   | "overview"
   | "apiReference"
+  | "maintainers"
   | "contributing"
   | "privacy"
   | "terms";

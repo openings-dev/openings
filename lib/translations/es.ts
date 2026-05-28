@@ -216,6 +216,7 @@ export const esTranslations: TranslationMessages = {
       communities: "Comunidades",
       users: "Usuarios",
       apiReference: "Referencia de API",
+      maintainers: "Para mantenedores",
       status: "Estado",
       github: "GitHub",
       contributing: "Contribuir",
@@ -238,6 +239,11 @@ export const esTranslations: TranslationMessages = {
       title: "Referencia de API",
       description:
         "Endpoints principales, filtros y contratos de respuesta de la API pública de empleos.",
+    },
+    maintainers: {
+      title: "Para mantenedores",
+      description:
+        "Enlaces canonicos, snippets de README, badges y mensajes de divulgacion para comunidades listadas.",
     },
     contributing: {
       title: "Contribuir",
