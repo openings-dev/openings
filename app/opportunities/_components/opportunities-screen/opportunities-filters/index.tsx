@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useI18n } from "@/components/providers/i18n-provider";
+import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
 import { panelStyles } from "@/app/opportunities/_components/opportunities-screen/styles";
 import type { OpportunitiesFiltersProps } from "@/app/opportunities/_components/opportunities-screen/types";
 import { FilterFields } from "./filter-fields";

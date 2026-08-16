@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useI18n } from "@/components/providers/i18n-provider";
+import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
 import { buildOpportunityPath } from "@/lib/opportunities/routing";
 import { formatSalary } from "@/app/opportunities/_components/opportunities-screen/shared/format-salary";
 import { formatTemplate } from "@/lib/utils/format-template";

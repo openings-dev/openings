@@ -3,7 +3,7 @@
 import { DirectoryScreenLayout } from "@/app/_components/directory/directory-screen-layout";
 import { LocationFiltersPanel } from "@/app/_components/location-filters/location-filters-panel";
 import { useLocationFilters } from "@/app/_components/location-filters/use-location-filters";
-import { useI18n } from "@/components/providers/i18n-provider";
+import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
 import { UsersList } from "./users-list";
 import type { UsersScreenProps } from "./types";
 

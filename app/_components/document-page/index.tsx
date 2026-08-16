@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@/components/providers/i18n-provider";
+import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
 import { cn } from "@/lib/utils/tailwind";
 import { DEFAULT_LOCALE } from "@/lib/constants/locales";
 import { DocumentMarkdown } from "./document-markdown";

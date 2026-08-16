@@ -1,7 +1,7 @@
 import * as React from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useResponsiveFilterPanel } from "@/app/_hooks/use-responsive-filter-panel";
-import { useI18n } from "@/components/providers/i18n-provider";
+import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
 import { fetchOpportunityById } from "@/lib/opportunities/api";
 import { DEFAULT_FILTERS } from "./defaults";
 import { buildServerFilters } from "./server-filters";

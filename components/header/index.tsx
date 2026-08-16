@@ -3,7 +3,7 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
-import { useI18n } from "@/components/providers/i18n-provider";
+import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
 import { GithubIcon } from "@/components/icons/github";
 import { AVAILABLE_LOCALES } from "@/lib/constants/locales";
 import { cn } from "@/lib/utils/tailwind";

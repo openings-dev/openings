@@ -1,7 +1,7 @@
 "use client";
 
 import { LayoutGrid, Rows3 } from "lucide-react";
-import { useI18n } from "@/components/providers/i18n-provider";
+import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
 import { cn } from "@/lib/utils/tailwind";
 import {
   toggleGroupStyles,

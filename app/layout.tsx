@@ -3,6 +3,7 @@ import { AppShell } from "@/app/_components/app-shell";
 import { I18nProvider } from "@/components/providers/i18n-provider";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { Theme } from "@/components/providers/theme-provider/types";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
@@ -53,12 +54,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-background text-foreground">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider defaultTheme={Theme.System} enableSystem>
           <I18nProvider>
             <AppShell>{children}</AppShell>
           </I18nProvider>

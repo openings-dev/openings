@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useI18n } from "@/components/providers/i18n-provider";
+import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
 import { GithubIcon } from "@/components/icons/github";
 import { cn } from "@/lib/utils/tailwind";
 import { FooterBottom } from "./footer-bottom";

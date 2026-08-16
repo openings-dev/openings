@@ -2,7 +2,8 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { MoonStar, SunMedium } from "lucide-react";
-import { useTheme } from "@/components/providers/theme-provider";
+import { useTheme } from "@/components/providers/theme-provider/use-theme";
+import { ResolvedTheme, Theme } from "@/components/providers/theme-provider/types";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils/tailwind";
 import type { ThemeToggleProps } from "../types";
@@ -10,8 +11,8 @@ import { themeToggleButtonStyles, themeToggleWrapperStyles } from "./styles";
 
 export function ThemeToggle({ className }: ThemeToggleProps) {
   const { resolvedTheme, setTheme } = useTheme();
-  const isDark = resolvedTheme === "dark";
-  const nextTheme = isDark ? "light" : "dark";
+  const isDark = resolvedTheme === ResolvedTheme.Dark;
+  const nextTheme = isDark ? Theme.Light : Theme.Dark;
   const ariaLabel = isDark ? "Switch to light mode" : "Switch to dark mode";
 
   return (

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useI18n } from "@/components/providers/i18n-provider";
+import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
 import { panelStyles, resultsGridStyles } from "@/app/opportunities/_components/opportunities-screen/styles";
 import { formatTemplate } from "@/lib/utils/format-template";
 import { cn } from "@/lib/utils/tailwind";

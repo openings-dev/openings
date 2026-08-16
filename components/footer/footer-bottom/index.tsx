@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import { Copy, Mail } from "lucide-react";
 import Image from "next/image";
 import { toast } from "sonner";
-import { useTheme } from "@/components/providers/theme-provider";
+import { useTheme } from "@/components/providers/theme-provider/use-theme";
+import { ResolvedTheme } from "@/components/providers/theme-provider/types";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils/tailwind";
 import type { FooterBottomProps } from "../types";
@@ -42,7 +43,7 @@ export function FooterBottom({
   }, [supportEmail, supportEmailCopiedMessage, supportEmailCopyErrorMessage]);
 
   const signatureLogoSrc =
-    resolvedTheme === "dark"
+    resolvedTheme === ResolvedTheme.Dark
       ? "/trebla-solid-white-logo-inline.svg"
       : "/trebla-solid-primary-logo-inline.svg";
 
