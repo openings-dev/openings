@@ -16,9 +16,9 @@
 - Inspect: `app/globals.css`, `app/layout.tsx`, `components/**`, `app/**/_components/**`
 - Create: `specs/evidence/15_visual_baseline.md`
 
-- [ ] **Step 1:** Record current font families, type sizes, semantic colors, radii, shadows, gradients, widths, gutters, and breakpoints.
-- [ ] **Step 2:** Record light/dark treatment and every shared interactive state: hover, focus, active, selected, disabled, loading, empty, and error.
-- [ ] **Step 3:** Map each route to its shell, page header, filters, primary content, details surface, and footer.
+- [x] **Step 1:** Record current font families, type sizes, semantic colors, radii, shadows, gradients, widths, gutters, and breakpoints.
+- [x] **Step 2:** Record light/dark treatment and every shared interactive state: hover, focus, active, selected, disabled, loading, empty, and error.
+- [x] **Step 3:** Map each route to its shell, page header, filters, primary content, details surface, and footer.
 
 ### Task 2: Record behavior and content invariants
 
@@ -26,7 +26,7 @@
 - Compare: `specs/evidence/01_baseline.md`, `specs/evidence/13_final_verification.md`
 - Modify: `specs/evidence/15_visual_baseline.md`
 
-- [ ] **Step 1:** Preserve 148 generated pages, public-data contracts, six locales, themes, query keys, drawer behavior, filters, sorting, pagination, and redirects.
-- [ ] **Step 2:** Record required responsive review states at 375, 768, 1024, and 1440 CSS pixels.
-- [ ] **Step 3:** Run `npm run lint`; expect exit code 0.
-- [ ] **Step 4:** Commit with `docs: record visual refinement baseline`.
+- [x] **Step 1:** Preserve 148 generated pages, public-data contracts, six locales, themes, query keys, drawer behavior, filters, sorting, pagination, and redirects.
+- [x] **Step 2:** Record required responsive review states at 375, 768, 1024, and 1440 CSS pixels.
+- [x] **Step 3:** Run `npm run lint`; expect exit code 0.
+- [x] **Step 4:** Commit with `docs: record visual refinement baseline`.
