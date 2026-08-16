@@ -8,14 +8,6 @@ import { ResolvedTheme } from "@/components/providers/theme-provider/types";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils/tailwind";
 import type { FooterBottomProps } from "../types";
-import {
-  footerBottomActionsStyles,
-  footerBottomMetaStackStyles,
-  footerBottomRootStyles,
-  footerBottomTextStyles,
-  footerSignatureStyles,
-  footerSupportButtonStyles,
-} from "../styles";
 
 export function FooterBottom({
   className,
@@ -53,21 +45,21 @@ export function FooterBottom({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      className={cn(footerBottomRootStyles(), className)}
+      className={cn("flex flex-col gap-4 border-t border-border/70 pt-6 sm:flex-row sm:items-center sm:justify-between", className)}
     >
-      <div className={footerBottomMetaStackStyles()}>
-        <p className={footerBottomTextStyles()}>{copyrightText}</p>
-        <p className={footerBottomTextStyles()}>{supportText}</p>
+      <div className="space-y-1">
+        <p className="text-sm text-muted-foreground">{copyrightText}</p>
+        <p className="text-sm text-muted-foreground">{supportText}</p>
       </div>
 
-      <div className={footerBottomActionsStyles()}>
+      <div className="flex flex-wrap items-center gap-2 sm:justify-end">
         {supportEmail ? (
           <Button
             type="button"
             variant="ghost"
             size="sm"
             onClick={handleCopySupportEmail}
-            className={footerSupportButtonStyles()}
+            className="h-8 rounded-md border border-border/70 bg-background/70 px-3 text-xs font-medium text-muted-foreground shadow-sm transition-colors hover:bg-background hover:text-foreground dark:bg-background/20 dark:hover:bg-background/35"
             aria-label={supportEmailButtonLabel}
           >
             <Mail className="size-3.5" aria-hidden="true" />
@@ -82,7 +74,7 @@ export function FooterBottom({
           rel="noopener noreferrer"
           className="flex items-center gap-2 cursor-pointer"
         >
-          <p className={footerSignatureStyles()}>{signature}</p>
+          <p className="text-sm font-medium tracking-[-0.01em] text-foreground/90">{signature}</p>
 
           <Image
             src={signatureLogoSrc}

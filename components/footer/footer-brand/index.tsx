@@ -5,15 +5,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils/tailwind";
 import type { FooterBrandProps } from "../types";
 import {
-  footerBrandAnchorStyles,
-  footerBrandDescriptionStyles,
-  footerBrandMarkStyles,
-  footerBrandRootStyles,
-  footerBrandTaglineStyles,
-  footerBrandTextStyles,
-  footerBrandTitleStyles,
   footerSocialButtonStyles,
-  footerSocialListStyles,
 } from "../styles";
 
 export function FooterBrand({
@@ -32,10 +24,10 @@ export function FooterBrand({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.35 }}
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className={cn(footerBrandRootStyles(), className)}
+      className={cn("space-y-5", className)}
     >
-      <Link href={href} className={footerBrandAnchorStyles()}>
-        <span className={footerBrandMarkStyles()}>
+      <Link href={href} className="inline-flex items-center gap-3 rounded-lg px-1 py-1 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted">
+        <span className="relative size-9 overflow-hidden rounded-[10px] border border-border/70 bg-card shadow-[0_1px_2px_rgb(0_0_0/0.06)]">
           <Image
             src={lightLogoSrc}
             alt={`${brandName} light logo`}
@@ -51,15 +43,15 @@ export function FooterBrand({
             className="hidden object-contain dark:block"
           />
         </span>
-        <span className={footerBrandTextStyles()}>
-          <span className={footerBrandTitleStyles()}>{brandName}</span>
-          <span className={footerBrandTaglineStyles()}>{brandTagline}</span>
+        <span className="flex flex-col leading-none">
+          <span className="text-sm font-semibold tracking-[-0.02em] text-foreground">{brandName}</span>
+          <span className="text-xs text-muted-foreground">{brandTagline}</span>
         </span>
       </Link>
 
-      <p className={footerBrandDescriptionStyles()}>{description}</p>
+      <p className="max-w-sm text-sm leading-6 text-muted-foreground">{description}</p>
 
-      <ul className={footerSocialListStyles()} aria-label="Social links">
+      <ul className="flex items-center gap-2" aria-label="Social links">
         {socialLinks.map((socialLink, index) => {
           const Icon = socialLink.icon;
           const isExternal = socialLink.external ?? true;

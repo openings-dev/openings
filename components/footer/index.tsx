@@ -7,13 +7,6 @@ import { cn } from "@/lib/utils/tailwind";
 import { FooterBottom } from "./footer-bottom";
 import { FooterBrand } from "./footer-brand";
 import { FooterLinks } from "./footer-links";
-import {
-  footerContainerStyles,
-  footerMainGridStyles,
-  footerRootStyles,
-  footerSurfaceStyles,
-  footerTopDividerStyles,
-} from "./styles";
 import type { FooterLinkGroup, FooterProps, FooterSocialLink } from "./types";
 
 export function Footer({
@@ -118,17 +111,17 @@ export function Footer({
       .replace("{brand}", brandName);
 
   return (
-    <footer className={cn(footerRootStyles(), className)}>
-      <span className={footerTopDividerStyles()} aria-hidden="true" />
-      <span className={footerSurfaceStyles()} aria-hidden="true" />
+    <footer className={cn("relative mt-20 border-t border-border/40 bg-background text-foreground dark:bg-background", className)}>
+      <span className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border/60 to-transparent" aria-hidden="true" />
+      <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_140%_at_100%_0%,rgba(148,163,184,0.08)_0%,transparent_50%)] dark:bg-[radial-gradient(120%_150%_at_100%_0%,rgba(255,255,255,0.03)_0%,transparent_50%)]" aria-hidden="true" />
 
-      <div className={footerContainerStyles()}>
+      <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 pb-8 pt-12 sm:px-6 sm:pt-14 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className={footerMainGridStyles()}
+          className="grid gap-10 md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.65fr)] md:gap-8 lg:gap-10"
         >
           <FooterBrand
             href={brandHref}
