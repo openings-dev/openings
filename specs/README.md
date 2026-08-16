@@ -28,8 +28,8 @@ Before each specification, confirm the previous one is complete and read the rel
 | 13 | [Cleanup and final verification](13_cleanup_and_final_verification.md) | 12 | Complete |
 | 14 | [Calm Professional visual refinement design](14_visual_refinement_design.md) | 13 | Complete |
 | 15 | [Visual baseline and audit](15_visual_baseline_and_audit.md) | 14 | Complete |
-| 16 | [Visual foundations](16_visual_foundations.md) | 15 | In progress |
-| 17 | [Shared controls and states](17_shared_controls_and_states.md) | 16 | Ready |
+| 16 | [Visual foundations](16_visual_foundations.md) | 15 | Complete |
+| 17 | [Shared controls and states](17_shared_controls_and_states.md) | 16 | In progress |
 | 18 | [Shell, navigation, headers, and footer](18_shell_navigation_headers_and_footer.md) | 17 | Ready |
 | 19 | [Opportunity filters and toolbar](19_opportunity_filters_and_toolbar.md) | 17, 18 | Ready |
 | 20 | [Opportunity results and cards](20_opportunity_results_and_cards.md) | 16, 17, 19 | Ready |
