@@ -18,10 +18,10 @@ export function DrawerIdentities({
   onAuthorSelect,
 }: DrawerIdentitiesProps) {
   return (
-    <div className="space-y-2 rounded-lg border border-border/70 bg-background/45 p-3">
+    <div className="space-y-1 rounded-xl bg-surface p-2">
       <button
         type="button"
-        className="flex w-full items-center gap-3 rounded-md p-1 text-left transition-colors hover:bg-muted/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="flex w-full items-center gap-3 rounded-lg p-2 text-left transition-colors hover:bg-surface-elevated focus-visible:outline-none"
         onClick={() => onCommunitySelect(item.repository)}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -38,7 +38,7 @@ export function DrawerIdentities({
 
       <button
         type="button"
-        className="flex w-full items-center gap-3 rounded-md p-1 text-left transition-colors hover:bg-muted/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="flex w-full items-center gap-3 rounded-lg p-2 text-left transition-colors hover:bg-surface-elevated focus-visible:outline-none"
         onClick={() => onAuthorSelect(item.author.handle)}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -18,9 +18,9 @@ export function DrawerMobileSheet({
     <AnimatePresence>
       {open ? (
         <motion.div className="fixed inset-0 z-50 lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          <button type="button" aria-label={closeLabel} className="absolute inset-0 bg-black/45" onClick={onClose} />
+          <button type="button" aria-label={closeLabel} className="absolute inset-0 bg-black/55 backdrop-blur-[2px]" onClick={onClose} />
           <motion.div
-            className="absolute inset-x-0 bottom-0 max-h-[86dvh] overflow-hidden rounded-t-2xl border border-border/70 bg-card"
+            className="absolute inset-x-0 bottom-0 max-h-[88dvh] overflow-hidden rounded-t-3xl border border-border/80 bg-surface-elevated pb-[env(safe-area-inset-bottom)] shadow-soft-lg"
             initial={{ y: 32, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 24, opacity: 0 }}
@@ -28,6 +28,7 @@ export function DrawerMobileSheet({
             role="dialog"
             aria-modal="true"
           >
+            <div className="mx-auto mt-2 h-1 w-10 rounded-full bg-border" aria-hidden />
             {children}
           </motion.div>
         </motion.div>

@@ -59,7 +59,7 @@ export function OpportunityDrawer({
   const content = (
     <div className="flex h-full flex-col">
       <DrawerHeader title={item.title} detailsLabel={cardMessages.detailsLabel} closeLabel={cardMessages.closeDetails} onClose={onClose} />
-      <div className="flex-1 space-y-5 overflow-y-auto px-4 py-4">
+      <div className="flex-1 space-y-6 overflow-y-auto px-5 py-5 overscroll-contain">
         <DrawerIdentities
           item={item}
           communityAvatarAltTemplate={cardMessages.communityAvatarAlt}
@@ -78,14 +78,14 @@ export function OpportunityDrawer({
         shareFailedLabel={cardMessages.shareFailed}
         shareUrl={shareUrl}
         url={item.url}
-        className="border-t border-border/70 bg-card/58 px-4 py-4"
+        className="border-t border-border/70 bg-surface-elevated/95 px-5 py-4 backdrop-blur"
       />
     </div>
   );
 
   return (
     <>
-      <aside className={cn(panelStyles, "hidden overflow-hidden p-0 lg:sticky lg:top-20 lg:block lg:max-h-[calc(100dvh-6rem)]")}>
+      <aside className={cn(panelStyles, "hidden overflow-hidden p-0 shadow-soft-lg lg:sticky lg:top-20 lg:block lg:max-h-[calc(100dvh-6rem)]")}>
         {content}
       </aside>
       <DrawerMobileSheet open={open} closeLabel={cardMessages.closeDetails} onClose={onClose}>

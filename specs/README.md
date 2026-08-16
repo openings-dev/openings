@@ -31,10 +31,10 @@ Before each specification, confirm the previous one is complete and read the rel
 | 16 | [Visual foundations](16_visual_foundations.md) | 15 | Complete |
 | 17 | [Shared controls and states](17_shared_controls_and_states.md) | 16 | Complete |
 | 18 | [Shell, navigation, headers, and footer](18_shell_navigation_headers_and_footer.md) | 17 | Complete |
-| 19 | [Opportunity filters and toolbar](19_opportunity_filters_and_toolbar.md) | 17, 18 | In progress |
-| 20 | [Opportunity results and cards](20_opportunity_results_and_cards.md) | 16, 17, 19 | Ready |
-| 21 | [Opportunity details and Markdown](21_opportunity_details_and_markdown.md) | 16, 17, 20 | Ready |
-| 22 | [Community and user directories](22_community_and_user_directories.md) | 16–18 | Ready |
+| 19 | [Opportunity filters and toolbar](19_opportunity_filters_and_toolbar.md) | 17, 18 | Complete |
+| 20 | [Opportunity results and cards](20_opportunity_results_and_cards.md) | 16, 17, 19 | Complete |
+| 21 | [Opportunity details and Markdown](21_opportunity_details_and_markdown.md) | 16, 17, 20 | Complete |
+| 22 | [Community and user directories](22_community_and_user_directories.md) | 16–18 | In progress |
 | 23 | [Documents and legal pages](23_documents_and_legal_pages.md) | 16–18 | Ready |
 | 24 | [Responsive, accessibility, and final visual audit](24_responsive_accessibility_and_final_visual_audit.md) | 18–23 | Ready |
 

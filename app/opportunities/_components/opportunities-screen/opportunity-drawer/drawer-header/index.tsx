@@ -15,12 +15,12 @@ export function DrawerHeader({
   onClose,
 }: DrawerHeaderProps) {
   return (
-    <div className="flex items-start justify-between gap-3 border-b border-border/70 bg-card/52 px-4 py-4">
+    <div className="flex items-start justify-between gap-3 border-b border-border/70 bg-surface-elevated px-5 py-4">
       <div className="space-y-1">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.13em] text-primary/80">
+        <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-primary">
           {detailsLabel}
         </p>
-        <h2 className="text-lg font-semibold leading-snug text-foreground">{title}</h2>
+        <h2 className="font-display text-lg font-bold leading-snug tracking-[-0.025em] text-foreground">{title}</h2>
       </div>
       <Button
         type="button"

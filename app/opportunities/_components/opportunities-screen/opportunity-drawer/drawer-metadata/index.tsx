@@ -18,7 +18,7 @@ export function DrawerMetadata({
   salaryLabel,
 }: DrawerMetadataProps) {
   return (
-    <div className="grid gap-2 rounded-lg border border-border/70 bg-background/45 p-3 text-sm sm:grid-cols-2">
+    <div className="grid gap-2.5 rounded-xl border border-border/70 bg-surface p-3.5 text-sm sm:grid-cols-2">
       <p className="flex items-center gap-2 text-foreground/95">
         <CalendarDays className="size-4 text-primary/80" />
         {postedAt}
