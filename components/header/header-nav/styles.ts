@@ -1,12 +1,12 @@
 import { cva } from "class-variance-authority";
 
 export const headerNavLinkStyles = cva(
-  "rounded-md px-2 py-1.5 text-sm font-medium text-foreground/78 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+  "rounded-lg px-3 py-1.5 text-[13px] font-medium transition-[color,background-color,box-shadow] focus-visible:outline-none",
   {
     variants: {
       active: {
-        true: "text-foreground",
-        false: "",
+        true: "bg-surface-elevated text-foreground shadow-soft-sm",
+        false: "text-muted-foreground hover:bg-surface-elevated/65 hover:text-foreground",
       },
     },
     defaultVariants: {

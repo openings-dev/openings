@@ -24,7 +24,7 @@ export function FooterBrand({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.35 }}
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className={cn("space-y-5", className)}
+      className={cn("space-y-4", className)}
     >
       <Link href={href} className="inline-flex items-center gap-3 rounded-lg px-1 py-1 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted">
         <span className="relative size-9 overflow-hidden rounded-[10px] border border-border/70 bg-card shadow-[0_1px_2px_rgb(0_0_0/0.06)]">
@@ -44,7 +44,7 @@ export function FooterBrand({
           />
         </span>
         <span className="flex flex-col leading-none">
-          <span className="text-sm font-semibold tracking-[-0.02em] text-foreground">{brandName}</span>
+          <span className="font-display text-sm font-bold tracking-[-0.025em] text-foreground">{brandName}</span>
           <span className="text-xs text-muted-foreground">{brandTagline}</span>
         </span>
       </Link>

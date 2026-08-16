@@ -27,7 +27,7 @@ export function HeaderNav({ className, items }: HeaderNavProps) {
   const pathname = usePathname();
 
   return (
-    <nav className={cn("hidden items-center justify-center gap-7 justify-self-center md:flex", className)} aria-label="Primary">
+    <nav className={cn("hidden items-center justify-center gap-1 rounded-xl border border-border/70 bg-surface/70 p-1 justify-self-center shadow-soft-sm md:flex", className)} aria-label="Primary">
       {items.map((item) => (
         <Link
           key={item.href}

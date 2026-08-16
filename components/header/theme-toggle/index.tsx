@@ -27,7 +27,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
         type="button"
         aria-label={ariaLabel}
         onClick={() => setTheme(nextTheme)}
-        className="size-9 rounded-md border-border/70 bg-transparent text-foreground/78 shadow-none hover:bg-muted/55 hover:text-foreground"
+        className="size-9 rounded-lg border-transparent bg-transparent text-muted-foreground shadow-none hover:border-border/70 hover:bg-surface hover:text-foreground"
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span

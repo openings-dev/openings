@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const footerSocialButtonStyles = cva(
-  "h-9 w-9 rounded-lg border border-border/70 bg-background/70 text-muted-foreground shadow-sm transition-colors hover:bg-background hover:text-foreground dark:bg-background/20 dark:hover:bg-background/35",
+  "size-9 rounded-lg border border-border/70 bg-surface-elevated text-muted-foreground shadow-soft-sm transition-colors hover:border-input hover:bg-surface hover:text-foreground",
   {
     variants: {
       tone: {

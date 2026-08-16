@@ -45,7 +45,7 @@ export function FooterBottom({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      className={cn("flex flex-col gap-4 border-t border-border/70 pt-6 sm:flex-row sm:items-center sm:justify-between", className)}
+      className={cn("flex flex-col gap-4 border-t border-border/70 pt-5 sm:flex-row sm:items-center sm:justify-between", className)}
     >
       <div className="space-y-1">
         <p className="text-sm text-muted-foreground">{copyrightText}</p>
@@ -59,7 +59,7 @@ export function FooterBottom({
             variant="ghost"
             size="sm"
             onClick={handleCopySupportEmail}
-            className="h-8 rounded-md border border-border/70 bg-background/70 px-3 text-xs font-medium text-muted-foreground shadow-sm transition-colors hover:bg-background hover:text-foreground dark:bg-background/20 dark:hover:bg-background/35"
+            className="h-9 rounded-lg px-3 text-xs"
             aria-label={supportEmailButtonLabel}
           >
             <Mail className="size-3.5" aria-hidden="true" />

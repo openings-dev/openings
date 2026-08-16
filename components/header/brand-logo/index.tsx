@@ -12,13 +12,13 @@ export function BrandLogo({
   return (
     <Link
       href={href}
-      className={cn("inline-flex items-center gap-1 rounded-lg py-1 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted", className)}
+      className={cn("inline-flex items-center gap-1 rounded-lg py-1 transition-opacity hover:opacity-80 focus-visible:outline-none", className)}
       aria-label={brandName}
     >
-      <span className="text-3xl font-semibold leading-none text-foreground sm:text-[2rem]" aria-hidden="true">
+      <span className="font-display text-[1.35rem] font-bold leading-none tracking-[-0.055em] text-foreground sm:text-[1.45rem]" aria-hidden="true">
         openings
       </span>
-      <span className="mt-1 inline-flex rounded-[5px] bg-primary px-1.5 py-0.5 text-sm font-semibold leading-none text-primary-foreground sm:text-[15px]" aria-hidden="true">
+      <span className="mt-0.5 inline-flex rounded-md bg-primary px-1.5 py-1 text-[10px] font-bold leading-none tracking-[-0.02em] text-primary-foreground" aria-hidden="true">
         .dev
       </span>
     </Link>

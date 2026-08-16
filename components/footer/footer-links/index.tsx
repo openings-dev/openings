@@ -8,7 +8,7 @@ import {
 
 export function FooterLinks({ className, groups }: FooterLinksProps) {
   return (
-    <div className={cn("grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:gap-x-12", className)}>
+    <div className={cn("grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-3 lg:gap-x-12", className)}>
       {groups.map((group, groupIndex) => (
         <motion.nav
           key={group.id}
@@ -20,11 +20,11 @@ export function FooterLinks({ className, groups }: FooterLinksProps) {
             delay: groupIndex * 0.04,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="space-y-3"
+          className="space-y-2.5"
           aria-label={`${group.title} footer links`}
         >
-          <h3 className="text-sm font-semibold tracking-[-0.01em] text-foreground/95">{group.title}</h3>
-          <ul className="space-y-2.5">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.08em] text-subtle-foreground">{group.title}</h3>
+          <ul className="space-y-2">
             {group.links.map((linkItem) => (
               <li key={`${linkItem.label}-${linkItem.href}`}>
                 <Link

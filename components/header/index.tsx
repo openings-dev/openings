@@ -54,10 +54,10 @@ export function Header({
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       className={cn(headerStyles({ position }), className)}
     >
-      <div className="mx-auto grid h-16 w-full max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-3 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto grid h-15 w-full max-w-[90rem] grid-cols-[auto_1fr_auto] items-center gap-3 px-4 sm:px-6 lg:px-8 xl:px-10">
         <BrandLogo href={logoHref} brandName={messages.header.brandName} />
         <HeaderNav items={navItems} />
-        <div className="flex min-w-0 items-center justify-end gap-1.5 sm:gap-2.5">
+        <div className="flex min-w-0 items-center justify-end gap-1 sm:gap-2">
           <ThemeToggle />
           <LanguageSwitcher
             className="hidden xl:block"
@@ -72,7 +72,7 @@ export function Header({
             href="https://github.com/openings-dev/openings"
             target="_blank"
             rel="noreferrer"
-            className="hidden h-9 items-center gap-1.5 rounded-md px-2.5 text-sm font-medium text-foreground/82 transition-colors hover:bg-muted/55 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background lg:inline-flex"
+            className="hidden h-9 items-center gap-1.5 rounded-lg border border-transparent px-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-border/70 hover:bg-surface hover:text-foreground focus-visible:outline-none lg:inline-flex"
             aria-label={messages.footer.social.githubAriaLabel}
           >
             <GithubIcon className="size-4" />

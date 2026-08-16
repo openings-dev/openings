@@ -40,7 +40,7 @@ export function OpportunitiesScreenHeader({
       <p className={opportunitiesDescriptionStyles}>{description}</p>
 
       {profile ? (
-        <div className="mt-4 rounded-2xl border border-border/60 bg-card/80 p-4 shadow-[0_2px_16px_-6px_rgb(0_0_0/0.10)] backdrop-blur sm:p-5">
+        <div className="mt-5 rounded-2xl border border-border/80 bg-surface-elevated p-4 shadow-soft-sm sm:p-5">
           <div className="flex flex-wrap items-center gap-3">
             {profile.avatarUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -55,7 +55,7 @@ export function OpportunitiesScreenHeader({
               </span>
             )}
             <div className="min-w-0">
-              <p className="truncate text-lg font-semibold text-foreground">
+              <p className="font-display truncate text-lg font-bold tracking-[-0.025em] text-foreground">
                 {profile.title}
               </p>
               <p className="truncate text-sm text-muted-foreground">
@@ -65,15 +65,15 @@ export function OpportunitiesScreenHeader({
           </div>
 
           <dl className="mt-4 grid gap-2 sm:grid-cols-3">
-            <div className="rounded-xl border border-border/50 bg-background/70 px-3 py-2 text-sm text-muted-foreground">
+            <div className="rounded-xl bg-surface px-3 py-2 text-sm text-muted-foreground">
               <dt className="sr-only">Opportunities</dt>
               <dd>{profile.opportunitiesSummary}</dd>
             </div>
-            <div className="rounded-xl border border-border/50 bg-background/70 px-3 py-2 text-sm text-muted-foreground">
+            <div className="rounded-xl bg-surface px-3 py-2 text-sm text-muted-foreground">
               <dt className="sr-only">Location</dt>
               <dd>{profile.locationSummary}</dd>
             </div>
-            <div className="rounded-xl border border-border/50 bg-background/70 px-3 py-2 text-sm text-muted-foreground">
+            <div className="rounded-xl bg-surface px-3 py-2 text-sm text-muted-foreground">
               <dt className="sr-only">Last post</dt>
               <dd>{profile.lastPostedSummary}</dd>
             </div>

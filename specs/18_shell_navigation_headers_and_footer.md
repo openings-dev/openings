@@ -15,21 +15,21 @@
 **Files:**
 - Modify: `app/_components/app-shell/index.tsx`, `components/header/**`
 
-- [ ] **Step 1:** Establish consistent maximum width and responsive gutters for header, main, and footer.
-- [ ] **Step 2:** Refine header height, border, background, brand lockup, navigation grouping, active states, and motion.
-- [ ] **Step 3:** Normalize theme and locale controls with shared hit areas and accessible focus; preserve all actions and responsive behavior.
+- [x] **Step 1:** Establish consistent maximum width and responsive gutters for header, main, and footer.
+- [x] **Step 2:** Refine header height, border, background, brand lockup, navigation grouping, active states, and motion.
+- [x] **Step 3:** Normalize theme and locale controls with shared hit areas and accessible focus; preserve all actions and responsive behavior.
 
 ### Task 2: Refine page headers and footer
 
 **Files:**
 - Modify: `app/opportunities/_components/opportunities-screen/opportunities-screen-header/index.tsx`, `app/_components/directory/directory-screen-layout/index.tsx`, `components/footer/**`
 
-- [ ] **Step 1:** Create one compact product-header rhythm for opportunities and scoped profile contexts.
-- [ ] **Step 2:** Align directory headings and descriptions to the same title scale and grid.
-- [ ] **Step 3:** Reduce footer height and decoration while preserving brand, links, maintainer actions, and localized content.
+- [x] **Step 1:** Create one compact product-header rhythm for opportunities and scoped profile contexts.
+- [x] **Step 2:** Align directory headings and descriptions to the same title scale and grid.
+- [x] **Step 3:** Reduce footer height and decoration while preserving brand, links, maintainer actions, and localized content.
 
 ### Task 3: Validate and commit
 
-- [ ] **Step 1:** Run `npm run lint` and `npm run build`; expect 148 pages.
-- [ ] **Step 2:** Review header/footer at 375, 768, 1024, and 1440 widths in both themes.
-- [ ] **Step 3:** Commit with `feat: refine application frame`.
+- [x] **Step 1:** Run `npm run lint` and `npm run build`; expect 148 pages.
+- [x] **Step 2:** Review header/footer at 375, 768, 1024, and 1440 widths in both themes.
+- [x] **Step 3:** Commit with `feat: refine application frame`.
