@@ -8,7 +8,7 @@ export const opportunitiesSidebarStyles = "grid grid-cols-1 gap-3 lg:sticky lg:t
 
 export const opportunitiesMainStyles = "flex min-w-0 flex-col gap-4";
 
-export const opportunitiesSnapshotStatusStyles = "rounded-lg border border-border/70 bg-card/42 px-4 py-3 shadow-[0_18px_60px_-52px_rgb(0_0_0/0.5)] backdrop-blur sm:px-5";
+export const opportunitiesSnapshotStatusStyles = "rounded-xl border border-border/70 bg-surface/60 px-4 py-3 sm:px-5";
 
 export const opportunitiesHeaderStyles = "max-w-4xl space-y-2.5";
 
@@ -18,7 +18,7 @@ export const opportunitiesTitleStyles = "font-display text-balance text-3xl font
 
 export const opportunitiesDescriptionStyles = "max-w-2xl text-[15px] leading-6 text-muted-foreground sm:text-base sm:leading-7";
 
-export const panelStyles = "rounded-lg border border-border/70 bg-card/54 p-4 shadow-[0_22px_80px_-62px_rgb(0_0_0/0.6)] backdrop-blur-xl";
+export const panelStyles = "rounded-xl border border-border/80 bg-surface-elevated p-4 shadow-soft-sm";
 
 export const splitViewStyles = cva("grid gap-4", {
   variants: {

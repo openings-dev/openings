@@ -31,7 +31,7 @@ export function OpportunitiesToolbar({
 
   return (
     <div className={controlBarStyles}>
-      <p className="tabular-nums text-sm font-medium text-foreground">
+      <p className="font-tabular text-sm font-semibold text-foreground">
         {formatTemplate(toolbarMessages.opportunitiesCount, {
           count: totalCount.toLocaleString(locale),
         })}
@@ -49,7 +49,7 @@ export function OpportunitiesToolbar({
             <SelectTrigger
               className={cn(
                 compactSelectTriggerStyles,
-                "h-7 min-w-28 border-none bg-transparent px-1 text-xs shadow-none focus-visible:ring-0 focus-visible:ring-offset-0",
+                "h-8 min-w-28 border-none bg-transparent px-1 text-xs shadow-none hover:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0",
               )}
             >
               <SelectValue placeholder={toolbarMessages.sortPlaceholder} />

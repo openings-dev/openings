@@ -15,21 +15,21 @@
 **Files:**
 - Modify: `app/opportunities/_components/opportunities-screen/opportunities-quick-filters/**`, `opportunities-filters/**`, `styles/filter-styles.ts`, `styles/layout-styles.ts`
 
-- [ ] **Step 1:** Make search the command bar's dominant field and align selects and advanced-filter action to one control grid.
-- [ ] **Step 2:** Reduce panel borders, strengthen group headings, improve group spacing, and preserve collapse behavior.
-- [ ] **Step 3:** Refine chips, taxonomy selectors, counts, reset, disabled options, focus, and mobile disclosure.
+- [x] **Step 1:** Make search the command bar's dominant field and align selects and advanced-filter action to one control grid.
+- [x] **Step 2:** Reduce panel borders, strengthen group headings, improve group spacing, and preserve collapse behavior.
+- [x] **Step 3:** Refine chips, taxonomy selectors, counts, reset, disabled options, focus, and mobile disclosure.
 
 ### Task 2: Refine toolbar and snapshot status
 
 **Files:**
 - Modify: `opportunities-toolbar/**`, `view-mode-toggle/**`, `snapshot-status/**`
 
-- [ ] **Step 1:** Balance range/count copy with sort and view controls and prevent localized labels from crowding.
-- [ ] **Step 2:** Use tabular or mono numeric styling for counts and range values.
-- [ ] **Step 3:** Make freshness status visibly secondary while retaining status meaning and timestamps.
+- [x] **Step 1:** Balance range/count copy with sort and view controls and prevent localized labels from crowding.
+- [x] **Step 2:** Use tabular or mono numeric styling for counts and range values.
+- [x] **Step 3:** Make freshness status visibly secondary while retaining status meaning and timestamps.
 
 ### Task 3: Validate and commit
 
-- [ ] **Step 1:** Run `npm run lint` and `npm run build`; expect exit code 0.
-- [ ] **Step 2:** Review every filter family, selected/disabled states, expanded/collapsed layouts, and both themes.
-- [ ] **Step 3:** Commit with `feat: refine opportunity discovery controls`.
+- [x] **Step 1:** Run `npm run lint` and `npm run build`; expect exit code 0.
+- [x] **Step 2:** Review every filter family, selected/disabled states, expanded/collapsed layouts, and both themes.
+- [x] **Step 3:** Commit with `feat: refine opportunity discovery controls`.

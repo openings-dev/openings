@@ -50,7 +50,7 @@ function QuickSelect({
   return (
     <Select value={value} onValueChange={onValueChange} disabled={disabled}>
       <SelectTrigger
-        className={cn(compactSelectTriggerStyles, "h-11 rounded-md bg-background/55")}
+        className={cn(compactSelectTriggerStyles, "h-11")}
       >
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
@@ -87,18 +87,18 @@ export function OpportunitiesQuickFilters({
 
   return (
     <section
-      className="rounded-lg border border-border/70 bg-card/50 p-2 shadow-[0_24px_90px_-70px_rgb(0_0_0/0.66)] backdrop-blur-xl"
+      className="rounded-2xl border border-border/80 bg-surface-elevated p-2.5 shadow-soft-md"
       aria-label={filterMessages.ariaLabel}
     >
       <div className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-[minmax(220px,1.5fr)_minmax(160px,0.85fr)_minmax(160px,0.85fr)_minmax(150px,0.75fr)_auto]">
         <div className="relative md:col-span-2 xl:col-span-1">
-          <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground/65" />
+          <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-primary" />
           <input
             type="text"
             value={filters.searchText}
             onChange={(event) => onFieldChange("searchText", event.target.value)}
             placeholder={filterMessages.searchPlaceholder}
-            className={cn(textInputStyles, "h-11 rounded-md pl-9")}
+            className={cn(textInputStyles, "h-11 pl-10 shadow-none")}
           />
         </div>
 
@@ -129,7 +129,7 @@ export function OpportunitiesQuickFilters({
         <Button
           type="button"
           variant="outline"
-          className="h-11 justify-center rounded-md border-border/70 bg-background/55 px-4 text-sm text-foreground/86 hover:bg-muted/50 md:min-w-32"
+          className="h-11 justify-center px-4 md:min-w-32"
           onClick={() => onFiltersExpandedChange(!filtersExpanded)}
         >
           <SlidersHorizontal className="size-4 text-primary" />
