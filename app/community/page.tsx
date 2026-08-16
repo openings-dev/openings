@@ -5,7 +5,7 @@ import { listSnapshotCommunities } from "@/lib/opportunities/communities";
 
 export const revalidate = 10800;
 
-export default async function CommunityIndexPage() {
+export default async function CommunityIndexPage(): Promise<React.ReactNode> {
   const communities = await loadSafely<CommunitySummary[]>({
     load: () => listSnapshotCommunities(),
     defaultValue: [],

@@ -12,7 +12,7 @@ interface OpportunitiesPageProps {
   forcedRepositoryProfile?: CommunityProfileSummary | null;
 }
 
-function OpportunitiesFallback() {
+function OpportunitiesFallback(): React.ReactNode {
   return (
     <section className="mx-auto w-full max-w-7xl px-4 pb-16 pt-10 sm:px-6 lg:px-8">
       <div className="rounded-2xl border border-border/70 bg-card/80 p-6 shadow-[0_16px_40px_-30px_rgb(0_0_0/0.45)] backdrop-blur">
@@ -29,7 +29,7 @@ export function OpportunitiesPage({
   forcedAuthor,
   forcedAuthorProfile,
   forcedRepositoryProfile,
-}: OpportunitiesPageProps) {
+}: OpportunitiesPageProps): React.ReactNode {
   return (
     <Suspense fallback={<OpportunitiesFallback />}>
       <OpportunitiesScreen

@@ -22,7 +22,7 @@ export function OpportunityDrawer({
   onClose,
   onCommunitySelect,
   onAuthorSelect,
-}: OpportunityDrawerProps) {
+}: OpportunityDrawerProps): React.ReactNode {
   const { locale, messages } = useI18n();
   const cardMessages = messages.opportunities.card;
   const dateFormatter = React.useMemo(
@@ -88,7 +88,12 @@ export function OpportunityDrawer({
       <aside className={cn(panelStyles, "hidden overflow-hidden p-0 shadow-soft-lg lg:sticky lg:top-20 lg:block lg:max-h-[calc(100dvh-6rem)]")}>
         {content}
       </aside>
-      <DrawerMobileSheet open={open} closeLabel={cardMessages.closeDetails} onClose={onClose}>
+      <DrawerMobileSheet
+        open={open}
+        closeLabel={cardMessages.closeDetails}
+        dialogLabel={`${cardMessages.detailsLabel}: ${item.title}`}
+        onClose={onClose}
+      >
         {content}
       </DrawerMobileSheet>
     </>

@@ -14,6 +14,9 @@ export const enTranslations: TranslationMessages = {
       communities: "Communities",
       users: "Users",
     },
+    primaryNavigationAriaLabel: "Primary navigation",
+    switchToLightMode: "Switch to light mode",
+    switchToDarkMode: "Switch to dark mode",
     languagePlaceholder: "Language",
     languageAriaLabel: "Select language",
     languageChanged: "Language set to {language}.",
@@ -23,6 +26,12 @@ export const enTranslations: TranslationMessages = {
     title: "Tech jobs from community GitHub repos, in one searchable place",
     description:
       "openings.dev tracks job issues published by trusted communities, normalizes every post, and helps you filter by stack, seniority, location, and remote policy without jumping between repositories.",
+  },
+  notFound: {
+    kicker: "Not found",
+    title: "Page not found",
+    description: "The page you requested does not exist.",
+    action: "Open opportunities",
   },
   communities: {
     header: {
@@ -88,6 +97,9 @@ export const enTranslations: TranslationMessages = {
       title: "Tech jobs straight from GitHub.",
       description:
         "Discover opportunities in trusted community projects with fast filters and a cleaner reading flow.",
+      opportunitiesLabel: "Opportunities",
+      locationLabel: "Location",
+      lastPostLabel: "Last post",
     },
     feedback: {
       filtersReset: "Filters reset",
@@ -222,6 +234,7 @@ export const enTranslations: TranslationMessages = {
       termsOfService: "Terms of Service",
     },
     social: {
+      linksAriaLabel: "Social links",
       githubAriaLabel: "Open openings.dev on GitHub",
     },
   },

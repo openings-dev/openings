@@ -5,7 +5,7 @@ interface OpportunityMarkdownProps {
   body: string;
 }
 
-export function OpportunityMarkdown({ body }: OpportunityMarkdownProps) {
+export function OpportunityMarkdown({ body }: OpportunityMarkdownProps): React.ReactNode {
   return (
     <div className="prose-opportunity">
       <ReactMarkdown

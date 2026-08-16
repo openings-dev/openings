@@ -19,7 +19,7 @@ interface CommunitiesListProps {
   items: CommunitySummary[];
 }
 
-export function CommunitiesList({ locale, listMessages, items }: CommunitiesListProps) {
+export function CommunitiesList({ locale, listMessages, items }: CommunitiesListProps): React.ReactNode {
   return (
     <DirectoryListShell
       locale={locale}

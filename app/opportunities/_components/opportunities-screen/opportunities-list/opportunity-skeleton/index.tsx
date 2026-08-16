@@ -4,7 +4,7 @@ interface OpportunitySkeletonProps {
   compact: boolean;
 }
 
-export function OpportunitySkeleton({ compact }: OpportunitySkeletonProps) {
+export function OpportunitySkeleton({ compact }: OpportunitySkeletonProps): React.ReactNode {
   return (
     <div
       className={cn(

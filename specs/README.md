@@ -37,6 +37,11 @@ Before each specification, confirm the previous one is complete and read the rel
 | 22 | [Community and user directories](22_community_and_user_directories.md) | 16–18 | Complete |
 | 23 | [Documents and legal pages](23_documents_and_legal_pages.md) | 16–18 | Complete |
 | 24 | [Responsive, accessibility, and final visual audit](24_responsive_accessibility_and_final_visual_audit.md) | 18–23 | Complete |
+| 25 | [Repository-wide improvement audit](25_repository_wide_improvement_audit.md) | 24 | Complete |
+| 26 | [Interaction semantics and accessibility](26_interaction_semantics_and_accessibility.md) | 25 | Complete |
+| 27 | [Locale persistence and interface language](27_locale_persistence_and_interface_language.md) | 26 | Complete |
+| 28 | [Metadata, contracts, and repository hygiene](28_metadata_contracts_and_repository_hygiene.md) | 27 | Complete |
+| 29 | [Final improvement verification](29_final_improvement_verification.md) | 28 | Complete |
 
 ## Global invariants
 

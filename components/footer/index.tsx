@@ -129,6 +129,7 @@ export function Footer({
             lightLogoSrc={lightLogoSrc}
             darkLogoSrc={darkLogoSrc}
             socialLinks={resolvedSocialLinks}
+            socialLinksAriaLabel={footerMessages.social.linksAriaLabel}
           />
           <FooterLinks groups={resolvedLinkGroups} />
         </motion.div>

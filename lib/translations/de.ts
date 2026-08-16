@@ -13,6 +13,9 @@ export const deTranslations: TranslationMessages = {
       communities: "Communities",
       users: "Nutzer",
     },
+    primaryNavigationAriaLabel: "Hauptnavigation",
+    switchToLightMode: "Zum hellen Modus wechseln",
+    switchToDarkMode: "Zum dunklen Modus wechseln",
     languagePlaceholder: "Sprache",
     languageAriaLabel: "Sprache auswählen",
     languageChanged: "Sprache auf {language} geändert.",
@@ -22,6 +25,12 @@ export const deTranslations: TranslationMessages = {
     title: "Tech-Jobs aus GitHub-Communities an einem durchsuchbaren Ort",
     description:
       "openings.dev verfolgt Job-Issues aus verlässlichen Communities, normalisiert jeden Eintrag und ermöglicht Filter nach Stack, Seniorität, Standort und Remote-Regelung ohne Wechsel zwischen Repositories.",
+  },
+  notFound: {
+    kicker: "Nicht gefunden",
+    title: "Seite nicht gefunden",
+    description: "Die angeforderte Seite existiert nicht.",
+    action: "Stellen ansehen",
   },
   communities: {
     header: {
@@ -87,6 +96,9 @@ export const deTranslations: TranslationMessages = {
       title: "Premium-Tech-Jobs entdecken",
       description:
         "Durchsuche Communities und Repositories mit präzisen Filtern, wechsle zwischen Listen- und Rasteransicht und prüfe Chancen mit GitHub-ähnlicher Klarheit und hochwertigem Finish.",
+      opportunitiesLabel: "Stellen",
+      locationLabel: "Standort",
+      lastPostLabel: "Letzte Veröffentlichung",
     },
     feedback: {
       filtersReset: "Filter zurückgesetzt",
@@ -223,6 +235,7 @@ export const deTranslations: TranslationMessages = {
       termsOfService: "Nutzungsbedingungen",
     },
     social: {
+      linksAriaLabel: "Soziale Links",
       githubAriaLabel: "openings.dev auf GitHub öffnen",
     },
   },

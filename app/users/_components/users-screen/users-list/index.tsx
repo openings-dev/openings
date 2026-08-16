@@ -19,7 +19,7 @@ interface UsersListProps {
   items: UserSummary[];
 }
 
-export function UsersList({ locale, listMessages, items }: UsersListProps) {
+export function UsersList({ locale, listMessages, items }: UsersListProps): React.ReactNode {
   return (
     <DirectoryListShell
       locale={locale}

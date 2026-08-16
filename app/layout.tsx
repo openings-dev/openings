@@ -23,8 +23,12 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "openings.dev",
-  description: "Modern jobs intelligence platform",
+  title: {
+    default: "openings.dev",
+    template: "%s | openings.dev",
+  },
+  description:
+    "Discover technology opportunities published by trusted GitHub communities.",
   icons: {
     icon: [
       {

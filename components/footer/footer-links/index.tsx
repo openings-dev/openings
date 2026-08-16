@@ -6,7 +6,7 @@ import {
   footerLinkStyles,
 } from "../styles";
 
-export function FooterLinks({ className, groups }: FooterLinksProps) {
+export function FooterLinks({ className, groups }: FooterLinksProps): React.ReactNode {
   return (
     <div className={cn("grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-3 lg:gap-x-12", className)}>
       {groups.map((group, groupIndex) => (

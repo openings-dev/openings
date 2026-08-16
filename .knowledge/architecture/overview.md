@@ -48,6 +48,6 @@ scripts/                         # repository validation scripts
 
 Pages and layouts remain Server Components unless framework or browser behavior requires otherwise. Add `"use client"` at the smallest interactive boundary. Do not move remote build-time reads into client effects merely to simplify component props.
 
-## Refactor pressure points
+## Continuous improvement
 
-The current repository contains mixed component file conventions, large controller and data modules, CVA recipes used for both variants and fixed styles, and domain types grouped in broad files. The specifications under `specs/` normalize these areas incrementally while preserving behavior.
+The repository-wide structural and visual refactors are complete. New work should be driven by current evidence—accessibility audits, rendering behavior, measured performance, or a product requirement—instead of repeating historical pressure points. Specifications 25–29 record the post-refactor hardening pass.

@@ -14,6 +14,9 @@ export const frTranslations: TranslationMessages = {
       communities: "Communautés",
       users: "Utilisateurs",
     },
+    primaryNavigationAriaLabel: "Navigation principale",
+    switchToLightMode: "Passer au mode clair",
+    switchToDarkMode: "Passer au mode sombre",
     languagePlaceholder: "Langue",
     languageAriaLabel: "Sélectionner la langue",
     languageChanged: "Langue définie sur {language}.",
@@ -24,6 +27,12 @@ export const frTranslations: TranslationMessages = {
       "Des offres tech issues des communautés GitHub, réunies dans une seule recherche",
     description:
       "openings.dev suit les issues d'emploi publiées par des communautés fiables, normalise chaque offre et permet de filtrer par stack, séniorité, localisation et politique remote sans passer d'un dépôt à l'autre.",
+  },
+  notFound: {
+    kicker: "Introuvable",
+    title: "Page introuvable",
+    description: "La page demandée n’existe pas.",
+    action: "Voir les opportunités",
   },
   communities: {
     header: {
@@ -89,6 +98,9 @@ export const frTranslations: TranslationMessages = {
       title: "Découvrez des offres tech premium",
       description:
         "Recherchez des communautés et des dépôts avec des filtres précis, basculez entre liste et grille, et analysez les opportunités avec une clarté inspirée de GitHub et une finition premium.",
+      opportunitiesLabel: "Opportunités",
+      locationLabel: "Localisation",
+      lastPostLabel: "Dernière publication",
     },
     feedback: {
       filtersReset: "Filtres réinitialisés",
@@ -226,6 +238,7 @@ export const frTranslations: TranslationMessages = {
       termsOfService: "Conditions d'utilisation",
     },
     social: {
+      linksAriaLabel: "Liens sociaux",
       githubAriaLabel: "Ouvrir openings.dev sur GitHub",
     },
   },

@@ -56,7 +56,10 @@ export function Header({
     >
       <div className="mx-auto grid h-15 w-full max-w-[90rem] grid-cols-[auto_1fr_auto] items-center gap-3 px-4 sm:px-6 lg:px-8 xl:px-10">
         <BrandLogo href={logoHref} brandName={messages.header.brandName} />
-        <HeaderNav items={navItems} />
+        <HeaderNav
+          items={navItems}
+          ariaLabel={messages.header.primaryNavigationAriaLabel}
+        />
         <div className="flex min-w-0 items-center justify-end gap-1 sm:gap-2">
           <ThemeToggle />
           <LanguageSwitcher

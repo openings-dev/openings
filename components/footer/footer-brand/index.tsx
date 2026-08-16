@@ -17,7 +17,8 @@ export function FooterBrand({
   lightLogoSrc,
   darkLogoSrc,
   socialLinks,
-}: FooterBrandProps) {
+  socialLinksAriaLabel,
+}: FooterBrandProps): React.ReactNode {
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -51,7 +52,7 @@ export function FooterBrand({
 
       <p className="max-w-sm text-sm leading-6 text-muted-foreground">{description}</p>
 
-      <ul className="flex items-center gap-2" aria-label="Social links">
+      <ul className="flex items-center gap-2" aria-label={socialLinksAriaLabel}>
         {socialLinks.map((socialLink, index) => {
           const Icon = socialLink.icon;
           const isExternal = socialLink.external ?? true;

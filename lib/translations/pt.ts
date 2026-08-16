@@ -14,6 +14,9 @@ export const ptTranslations: TranslationMessages = {
       communities: "Comunidades",
       users: "Usuários",
     },
+    primaryNavigationAriaLabel: "Navegação principal",
+    switchToLightMode: "Mudar para o modo claro",
+    switchToDarkMode: "Mudar para o modo escuro",
     languagePlaceholder: "Idioma",
     languageAriaLabel: "Selecionar idioma",
     languageChanged: "Idioma alterado para {language}.",
@@ -23,6 +26,12 @@ export const ptTranslations: TranslationMessages = {
     title: "Vagas de tecnologia no GitHub das comunidades, em um só lugar",
     description:
       "O openings.dev acompanha issues de vagas em comunidades confiáveis, normaliza cada anúncio e permite filtrar por stack, senioridade, localização e política remota sem precisar pular entre repositórios.",
+  },
+  notFound: {
+    kicker: "Não encontrado",
+    title: "Página não encontrada",
+    description: "A página solicitada não existe.",
+    action: "Ver oportunidades",
   },
   communities: {
     header: {
@@ -88,6 +97,9 @@ export const ptTranslations: TranslationMessages = {
       title: "Vagas de tecnologia direto do GitHub.",
       description:
         "Descubra oportunidades em projetos confiáveis da comunidade, com filtros rápidos e uma leitura mais limpa.",
+      opportunitiesLabel: "Oportunidades",
+      locationLabel: "Localização",
+      lastPostLabel: "Última publicação",
     },
     feedback: {
       filtersReset: "Filtros redefinidos",
@@ -223,6 +235,7 @@ export const ptTranslations: TranslationMessages = {
       termsOfService: "Termos de Serviço",
     },
     social: {
+      linksAriaLabel: "Links sociais",
       githubAriaLabel: "Abrir openings.dev no GitHub",
     },
   },

@@ -7,7 +7,7 @@ import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
 import { UsersList } from "./users-list";
 import type { UsersScreenProps } from "./types";
 
-export function UsersScreen({ users }: UsersScreenProps) {
+export function UsersScreen({ users }: UsersScreenProps): React.ReactNode {
   const { locale, messages } = useI18n();
   const copy = messages.users;
   const location = useLocationFilters({ items: users });

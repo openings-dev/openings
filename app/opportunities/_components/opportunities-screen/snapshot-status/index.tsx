@@ -24,7 +24,7 @@ function formatRelativeTime(fromDate: Date, now: number, locale: string) {
   return rtf.format(Math.round(diffMs / 86400000), "day");
 }
 
-export function SnapshotStatus({ totalCount, lastUpdatedAt }: SnapshotStatusProps) {
+export function SnapshotStatus({ totalCount, lastUpdatedAt }: SnapshotStatusProps): React.ReactNode {
   const { locale, messages } = useI18n();
   const statusMessages = messages.opportunities.status;
   const [now, setNow] = React.useState(() => Date.now());
@@ -52,10 +52,10 @@ export function SnapshotStatus({ totalCount, lastUpdatedAt }: SnapshotStatusProp
       : null;
 
   return (
-    <section className={opportunitiesSnapshotStatusStyles} aria-label={statusMessages.ariaLabel}>
+    <section className={opportunitiesSnapshotStatusStyles} aria-label={statusMessages.ariaLabel} aria-live="polite">
       <div className="flex flex-wrap items-center gap-3">
         <span className="inline-flex size-8 items-center justify-center rounded-lg bg-accent text-accent-foreground">
-          <Activity className="size-4" />
+          <Activity className="size-4" aria-hidden="true" />
         </span>
 
         <div className="grid min-w-0 flex-1 gap-x-4 gap-y-1 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
@@ -68,7 +68,7 @@ export function SnapshotStatus({ totalCount, lastUpdatedAt }: SnapshotStatusProp
             })}
           </p>
           <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <Clock3 className="size-3.5 shrink-0" />
+            <Clock3 className="size-3.5 shrink-0" aria-hidden="true" />
             {relativeStatus}
           </p>
           {absoluteStatus ? (

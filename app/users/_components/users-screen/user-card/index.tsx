@@ -18,7 +18,7 @@ interface UserCardProps {
   };
 }
 
-export function UserCard({ item, locale, listMessages }: UserCardProps) {
+export function UserCard({ item, locale, listMessages }: UserCardProps): React.ReactNode {
   const avatarFallback = item.name.trim().charAt(0).toUpperCase() || "@";
   const details = [
     {

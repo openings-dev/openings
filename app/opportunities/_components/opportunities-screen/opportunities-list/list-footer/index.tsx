@@ -23,7 +23,7 @@ export function ListFooter({
   allResultsLoadedLabel,
   loadingMoreLabel,
   skeletonCount,
-}: ListFooterProps) {
+}: ListFooterProps): React.ReactNode {
   return (
     <div className="space-y-3 border-t border-border/60 pt-3">
       <div className="flex items-center justify-between gap-3">
@@ -35,8 +35,8 @@ export function ListFooter({
 
       {isFetchingMore ? (
         <div className="space-y-3">
-          <div className="inline-flex items-center gap-2 text-xs text-muted-foreground">
-            <LoaderCircle className="size-3.5 animate-spin" />
+          <div className="inline-flex items-center gap-2 text-xs text-muted-foreground" role="status">
+            <LoaderCircle className="size-3.5 animate-spin" aria-hidden="true" />
             {loadingMoreLabel}
           </div>
           <div className={resultsGridStyles({ viewMode })}>

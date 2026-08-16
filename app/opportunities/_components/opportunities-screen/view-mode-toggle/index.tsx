@@ -12,7 +12,7 @@ import {
   type ViewModeToggleProps,
 } from "@/app/opportunities/_components/opportunities-screen/types";
 
-export function ViewModeToggle({ value, onChange }: ViewModeToggleProps) {
+export function ViewModeToggle({ value, onChange }: ViewModeToggleProps): React.ReactNode {
   const { messages } = useI18n();
   const viewModeMessages = messages.opportunities.viewMode;
 

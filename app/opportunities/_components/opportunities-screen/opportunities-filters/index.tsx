@@ -8,7 +8,7 @@ import type { OpportunitiesFiltersProps } from "@/app/opportunities/_components/
 import { FilterFields } from "./filter-fields";
 import { FilterPanelHeader } from "./filter-panel-header";
 
-export function OpportunitiesFilters(props: OpportunitiesFiltersProps) {
+export function OpportunitiesFilters(props: OpportunitiesFiltersProps): React.ReactNode {
   const { messages } = useI18n();
   const filterMessages = messages.opportunities.filters;
   const { isExpanded, activeFiltersCount, onExpandedChange, onToggleTag, onToggleAuthor, onClearFilters } = props;

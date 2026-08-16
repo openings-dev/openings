@@ -4,7 +4,7 @@ interface DrawerTagsProps {
   tags: string[];
 }
 
-export function DrawerTags({ tags }: DrawerTagsProps) {
+export function DrawerTags({ tags }: DrawerTagsProps): React.ReactNode {
   return (
     <div className="flex flex-wrap gap-1.5">
       {tags.map((tag) => (

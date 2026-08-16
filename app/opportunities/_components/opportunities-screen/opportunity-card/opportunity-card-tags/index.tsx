@@ -4,7 +4,7 @@ interface OpportunityCardTagsProps {
   tags: string[];
 }
 
-export function OpportunityCardTags({ tags }: OpportunityCardTagsProps) {
+export function OpportunityCardTags({ tags }: OpportunityCardTagsProps): React.ReactNode {
   if (tags.length === 0) {
     return null;
   }

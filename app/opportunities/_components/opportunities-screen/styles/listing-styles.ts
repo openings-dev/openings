@@ -13,7 +13,7 @@ export const resultsGridStyles = cva("grid gap-3", {
 });
 
 export const opportunityCardStyles = cva(
-  "group relative h-full rounded-xl border border-border/80 bg-surface-elevated p-4 text-left shadow-soft-sm transition-[border-color,background-color,box-shadow] duration-150 hover:border-primary/30 hover:bg-card hover:shadow-soft-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+  "group relative h-full rounded-xl border border-border/80 bg-surface-elevated p-4 text-left shadow-soft-sm transition-[border-color,background-color,box-shadow] duration-150 hover:border-primary/30 hover:bg-card hover:shadow-soft-md has-focus-visible:ring-2 has-focus-visible:ring-ring/70 has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-background",
   {
     variants: {
       viewMode: { list: "", grid: "" },

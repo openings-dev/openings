@@ -7,7 +7,7 @@ import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
 import { CommunitiesList } from "./communities-list";
 import type { CommunitiesScreenProps } from "./types";
 
-export function CommunitiesScreen({ communities }: CommunitiesScreenProps) {
+export function CommunitiesScreen({ communities }: CommunitiesScreenProps): React.ReactNode {
   const { locale, messages } = useI18n();
   const copy = messages.communities;
   const location = useLocationFilters({ items: communities });

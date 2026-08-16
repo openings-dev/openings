@@ -3,16 +3,20 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { MoonStar, SunMedium } from "lucide-react";
 import { useTheme } from "@/components/providers/theme-provider/use-theme";
+import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
 import { ResolvedTheme, Theme } from "@/components/providers/theme-provider/types";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils/tailwind";
 import type { ThemeToggleProps } from "../types";
 
-export function ThemeToggle({ className }: ThemeToggleProps) {
+export function ThemeToggle({ className }: ThemeToggleProps): React.ReactNode {
   const { resolvedTheme, setTheme } = useTheme();
+  const { messages } = useI18n();
   const isDark = resolvedTheme === ResolvedTheme.Dark;
   const nextTheme = isDark ? Theme.Light : Theme.Dark;
-  const ariaLabel = isDark ? "Switch to light mode" : "Switch to dark mode";
+  const ariaLabel = isDark
+    ? messages.header.switchToLightMode
+    : messages.header.switchToDarkMode;
 
   return (
     <motion.div
@@ -37,7 +41,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
             exit={{ opacity: 0, scale: 0.7, rotate: 50 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
           >
-            {isDark ? <MoonStar size={16} /> : <SunMedium size={16} />}
+            {isDark ? <MoonStar size={16} aria-hidden="true" /> : <SunMedium size={16} aria-hidden="true" />}
           </motion.span>
         </AnimatePresence>
       </Button>

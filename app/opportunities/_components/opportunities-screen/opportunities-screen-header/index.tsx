@@ -10,6 +10,9 @@ interface OpportunitiesScreenHeaderProps {
   kicker: string;
   title: string;
   description: string;
+  opportunitiesLabel: string;
+  locationLabel: string;
+  lastPostLabel: string;
   profile?: {
     title: string;
     subtitle: string;
@@ -24,8 +27,11 @@ export function OpportunitiesScreenHeader({
   kicker,
   title,
   description,
+  opportunitiesLabel,
+  locationLabel,
+  lastPostLabel,
   profile,
-}: OpportunitiesScreenHeaderProps) {
+}: OpportunitiesScreenHeaderProps): React.ReactNode {
   const avatarFallback = profile?.title.trim().charAt(0).toUpperCase() || "@";
 
   return (
@@ -66,15 +72,15 @@ export function OpportunitiesScreenHeader({
 
           <dl className="mt-4 grid gap-2 sm:grid-cols-3">
             <div className="rounded-xl bg-surface px-3 py-2 text-sm text-muted-foreground">
-              <dt className="sr-only">Opportunities</dt>
+              <dt className="sr-only">{opportunitiesLabel}</dt>
               <dd>{profile.opportunitiesSummary}</dd>
             </div>
             <div className="rounded-xl bg-surface px-3 py-2 text-sm text-muted-foreground">
-              <dt className="sr-only">Location</dt>
+              <dt className="sr-only">{locationLabel}</dt>
               <dd>{profile.locationSummary}</dd>
             </div>
             <div className="rounded-xl bg-surface px-3 py-2 text-sm text-muted-foreground">
-              <dt className="sr-only">Last post</dt>
+              <dt className="sr-only">{lastPostLabel}</dt>
               <dd>{profile.lastPostedSummary}</dd>
             </div>
           </dl>

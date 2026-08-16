@@ -4,7 +4,7 @@ import { useTheme } from "@/components/providers/theme-provider/use-theme";
 import { ResolvedTheme } from "@/components/providers/theme-provider/types";
 import { Toaster as Sonner, type ToasterProps } from "sonner";
 
-export function Toaster({ ...props }: ToasterProps) {
+export function Toaster({ ...props }: ToasterProps): React.ReactNode {
   const { resolvedTheme } = useTheme();
 
   return (

@@ -21,7 +21,7 @@ export function OpportunityCard({
   onAuthorSelect,
   hideCommunityIdentity,
   hideAuthorIdentity,
-}: OpportunityCardProps) {
+}: OpportunityCardProps): React.ReactNode {
   const { locale, messages } = useI18n();
   const cardMessages = messages.opportunities.card;
   const dateFormatter = React.useMemo(
@@ -41,25 +41,20 @@ export function OpportunityCard({
   };
 
   return (
-    <article
-      className={cn(opportunityCardStyles({ viewMode, selected: isSelected }))}
-      role="button"
-      tabIndex={0}
-      aria-pressed={isSelected}
-      onClick={() => onSelectOpportunity(item)}
-      onKeyDown={(event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          onSelectOpportunity(item);
-        }
-      }}
-    >
-      <div className="flex h-full flex-col gap-3">
+    <article className={cn(opportunityCardStyles({ viewMode, selected: isSelected }))}>
+      <button
+        type="button"
+        className="absolute inset-0 z-10 rounded-xl focus-visible:outline-none"
+        aria-label={`${cardMessages.detailsLabel}: ${item.title}`}
+        aria-pressed={isSelected}
+        onClick={() => onSelectOpportunity(item)}
+      />
+      <div className="pointer-events-none relative flex h-full flex-col gap-3">
         <div className="flex min-w-0 items-start gap-3">
           {showCommunity ? (
             <button
               type="button"
-              className="mt-0.5 shrink-0 rounded-full transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+              className="pointer-events-auto relative z-20 mt-0.5 shrink-0 rounded-full transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
               onClick={handleCommunityClick}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -76,7 +71,7 @@ export function OpportunityCard({
             {showCommunity ? (
               <button
                 type="button"
-                className="block max-w-full truncate text-xs text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="pointer-events-auto relative z-20 block max-w-full truncate text-xs text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 onClick={handleCommunityClick}
               >
                 {item.community.repository}
@@ -92,15 +87,17 @@ export function OpportunityCard({
           dateLabel={dateFormatter.format(new Date(item.createdAt))}
           showRepository={!hideCommunityIdentity}
         />
-        <OpportunityCardFooter
-          item={item}
-          communityAvatarAltTemplate={cardMessages.communityAvatarAlt}
-          authorAvatarAltTemplate={cardMessages.authorAvatarAlt}
-          onCommunitySelect={onCommunitySelect}
-          onAuthorSelect={onAuthorSelect}
-          showCommunityIdentity={false}
-          showAuthorIdentity={!hideAuthorIdentity}
-        />
+        <div className="pointer-events-auto relative z-20">
+          <OpportunityCardFooter
+            item={item}
+            communityAvatarAltTemplate={cardMessages.communityAvatarAlt}
+            authorAvatarAltTemplate={cardMessages.authorAvatarAlt}
+            onCommunitySelect={onCommunitySelect}
+            onAuthorSelect={onAuthorSelect}
+            showCommunityIdentity={false}
+            showAuthorIdentity={!hideAuthorIdentity}
+          />
+        </div>
       </div>
     </article>
   );

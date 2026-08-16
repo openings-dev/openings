@@ -50,6 +50,7 @@ export interface FooterBrandProps {
   lightLogoSrc: string;
   darkLogoSrc: string;
   socialLinks: FooterSocialLink[];
+  socialLinksAriaLabel: string;
 }
 
 export interface FooterLinksProps {

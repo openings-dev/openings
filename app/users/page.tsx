@@ -5,7 +5,7 @@ import { listSnapshotUsers } from "@/lib/opportunities/users";
 
 export const revalidate = 10800;
 
-export default async function UsersIndexPage() {
+export default async function UsersIndexPage(): Promise<React.ReactNode> {
   const users = await loadSafely<UserSummary[]>({
     load: () => listSnapshotUsers(),
     defaultValue: [],

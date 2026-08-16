@@ -18,7 +18,7 @@ interface CommunityCardProps {
   };
 }
 
-export function CommunityCard({ item, locale, listMessages }: CommunityCardProps) {
+export function CommunityCard({ item, locale, listMessages }: CommunityCardProps): React.ReactNode {
   const communityInitial = item.name.trim().charAt(0).toUpperCase() || "#";
   const details = [
     {

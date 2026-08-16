@@ -16,6 +16,9 @@ export interface TranslationMessages {
       communities: string;
       users: string;
     };
+    primaryNavigationAriaLabel: string;
+    switchToLightMode: string;
+    switchToDarkMode: string;
     languagePlaceholder: string;
     languageAriaLabel: string;
     languageChanged: string;
@@ -24,6 +27,12 @@ export interface TranslationMessages {
     kicker: string;
     title: string;
     description: string;
+  };
+  notFound: {
+    kicker: string;
+    title: string;
+    description: string;
+    action: string;
   };
   communities: {
     header: {
@@ -86,6 +95,9 @@ export interface TranslationMessages {
       kicker: string;
       title: string;
       description: string;
+      opportunitiesLabel: string;
+      locationLabel: string;
+      lastPostLabel: string;
     };
     feedback: {
       filtersReset: string;
@@ -216,6 +228,7 @@ export interface TranslationMessages {
       termsOfService: string;
     };
     social: {
+      linksAriaLabel: string;
       githubAriaLabel: string;
     };
   };
