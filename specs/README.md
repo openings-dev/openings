@@ -13,19 +13,19 @@ Before each specification, confirm the previous one is complete and read the rel
 | Order | Specification | Depends on | Status |
 | --- | --- | --- | --- |
 | 00 | [Documentation and refactor design](00_documentation_and_refactor_design.md) | — | Complete |
-| 01 | [Baseline and invariants](01_baseline_and_invariants.md) | 00 | Ready |
-| 02 | [Naming, types, enums, and constants](02_naming_types_enums_and_constants.md) | 01 | Ready |
-| 03 | [Tailwind and styling architecture](03_tailwind_and_styling_architecture.md) | 02 | Ready |
-| 04 | [Shared primitives and providers](04_shared_primitives_and_providers.md) | 03 | Ready |
-| 05 | [Application shell, header, and footer](05_shell_header_and_footer.md) | 04 | Ready |
-| 06 | [Markdown content and document routes](06_markdown_content_and_document_routes.md) | 02 | Ready |
-| 07 | [Internationalization](07_internationalization.md) | 02, 04 | Ready |
-| 08 | [Remote data and domain models](08_remote_data_and_domain_models.md) | 02 | Ready |
-| 09 | [Community and user directories](09_community_and_user_directories.md) | 04, 07, 08 | Ready |
-| 10 | [Opportunity controller and filter state](10_opportunity_controller_and_filter_state.md) | 07, 08 | Ready |
-| 11 | [Opportunity presentation](11_opportunity_presentation.md) | 03, 04, 10 | Ready |
-| 12 | [Routes and rendering boundaries](12_routes_and_rendering_boundaries.md) | 05–11 | Ready |
-| 13 | [Cleanup and final verification](13_cleanup_and_final_verification.md) | 12 | Ready |
+| 01 | [Baseline and invariants](01_baseline_and_invariants.md) | 00 | Complete |
+| 02 | [Naming, types, enums, and constants](02_naming_types_enums_and_constants.md) | 01 | Complete |
+| 03 | [Tailwind and styling architecture](03_tailwind_and_styling_architecture.md) | 02 | Complete |
+| 04 | [Shared primitives and providers](04_shared_primitives_and_providers.md) | 03 | Complete |
+| 05 | [Application shell, header, and footer](05_shell_header_and_footer.md) | 04 | Complete |
+| 06 | [Markdown content and document routes](06_markdown_content_and_document_routes.md) | 02 | Complete |
+| 07 | [Internationalization](07_internationalization.md) | 02, 04 | Complete |
+| 08 | [Remote data and domain models](08_remote_data_and_domain_models.md) | 02 | Complete |
+| 09 | [Community and user directories](09_community_and_user_directories.md) | 04, 07, 08 | Complete |
+| 10 | [Opportunity controller and filter state](10_opportunity_controller_and_filter_state.md) | 07, 08 | Complete |
+| 11 | [Opportunity presentation](11_opportunity_presentation.md) | 03, 04, 10 | Complete |
+| 12 | [Routes and rendering boundaries](12_routes_and_rendering_boundaries.md) | 05–11 | Complete |
+| 13 | [Cleanup and final verification](13_cleanup_and_final_verification.md) | 12 | Complete |
 
 ## Global invariants
 

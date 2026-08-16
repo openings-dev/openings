@@ -1,6 +1,5 @@
 import type {
   CommunityProfileSummary,
-  OpportunityFilterFacets,
   OpportunityItem,
   OpportunitySortOrder,
   OpportunityViewMode,

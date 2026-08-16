@@ -1,4 +1,4 @@
-import type { Locale } from "@/lib/translations/types";
+import type { LocaleCode } from "@/lib/constants/locales";
 import type {
   CommunityProfileSummary,
   UserProfileSummary,
@@ -24,7 +24,7 @@ interface ProfileHeaderLabels {
 
 function formatLastPostedAt(
   lastPostedAt: string | null,
-  locale: Locale,
+  locale: LocaleCode,
   labels: ProfileHeaderLabels,
 ) {
   if (!lastPostedAt) return labels.updatedUnavailable;
@@ -37,7 +37,7 @@ function formatLastPostedAt(
 
 function formatSharedProfileFields(
   profile: CommunityProfileSummary | UserProfileSummary,
-  locale: Locale,
+  locale: LocaleCode,
   labels: ProfileHeaderLabels,
 ) {
   return {
@@ -52,7 +52,7 @@ function formatSharedProfileFields(
 
 export function buildUserProfileHeader(
   profile: UserProfileSummary,
-  locale: Locale,
+  locale: LocaleCode,
   labels: ProfileHeaderLabels,
 ): ProfileHeaderData {
   return {
@@ -64,7 +64,7 @@ export function buildUserProfileHeader(
 
 export function buildCommunityProfileHeader(
   profile: CommunityProfileSummary,
-  locale: Locale,
+  locale: LocaleCode,
   labels: ProfileHeaderLabels,
 ): ProfileHeaderData {
   return {
