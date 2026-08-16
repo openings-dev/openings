@@ -1,263 +1,43 @@
 "use client";
 
-import * as React from "react";
 import Link from "next/link";
-import { cn } from "@/lib/utils/tailwind";
-import {
-  markdownArticleStyles,
-  markdownBlockquoteStyles,
-  markdownCodeBlockStyles,
-  markdownDividerStyles,
-  markdownH1Styles,
-  markdownH2Styles,
-  markdownH3Styles,
-  markdownH4Styles,
-  markdownHeadingStyles,
-  markdownInlineCodeStyles,
-  markdownLinkStyles,
-  markdownListStyles,
-  markdownParagraphStyles,
-} from "../styles";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import type React from "react";
 import type { DocumentMarkdownProps } from "../types";
 
-const SPECIAL_LINE_REGEX =
-  /^(#{1,6}\s+|```|>\s?|[-*]\s+|\d+\.\s+|---+$|\*\*\*+$)/;
+const HEADING_CLASS = "font-semibold tracking-[-0.02em] text-foreground";
+const LINK_CLASS = "font-medium text-foreground underline decoration-border underline-offset-4 transition-colors hover:text-primary";
 
-function isSpecialLine(line: string) {
-  return SPECIAL_LINE_REGEX.test(line.trim());
-}
-
-function renderInline(text: string, keyPrefix: string): React.ReactNode[] {
-  const tokens = text.split(
-    /(\*\*[^*]+\*\*|_[^_]+_|`[^`]+`|\[[^\]]+\]\([^)]+\))/g,
+export function DocumentMarkdown({ markdown }: DocumentMarkdownProps): React.ReactNode {
+  return (
+    <article className="space-y-5 text-[15px] leading-7 text-foreground/95">
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={{
+          h1: ({ children }) => <h1 className={`${HEADING_CLASS} text-3xl sm:text-[2rem]`}>{children}</h1>,
+          h2: ({ children }) => <h2 className={`${HEADING_CLASS} text-2xl sm:text-[1.6rem]`}>{children}</h2>,
+          h3: ({ children }) => <h3 className={`${HEADING_CLASS} text-xl sm:text-[1.3rem]`}>{children}</h3>,
+          h4: ({ children }) => <h4 className={`${HEADING_CLASS} text-lg`}>{children}</h4>,
+          p: ({ children }) => <p className="text-[15px] leading-7 text-foreground/90">{children}</p>,
+          ul: ({ children }) => <ul className="list-disc space-y-2 pl-5 text-[15px] leading-7 text-foreground/90 marker:text-muted-foreground">{children}</ul>,
+          ol: ({ children }) => <ol className="list-decimal space-y-2 pl-5 text-[15px] leading-7 text-foreground/90 marker:text-muted-foreground">{children}</ol>,
+          blockquote: ({ children }) => <blockquote className="border-l-2 border-border pl-4 italic text-muted-foreground">{children}</blockquote>,
+          pre: ({ children }) => <pre className="overflow-x-auto rounded-xl border border-border/70 bg-muted/45 px-4 py-3 text-[13px] leading-6 text-foreground">{children}</pre>,
+          code: ({ children, className }) => className
+            ? <code className={className}>{children}</code>
+            : <code className="rounded-sm bg-muted px-1.5 py-0.5 text-[13px] text-foreground">{children}</code>,
+          a: ({ href = "", children }) => /^https?:\/\//.test(href)
+            ? <a href={href} target="_blank" rel="noreferrer" className={LINK_CLASS}>{children}</a>
+            : <Link href={href} className={LINK_CLASS}>{children}</Link>,
+          hr: () => <hr className="border-border/70" />,
+          table: ({ children }) => <div className="overflow-x-auto"><table className="w-full border-collapse text-sm">{children}</table></div>,
+          th: ({ children }) => <th className="border border-border bg-muted/45 px-3 py-2 text-left font-semibold">{children}</th>,
+          td: ({ children }) => <td className="border border-border px-3 py-2 align-top">{children}</td>,
+        }}
+      >
+        {markdown}
+      </ReactMarkdown>
+    </article>
   );
-
-  return tokens
-    .filter((token) => token.length > 0)
-    .map((token, index) => {
-      const key = `${keyPrefix}-${index}`;
-
-      if (token.startsWith("**") && token.endsWith("**")) {
-        return <strong key={key}>{token.slice(2, -2)}</strong>;
-      }
-
-      if (token.startsWith("`") && token.endsWith("`")) {
-        return (
-          <code key={key} className={markdownInlineCodeStyles()}>
-            {token.slice(1, -1)}
-          </code>
-        );
-      }
-
-      if (token.startsWith("_") && token.endsWith("_")) {
-        return <em key={key}>{token.slice(1, -1)}</em>;
-      }
-
-      const linkMatch = token.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
-      if (linkMatch) {
-        const [, label, href] = linkMatch;
-        const isExternal = /^https?:\/\//.test(href);
-
-        if (isExternal) {
-          return (
-            <a
-              key={key}
-              href={href}
-              target="_blank"
-              rel="noreferrer"
-              className={markdownLinkStyles()}
-            >
-              {label}
-            </a>
-          );
-        }
-
-        return (
-          <Link key={key} href={href} className={markdownLinkStyles()}>
-            {label}
-          </Link>
-        );
-      }
-
-      return <React.Fragment key={key}>{token}</React.Fragment>;
-    });
-}
-
-export function DocumentMarkdown({ markdown }: DocumentMarkdownProps) {
-  const lines = React.useMemo(
-    () => markdown.replace(/\r\n/g, "\n").split("\n"),
-    [markdown],
-  );
-
-  const content = React.useMemo(() => {
-    const blocks: React.ReactNode[] = [];
-    let cursor = 0;
-    let blockIndex = 0;
-
-    while (cursor < lines.length) {
-      const rawLine = lines[cursor];
-      const line = rawLine.trim();
-
-      if (!line) {
-        cursor += 1;
-        continue;
-      }
-
-      if (line.startsWith("```")) {
-        const language = line.slice(3).trim();
-        cursor += 1;
-        const codeLines: string[] = [];
-
-        while (cursor < lines.length && !lines[cursor].trim().startsWith("```")) {
-          codeLines.push(lines[cursor]);
-          cursor += 1;
-        }
-
-        if (cursor < lines.length) {
-          cursor += 1;
-        }
-
-        blocks.push(
-          <pre
-            key={`code-${blockIndex}`}
-            className={markdownCodeBlockStyles()}
-            data-language={language || undefined}
-          >
-            <code>{codeLines.join("\n")}</code>
-          </pre>,
-        );
-        blockIndex += 1;
-        continue;
-      }
-
-      const headingMatch = line.match(/^(#{1,4})\s+(.+)$/);
-      if (headingMatch) {
-        const [, hashes, headingText] = headingMatch;
-        const level = hashes.length;
-        const headingClass = cn(
-          markdownHeadingStyles(),
-          level === 1 && markdownH1Styles(),
-          level === 2 && markdownH2Styles(),
-          level === 3 && markdownH3Styles(),
-          level === 4 && markdownH4Styles(),
-        );
-
-        if (level === 1) {
-          blocks.push(
-            <h1 key={`h1-${blockIndex}`} className={headingClass}>
-              {renderInline(headingText, `h1-${blockIndex}`)}
-            </h1>,
-          );
-        } else if (level === 2) {
-          blocks.push(
-            <h2 key={`h2-${blockIndex}`} className={headingClass}>
-              {renderInline(headingText, `h2-${blockIndex}`)}
-            </h2>,
-          );
-        } else if (level === 3) {
-          blocks.push(
-            <h3 key={`h3-${blockIndex}`} className={headingClass}>
-              {renderInline(headingText, `h3-${blockIndex}`)}
-            </h3>,
-          );
-        } else {
-          blocks.push(
-            <h4 key={`h4-${blockIndex}`} className={headingClass}>
-              {renderInline(headingText, `h4-${blockIndex}`)}
-            </h4>,
-          );
-        }
-
-        cursor += 1;
-        blockIndex += 1;
-        continue;
-      }
-
-      if (/^---+$/.test(line) || /^\*\*\*+$/.test(line)) {
-        blocks.push(<hr key={`hr-${blockIndex}`} className={markdownDividerStyles()} />);
-        cursor += 1;
-        blockIndex += 1;
-        continue;
-      }
-
-      if (line.startsWith(">")) {
-        const quoteLines: string[] = [];
-
-        while (cursor < lines.length && lines[cursor].trim().startsWith(">")) {
-          quoteLines.push(lines[cursor].trim().replace(/^>\s?/, ""));
-          cursor += 1;
-        }
-
-        blocks.push(
-          <blockquote key={`quote-${blockIndex}`} className={markdownBlockquoteStyles()}>
-            {renderInline(quoteLines.join(" "), `quote-${blockIndex}`)}
-          </blockquote>,
-        );
-        blockIndex += 1;
-        continue;
-      }
-
-      if (/^[-*]\s+/.test(line)) {
-        const items: string[] = [];
-        while (cursor < lines.length && /^[-*]\s+/.test(lines[cursor].trim())) {
-          items.push(lines[cursor].trim().replace(/^[-*]\s+/, ""));
-          cursor += 1;
-        }
-
-        blocks.push(
-          <ul key={`ul-${blockIndex}`} className={markdownListStyles()}>
-            {items.map((item, itemIndex) => (
-              <li key={`ul-${blockIndex}-${itemIndex}`}>
-                {renderInline(item, `ul-${blockIndex}-${itemIndex}`)}
-              </li>
-            ))}
-          </ul>,
-        );
-        blockIndex += 1;
-        continue;
-      }
-
-      if (/^\d+\.\s+/.test(line)) {
-        const items: string[] = [];
-        while (cursor < lines.length && /^\d+\.\s+/.test(lines[cursor].trim())) {
-          items.push(lines[cursor].trim().replace(/^\d+\.\s+/, ""));
-          cursor += 1;
-        }
-
-        blocks.push(
-          <ol key={`ol-${blockIndex}`} className={markdownListStyles()}>
-            {items.map((item, itemIndex) => (
-              <li key={`ol-${blockIndex}-${itemIndex}`}>
-                {renderInline(item, `ol-${blockIndex}-${itemIndex}`)}
-              </li>
-            ))}
-          </ol>,
-        );
-        blockIndex += 1;
-        continue;
-      }
-
-      const paragraphLines: string[] = [line];
-      cursor += 1;
-      while (
-        cursor < lines.length &&
-        lines[cursor].trim() &&
-        !isSpecialLine(lines[cursor])
-      ) {
-        paragraphLines.push(lines[cursor].trim());
-        cursor += 1;
-      }
-
-      blocks.push(
-        <p key={`p-${blockIndex}`} className={markdownParagraphStyles()}>
-          {renderInline(paragraphLines.join(" "), `p-${blockIndex}`)}
-        </p>,
-      );
-      blockIndex += 1;
-    }
-
-    return blocks;
-  }, [lines]);
-
-  return <article className={markdownArticleStyles()}>{content}</article>;
 }
