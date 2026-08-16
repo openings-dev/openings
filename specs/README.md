@@ -4,7 +4,7 @@
 
 ## Contract
 
-These specifications refactor code only. They do not redesign screens, change product behavior, alter public routes or remote schemas, or add an automated test framework. Equivalent Tailwind and Lucide substitutions are allowed.
+Specs 00–13 refactor code without redesigning screens. Specs 14–24 define and implement the separately approved Calm Professional visual refinement. Neither program changes product behavior, public routes, remote schemas, or adds an automated test framework.
 
 Before each specification, confirm the previous one is complete and read the relevant [knowledge documents](../.knowledge/README.md). If current code has moved, update exact paths in the active spec before implementation without expanding its architectural scope.
 
@@ -42,8 +42,9 @@ Before each specification, confirm the previous one is complete and read the rel
 
 - `output: "export"` remains enabled.
 - The frontend continues to read only public remote Openings data.
-- Existing routes, query parameters, compatibility redirects, locale behavior, themes, responsive layouts, motion, accessibility, and user interactions remain equivalent.
-- No local opportunity data, API route, authentication system, backend proxy, visual redesign, or test framework is added.
+- Existing routes, query parameters, compatibility redirects, locale behavior, accessibility, and user interactions remain behaviorally equivalent.
+- Visual implementation follows the approved Calm Professional design in Specs 14–24, including its themes, responsive layouts, typography, surfaces, and motion.
+- No local opportunity data, API route, authentication system, backend proxy, unrelated product feature, or test framework is added.
 - Every ordinary component ends in its own kebab-case folder with `index.tsx`.
 - Every stage passes its required validations before the next stage begins.
 
