@@ -26,6 +26,7 @@ Before each specification, confirm the previous one is complete and read the rel
 | 11 | [Opportunity presentation](11_opportunity_presentation.md) | 03, 04, 10 | Complete |
 | 12 | [Routes and rendering boundaries](12_routes_and_rendering_boundaries.md) | 05–11 | Complete |
 | 13 | [Cleanup and final verification](13_cleanup_and_final_verification.md) | 12 | Complete |
+| 14 | [Calm Professional visual refinement design](14_visual_refinement_design.md) | 13 | Review |
 
 ## Global invariants
 
