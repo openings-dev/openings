@@ -7,7 +7,6 @@ import { ResolvedTheme, Theme } from "@/components/providers/theme-provider/type
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils/tailwind";
 import type { ThemeToggleProps } from "../types";
-import { themeToggleButtonStyles, themeToggleWrapperStyles } from "./styles";
 
 export function ThemeToggle({ className }: ThemeToggleProps) {
   const { resolvedTheme, setTheme } = useTheme();
@@ -20,7 +19,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       whileHover={{ y: -1 }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 420, damping: 24 }}
-      className={cn(themeToggleWrapperStyles(), className)}
+      className={cn("flex items-center", className)}
     >
       <Button
         variant="outline"
@@ -28,7 +27,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
         type="button"
         aria-label={ariaLabel}
         onClick={() => setTheme(nextTheme)}
-        className={themeToggleButtonStyles()}
+        className="size-9 rounded-md border-border/70 bg-transparent text-foreground/78 shadow-none hover:bg-muted/55 hover:text-foreground"
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span

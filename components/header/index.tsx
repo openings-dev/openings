@@ -11,8 +11,6 @@ import { BrandLogo } from "./brand-logo";
 import { HeaderNav } from "./header-nav";
 import { LanguageSwitcher } from "./language-switcher";
 import {
-  headerActionsStyles,
-  headerContainerStyles,
   headerStyles,
 } from "./styles";
 import { ThemeToggle } from "./theme-toggle";
@@ -56,10 +54,10 @@ export function Header({
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       className={cn(headerStyles({ position }), className)}
     >
-      <div className={headerContainerStyles()}>
+      <div className="mx-auto grid h-16 w-full max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-3 px-4 sm:px-6 lg:px-8">
         <BrandLogo href={logoHref} brandName={messages.header.brandName} />
         <HeaderNav items={navItems} />
-        <div className={headerActionsStyles()}>
+        <div className="flex min-w-0 items-center justify-end gap-1.5 sm:gap-2.5">
           <ThemeToggle />
           <LanguageSwitcher
             className="hidden xl:block"

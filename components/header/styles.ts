@@ -14,11 +14,3 @@ export const headerStyles = cva(
     },
   },
 );
-
-export const headerContainerStyles = cva(
-  "mx-auto grid h-16 w-full max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-3 px-4 sm:px-6 lg:px-8",
-);
-
-export const headerActionsStyles = cva(
-  "flex min-w-0 items-center justify-end gap-1.5 sm:gap-2.5",
-);

@@ -1,14 +1,8 @@
-"use client";
-
-import type { ReactNode } from "react";
+import type { PropsWithChildren, ReactNode } from "react";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 
-interface AppShellProps {
-  children: ReactNode;
-}
-
-export function AppShell({ children }: AppShellProps) {
+export function AppShell({ children }: PropsWithChildren): ReactNode {
   return (
     <div className="flex min-h-screen flex-col bg-transparent">
       <Header />
