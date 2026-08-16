@@ -8,7 +8,12 @@ import { SelectItem } from "@/components/ui/select/select-item";
 import { SelectTrigger } from "@/components/ui/select/select-trigger";
 import { SelectValue } from "@/components/ui/select/select-value";
 import type { LanguageSwitcherProps } from "../types";
-import { FlagBR, FlagDE, FlagES, FlagFR, FlagIT, FlagUS } from "./flags";
+import { FlagBR } from "./flag-br";
+import { FlagDE } from "./flag-de";
+import { FlagES } from "./flag-es";
+import { FlagFR } from "./flag-fr";
+import { FlagIT } from "./flag-it";
+import { FlagUS } from "./flag-us";
 
 const LOCALE_FLAGS: Record<string, React.ReactNode> = {
   en: <FlagUS className="rounded-[2px] shadow-sm" />,
