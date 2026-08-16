@@ -44,11 +44,11 @@ export function LocationFiltersPanel({
   const [isExpanded, setIsExpanded] = useResponsiveFilterPanel();
 
   return (
-    <aside className="rounded-2xl border border-border/60 bg-card/70 p-4 backdrop-blur sm:p-5">
+    <aside className="rounded-2xl border border-border/80 bg-surface-elevated p-4 shadow-soft-sm sm:p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <SlidersHorizontal className="size-3.5 text-muted-foreground" />
-          <h2 className="text-sm font-semibold text-foreground">
+          <SlidersHorizontal className="size-3.5 text-primary" />
+          <h2 className="text-sm font-semibold tracking-[-0.01em] text-foreground">
             {filtersMessages.title}
           </h2>
         </div>
@@ -58,7 +58,7 @@ export function LocationFiltersPanel({
             type="button"
             variant="ghost"
             size="sm"
-            className="h-7 gap-1 px-2 text-xs text-muted-foreground hover:text-foreground"
+            className="h-9 gap-1 px-2.5 text-xs"
             onClick={() => setIsExpanded(!isExpanded)}
             aria-expanded={isExpanded}
             aria-controls={contentId}
@@ -76,7 +76,7 @@ export function LocationFiltersPanel({
             type="button"
             variant="ghost"
             size="sm"
-            className="h-7 gap-1.5 px-2 text-xs text-muted-foreground hover:text-foreground"
+            className="h-9 gap-1.5 px-2.5 text-xs"
             onClick={onClear}
           >
             <RotateCcw className="size-3" />
@@ -91,11 +91,11 @@ export function LocationFiltersPanel({
           className="mt-4 grid gap-3 md:grid-cols-2 md:items-end"
         >
           <div className="space-y-1.5">
-            <label className="block text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+            <label className="block text-[11px] font-semibold uppercase tracking-[0.08em] text-subtle-foreground">
               {filtersMessages.region}
             </label>
             <select
-              className="h-10 w-full rounded-lg border border-input/75 bg-background/70 px-3 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+              className="h-11 w-full rounded-lg border border-border/90 bg-surface-elevated px-3 text-base text-foreground shadow-soft-sm transition-colors hover:border-input focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background md:text-sm"
               value={state.region}
               onChange={(event) => onRegionChange(event.target.value)}
             >
@@ -114,11 +114,11 @@ export function LocationFiltersPanel({
           </div>
 
           <div className="space-y-1.5">
-            <label className="block text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+            <label className="block text-[11px] font-semibold uppercase tracking-[0.08em] text-subtle-foreground">
               {filtersMessages.country}
             </label>
             <select
-              className="h-10 w-full rounded-lg border border-input/75 bg-background/70 px-3 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+              className="h-11 w-full rounded-lg border border-border/90 bg-surface-elevated px-3 text-base text-foreground shadow-soft-sm transition-colors hover:border-input focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background md:text-sm"
               value={state.country}
               onChange={(event) => onCountryChange(event.target.value)}
             >

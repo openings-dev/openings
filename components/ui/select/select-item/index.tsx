@@ -14,14 +14,14 @@ export function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "relative flex w-full cursor-default select-none items-center gap-2 rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-muted/70 focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+        "relative flex min-h-9 w-full cursor-default select-none items-center gap-2 rounded-lg py-2 pl-8 pr-2.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-40",
         className,
       )}
       {...props}
     >
       <span className="absolute left-2 flex size-4 items-center justify-center">
         <SelectPrimitive.ItemIndicator>
-          <Check className="size-4" aria-hidden="true" />
+          <Check className="size-3.5 text-primary" aria-hidden="true" />
         </SelectPrimitive.ItemIndicator>
       </span>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>

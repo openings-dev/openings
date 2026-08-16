@@ -29,8 +29,8 @@ Before each specification, confirm the previous one is complete and read the rel
 | 14 | [Calm Professional visual refinement design](14_visual_refinement_design.md) | 13 | Complete |
 | 15 | [Visual baseline and audit](15_visual_baseline_and_audit.md) | 14 | Complete |
 | 16 | [Visual foundations](16_visual_foundations.md) | 15 | Complete |
-| 17 | [Shared controls and states](17_shared_controls_and_states.md) | 16 | In progress |
-| 18 | [Shell, navigation, headers, and footer](18_shell_navigation_headers_and_footer.md) | 17 | Ready |
+| 17 | [Shared controls and states](17_shared_controls_and_states.md) | 16 | Complete |
+| 18 | [Shell, navigation, headers, and footer](18_shell_navigation_headers_and_footer.md) | 17 | In progress |
 | 19 | [Opportunity filters and toolbar](19_opportunity_filters_and_toolbar.md) | 17, 18 | Ready |
 | 20 | [Opportunity results and cards](20_opportunity_results_and_cards.md) | 16, 17, 19 | Ready |
 | 21 | [Opportunity details and Markdown](21_opportunity_details_and_markdown.md) | 16, 17, 20 | Ready |

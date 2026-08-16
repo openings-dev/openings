@@ -11,7 +11,7 @@ export function SelectSeparator({
   return (
     <SelectPrimitive.Separator
       data-slot="select-separator"
-      className={cn("my-1 h-px bg-border", className)}
+      className={cn("my-1.5 h-px bg-border/70", className)}
       {...props}
     />
   );
