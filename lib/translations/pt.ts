@@ -4,11 +4,11 @@ export const ptTranslations: TranslationMessages = {
   meta: {
     title: "openings.dev",
     description:
-      "Inteligência global de vagas em tecnologia alimentada por comunidades",
+      "Vagas de tecnologia compartilhadas por comunidades do GitHub, reunidas em um só lugar",
   },
   header: {
     brandName: "openings.dev",
-    brandTagline: "Inteligência de vagas movida por comunidades",
+    brandTagline: "Vagas compartilhadas por comunidades do GitHub",
     nav: {
       discover: "Vagas",
       communities: "Comunidades",
@@ -22,10 +22,10 @@ export const ptTranslations: TranslationMessages = {
     languageChanged: "Idioma alterado para {language}.",
   },
   home: {
-    kicker: "Inteligência open source de vagas",
+    kicker: "Vagas movidas pela comunidade",
     title: "Vagas de tecnologia no GitHub das comunidades, em um só lugar",
     description:
-      "O openings.dev acompanha issues de vagas em comunidades confiáveis, normaliza cada anúncio e permite filtrar por stack, senioridade, localização e política remota sem precisar pular entre repositórios.",
+      "Encontre vagas publicadas nas issues de comunidades do GitHub e filtre por stack, senioridade, localização e modelo remoto sem precisar pular entre repositórios.",
   },
   notFound: {
     kicker: "Não encontrado",
@@ -36,9 +36,13 @@ export const ptTranslations: TranslationMessages = {
   communities: {
     header: {
       kicker: "Comunidades",
-      title: "Comunidades ativas no sistema",
+      title: "Encontre vagas por comunidade",
       description:
-        "Explore as comunidades cadastradas, filtre por país e região, e abra cada comunidade para ver as vagas publicadas.",
+        "Explore comunidades do GitHub que compartilham vagas e veja todas as oportunidades de cada uma em um só lugar.",
+      profileKicker: "Vagas da comunidade",
+      profileTitle: "Vagas abertas na {name}",
+      profileDescription:
+        "Veja as vagas compartilhadas pela {name}. Cada anúncio leva à issue pública original no GitHub.",
     },
     filters: {
       title: "Filtros",
@@ -65,9 +69,13 @@ export const ptTranslations: TranslationMessages = {
   users: {
     header: {
       kicker: "Usuários",
-      title: "Usuários ativos no sistema",
+      title: "Encontre vagas por quem publicou",
       description:
-        "Explore os autores cadastrados, filtre por país e região e abra o perfil para ver as vagas publicadas por cada pessoa.",
+        "Conheça quem compartilha oportunidades nos repositórios das comunidades e veja todas as vagas abertas de cada perfil.",
+      profileKicker: "Perfil de quem publica",
+      profileTitle: "Vagas compartilhadas por {name}",
+      profileDescription:
+        "Veja as vagas abertas compartilhadas por @{handle} em repositórios públicos de comunidades no GitHub.",
     },
     filters: {
       title: "Filtros",
@@ -206,7 +214,7 @@ export const ptTranslations: TranslationMessages = {
     },
   },
   footer: {
-    brandTagline: "Inteligência de vagas movida por comunidades",
+    brandTagline: "Vagas compartilhadas por comunidades do GitHub",
     description:
       "Indexamos vagas de tecnologia publicadas como issues no GitHub por comunidades do Brasil, Portugal, Angola, LATAM e outros ecossistemas.",
     supportText:

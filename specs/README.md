@@ -42,6 +42,10 @@ Before each specification, confirm the previous one is complete and read the rel
 | 27 | [Locale persistence and interface language](27_locale_persistence_and_interface_language.md) | 26 | Complete |
 | 28 | [Metadata, contracts, and repository hygiene](28_metadata_contracts_and_repository_hygiene.md) | 27 | Complete |
 | 29 | [Final improvement verification](29_final_improvement_verification.md) | 28 | Complete |
+| 30 | [Shareable profile-page copy design](30_shareable_profile_page_copy_design.md) | 29 | Complete |
+| 31 | [Community and user profile positioning](31_community_and_user_profile_positioning.md) | 30 | Complete |
+| 32 | [Dedicated user pages and social metadata](32_dedicated_user_pages_and_social_metadata.md) | 31 | Complete |
+| 33 | [Profile-copy final verification](33_profile_copy_final_verification.md) | 32 | Complete |
 
 ## Global invariants
 

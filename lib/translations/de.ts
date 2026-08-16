@@ -3,11 +3,11 @@ import type { TranslationMessages } from "./types";
 export const deTranslations: TranslationMessages = {
   meta: {
     title: "openings.dev",
-    description: "Globale Tech-Job-Intelligence aus Community-Repositories",
+    description: "Tech-Jobs aus GitHub-Communities, gesammelt an einem Ort",
   },
   header: {
     brandName: "openings.dev",
-    brandTagline: "Community-getriebene Job-Intelligence",
+    brandTagline: "Jobs aus GitHub-Communities",
     nav: {
       discover: "Entdecken",
       communities: "Communities",
@@ -21,10 +21,10 @@ export const deTranslations: TranslationMessages = {
     languageChanged: "Sprache auf {language} geändert.",
   },
   home: {
-    kicker: "Open-Source-Job-Intelligence",
+    kicker: "Jobs aus der Community",
     title: "Tech-Jobs aus GitHub-Communities an einem durchsuchbaren Ort",
     description:
-      "openings.dev verfolgt Job-Issues aus verlässlichen Communities, normalisiert jeden Eintrag und ermöglicht Filter nach Stack, Seniorität, Standort und Remote-Regelung ohne Wechsel zwischen Repositories.",
+      "Finde Jobs aus den Issues von GitHub-Communities und filtere nach Stack, Erfahrung, Standort und Remote-Modell, ohne zwischen Repositories zu wechseln.",
   },
   notFound: {
     kicker: "Nicht gefunden",
@@ -35,9 +35,13 @@ export const deTranslations: TranslationMessages = {
   communities: {
     header: {
       kicker: "Communities",
-      title: "Im System verfügbare Communities",
+      title: "Jobs nach Community finden",
       description:
-        "Durchsuche registrierte Communities, filtere nach Land und Region und öffne eine Community, um veröffentlichte Jobs zu sehen.",
+        "Entdecke GitHub-Communities, die offene Stellen teilen, und finde alle Jobs einer Community an einem Ort.",
+      profileKicker: "Jobs der Community",
+      profileTitle: "Offene Stellen von {name}",
+      profileDescription:
+        "Entdecke die von {name} geteilten Stellen. Jede Anzeige führt zur ursprünglichen öffentlichen GitHub-Issue.",
     },
     filters: {
       title: "Filter",
@@ -64,9 +68,13 @@ export const deTranslations: TranslationMessages = {
   users: {
     header: {
       kicker: "Nutzer",
-      title: "Aktive Nutzer im System",
+      title: "Jobs nach Herausgeber finden",
       description:
-        "Durchsuche registrierte Autoren, filtere nach Land und Region und öffne ein Profil, um veröffentlichte Opportunities je Person zu sehen.",
+        "Entdecke die Personen, die Jobs in Community-Repositories teilen, und sieh alle offenen Stellen jedes Profils.",
+      profileKicker: "Herausgeberprofil",
+      profileTitle: "Von {name} geteilte Stellen",
+      profileDescription:
+        "Entdecke offene Stellen, die @{handle} in öffentlichen GitHub-Community-Repositories geteilt hat.",
     },
     filters: {
       title: "Filter",
@@ -93,9 +101,9 @@ export const deTranslations: TranslationMessages = {
   opportunities: {
     header: {
       kicker: "Opportunity Explorer",
-      title: "Premium-Tech-Jobs entdecken",
+      title: "Tech-Jobs direkt von GitHub.",
       description:
-        "Durchsuche Communities und Repositories mit präzisen Filtern, wechsle zwischen Listen- und Rasteransicht und prüfe Chancen mit GitHub-ähnlicher Klarheit und hochwertigem Finish.",
+        "Entdecke Stellen aus vertrauenswürdigen Communities und filtere nach dem, was für dich wichtig ist.",
       opportunitiesLabel: "Stellen",
       locationLabel: "Standort",
       lastPostLabel: "Letzte Veröffentlichung",
@@ -207,7 +215,7 @@ export const deTranslations: TranslationMessages = {
     },
   },
   footer: {
-    brandTagline: "Community-getriebene Job-Intelligence",
+    brandTagline: "Jobs aus GitHub-Communities",
     description:
       "Wir indexieren Tech-Jobs, die als GitHub-Issues in Communities aus Brasilien, Portugal, Angola, LATAM und weiteren Ökosystemen veröffentlicht werden.",
     supportText: "Öffentlich gebaut für Kandidaten, Recruiter und Maintainer.",

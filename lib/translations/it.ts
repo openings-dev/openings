@@ -4,11 +4,11 @@ export const itTranslations: TranslationMessages = {
   meta: {
     title: "openings.dev",
     description:
-      "Intelligence globale per offerte tech alimentata dalle community",
+      "Offerte tech condivise dalle community GitHub, raccolte in un unico posto",
   },
   header: {
     brandName: "openings.dev",
-    brandTagline: "Intelligence lavoro guidata dalle community",
+    brandTagline: "Offerte condivise dalle community GitHub",
     nav: {
       discover: "Scopri",
       communities: "Community",
@@ -22,11 +22,11 @@ export const itTranslations: TranslationMessages = {
     languageChanged: "Lingua impostata su {language}.",
   },
   home: {
-    kicker: "Intelligence open source per offerte",
+    kicker: "Lavoro guidato dalla community",
     title:
       "Offerte tech dai repository GitHub delle community, in un'unica ricerca",
     description:
-      "openings.dev monitora issue di lavoro pubblicate da community affidabili, normalizza ogni annuncio e permette filtri per stack, seniority, localizzazione e policy remote senza passare da un repository all'altro.",
+      "Trova le offerte pubblicate nelle issue delle community GitHub e filtra per stack, esperienza, località e lavoro da remoto senza passare da un repository all'altro.",
   },
   notFound: {
     kicker: "Non trovato",
@@ -37,9 +37,13 @@ export const itTranslations: TranslationMessages = {
   communities: {
     header: {
       kicker: "Community",
-      title: "Community disponibili nel sistema",
+      title: "Trova opportunità per community",
       description:
-        "Esplora le community registrate, filtra per paese e regione e apri ogni community per vedere le opportunità pubblicate.",
+        "Esplora le community GitHub che condividono posizioni aperte e consulta tutte le opportunità di ciascuna in un unico posto.",
+      profileKicker: "Opportunità della community",
+      profileTitle: "Opportunità aperte da {name}",
+      profileDescription:
+        "Consulta le posizioni condivise da {name}. Ogni annuncio rimanda alla issue pubblica originale su GitHub.",
     },
     filters: {
       title: "Filtri",
@@ -66,9 +70,13 @@ export const itTranslations: TranslationMessages = {
   users: {
     header: {
       kicker: "Utenti",
-      title: "Utenti attivi nel sistema",
+      title: "Trova opportunità per autore",
       description:
-        "Esplora gli autori registrati, filtra per paese e regione e apri il profilo per vedere le opportunità pubblicate da ogni persona.",
+        "Scopri chi condivide opportunità nei repository delle community e consulta tutte le posizioni aperte di ogni profilo.",
+      profileKicker: "Profilo autore",
+      profileTitle: "Opportunità condivise da {name}",
+      profileDescription:
+        "Consulta le posizioni aperte condivise da @{handle} nei repository pubblici delle community GitHub.",
     },
     filters: {
       title: "Filtri",
@@ -95,9 +103,9 @@ export const itTranslations: TranslationMessages = {
   opportunities: {
     header: {
       kicker: "Esplora opportunità",
-      title: "Scopri offerte tech premium",
+      title: "Offerte tech, direttamente da GitHub.",
       description:
-        "Cerca community e repository con filtri ad alto segnale, passa tra vista lista e griglia, e analizza le opportunità con chiarezza in stile GitHub e finitura premium.",
+        "Scopri le opportunità condivise da community affidabili e filtra in base a ciò che conta per te.",
       opportunitiesLabel: "Opportunità",
       locationLabel: "Località",
       lastPostLabel: "Ultima pubblicazione",
@@ -207,7 +215,7 @@ export const itTranslations: TranslationMessages = {
     },
   },
   footer: {
-    brandTagline: "Intelligence lavoro guidata dalle community",
+    brandTagline: "Offerte condivise dalle community GitHub",
     description:
       "Indicizziamo offerte tech pubblicate come issue GitHub da community in Brasile, Portogallo, Angola, LATAM e altri ecosistemi.",
     supportText: "Costruito in pubblico per candidati, recruiter e maintainer.",

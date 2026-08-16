@@ -4,11 +4,11 @@ export const enTranslations: TranslationMessages = {
   meta: {
     title: "openings.dev",
     description:
-      "Global tech jobs intelligence powered by community repositories",
+      "Technology opportunities shared by GitHub communities, gathered in one place",
   },
   header: {
     brandName: "openings.dev",
-    brandTagline: "Tech jobs from GitHub communities",
+    brandTagline: "Jobs shared by GitHub communities",
     nav: {
       discover: "Jobs",
       communities: "Communities",
@@ -22,10 +22,10 @@ export const enTranslations: TranslationMessages = {
     languageChanged: "Language set to {language}.",
   },
   home: {
-    kicker: "Open-source jobs intelligence",
+    kicker: "Community-powered job board",
     title: "Tech jobs from community GitHub repos, in one searchable place",
     description:
-      "openings.dev tracks job issues published by trusted communities, normalizes every post, and helps you filter by stack, seniority, location, and remote policy without jumping between repositories.",
+      "Browse job issues published by GitHub communities and filter them by stack, seniority, location, and remote policy without jumping between repositories.",
   },
   notFound: {
     kicker: "Not found",
@@ -36,9 +36,13 @@ export const enTranslations: TranslationMessages = {
   communities: {
     header: {
       kicker: "Communities",
-      title: "Communities available in the system",
+      title: "Find opportunities by community",
       description:
-        "Browse registered communities, filter by country and region, and open each community page to view posted opportunities.",
+        "Explore the GitHub communities sharing open roles, then visit a community to see all of its opportunities in one place.",
+      profileKicker: "Community opportunities",
+      profileTitle: "Open opportunities from {name}",
+      profileDescription:
+        "Browse roles shared by {name}. Every listing links back to the original public GitHub issue.",
     },
     filters: {
       title: "Filters",
@@ -65,9 +69,13 @@ export const enTranslations: TranslationMessages = {
   users: {
     header: {
       kicker: "Users",
-      title: "Active users in the system",
+      title: "Find opportunities by publisher",
       description:
-        "Browse registered authors, filter by country and region, and open a profile to view opportunities posted by each person.",
+        "Meet the people sharing opportunities across community repositories and browse every open role from each publisher.",
+      profileKicker: "Publisher profile",
+      profileTitle: "Opportunities shared by {name}",
+      profileDescription:
+        "Browse open roles shared by @{handle} across public GitHub community repositories.",
     },
     filters: {
       title: "Filters",
@@ -206,7 +214,7 @@ export const enTranslations: TranslationMessages = {
     },
   },
   footer: {
-    brandTagline: "Tech jobs from GitHub communities",
+    brandTagline: "Jobs shared by GitHub communities",
     description:
       "We index tech jobs posted as GitHub issues across communities in Brazil, Portugal, Angola, LATAM, and beyond.",
     supportText: "Built in public for candidates, recruiters, and maintainers.",

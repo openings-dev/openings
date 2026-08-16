@@ -4,11 +4,11 @@ export const frTranslations: TranslationMessages = {
   meta: {
     title: "openings.dev",
     description:
-      "Intelligence globale des offres tech alimentée par les communautés",
+      "Offres tech partagées par des communautés GitHub, réunies au même endroit",
   },
   header: {
     brandName: "openings.dev",
-    brandTagline: "Intelligence emploi portée par les communautés",
+    brandTagline: "Offres partagées par des communautés GitHub",
     nav: {
       discover: "Découvrir",
       communities: "Communautés",
@@ -22,11 +22,11 @@ export const frTranslations: TranslationMessages = {
     languageChanged: "Langue définie sur {language}.",
   },
   home: {
-    kicker: "Intelligence open source des offres",
+    kicker: "Emploi porté par les communautés",
     title:
       "Des offres tech issues des communautés GitHub, réunies dans une seule recherche",
     description:
-      "openings.dev suit les issues d'emploi publiées par des communautés fiables, normalise chaque offre et permet de filtrer par stack, séniorité, localisation et politique remote sans passer d'un dépôt à l'autre.",
+      "Trouvez les offres publiées dans les issues de communautés GitHub et filtrez par stack, expérience, lieu et télétravail sans passer d’un dépôt à l’autre.",
   },
   notFound: {
     kicker: "Introuvable",
@@ -37,9 +37,13 @@ export const frTranslations: TranslationMessages = {
   communities: {
     header: {
       kicker: "Communautés",
-      title: "Communautés disponibles dans le système",
+      title: "Trouvez des opportunités par communauté",
       description:
-        "Parcourez les communautés enregistrées, filtrez par pays et région, puis ouvrez une communauté pour voir les opportunités publiées.",
+        "Explorez les communautés GitHub qui partagent des postes ouverts et retrouvez toutes leurs opportunités au même endroit.",
+      profileKicker: "Opportunités de la communauté",
+      profileTitle: "Opportunités ouvertes chez {name}",
+      profileDescription:
+        "Consultez les postes partagés par {name}. Chaque annonce renvoie vers l’issue GitHub publique d’origine.",
     },
     filters: {
       title: "Filtres",
@@ -66,9 +70,13 @@ export const frTranslations: TranslationMessages = {
   users: {
     header: {
       kicker: "Utilisateurs",
-      title: "Utilisateurs actifs dans le système",
+      title: "Trouvez des opportunités par auteur",
       description:
-        "Parcourez les auteurs enregistrés, filtrez par pays et région et ouvrez un profil pour voir les opportunités publiées par chaque personne.",
+        "Découvrez les personnes qui partagent des opportunités dans les dépôts communautaires et consultez les postes ouverts de chaque profil.",
+      profileKicker: "Profil de publication",
+      profileTitle: "Opportunités partagées par {name}",
+      profileDescription:
+        "Consultez les postes ouverts partagés par @{handle} dans des dépôts publics de communautés GitHub.",
     },
     filters: {
       title: "Filtres",
@@ -95,9 +103,9 @@ export const frTranslations: TranslationMessages = {
   opportunities: {
     header: {
       kicker: "Explorateur d'opportunités",
-      title: "Découvrez des offres tech premium",
+      title: "Des offres tech, directement depuis GitHub.",
       description:
-        "Recherchez des communautés et des dépôts avec des filtres précis, basculez entre liste et grille, et analysez les opportunités avec une clarté inspirée de GitHub et une finition premium.",
+        "Découvrez les opportunités partagées par des communautés de confiance et filtrez selon ce qui compte pour vous.",
       opportunitiesLabel: "Opportunités",
       locationLabel: "Localisation",
       lastPostLabel: "Dernière publication",
@@ -209,7 +217,7 @@ export const frTranslations: TranslationMessages = {
     },
   },
   footer: {
-    brandTagline: "Intelligence emploi portée par les communautés",
+    brandTagline: "Offres partagées par des communautés GitHub",
     description:
       "Nous indexons les offres tech publiées en issues GitHub par des communautés du Brésil, du Portugal, d'Angola, d'Amérique latine et d'autres écosystèmes.",
     supportText:

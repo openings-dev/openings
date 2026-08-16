@@ -15,6 +15,7 @@ import { useLoadMoreHandler } from "./use-load-more-handler";
 import { useRemoteOpportunities } from "./use-remote-opportunities";
 import { useUrlSync } from "./use-url-sync";
 import { useSelectedOpportunity } from "./use-selected-opportunity";
+import { formatTemplate } from "@/lib/utils/format-template";
 import type { OpportunitiesScreenProps } from "@/app/opportunities/_components/opportunities-screen/types";
 import {
   normalizeSelectedOpportunityId,
@@ -132,21 +133,27 @@ export function useOpportunitiesScreenController({
   const isUserProfileScope = Boolean(normalizedForcedAuthor);
   const isCommunityProfileScope = !isUserProfileScope && Boolean(normalizedForcedRepository);
   const headerKicker = isUserProfileScope
-    ? messages.users.header.kicker
+    ? messages.users.header.profileKicker
     : isCommunityProfileScope
-      ? messages.communities.header.kicker
+      ? messages.communities.header.profileKicker
       : opportunitiesMessages.header.kicker;
   const headerTitle = isUserProfileScope
-    ? (userProfileSummary?.name || normalizedForcedAuthor || opportunitiesMessages.header.title)
+    ? formatTemplate(messages.users.header.profileTitle, {
+      name: userProfileSummary?.name || normalizedForcedAuthor || "",
+    })
     : isCommunityProfileScope
-      ? (communityProfileSummary?.name ||
-        normalizedForcedRepository ||
-        opportunitiesMessages.header.title)
+      ? formatTemplate(messages.communities.header.profileTitle, {
+        name: communityProfileSummary?.name || normalizedForcedRepository || "",
+      })
       : opportunitiesMessages.header.title;
   const headerDescription = isUserProfileScope
-    ? `@${userProfileSummary?.handle || normalizedForcedAuthor}`
+    ? formatTemplate(messages.users.header.profileDescription, {
+      handle: userProfileSummary?.handle || normalizedForcedAuthor || "",
+    })
     : isCommunityProfileScope
-      ? communityProfileSummary?.repository || normalizedForcedRepository || ""
+      ? formatTemplate(messages.communities.header.profileDescription, {
+        name: communityProfileSummary?.name || normalizedForcedRepository || "",
+      })
       : opportunitiesMessages.header.description;
   const profileHeader = React.useMemo<ProfileHeaderData | null>(() => {
     if (isUserProfileScope && userProfileSummary) {

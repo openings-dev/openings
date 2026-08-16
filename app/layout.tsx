@@ -23,12 +23,27 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://openings.dev"),
   title: {
     default: "openings.dev",
     template: "%s | openings.dev",
   },
   description:
     "Discover technology opportunities published by trusted GitHub communities.",
+  openGraph: {
+    type: "website",
+    title: "openings.dev",
+    description:
+      "Technology opportunities shared by GitHub communities, gathered in one place.",
+    url: "/",
+    siteName: "openings.dev",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "openings.dev",
+    description:
+      "Technology opportunities shared by GitHub communities, gathered in one place.",
+  },
   icons: {
     icon: [
       {

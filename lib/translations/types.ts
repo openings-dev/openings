@@ -39,6 +39,9 @@ export interface TranslationMessages {
       kicker: string;
       title: string;
       description: string;
+      profileKicker: string;
+      profileTitle: string;
+      profileDescription: string;
     };
     filters: {
       title: string;
@@ -67,6 +70,9 @@ export interface TranslationMessages {
       kicker: string;
       title: string;
       description: string;
+      profileKicker: string;
+      profileTitle: string;
+      profileDescription: string;
     };
     filters: {
       title: string;

@@ -54,23 +54,41 @@ export async function generateMetadata({
 
   if (!profile) {
     return {
-      title: "Community jobs | openings.dev",
+      title: "Community jobs",
       description: "Browse technology opportunities from a GitHub community.",
     };
   }
 
+  const title = `Open opportunities from ${profile.name}`;
+  const description = `Browse open roles shared by ${profile.name}. Every listing links to its original public GitHub issue.`;
+  const canonical = buildCommunityPath(profile.repository);
+
   return {
-    title: `${profile.name} jobs | openings.dev`,
-    description: `Browse open technology opportunities from ${profile.repository} in a cleaner interface powered by openings.dev.`,
+    title,
+    description,
     alternates: {
-      canonical: buildCommunityPath(profile.repository),
+      canonical,
+    },
+    openGraph: {
+      type: "website",
+      title,
+      description,
+      url: canonical,
+      siteName: "openings.dev",
+      images: profile.avatarUrl ? [{ url: profile.avatarUrl, alt: profile.name }] : undefined,
+    },
+    twitter: {
+      card: profile.avatarUrl ? "summary" : "summary_large_image",
+      title,
+      description,
+      images: profile.avatarUrl ? [profile.avatarUrl] : undefined,
     },
   };
 }
 
 export default async function CommunityRepositoryPage({
   params,
-}: CommunityRepositoryPageProps) {
+}: CommunityRepositoryPageProps): Promise<React.ReactNode> {
   const profile = await resolveCommunityProfile(params);
 
   if (!profile) {

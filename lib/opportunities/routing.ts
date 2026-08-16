@@ -54,7 +54,7 @@ export function buildCommunityPath(repository: string) {
 export function buildUserPath(handle: string) {
   const normalized = normalizeAuthorHandle(handle);
 
-  return buildHomePathWithParam("authors", normalized);
+  return normalized ? `/users/${encodeURIComponent(normalized)}` : "/users";
 }
 
 export function repositoryFromCommunitySegments(segments: string[]) {

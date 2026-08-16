@@ -4,11 +4,11 @@ export const esTranslations: TranslationMessages = {
   meta: {
     title: "openings.dev",
     description:
-      "Inteligencia global de empleos tech impulsada por comunidades",
+      "Vacantes tecnológicas compartidas por comunidades de GitHub, reunidas en un solo lugar",
   },
   header: {
     brandName: "openings.dev",
-    brandTagline: "Inteligencia laboral impulsada por comunidades",
+    brandTagline: "Vacantes compartidas por comunidades de GitHub",
     nav: {
       discover: "Descubrir",
       communities: "Comunidades",
@@ -22,11 +22,11 @@ export const esTranslations: TranslationMessages = {
     languageChanged: "Idioma actualizado a {language}.",
   },
   home: {
-    kicker: "Inteligencia open source de empleos",
+    kicker: "Empleo impulsado por la comunidad",
     title:
       "Empleos tech de repositorios comunitarios de GitHub, en un solo lugar",
     description:
-      "openings.dev sigue issues de empleo publicados por comunidades confiables, normaliza cada vacante y permite filtrar por stack, seniority, ubicación y política remota sin saltar entre repositorios.",
+      "Encuentra vacantes publicadas en issues de comunidades de GitHub y filtra por stack, experiencia, ubicación y modalidad remota sin saltar entre repositorios.",
   },
   notFound: {
     kicker: "No encontrado",
@@ -37,9 +37,13 @@ export const esTranslations: TranslationMessages = {
   communities: {
     header: {
       kicker: "Comunidades",
-      title: "Comunidades disponibles en el sistema",
+      title: "Encuentra oportunidades por comunidad",
       description:
-        "Explora comunidades registradas, filtra por país y región, y abre cada comunidad para ver las oportunidades publicadas.",
+        "Explora las comunidades de GitHub que comparten vacantes y consulta todas las oportunidades de cada una en un solo lugar.",
+      profileKicker: "Oportunidades de la comunidad",
+      profileTitle: "Oportunidades abiertas de {name}",
+      profileDescription:
+        "Consulta las vacantes compartidas por {name}. Cada anuncio enlaza con la issue pública original en GitHub.",
     },
     filters: {
       title: "Filtros",
@@ -66,9 +70,13 @@ export const esTranslations: TranslationMessages = {
   users: {
     header: {
       kicker: "Usuarios",
-      title: "Usuarios activos en el sistema",
+      title: "Encuentra oportunidades por quien publica",
       description:
-        "Explora autores registrados, filtra por país y región y abre el perfil para ver las oportunidades publicadas por cada persona.",
+        "Conoce a quienes comparten oportunidades en repositorios comunitarios y consulta todas las vacantes abiertas de cada perfil.",
+      profileKicker: "Perfil de publicador",
+      profileTitle: "Oportunidades compartidas por {name}",
+      profileDescription:
+        "Consulta las vacantes abiertas compartidas por @{handle} en repositorios públicos de comunidades de GitHub.",
     },
     filters: {
       title: "Filtros",
@@ -95,9 +103,9 @@ export const esTranslations: TranslationMessages = {
   opportunities: {
     header: {
       kicker: "Explorador de oportunidades",
-      title: "Descubre vacantes tech premium",
+      title: "Vacantes de tecnología, directamente desde GitHub.",
       description:
-        "Busca comunidades y repositorios con filtros de alta señal, alterna entre vista de lista y cuadrícula, y revisa oportunidades con claridad tipo GitHub y acabado refinado.",
+        "Descubre oportunidades compartidas por comunidades de confianza y filtra por lo que realmente te importa.",
       opportunitiesLabel: "Oportunidades",
       locationLabel: "Ubicación",
       lastPostLabel: "Última publicación",
@@ -208,7 +216,7 @@ export const esTranslations: TranslationMessages = {
     },
   },
   footer: {
-    brandTagline: "Inteligencia laboral impulsada por comunidades",
+    brandTagline: "Vacantes compartidas por comunidades de GitHub",
     description:
       "Indexamos empleos tech publicados como issues de GitHub en comunidades de Brasil, Portugal, Angola, LATAM y otros ecosistemas.",
     supportText:
