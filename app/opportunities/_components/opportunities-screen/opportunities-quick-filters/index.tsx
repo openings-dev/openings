@@ -14,11 +14,20 @@ import {
   compactSelectTriggerStyles,
   textInputStyles,
 } from "@/app/opportunities/_components/opportunities-screen/styles";
-import type { useOpportunitiesScreenController } from "@/app/opportunities/_components/opportunities-screen/controller/use-opportunities-screen-controller";
-import type { FilterOption } from "@/app/opportunities/_components/opportunities-screen/types";
+import type {
+  FilterOption,
+  OnFilterFieldChange,
+  OpportunityFilterOptions,
+  OpportunityFiltersState,
+} from "@/app/opportunities/_components/opportunities-screen/types";
 
 interface OpportunitiesQuickFiltersProps {
-  controller: ReturnType<typeof useOpportunitiesScreenController>;
+  filters: OpportunityFiltersState;
+  options: OpportunityFilterOptions;
+  filtersExpanded: boolean;
+  onFiltersExpandedChange: (expanded: boolean) => void;
+  onFieldChange: OnFilterFieldChange;
+  onToggleTag: (tag: string) => void;
 }
 
 interface QuickSelectProps {
@@ -58,19 +67,22 @@ function QuickSelect({
 }
 
 export function OpportunitiesQuickFilters({
-  controller,
+  filters,
+  options,
+  filtersExpanded,
+  onFiltersExpandedChange,
+  onFieldChange,
+  onToggleTag,
 }: OpportunitiesQuickFiltersProps) {
   const { messages } = useI18n();
   const filterMessages = messages.opportunities.filters;
-  const { normalizedFilters, options } = controller;
-
   const handleAddTag = React.useCallback(
     (tag: string) => {
-      if (!normalizedFilters.tags.includes(tag)) {
-        controller.handleToggleTag(tag);
+      if (!filters.tags.includes(tag)) {
+        onToggleTag(tag);
       }
     },
-    [controller, normalizedFilters.tags],
+    [filters.tags, onToggleTag],
   );
 
   return (
@@ -83,10 +95,8 @@ export function OpportunitiesQuickFilters({
           <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground/65" />
           <input
             type="text"
-            value={normalizedFilters.searchText}
-            onChange={(event) =>
-              controller.handleFieldChange("searchText", event.target.value)
-            }
+            value={filters.searchText}
+            onChange={(event) => onFieldChange("searchText", event.target.value)}
             placeholder={filterMessages.searchPlaceholder}
             className={cn(textInputStyles, "h-11 rounded-md pl-9")}
           />
@@ -95,23 +105,21 @@ export function OpportunitiesQuickFilters({
         <QuickSelect
           placeholder={filterMessages.repositoryPlaceholder}
           allLabel={filterMessages.allRepositories}
-          value={normalizedFilters.repository}
+          value={filters.repository}
           options={options.repositories}
-          onValueChange={(value) =>
-            controller.handleFieldChange("repository", value)
-          }
+          onValueChange={(value) => onFieldChange("repository", value)}
         />
 
         <QuickSelect
           placeholder={filterMessages.countryPlaceholder}
           allLabel={filterMessages.allCountries}
-          value={normalizedFilters.country}
+          value={filters.country}
           options={options.countries}
-          onValueChange={(value) => controller.handleFieldChange("country", value)}
+          onValueChange={(value) => onFieldChange("country", value)}
         />
 
         <QuickSelect
-          key={`quick-work-mode-${normalizedFilters.tags.join("|")}`}
+          key={`quick-work-mode-${filters.tags.join("|")}`}
           placeholder={filterMessages.workModePlaceholder}
           options={options.tagCategories.workModel}
           disabled={options.tagCategories.workModel.length === 0}
@@ -122,12 +130,10 @@ export function OpportunitiesQuickFilters({
           type="button"
           variant="outline"
           className="h-11 justify-center rounded-md border-border/70 bg-background/55 px-4 text-sm text-foreground/86 hover:bg-muted/50 md:min-w-32"
-          onClick={() =>
-            controller.setFiltersExpanded(!controller.filtersExpanded)
-          }
+          onClick={() => onFiltersExpandedChange(!filtersExpanded)}
         >
           <SlidersHorizontal className="size-4 text-primary" />
-          {controller.filtersExpanded ? filterMessages.hide : filterMessages.show}
+          {filtersExpanded ? filterMessages.hide : filterMessages.show}
         </Button>
       </div>
     </section>

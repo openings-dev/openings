@@ -22,7 +22,14 @@ export function OpportunitiesScreenContent({
 }: OpportunitiesScreenContentProps) {
   return (
     <>
-      <OpportunitiesQuickFilters controller={controller} />
+      <OpportunitiesQuickFilters
+        filters={controller.normalizedFilters}
+        options={controller.options}
+        filtersExpanded={controller.filtersExpanded}
+        onFiltersExpandedChange={controller.setFiltersExpanded}
+        onFieldChange={controller.handleFieldChange}
+        onToggleTag={controller.handleToggleTag}
+      />
 
       <div className={opportunitiesBodyStyles}>
         <aside className={opportunitiesSidebarStyles}>
