@@ -34,7 +34,7 @@ export function DirectoryEntityCard({
   return (
     <Link
       href={href}
-      className="group block rounded-2xl border border-border/60 bg-card/70 p-4 transition hover:border-primary/40 hover:bg-card"
+      className="group block h-full rounded-2xl border border-border/80 bg-surface-elevated p-4 shadow-soft-sm transition-[border-color,background-color,box-shadow] hover:border-primary/35 hover:bg-card hover:shadow-soft-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/70"
     >
       <div className="flex items-center gap-3">
         {avatarUrl ? (
@@ -51,12 +51,12 @@ export function DirectoryEntityCard({
         )}
 
         <div className="min-w-0">
-          <p className="truncate text-sm font-semibold text-foreground">{title}</p>
+          <p className="font-display truncate text-base font-bold tracking-[-0.025em] text-foreground">{title}</p>
           <p className="truncate text-xs text-muted-foreground">{subtitle}</p>
         </div>
       </div>
 
-      <dl className="mt-4 grid gap-2 text-xs text-muted-foreground">
+      <dl className="mt-5 grid gap-2.5 text-xs text-muted-foreground">
         {details.map((detail) => (
           <div key={`${detail.label}-${detail.value}`} className="flex items-center gap-2">
             <detail.icon className="size-3.5" />
@@ -67,8 +67,8 @@ export function DirectoryEntityCard({
       </dl>
 
       <div className="mt-4 flex items-center justify-between">
-        <p className="text-sm font-medium text-primary">{opportunitiesLabel}</p>
-        <span className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground transition group-hover:text-primary">
+        <p className="font-tabular text-sm font-semibold text-primary">{opportunitiesLabel}</p>
+        <span className="text-[10px] font-bold uppercase tracking-[0.09em] text-subtle-foreground transition group-hover:text-primary">
           {actionLabel}
         </span>
       </div>
