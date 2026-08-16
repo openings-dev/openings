@@ -4,7 +4,7 @@
 
 ## Contract
 
-Specs 00–13 refactor code without redesigning screens. Specs 14–24 define and implement the separately approved Calm Professional visual refinement. Neither program changes product behavior, public routes, remote schemas, or adds an automated test framework.
+Specs 00–13 refactor code without redesigning screens. Specs 14–24 define and implement the approved Calm Professional visual refinement. Specs 25–29 harden quality and accessibility. Specs 30–33 reposition community and user destinations as public, shareable profile pages and intentionally add `/users/[handle]`. None of these programs changes remote schemas or adds an automated test framework.
 
 Before each specification, confirm the previous one is complete and read the relevant [knowledge documents](../.knowledge/README.md). If current code has moved, update exact paths in the active spec before implementation without expanding its architectural scope.
 
@@ -51,7 +51,7 @@ Before each specification, confirm the previous one is complete and read the rel
 
 - `output: "export"` remains enabled.
 - The frontend continues to read only public remote Openings data.
-- Existing routes, query parameters, compatibility redirects, locale behavior, accessibility, and user interactions remain behaviorally equivalent.
+- Established routes, query parameters, compatibility redirects, locale behavior, accessibility, and user interactions remain compatible; `/users/[handle]` is the approved canonical user-profile route from Spec 32.
 - Visual implementation follows the approved Calm Professional design in Specs 14–24, including its themes, responsive layouts, typography, surfaces, and motion.
 - No local opportunity data, API route, authentication system, backend proxy, unrelated product feature, or test framework is added.
 - Every ordinary component ends in its own kebab-case folder with `index.tsx`.

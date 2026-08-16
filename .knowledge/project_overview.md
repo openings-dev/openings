@@ -18,14 +18,14 @@ The frontend owns presentation, filtering interaction, route generation, localiz
 - Framer Motion for existing motion behavior
 - Lucide React for general interface icons
 - `react-markdown` with GitHub Flavored Markdown
-- `next-themes` is installed; the current theme provider is project-owned
+- The theme provider is project-owned and synchronizes system, light, and dark preferences.
 - npm and Node.js 20.9 or newer
 
 ## User-facing routes
 
-- `/` and `/opportunities` — opportunity discovery
+- `/` — opportunity discovery
 - `/community` and `/community/[owner]/[name]` — repository communities
-- `/users` — opportunity authors
+- `/users` and `/users/[handle]` — opportunity-author directory and shareable profiles
 - `/overview`, `/privacy`, and `/terms` — project documents
 - `/docs/api`, `/docs/contributing`, and `/docs/maintainers` — contributor documents
 
@@ -37,4 +37,4 @@ Some removed dynamic routes are handled through the current not-found compatibil
 - No checked-in opportunity snapshot or fixture dataset
 - No authentication or private user state
 - No new automated test framework in the current refactor program
-- No visual redesign or product behavior change
+- No second visual system or unrelated product behavior change

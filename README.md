@@ -28,7 +28,6 @@ app/
   _hooks/                  route-level React hooks
   community/               community directory and repository routes
   docs/                    rendered project documentation pages
-  jobs/                    static job detail routes
   opportunities/           opportunities screen and feature UI
   users/                   author directory and profile routes
 components/
@@ -70,7 +69,7 @@ The app consumes:
 - `api/manifest.json` for metadata, facets, and static API file pointers.
 - `api/order/recent.json` for ordered opportunity IDs.
 - `api/page-lookup.json` and `api/pages/*.json` for paginated list loading.
-- `api/jobs/*.json` and `api/job-ids.json` for job detail pages.
+- `api/jobs/*.json` and `api/job-ids.json` for opportunity-detail lookup and static identifiers.
 - `index.json` plus `countries/*` shards for community and user static params.
 - `src/modules/catalog/repositories.json` through the remote repository base URL for valid filter options.
 
