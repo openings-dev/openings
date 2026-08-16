@@ -2,7 +2,7 @@
 
 import { DirectoryListShell } from "@/app/_components/directory/directory-list-shell";
 import type { CommunitySummary } from "@/lib/opportunities/communities";
-import { CommunityCard } from "./community-card";
+import { CommunityCard } from "../community-card";
 
 interface CommunitiesListProps {
   locale: string;

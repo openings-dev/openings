@@ -2,7 +2,7 @@
 
 import { DirectoryListShell } from "@/app/_components/directory/directory-list-shell";
 import type { UserSummary } from "@/lib/opportunities/users";
-import { UserCard } from "./user-card";
+import { UserCard } from "../user-card";
 
 interface UsersListProps {
   locale: string;
