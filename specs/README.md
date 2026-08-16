@@ -36,7 +36,7 @@ Before each specification, confirm the previous one is complete and read the rel
 | 21 | [Opportunity details and Markdown](21_opportunity_details_and_markdown.md) | 16, 17, 20 | Complete |
 | 22 | [Community and user directories](22_community_and_user_directories.md) | 16–18 | Complete |
 | 23 | [Documents and legal pages](23_documents_and_legal_pages.md) | 16–18 | Complete |
-| 24 | [Responsive, accessibility, and final visual audit](24_responsive_accessibility_and_final_visual_audit.md) | 18–23 | In progress |
+| 24 | [Responsive, accessibility, and final visual audit](24_responsive_accessibility_and_final_visual_audit.md) | 18–23 | Complete |
 
 ## Global invariants
 

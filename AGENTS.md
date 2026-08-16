@@ -19,7 +19,7 @@ Openings is a statically exported Next.js application for discovering technology
 - Typed dictionaries for `en`, `pt`, `es`, `it`, `fr`, and `de`
 - npm with Node.js 20.9 or newer
 
-The current refactor program is code-only. Preserve visual output and behavior. Tailwind and Lucide replacements are allowed only when equivalent. Do not add a test framework.
+The Calm Professional design system is the current visual baseline. Preserve product behavior while keeping its typography, semantic themes, application grid, surface hierarchy, interaction states, responsive usability, and accessibility coherent. Do not add a test framework.
 
 ## Required workflow
 
@@ -72,7 +72,7 @@ The current refactor program is code-only. Preserve visual output and behavior. 
 - Keep theme tokens and truly global element behavior in `app/globals.css`; do not create another token system.
 - Do not introduce CSS Modules, component stylesheets, styled-components, or CSS-in-JS.
 - Prefer Lucide for generic interface icons. Keep custom SVGs for brand marks, flags, or shapes Lucide cannot represent equivalently.
-- Preserve current spacing, typography, colors, themes, breakpoints, motion, focus, and semantic states.
+- Extend the Calm Professional spacing, typography, colors, themes, breakpoints, motion, focus, and semantic states without introducing a second visual system.
 
 ## State, hooks, and effects
 

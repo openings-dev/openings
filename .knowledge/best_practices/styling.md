@@ -1,10 +1,10 @@
 # Styling
 
-> Preserve the existing interface while converging on explicit Tailwind ownership.
+> Extend the Calm Professional interface through explicit Tailwind ownership.
 
 ## Current system
 
-Tailwind CSS 4 is imported from `app/globals.css`. CSS custom properties define semantic light and dark theme colors and radius values, and `@theme inline` exposes them as utilities. Components use a mixture of direct utilities and CVA recipes. Framer Motion supplies existing motion and Lucide supplies most general interface icons.
+Tailwind CSS 4 is imported from `app/globals.css`. CSS custom properties define the semantic light and dark theme, surface hierarchy, accent roles, radii, and layered shadows; `@theme inline` exposes them as utilities. Manrope is the display family, Geist Sans is the interface family, and Geist Mono supports technical and numerical content. Framer Motion supplies functional orientation and Lucide supplies general interface icons.
 
 ## Target rules
 
@@ -15,9 +15,9 @@ Tailwind CSS 4 is imported from `app/globals.css`. CSS custom properties define 
 - Prefer Lucide for general interface icons; retain custom components for brand marks or icons Lucide cannot represent equivalently.
 - Do not introduce CSS Modules, styled-components, component stylesheets, or a second token system.
 
-## Preservation contract
+## Visual contract
 
-Refactoring styles must preserve layout, spacing, typography, colors, borders, radii, responsive breakpoints, hover and focus treatment, dark mode, reduced motion, and semantic states. Tailwind or Lucide replacement is allowed only when it is visually and behaviorally equivalent.
+Keep content dominant and chrome quiet. Use typography and spacing before containers, reserve primary color for actions and selection, use elevated surfaces sparingly, keep child radii no larger than parent radii, and increase contrast on interaction. Light and dark themes must be equally intentional. Preserve responsive usability, reduced motion, and semantic states.
 
 ## Accessibility
 
