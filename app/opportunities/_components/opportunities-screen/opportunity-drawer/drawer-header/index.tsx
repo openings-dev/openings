@@ -15,7 +15,7 @@ export function DrawerHeader({
   onClose,
 }: DrawerHeaderProps) {
   return (
-    <div className="flex items-start justify-between gap-3 border-b border-border/70 bg-surface-elevated px-5 py-4">
+    <div className="flex items-start justify-between gap-3 border-b-2 border-border bg-accent px-5 py-4">
       <div className="space-y-1">
         <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-primary">
           {detailsLabel}

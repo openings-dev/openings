@@ -11,7 +11,7 @@ export default function NotFound(): React.ReactNode {
   return (
     <section className="mx-auto flex min-h-[60vh] w-full max-w-3xl flex-col justify-center px-4 py-16 sm:px-6 lg:px-8">
       <LegacyRouteRedirect />
-      <div className="space-y-4 rounded-lg border border-border bg-card p-6">
+      <div className="space-y-4 rounded-xl border-2 border-border bg-accent p-6 shadow-soft-lg">
         <p className="text-sm font-semibold uppercase text-primary">{copy.kicker}</p>
         <h1 className="text-3xl font-semibold tracking-normal text-foreground">
           {copy.title}
@@ -21,7 +21,7 @@ export default function NotFound(): React.ReactNode {
         </p>
         <Link
           href="/"
-          className="inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition hover:bg-primary/90"
+          className="inline-flex h-10 items-center rounded-md border-2 border-border bg-primary px-4 text-sm font-bold text-primary-foreground shadow-soft-sm transition hover:-translate-y-0.5 hover:shadow-soft-md"
         >
           {copy.action}
         </Link>

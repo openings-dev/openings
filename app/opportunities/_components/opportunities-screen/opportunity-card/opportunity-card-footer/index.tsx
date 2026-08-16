@@ -28,7 +28,7 @@ export function OpportunityCardFooter({
   }
 
   return (
-    <div className="mt-auto flex items-center justify-between gap-3 border-t border-border/60 pt-3">
+    <div className="mt-auto flex items-center justify-between gap-3 border-t-2 border-border pt-3">
       {showCommunityIdentity ? (
         <button
           type="button"
@@ -45,7 +45,7 @@ export function OpportunityCardFooter({
             alt={formatTemplate(communityAvatarAltTemplate, {
               name: item.community.name,
             })}
-            className="size-6 rounded-full border border-border/60 bg-muted object-cover"
+            className="size-6 rounded-full border-2 border-border bg-muted object-cover"
           />
           <div>
             <p className="text-xs font-medium leading-none text-foreground">
@@ -82,7 +82,7 @@ export function OpportunityCardFooter({
             alt={formatTemplate(authorAvatarAltTemplate, {
               name: item.author.name,
             })}
-            className="size-6 rounded-full border border-border/60 bg-muted object-cover"
+            className="size-6 rounded-full border-2 border-border bg-muted object-cover"
           />
         </button>
       ) : null}

@@ -78,7 +78,7 @@ export function OpportunityDrawer({
         shareFailedLabel={cardMessages.shareFailed}
         shareUrl={shareUrl}
         url={item.url}
-        className="border-t border-border/70 bg-surface-elevated/95 px-5 py-4 backdrop-blur"
+        className="border-t-2 border-border bg-surface px-5 py-4"
       />
     </div>
   );

@@ -9,13 +9,21 @@ export function OpportunityCardTags({ tags }: OpportunityCardTagsProps): React.R
     return null;
   }
 
+  const visibleTags = tags.slice(0, 3);
+  const overflowCount = tags.length - visibleTags.length;
+
   return (
     <div className="flex flex-wrap gap-1.5">
-      {tags.map((tag) => (
+      {visibleTags.map((tag) => (
         <span key={tag} className={chipStyles({ active: false })}>
           {tag}
         </span>
       ))}
+      {overflowCount > 0 ? (
+        <span className="inline-flex items-center rounded-md border-2 border-border bg-accent px-2 py-0.5 text-xs font-black text-accent-foreground">
+          +{overflowCount}
+        </span>
+      ) : null}
     </div>
   );
 }

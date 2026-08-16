@@ -24,7 +24,7 @@ export function OpportunityCardMeta({
   return (
     <div className={metadataRowStyles}>
       {salaryLabel ? (
-        <span className="inline-flex items-center gap-1 font-medium text-foreground/80">
+        <span className="inline-flex items-center gap-1 rounded-md border-2 border-border bg-accent px-2 py-1 font-black text-accent-foreground">
           <Wallet className="size-3.5 text-primary" />
           {salaryLabel}
         </span>

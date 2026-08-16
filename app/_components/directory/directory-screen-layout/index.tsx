@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { OpeningsMotif } from "@/app/_components/openings-motif";
 
 interface DirectoryScreenLayoutProps {
   kicker: string;
@@ -18,6 +19,7 @@ export function DirectoryScreenLayout({
   return (
     <section className="mx-auto w-full max-w-[90rem] px-4 pb-16 pt-8 sm:px-6 sm:pt-10 lg:px-8 xl:px-10 xl:pt-12">
       <header className="max-w-4xl rounded-xl border-2 border-border bg-accent p-6 shadow-soft-lg sm:p-8">
+        <OpeningsMotif className="mb-5" />
         <p className="text-[11px] font-black uppercase tracking-[0.16em] text-accent-foreground">
           {kicker}
         </p>

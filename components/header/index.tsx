@@ -14,6 +14,7 @@ import {
   headerStyles,
 } from "./styles";
 import { ThemeToggle } from "./theme-toggle";
+import { MobileNavigation } from "./mobile-navigation";
 import type { HeaderProps, LocaleCode } from "./types";
 
 export function Header({
@@ -61,7 +62,7 @@ export function Header({
           ariaLabel={messages.header.primaryNavigationAriaLabel}
         />
         <div className="flex min-w-0 items-center justify-end gap-1 sm:gap-2">
-          <ThemeToggle />
+          <ThemeToggle className="hidden md:flex" />
           <LanguageSwitcher
             className="hidden xl:block"
             locale={activeLocale}
@@ -82,6 +83,22 @@ export function Header({
             <span>GitHub</span>
             <ExternalLink className="size-3.5" />
           </a>
+          <MobileNavigation
+            items={navItems}
+            ariaLabel={messages.header.primaryNavigationAriaLabel}
+            githubAriaLabel={messages.footer.social.githubAriaLabel}
+          >
+            <ThemeToggle />
+            <LanguageSwitcher
+              className="min-w-0 flex-1"
+              locale={activeLocale}
+              locales={availableLocales}
+              placeholder={messages.header.languagePlaceholder}
+              ariaLabel={messages.header.languageAriaLabel}
+              changedTemplate={messages.header.languageChanged}
+              onLocaleChange={handleLocaleChange}
+            />
+          </MobileNavigation>
         </div>
       </div>
     </motion.header>

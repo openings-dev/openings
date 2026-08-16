@@ -28,7 +28,7 @@ export function FooterBrand({
       className={cn("space-y-4", className)}
     >
       <Link href={href} className="inline-flex items-center gap-3 rounded-lg px-1 py-1 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted">
-        <span className="relative size-9 overflow-hidden rounded-[10px] border border-border/70 bg-card shadow-[0_1px_2px_rgb(0_0_0/0.06)]">
+        <span className="relative size-10 overflow-hidden rounded-lg border-2 border-border bg-card shadow-soft-sm">
           <Image
             src={lightLogoSrc}
             alt={`${brandName} light logo`}

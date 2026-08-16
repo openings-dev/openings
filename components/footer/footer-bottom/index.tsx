@@ -45,7 +45,7 @@ export function FooterBottom({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      className={cn("flex flex-col gap-4 border-t border-border/70 pt-5 sm:flex-row sm:items-center sm:justify-between", className)}
+      className={cn("flex flex-col gap-4 border-t-2 border-border pt-5 sm:flex-row sm:items-center sm:justify-between", className)}
     >
       <div className="space-y-1">
         <p className="text-sm text-muted-foreground">{copyrightText}</p>
@@ -56,10 +56,10 @@ export function FooterBottom({
         {supportEmail ? (
           <Button
             type="button"
-            variant="ghost"
+            variant="outline"
             size="sm"
             onClick={handleCopySupportEmail}
-            className="h-9 rounded-lg px-3 text-xs"
+            className="h-10 rounded-lg px-3 text-xs"
             aria-label={supportEmailButtonLabel}
           >
             <Mail className="size-3.5" aria-hidden="true" />
@@ -72,7 +72,7 @@ export function FooterBottom({
           href="https://treb.la"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 cursor-pointer"
+          className="flex min-h-10 cursor-pointer items-center gap-2 rounded-md px-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <p className="text-sm font-medium tracking-[-0.01em] text-foreground/90">{signature}</p>
 
@@ -81,7 +81,7 @@ export function FooterBottom({
             alt="openings.dev logo"
             width={72}
             height={15}
-            className="h-auto w-[72px] bg-card"
+            className="h-auto w-[72px]"
           />
         </a>
       </div>

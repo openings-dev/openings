@@ -21,8 +21,8 @@ export function DirectoryListShell<TItem>({
   renderItem,
 }: DirectoryListShellProps<TItem>): ReactNode {
   return (
-    <section className="rounded-2xl border border-border/80 bg-surface-elevated p-3 shadow-soft-sm sm:p-4">
-      <p className="font-tabular px-1 text-xs font-medium text-subtle-foreground">
+    <section className="rounded-xl border-2 border-border bg-surface p-3 sm:p-4">
+      <p className="font-tabular px-1 text-xs font-bold uppercase tracking-[0.08em] text-subtle-foreground">
         {formatTemplate(summaryTemplate, {
           count: items.length.toLocaleString(locale),
         })}
@@ -35,7 +35,7 @@ export function DirectoryListShell<TItem>({
           ))}
         </ul>
       ) : (
-        <div className="mt-4 rounded-xl border border-dashed border-border bg-surface p-8 text-center">
+        <div className="mt-4 rounded-xl border-2 border-dashed border-border bg-accent p-8 text-center">
           <p className="font-display text-base font-bold text-foreground">{emptyTitle}</p>
           <p className="mt-1 text-sm text-muted-foreground">{emptyDescription}</p>
         </div>

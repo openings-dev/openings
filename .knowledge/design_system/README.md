@@ -12,6 +12,8 @@ Manrope owns bold display headings, Geist Sans owns interface and body text, and
 
 Application-wide primitives live under `components/ui/`. Shared shell components live under `components/`. Feature components may compose primitives but must not fork their interaction or accessibility contracts.
 
+The three offset connection blocks in `app/_components/openings-motif/` are the product's reusable visual signature. Use them sparingly in primary title blocks and intentional empty states. Do not turn the motif into background decoration or repeat it inside dense lists.
+
 Use Tailwind directly for fixed appearance. CVA remains appropriate for genuine component variants. Lucide is the default for generic interface icons; logos, flags, and brand-specific marks may remain custom SVG components or assets.
 
 ## Interaction
@@ -20,6 +22,8 @@ Use Tailwind directly for fixed appearance. CVA remains appropriate for genuine 
 - Preserve link-versus-button semantics.
 - Preserve disabled, loading, selected, expanded, and error states.
 - Keep search, location, and stack available as quick filters; put advanced opportunity filters in the native modal dialog.
+- Keep all three primary destinations available through the desktop navigation and the native mobile-navigation dialog.
+- Public community and user profiles expose a direct opportunities action and a native share/copy action.
 - Preserve drawers, theme changes, language selection, and restrained motion behavior.
 - Keep icon-only controls named for assistive technology.
 - Respect reduced-motion preferences when animation is not essential.

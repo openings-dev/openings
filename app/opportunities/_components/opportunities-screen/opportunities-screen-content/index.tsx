@@ -27,6 +27,7 @@ export function OpportunitiesScreenContent({
         activeFiltersCount={controller.activeFiltersCount}
         onOpenAdvancedFilters={() => controller.setFiltersModalOpen(true)}
         onFieldChange={controller.handleFieldChange}
+        onClearFilters={controller.handleClearFilters}
       />
 
       <div className={opportunitiesBodyStyles}>

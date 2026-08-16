@@ -1,4 +1,11 @@
+"use client";
+
 import { motion } from "framer-motion";
+import { LinkIcon, Share2 } from "lucide-react";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
+import { OpeningsMotif } from "@/app/_components/openings-motif";
 import {
   opportunitiesDescriptionStyles,
   opportunitiesHeaderStyles,
@@ -32,7 +39,21 @@ export function OpportunitiesScreenHeader({
   lastPostLabel,
   profile,
 }: OpportunitiesScreenHeaderProps): React.ReactNode {
+  const { messages } = useI18n();
   const avatarFallback = profile?.title.trim().charAt(0).toUpperCase() || "@";
+  const handleShare = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: profile?.title, url: window.location.href });
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        toast.success(messages.opportunities.card.shareCopied);
+      }
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") return;
+      toast.error(messages.opportunities.card.shareFailed);
+    }
+  };
 
   return (
     <motion.header
@@ -41,6 +62,7 @@ export function OpportunitiesScreenHeader({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
     >
+      <OpeningsMotif className="mb-5" />
       <p className={opportunitiesKickerStyles}>{kicker}</p>
       <h1 className={opportunitiesTitleStyles}>{title}</h1>
       <p className={opportunitiesDescriptionStyles}>{description}</p>
@@ -84,6 +106,10 @@ export function OpportunitiesScreenHeader({
               <dd>{profile.lastPostedSummary}</dd>
             </div>
           </dl>
+          <div className="mt-4 flex flex-wrap gap-3 border-t-2 border-border pt-4">
+            <Button asChild><a href="#opportunity-results"><LinkIcon className="size-4" />{opportunitiesLabel}</a></Button>
+            <Button type="button" variant="outline" onClick={handleShare}><Share2 className="size-4" />{messages.opportunities.card.share}</Button>
+          </div>
         </div>
       ) : null}
     </motion.header>

@@ -63,7 +63,7 @@ export function LanguageSwitcher({
       <Select value={locale} onValueChange={handleValueChange}>
         <SelectTrigger
           aria-label={ariaLabel}
-          className="h-9 gap-1.5 rounded-lg border-transparent bg-transparent px-2 text-sm font-medium text-muted-foreground shadow-none hover:border-border/70 hover:bg-surface hover:text-foreground focus:ring-0 focus:ring-offset-0 data-[state=open]:border-border/70 data-[state=open]:bg-surface data-[state=open]:text-foreground"
+          className="h-10 gap-1.5 rounded-lg border-2 border-border bg-card px-2 text-sm font-bold text-foreground shadow-none hover:bg-accent focus:ring-2 focus:ring-ring data-[state=open]:bg-accent"
         >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>

@@ -23,13 +23,13 @@ export function OpportunityMarkdown({ body }: OpportunityMarkdownProps): React.R
           em: ({ children }) => <em className="italic text-muted-foreground">{children}</em>,
           code: ({ children, className }) =>
             className?.includes("language-") ? (
-              <code className="block w-full overflow-x-auto rounded-xl border border-border/70 bg-surface px-3.5 py-3 font-mono text-xs leading-5 text-foreground">{children}</code>
+              <code className="block w-full overflow-x-auto rounded-xl border-2 border-border bg-surface px-3.5 py-3 font-mono text-xs leading-5 text-foreground shadow-soft-sm">{children}</code>
             ) : (
               <code className="rounded border border-border/50 bg-muted/50 px-1 py-0.5 font-mono text-xs text-foreground">{children}</code>
             ),
           pre: ({ children }) => <pre className="mb-3 last:mb-0">{children}</pre>,
-          blockquote: ({ children }) => <blockquote className="mb-3 border-l-2 border-border/60 pl-3 last:mb-0">{children}</blockquote>,
-          hr: () => <hr className="my-3 border-border/50" />,
+          blockquote: ({ children }) => <blockquote className="mb-3 rounded-r-lg border-l-4 border-primary bg-accent py-2 pl-4 pr-3 last:mb-0">{children}</blockquote>,
+          hr: () => <hr className="my-3 border-border" />,
         }}
       >
         {body}

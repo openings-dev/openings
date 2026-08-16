@@ -19,6 +19,8 @@ Tailwind CSS 4 is imported from `app/globals.css`. CSS custom properties define 
 
 Keep content dominant with a confident, editorial hierarchy. Use 2-pixel warm-black outlines, flat cream/white/lavender fields, and hard offset shadows on interactive or important surfaces. Reserve Soft Grape for actions, focus, and selection. Hover may shift an object slightly up and left while its shadow grows; active states reverse that movement. Keep child radii no larger than parent radii. Light and dark themes must be equally intentional. Preserve responsive usability, reduced motion, and semantic states.
 
+Medium and large hard shadows belong to title blocks, dialogs, primary calls to action, and interactive entity cards. Secondary grouping surfaces use a 2-pixel outline without elevation. This distinction is required: applying a hard shadow to every nested surface destroys hierarchy.
+
 ## Accessibility
 
 Use semantic elements, visible `focus-visible` states, native disabled behavior, accessible names for icon-only controls, and non-color signals where practical. Motion must respect reduced-motion preferences wherever the existing interaction depends on animation.

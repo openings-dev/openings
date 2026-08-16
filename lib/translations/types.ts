@@ -53,6 +53,11 @@ export interface TranslationMessages {
       hide: string;
       show: string;
       clear: string;
+      searchPlaceholder: string;
+      sortLabel: string;
+      sortCount: string;
+      sortRecent: string;
+      sortName: string;
     };
     list: {
       summary: string;
@@ -84,6 +89,11 @@ export interface TranslationMessages {
       hide: string;
       show: string;
       clear: string;
+      searchPlaceholder: string;
+      sortLabel: string;
+      sortCount: string;
+      sortRecent: string;
+      sortName: string;
     };
     list: {
       summary: string;

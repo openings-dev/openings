@@ -55,6 +55,11 @@ export const frTranslations: TranslationMessages = {
       hide: "Masquer les filtres",
       show: "Afficher les filtres",
       clear: "Effacer les filtres",
+      searchPlaceholder: "Rechercher des communautés",
+      sortLabel: "Trier les communautés",
+      sortCount: "Plus d’opportunités",
+      sortRecent: "Activité récente",
+      sortName: "Nom A–Z",
     },
     list: {
       summary: "{count} communautés trouvées",
@@ -88,6 +93,11 @@ export const frTranslations: TranslationMessages = {
       hide: "Masquer les filtres",
       show: "Afficher les filtres",
       clear: "Effacer les filtres",
+      searchPlaceholder: "Rechercher des utilisateurs",
+      sortLabel: "Trier les utilisateurs",
+      sortCount: "Plus d’opportunités",
+      sortRecent: "Activité récente",
+      sortName: "Nom A–Z",
     },
     list: {
       summary: "{count} utilisateurs trouvés",

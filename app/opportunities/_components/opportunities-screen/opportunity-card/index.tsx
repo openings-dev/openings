@@ -63,7 +63,7 @@ export function OpportunityCard({
                 alt={formatTemplate(cardMessages.communityAvatarAlt, {
                   name: item.community.name,
                 })}
-                className="size-9 rounded-full border border-border/70 bg-muted object-cover"
+                className="size-9 rounded-full border-2 border-border bg-muted object-cover"
               />
             </button>
           ) : null}

@@ -49,7 +49,7 @@ export function OpportunitiesToolbar({
             <SelectTrigger
               className={cn(
                 compactSelectTriggerStyles,
-                "h-8 min-w-28 border-none bg-transparent px-1 text-xs shadow-none hover:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0",
+                "h-9 min-w-32 bg-card px-2 text-xs shadow-none",
               )}
             >
               <SelectValue placeholder={toolbarMessages.sortPlaceholder} />

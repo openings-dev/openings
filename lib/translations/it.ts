@@ -55,6 +55,11 @@ export const itTranslations: TranslationMessages = {
       hide: "Nascondi filtri",
       show: "Mostra filtri",
       clear: "Cancella filtri",
+      searchPlaceholder: "Cerca community",
+      sortLabel: "Ordina community",
+      sortCount: "Più opportunità",
+      sortRecent: "Attività recente",
+      sortName: "Nome A–Z",
     },
     list: {
       summary: "{count} community trovate",
@@ -88,6 +93,11 @@ export const itTranslations: TranslationMessages = {
       hide: "Nascondi filtri",
       show: "Mostra filtri",
       clear: "Cancella filtri",
+      searchPlaceholder: "Cerca utenti",
+      sortLabel: "Ordina utenti",
+      sortCount: "Più opportunità",
+      sortRecent: "Attività recente",
+      sortName: "Nome A–Z",
     },
     list: {
       summary: "{count} utenti trovati",

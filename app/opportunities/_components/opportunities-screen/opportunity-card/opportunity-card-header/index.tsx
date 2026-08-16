@@ -12,7 +12,7 @@ export function OpportunityCardHeader({
 }: OpportunityCardHeaderProps) {
   return (
     <div className="space-y-2">
-      <p className="font-display text-[17px] font-bold leading-snug tracking-[-0.025em] text-foreground">
+      <p className="font-display text-lg font-black leading-snug tracking-[-0.035em] text-foreground sm:text-xl">
         {title}
       </p>
       <div className="line-clamp-2 max-w-[62ch] text-sm leading-5.5 text-muted-foreground">

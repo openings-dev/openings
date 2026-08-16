@@ -25,7 +25,7 @@ export function ListFooter({
   skeletonCount,
 }: ListFooterProps): React.ReactNode {
   return (
-    <div className="space-y-3 border-t border-border/60 pt-3">
+    <div className="space-y-3 border-t-2 border-border pt-4">
       <div className="flex items-center justify-between gap-3">
         <p className="text-xs text-muted-foreground">{loadedPageLabel}</p>
         <p className="text-xs text-muted-foreground">

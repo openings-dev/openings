@@ -53,6 +53,11 @@ Before each specification, confirm the previous one is complete and read the rel
 | 38 | [Buffer Bold opportunity surfaces](38_buffer_bold_opportunity_surfaces.md) | 36, 37 | Complete |
 | 39 | [Buffer Bold directories and documents](39_buffer_bold_directories_and_documents.md) | 37 | Complete |
 | 40 | [Buffer Bold responsive and final verification](40_buffer_bold_responsive_and_final_verification.md) | 35–39 | Complete |
+| 41 | [Mobile navigation and responsive shell](41_mobile_navigation_and_responsive_shell.md) | 40 | Complete |
+| 42 | [Visual hierarchy and component consistency](42_visual_hierarchy_and_component_consistency.md) | 41 | Complete |
+| 43 | [Opportunity cards, filters, and details polish](43_opportunity_cards_filters_and_details_polish.md) | 42 | Complete |
+| 44 | [Shareable profiles, directories, and brand identity](44_shareable_profiles_directories_and_brand_identity.md) | 43 | Complete |
+| 45 | [Final visual polish verification](45_final_visual_polish_verification.md) | 41–44 | Complete |
 
 ## Global invariants
 

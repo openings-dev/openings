@@ -53,6 +53,11 @@ export const deTranslations: TranslationMessages = {
       hide: "Filter ausblenden",
       show: "Filter anzeigen",
       clear: "Filter löschen",
+      searchPlaceholder: "Communities suchen",
+      sortLabel: "Communities sortieren",
+      sortCount: "Meiste Stellen",
+      sortRecent: "Kürzlich aktiv",
+      sortName: "Name A–Z",
     },
     list: {
       summary: "{count} Communities gefunden",
@@ -86,6 +91,11 @@ export const deTranslations: TranslationMessages = {
       hide: "Filter ausblenden",
       show: "Filter anzeigen",
       clear: "Filter löschen",
+      searchPlaceholder: "Nutzer suchen",
+      sortLabel: "Nutzer sortieren",
+      sortCount: "Meiste Stellen",
+      sortRecent: "Kürzlich aktiv",
+      sortName: "Name A–Z",
     },
     list: {
       summary: "{count} Nutzer gefunden",

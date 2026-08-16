@@ -4,6 +4,7 @@ import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
 import { DEFAULT_LOCALE } from "@/lib/constants/locales";
 import { DocumentMarkdown } from "./document-markdown";
 import type { DocumentPageProps } from "./types";
+import { OpeningsMotif } from "@/app/_components/openings-motif";
 
 export function DocumentPage({
   documentKey,
@@ -19,6 +20,7 @@ export function DocumentPage({
   return (
     <section className="mx-auto w-full max-w-[90rem] flex-1 px-4 pb-20 pt-12 sm:px-6 sm:pt-16 lg:px-8 xl:px-10">
       <header className="mx-auto max-w-3xl rounded-xl border-2 border-border bg-accent p-6 shadow-soft-lg sm:p-9">
+        <OpeningsMotif className="mb-5" />
         <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">{messages.header.brandTagline}</p>
         <h1 className="font-display mt-3 text-3xl font-black tracking-[-0.045em] sm:text-4xl lg:text-5xl">{copy.title}</h1>
         <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">{copy.description}</p>

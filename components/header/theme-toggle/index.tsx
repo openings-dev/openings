@@ -31,7 +31,7 @@ export function ThemeToggle({ className }: ThemeToggleProps): React.ReactNode {
         type="button"
         aria-label={ariaLabel}
         onClick={() => setTheme(nextTheme)}
-        className="size-9 rounded-lg border-transparent bg-transparent text-muted-foreground shadow-none hover:border-border/70 hover:bg-surface hover:text-foreground"
+        className="size-10 rounded-lg text-foreground"
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
