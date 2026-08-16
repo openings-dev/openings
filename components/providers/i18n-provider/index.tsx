@@ -6,7 +6,7 @@ import {
   DEFAULT_LOCALE,
   type LocaleCode,
 } from "@/lib/constants/locales";
-import { getTranslations } from "@/lib/translations";
+import { getTranslations } from "@/lib/translations/get-translations";
 import { I18nContext } from "./context";
 import type { I18nContextValue } from "./types";
 

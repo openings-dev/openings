@@ -1,6 +1,6 @@
 import {
   DEFAULT_LOCALE,
-  type LocaleCode,
+  LocaleCode,
 } from "@/lib/constants/locales";
 import { deTranslations } from "./de";
 import { enTranslations } from "./en";
@@ -11,12 +11,12 @@ import { ptTranslations } from "./pt";
 import type { TranslationMessages } from "./types";
 
 const TRANSLATIONS_BY_LOCALE: Record<LocaleCode, TranslationMessages> = {
-  en: enTranslations,
-  pt: ptTranslations,
-  es: esTranslations,
-  it: itTranslations,
-  fr: frTranslations,
-  de: deTranslations,
+  [LocaleCode.English]: enTranslations,
+  [LocaleCode.Portuguese]: ptTranslations,
+  [LocaleCode.Spanish]: esTranslations,
+  [LocaleCode.Italian]: itTranslations,
+  [LocaleCode.French]: frTranslations,
+  [LocaleCode.German]: deTranslations,
 };
 
 export function getTranslations(locale: LocaleCode): TranslationMessages {
