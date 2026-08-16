@@ -15,22 +15,22 @@
 **Files:**
 - Modify: `opportunities-list/**`, `styles/listing-styles.ts`
 
-- [ ] **Step 1:** Define distinct list and grid spacing without changing result order or content.
-- [ ] **Step 2:** Make skeletons mirror final card geometry in both display modes.
-- [ ] **Step 3:** Refine empty, loading-more, exhausted, pagination, and count states with one consistent hierarchy.
+- [x] **Step 1:** Define distinct list and grid spacing without changing result order or content.
+- [x] **Step 2:** Make skeletons mirror final card geometry in both display modes.
+- [x] **Step 3:** Refine empty, loading-more, exhausted, pagination, and count states with one consistent hierarchy.
 
 ### Task 2: Refine opportunity cards
 
 **Files:**
 - Modify: `opportunity-card/**`
 
-- [ ] **Step 1:** Make title the dominant target and group community/author identity directly below it.
-- [ ] **Step 2:** Reorder visual emphasis for salary, location, work mode, date, and taxonomy without changing semantic content.
-- [ ] **Step 3:** Refine tags, hover, focus, selected state, external links, and action affordance without layout movement.
-- [ ] **Step 4:** Preserve scoped identity hiding and stable card height under long localized or remote content.
+- [x] **Step 1:** Make title the dominant target and group community/author identity directly below it.
+- [x] **Step 2:** Reorder visual emphasis for salary, location, work mode, date, and taxonomy without changing semantic content.
+- [x] **Step 3:** Refine tags, hover, focus, selected state, external links, and action affordance without layout movement.
+- [x] **Step 4:** Preserve scoped identity hiding and stable card height under long localized or remote content.
 
 ### Task 3: Validate and commit
 
-- [ ] **Step 1:** Run `npm run lint` and `npm run build`; expect 148 pages.
-- [ ] **Step 2:** Review sparse/dense results, list/grid, selected card, long titles, and both themes.
-- [ ] **Step 3:** Commit with `feat: refine opportunity result cards`.
+- [x] **Step 1:** Run `npm run lint` and `npm run build`; expect 148 pages.
+- [x] **Step 2:** Review sparse/dense results, list/grid, selected card, long titles, and both themes.
+- [x] **Step 3:** Commit with `feat: refine opportunity result cards`.

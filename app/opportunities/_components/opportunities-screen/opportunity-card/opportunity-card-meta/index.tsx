@@ -24,8 +24,8 @@ export function OpportunityCardMeta({
   return (
     <div className={metadataRowStyles}>
       {salaryLabel ? (
-        <span className="inline-flex items-center gap-1">
-          <Wallet className="size-3.5" />
+        <span className="inline-flex items-center gap-1 font-medium text-foreground/80">
+          <Wallet className="size-3.5 text-primary" />
           {salaryLabel}
         </span>
       ) : null}
@@ -46,8 +46,8 @@ export function OpportunityCardMeta({
         {item.country}
       </span>
       <span className="inline-flex items-center gap-1">
-        <CalendarDays className="size-3.5" />
-        {dateLabel}
+          <CalendarDays className="size-3.5" />
+          {dateLabel}
       </span>
     </div>
   );

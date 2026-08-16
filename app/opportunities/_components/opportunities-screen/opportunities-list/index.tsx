@@ -60,8 +60,8 @@ export function OpportunitiesList({
   }, [hasMore, isFetchingMore, isLoading, onLoadMore]);
 
   return (
-    <section className={cn(panelStyles, "space-y-4")}>
-      <p className="text-sm text-muted-foreground">{rangeLabel}</p>
+    <section className={cn(panelStyles, "space-y-4 p-3 sm:p-4")}>
+      <p className="font-tabular px-1 text-xs font-medium text-subtle-foreground">{rangeLabel}</p>
 
       {isLoading ? (
         <div className={resultsGridStyles({ viewMode })}>

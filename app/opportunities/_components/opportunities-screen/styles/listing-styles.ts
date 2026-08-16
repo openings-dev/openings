@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority";
 
-export const resultsGridStyles = cva("grid gap-2.5", {
+export const resultsGridStyles = cva("grid gap-3", {
   variants: {
     viewMode: {
       list: "grid-cols-1",
@@ -13,12 +13,12 @@ export const resultsGridStyles = cva("grid gap-2.5", {
 });
 
 export const opportunityCardStyles = cva(
-  "group relative h-full rounded-lg border border-border/70 bg-card/46 p-4 text-left shadow-[0_20px_80px_-68px_rgb(0_0_0/0.65)] backdrop-blur transition-all duration-150 hover:-translate-y-0.5 hover:border-primary/28 hover:bg-card/72 hover:shadow-[0_26px_90px_-64px_rgb(0_0_0/0.72)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card",
+  "group relative h-full rounded-xl border border-border/80 bg-surface-elevated p-4 text-left shadow-soft-sm transition-[border-color,background-color,box-shadow] duration-150 hover:border-primary/30 hover:bg-card hover:shadow-soft-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
   {
     variants: {
       viewMode: { list: "", grid: "" },
       selected: {
-        true: "border-primary/45 bg-primary/10 hover:border-primary/55",
+        true: "border-primary/45 bg-accent/70 shadow-soft-md hover:border-primary/55",
         false: "",
       },
     },
@@ -29,6 +29,6 @@ export const opportunityCardStyles = cva(
   },
 );
 
-export const metadataRowStyles = "flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground";
+export const metadataRowStyles = "flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-muted-foreground";
 
 export const cardPersonButtonStyles = "-mx-1.5 -my-1 flex items-center gap-2.5 rounded-md px-1.5 py-1 transition-colors hover:bg-muted/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card";

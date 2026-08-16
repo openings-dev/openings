@@ -8,7 +8,7 @@ export function OpportunitySkeleton({ compact }: OpportunitySkeletonProps) {
   return (
     <div
       className={cn(
-        "h-full rounded-xl border border-border/60 bg-card/70 p-4",
+        "h-full rounded-xl border border-border/70 bg-surface-elevated p-4 shadow-soft-sm",
         compact ? "min-h-56" : "min-h-52",
       )}
     >

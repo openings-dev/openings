@@ -10,7 +10,7 @@ export function OpportunityCardTags({ tags }: OpportunityCardTagsProps) {
   }
 
   return (
-    <div className="flex flex-wrap gap-1">
+    <div className="flex flex-wrap gap-1.5">
       {tags.map((tag) => (
         <span key={tag} className={chipStyles({ active: false })}>
           {tag}

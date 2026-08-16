@@ -21,11 +21,11 @@ export function EmptyState({
   onClearFilters,
 }: EmptyStateProps) {
   return (
-    <div className="flex min-h-56 flex-col items-center justify-center rounded-xl border border-dashed border-border/60 bg-muted/15 px-4 text-center">
-      <div className="mb-3 inline-flex size-9 items-center justify-center rounded-full border border-border/60 bg-background/60 text-muted-foreground">
+    <div className="flex min-h-64 flex-col items-center justify-center rounded-xl border border-dashed border-border bg-surface/55 px-4 text-center">
+      <div className="mb-4 inline-flex size-10 items-center justify-center rounded-xl bg-accent text-accent-foreground">
         <SearchX className="size-4" />
       </div>
-      <h3 className="text-sm font-semibold text-foreground">
+      <h3 className="font-display text-base font-bold tracking-[-0.02em] text-foreground">
         {hasActiveFilters ? noMatchesTitle : noResultsTitle}
       </h3>
       <p className="mt-1 max-w-sm text-xs leading-5 text-muted-foreground">
