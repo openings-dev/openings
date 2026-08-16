@@ -26,7 +26,17 @@ Before each specification, confirm the previous one is complete and read the rel
 | 11 | [Opportunity presentation](11_opportunity_presentation.md) | 03, 04, 10 | Complete |
 | 12 | [Routes and rendering boundaries](12_routes_and_rendering_boundaries.md) | 05–11 | Complete |
 | 13 | [Cleanup and final verification](13_cleanup_and_final_verification.md) | 12 | Complete |
-| 14 | [Calm Professional visual refinement design](14_visual_refinement_design.md) | 13 | Review |
+| 14 | [Calm Professional visual refinement design](14_visual_refinement_design.md) | 13 | Complete |
+| 15 | [Visual baseline and audit](15_visual_baseline_and_audit.md) | 14 | Ready |
+| 16 | [Visual foundations](16_visual_foundations.md) | 15 | Ready |
+| 17 | [Shared controls and states](17_shared_controls_and_states.md) | 16 | Ready |
+| 18 | [Shell, navigation, headers, and footer](18_shell_navigation_headers_and_footer.md) | 17 | Ready |
+| 19 | [Opportunity filters and toolbar](19_opportunity_filters_and_toolbar.md) | 17, 18 | Ready |
+| 20 | [Opportunity results and cards](20_opportunity_results_and_cards.md) | 16, 17, 19 | Ready |
+| 21 | [Opportunity details and Markdown](21_opportunity_details_and_markdown.md) | 16, 17, 20 | Ready |
+| 22 | [Community and user directories](22_community_and_user_directories.md) | 16–18 | Ready |
+| 23 | [Documents and legal pages](23_documents_and_legal_pages.md) | 16–18 | Ready |
+| 24 | [Responsive, accessibility, and final visual audit](24_responsive_accessibility_and_final_visual_audit.md) | 18–23 | Ready |
 
 ## Global invariants
 

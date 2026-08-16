@@ -2,7 +2,7 @@
 
 > Define the approved visual direction for the Openings interface before implementation specifications are written.
 
-**Status:** Approved direction; pending written-spec review  
+**Status:** Complete
 **Date:** 2026-08-16
 
 ## Objective
