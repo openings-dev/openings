@@ -15,22 +15,17 @@ import { useLoadMoreHandler } from "./use-load-more-handler";
 import { useRemoteOpportunities } from "./use-remote-opportunities";
 import { useUrlSync } from "./use-url-sync";
 import { useSelectedOpportunity } from "./use-selected-opportunity";
-import { formatTemplate } from "@/lib/utils/format-template";
 import type { OpportunitiesScreenProps } from "@/app/opportunities/_components/opportunities-screen/types";
 import {
   normalizeSelectedOpportunityId,
   resolveCommunityProfileSummary,
   resolveUserProfileSummary,
 } from "./profile-summary";
-
-interface ProfileHeaderData {
-  title: string;
-  subtitle: string;
-  avatarUrl: string;
-  opportunitiesSummary: string;
-  locationSummary: string;
-  lastPostedSummary: string;
-}
+import {
+  buildCommunityProfileHeader,
+  buildUserProfileHeader,
+  type ProfileHeaderData,
+} from "./profile-header";
 
 export function useOpportunitiesScreenController({
   forcedRepository,
@@ -155,45 +150,23 @@ export function useOpportunitiesScreenController({
       : opportunitiesMessages.header.description;
   const profileHeader = React.useMemo<ProfileHeaderData | null>(() => {
     if (isUserProfileScope && userProfileSummary) {
-      const lastPostedSummary = userProfileSummary.lastPostedAt
-        ? formatTemplate(opportunitiesMessages.card.postedAt, {
-            date: new Intl.DateTimeFormat(locale, {
-              dateStyle: "medium",
-            }).format(new Date(userProfileSummary.lastPostedAt)),
-          })
-        : opportunitiesMessages.status.updatedUnavailable;
-
-      return {
-        title: userProfileSummary.name,
-        subtitle: `@${userProfileSummary.handle}`,
-        avatarUrl: userProfileSummary.avatarUrl,
-        opportunitiesSummary: formatTemplate(messages.users.list.opportunitiesCount, {
-          count: userProfileSummary.opportunitiesCount.toLocaleString(locale),
-        }),
-        locationSummary: `${messages.users.list.countryLabel}: ${userProfileSummary.country} • ${messages.users.list.regionLabel}: ${userProfileSummary.region}`,
-        lastPostedSummary,
-      };
+      return buildUserProfileHeader(userProfileSummary, locale, {
+        opportunitiesCount: messages.users.list.opportunitiesCount,
+        country: messages.users.list.countryLabel,
+        region: messages.users.list.regionLabel,
+        postedAt: opportunitiesMessages.card.postedAt,
+        updatedUnavailable: opportunitiesMessages.status.updatedUnavailable,
+      });
     }
 
     if (isCommunityProfileScope && communityProfileSummary) {
-      const lastPostedSummary = communityProfileSummary.lastPostedAt
-        ? formatTemplate(opportunitiesMessages.card.postedAt, {
-            date: new Intl.DateTimeFormat(locale, {
-              dateStyle: "medium",
-            }).format(new Date(communityProfileSummary.lastPostedAt)),
-          })
-        : opportunitiesMessages.status.updatedUnavailable;
-
-      return {
-        title: communityProfileSummary.name,
-        subtitle: communityProfileSummary.repository,
-        avatarUrl: communityProfileSummary.avatarUrl,
-        opportunitiesSummary: formatTemplate(messages.communities.list.opportunitiesCount, {
-          count: communityProfileSummary.opportunitiesCount.toLocaleString(locale),
-        }),
-        locationSummary: `${messages.communities.list.countryLabel}: ${communityProfileSummary.country} • ${messages.communities.list.regionLabel}: ${communityProfileSummary.region}`,
-        lastPostedSummary,
-      };
+      return buildCommunityProfileHeader(communityProfileSummary, locale, {
+        opportunitiesCount: messages.communities.list.opportunitiesCount,
+        country: messages.communities.list.countryLabel,
+        region: messages.communities.list.regionLabel,
+        postedAt: opportunitiesMessages.card.postedAt,
+        updatedUnavailable: opportunitiesMessages.status.updatedUnavailable,
+      });
     }
 
     return null;
