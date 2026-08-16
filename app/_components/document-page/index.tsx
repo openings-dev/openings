@@ -17,18 +17,18 @@ export function DocumentPage({
   const sourceLabel = messages.documents.sourceLabel.replace("{file}", sourceFile);
 
   return (
-    <section className="mx-auto w-full max-w-6xl flex-1 px-4 pb-20 pt-20 sm:px-6 lg:px-8">
-      <header className="rounded-2xl border border-border/70 bg-card p-8 shadow-[0_12px_36px_-20px_rgb(0_0_0/0.22)]">
-        <p className="text-sm font-medium tracking-[0.02em] text-muted-foreground">{messages.header.brandTagline}</p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">{copy.title}</h1>
-        <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg">{copy.description}</p>
+    <section className="mx-auto w-full max-w-[90rem] flex-1 px-4 pb-20 pt-12 sm:px-6 sm:pt-16 lg:px-8 xl:px-10">
+      <header className="mx-auto max-w-3xl border-b border-border/70 pb-8 sm:pb-10">
+        <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">{messages.header.brandTagline}</p>
+        <h1 className="font-display mt-3 text-3xl font-bold tracking-[-0.045em] sm:text-4xl lg:text-[2.75rem]">{copy.title}</h1>
+        <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">{copy.description}</p>
       </header>
 
-      <section className="mt-8 rounded-2xl border border-border/70 bg-card px-6 py-7 shadow-[0_10px_30px_-24px_rgb(0_0_0/0.35)] sm:px-8 sm:py-9">
+      <section className="mx-auto mt-8 max-w-3xl rounded-2xl border border-border/80 bg-surface-elevated px-5 py-7 shadow-soft-sm sm:px-8 sm:py-10">
         <DocumentMarkdown markdown={markdown} />
       </section>
 
-      <p className="mt-6 text-sm text-muted-foreground/95">{sourceLabel}</p>
+      <p className="mx-auto mt-5 max-w-3xl text-xs text-subtle-foreground">{sourceLabel}</p>
     </section>
   );
 }
