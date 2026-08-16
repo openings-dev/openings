@@ -1,7 +1,7 @@
-import type {
-  OpportunityFilterFacets,
-  OpportunityItem,
+import {
   OpportunitySortOrder,
+  type OpportunityFilterFacets,
+  type OpportunityItem,
 } from "@/lib/opportunities/types";
 import { openingsDataUrl } from "@/lib/opportunities/static-api";
 
@@ -281,7 +281,9 @@ export async function fetchOpportunitiesPage(
     filters,
     searchHits,
   });
-  const orderedIds = filters.sortOrder === "oldest" ? [...recentIds].reverse() : recentIds;
+  const orderedIds = filters.sortOrder === OpportunitySortOrder.Oldest
+    ? [...recentIds].reverse()
+    : recentIds;
   const offset = parseOffset(params.cursor);
   const limit = Math.max(1, params.limit);
   const pageIds = orderedIds.slice(offset, offset + limit);

@@ -1,13 +1,11 @@
 "use client";
 
 import { ArrowDownUp } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select } from "@/components/ui/select";
+import { SelectContent } from "@/components/ui/select/select-content";
+import { SelectItem } from "@/components/ui/select/select-item";
+import { SelectTrigger } from "@/components/ui/select/select-trigger";
+import { SelectValue } from "@/components/ui/select/select-value";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { cn } from "@/lib/utils/tailwind";
 import {
@@ -15,9 +13,9 @@ import {
   controlBarStyles,
 } from "@/app/opportunities/_components/opportunities-screen/styles";
 import { formatTemplate } from "@/lib/utils/format-template";
-import type {
-  OpportunitiesToolbarProps,
+import {
   OpportunitySortOrder,
+  type OpportunitiesToolbarProps,
 } from "@/app/opportunities/_components/opportunities-screen/types";
 import { ViewModeToggle } from "@/app/opportunities/_components/opportunities-screen/view-mode-toggle";
 
@@ -57,8 +55,8 @@ export function OpportunitiesToolbar({
               <SelectValue placeholder={toolbarMessages.sortPlaceholder} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="recent">{toolbarMessages.sortRecent}</SelectItem>
-              <SelectItem value="oldest">{toolbarMessages.sortOldest}</SelectItem>
+              <SelectItem value={OpportunitySortOrder.Recent}>{toolbarMessages.sortRecent}</SelectItem>
+              <SelectItem value={OpportunitySortOrder.Oldest}>{toolbarMessages.sortOldest}</SelectItem>
             </SelectContent>
           </Select>
         </div>

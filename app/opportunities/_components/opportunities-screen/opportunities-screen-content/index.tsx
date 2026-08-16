@@ -11,6 +11,7 @@ import {
 } from "@/app/opportunities/_components/opportunities-screen/styles";
 import { useOpportunitiesScreenController } from "@/app/opportunities/_components/opportunities-screen/controller/use-opportunities-screen-controller";
 import { SnapshotStatus } from "@/app/opportunities/_components/opportunities-screen/snapshot-status";
+import { OpportunityViewMode } from "@/app/opportunities/_components/opportunities-screen/types";
 
 interface OpportunitiesScreenContentProps {
   controller: ReturnType<typeof useOpportunitiesScreenController>;
@@ -58,7 +59,7 @@ export function OpportunitiesScreenContent({
           <div className={splitViewStyles({ open: controller.isDetailsOpen })}>
             <OpportunitiesList
               items={controller.visibleOpportunities}
-              viewMode={controller.isDetailsOpen ? "list" : controller.normalizedFilters.viewMode}
+              viewMode={controller.isDetailsOpen ? OpportunityViewMode.List : controller.normalizedFilters.viewMode}
               selectedOpportunityId={controller.selectedOpportunityId}
               isLoading={controller.isLoading}
               isFetchingMore={controller.isFetchingMore}

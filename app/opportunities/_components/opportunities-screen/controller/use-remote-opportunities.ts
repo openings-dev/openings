@@ -7,9 +7,10 @@ import {
 import { dedupeOpportunities, matchesSearch } from "./filtering";
 import { INITIAL_BATCH_SIZE, LOAD_MORE_BATCH_SIZE } from "./defaults";
 import { canonicalTagValue } from "./tag-normalization";
-import type {
-  OpportunityFilterFacets,
-  OpportunityItem,
+import {
+  OpportunityIssueState,
+  type OpportunityFilterFacets,
+  type OpportunityItem,
 } from "@/app/opportunities/_components/opportunities-screen/types";
 
 interface UseRemoteOpportunitiesParams {
@@ -34,7 +35,7 @@ function itemMatchesServerFilters(
   const matchesAuthors = !selectedAuthors || selectedAuthors.has(item.author.handle);
 
   return (
-    item.issueState === "open" &&
+    item.issueState === OpportunityIssueState.Open &&
     matchesRepository &&
     matchesRegion &&
     matchesCountry &&

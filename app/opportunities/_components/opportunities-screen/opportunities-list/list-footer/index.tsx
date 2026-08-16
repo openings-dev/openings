@@ -1,6 +1,6 @@
 import { LoaderCircle } from "lucide-react";
 import { resultsGridStyles } from "@/app/opportunities/_components/opportunities-screen/styles";
-import type { OpportunityViewMode } from "@/app/opportunities/_components/opportunities-screen/types";
+import { OpportunityViewMode } from "@/app/opportunities/_components/opportunities-screen/types";
 import { OpportunitySkeleton } from "../opportunity-skeleton";
 
 interface ListFooterProps {
@@ -43,7 +43,7 @@ export function ListFooter({
             {Array.from({ length: Math.min(skeletonCount, 3) }).map((_, index) => (
               <OpportunitySkeleton
                 key={`more-skeleton-${index}`}
-                compact={viewMode === "grid"}
+                compact={viewMode === OpportunityViewMode.Grid}
               />
             ))}
           </div>

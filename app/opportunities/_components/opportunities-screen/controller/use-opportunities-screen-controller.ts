@@ -16,11 +16,12 @@ import { useLoadMoreHandler } from "./use-load-more-handler";
 import { useRemoteOpportunities } from "./use-remote-opportunities";
 import { useUrlSync } from "./use-url-sync";
 import { formatTemplate } from "@/lib/utils/format-template";
-import type {
-  CommunityProfileSummary,
-  OpportunitiesScreenProps,
-  OpportunityItem,
-  UserProfileSummary,
+import {
+  OpportunityIssueState,
+  type CommunityProfileSummary,
+  type OpportunitiesScreenProps,
+  type OpportunityItem,
+  type UserProfileSummary,
 } from "@/app/opportunities/_components/opportunities-screen/types";
 
 interface ProfileHeaderData {
@@ -105,7 +106,7 @@ function resolveUserProfileSummary(params: {
 
   const authoredOpportunities = opportunities.filter(
     (item) =>
-      item.issueState === "open" &&
+      item.issueState === OpportunityIssueState.Open &&
       normalizeForcedAuthor(item.author.handle) === forcedAuthor,
   );
 
@@ -160,7 +161,7 @@ function resolveCommunityProfileSummary(params: {
   }
 
   const communityOpportunities = opportunities.filter(
-    (item) => item.issueState === "open" && item.repository === forcedRepository,
+    (item) => item.issueState === OpportunityIssueState.Open && item.repository === forcedRepository,
   );
 
   return buildFallbackCommunityProfile(forcedRepository, communityOpportunities);

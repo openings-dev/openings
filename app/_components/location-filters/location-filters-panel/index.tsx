@@ -10,7 +10,7 @@ import type {
   LocationFilterOption,
   LocationFiltersMessages,
   LocationFilterState,
-} from "./types";
+} from "../types";
 
 interface LocationFiltersPanelProps {
   locale: string;
@@ -39,7 +39,7 @@ export function LocationFiltersPanel({
   onRegionChange,
   onCountryChange,
   onClear,
-}: LocationFiltersPanelProps) {
+}: LocationFiltersPanelProps): React.ReactNode {
   const contentId = React.useId();
   const [isExpanded, setIsExpanded] = useResponsiveFilterPanel();
 

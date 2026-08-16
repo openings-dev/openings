@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
+import type React from "react";
 
 interface DirectoryEntityDetail {
   icon: LucideIcon;
@@ -29,7 +30,7 @@ export function DirectoryEntityCard({
   details,
   opportunitiesLabel,
   actionLabel,
-}: DirectoryEntityCardProps) {
+}: DirectoryEntityCardProps): React.ReactNode {
   return (
     <Link
       href={href}

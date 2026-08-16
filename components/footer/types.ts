@@ -1,6 +1,6 @@
-import type { ReactElement, SVGProps } from "react";
+import type { ComponentType, SVGProps } from "react";
 
-type FooterIcon = (props: SVGProps<SVGSVGElement>) => ReactElement;
+type FooterIcon = ComponentType<SVGProps<SVGSVGElement>>;
 
 export interface FooterLink {
   label: string;

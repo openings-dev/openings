@@ -6,7 +6,7 @@ export function createProjectDocumentPage(
   sourceDocumentKey: ProjectDocumentKey,
   pageDocumentKey: DocumentPageKey,
 ) {
-  return async function ProjectDocumentRoutePage() {
+  return async function ProjectDocumentRoutePage(): Promise<React.ReactNode> {
     const document = await readProjectDocumentBundle(sourceDocumentKey);
 
     return (

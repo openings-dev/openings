@@ -1,9 +1,16 @@
-export type OpportunitySortOrder = "recent" | "oldest";
-export type OpportunityViewMode = "list" | "grid";
-export type OpportunitySourceType =
-  | "github-issue"
-  | "github-discussion"
-  | "community-board";
+import type {
+  OpportunityIssueState,
+  OpportunitySalaryPeriod,
+  OpportunitySourceType,
+} from "./enums";
+
+export {
+  OpportunityIssueState,
+  OpportunitySalaryPeriod,
+  OpportunitySortOrder,
+  OpportunitySourceType,
+  OpportunityViewMode,
+} from "./enums";
 
 export interface OpportunityPerson {
   id: string;
@@ -24,7 +31,7 @@ export interface OpportunitySalary {
   currency: string;
   min?: number;
   max?: number;
-  period: "month" | "year" | "hour";
+  period: OpportunitySalaryPeriod;
 }
 
 export interface OpportunityItem {
@@ -33,7 +40,7 @@ export interface OpportunityItem {
   title: string;
   description: string;
   excerpt: string;
-  issueState: "open" | "closed";
+  issueState: OpportunityIssueState;
   repository: string;
   repositoryUrl: string;
   region: string;

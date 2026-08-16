@@ -5,6 +5,7 @@ import {
   locationKey,
   mostFrequentLocation,
 } from "./summary-helpers";
+import { OpportunityIssueState } from "./enums";
 
 type UnknownRecord = Record<string, unknown>;
 
@@ -55,8 +56,8 @@ export async function listSnapshotUsers() {
 
   for (const item of items) {
     const record = asRecord(item);
-    const issueState = stringOrNull(record?.issueState) ?? "open";
-    if (issueState === "closed") continue;
+    const issueState = stringOrNull(record?.issueState) ?? OpportunityIssueState.Open;
+    if (issueState === OpportunityIssueState.Closed) continue;
 
     const author = asRecord(record?.author);
     const rawHandle = stringOrNull(author?.handle) ?? stringOrNull(author?.name) ?? "";

@@ -1,3 +1,10 @@
+export {
+  OpportunityIssueState,
+  OpportunitySalaryPeriod,
+  OpportunitySortOrder,
+  OpportunitySourceType,
+  OpportunityViewMode,
+} from "@/lib/opportunities/types";
 export type {
   CommunityProfileSummary,
   OpportunityCommunity,
@@ -5,10 +12,7 @@ export type {
   OpportunityItem,
   OpportunityPerson,
   OpportunitySalary,
-  OpportunitySortOrder,
-  OpportunitySourceType,
   UserProfileSummary,
-  OpportunityViewMode,
 } from "@/lib/opportunities/types";
 export type {
   FilterOption,

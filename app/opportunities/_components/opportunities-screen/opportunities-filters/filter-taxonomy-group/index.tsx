@@ -1,10 +1,8 @@
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select } from "@/components/ui/select";
+import { SelectContent } from "@/components/ui/select/select-content";
+import { SelectItem } from "@/components/ui/select/select-item";
+import { SelectTrigger } from "@/components/ui/select/select-trigger";
+import { SelectValue } from "@/components/ui/select/select-value";
 import { compactSelectTriggerStyles } from "@/app/opportunities/_components/opportunities-screen/styles";
 import { FilterSection } from "../filter-section";
 import { SelectedChipList } from "../selected-chip-list";

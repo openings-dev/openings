@@ -5,7 +5,10 @@ import { useI18n } from "@/components/providers/i18n-provider";
 import { panelStyles, resultsGridStyles } from "@/app/opportunities/_components/opportunities-screen/styles";
 import { formatTemplate } from "@/lib/utils/format-template";
 import { cn } from "@/lib/utils/tailwind";
-import type { OpportunitiesListProps } from "@/app/opportunities/_components/opportunities-screen/types";
+import {
+  OpportunityViewMode,
+  type OpportunitiesListProps,
+} from "@/app/opportunities/_components/opportunities-screen/types";
 import { EmptyState } from "./empty-state";
 import { ListFooter } from "./list-footer";
 import { OpportunitySkeleton } from "./opportunity-skeleton";
@@ -63,7 +66,7 @@ export function OpportunitiesList({
       {isLoading ? (
         <div className={resultsGridStyles({ viewMode })}>
           {Array.from({ length: skeletonCount }).map((_, index) => (
-            <OpportunitySkeleton key={`skeleton-${index}`} compact={viewMode === "grid"} />
+            <OpportunitySkeleton key={`skeleton-${index}`} compact={viewMode === OpportunityViewMode.Grid} />
           ))}
         </div>
       ) : items.length === 0 ? (

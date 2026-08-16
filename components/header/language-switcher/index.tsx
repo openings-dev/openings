@@ -2,13 +2,11 @@
 
 import { motion } from "framer-motion";
 import { toast } from "sonner";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select } from "@/components/ui/select";
+import { SelectContent } from "@/components/ui/select/select-content";
+import { SelectItem } from "@/components/ui/select/select-item";
+import { SelectTrigger } from "@/components/ui/select/select-trigger";
+import { SelectValue } from "@/components/ui/select/select-value";
 import { cn } from "@/lib/utils/tailwind";
 import type { LanguageSwitcherProps } from "../types";
 import { FlagBR, FlagDE, FlagES, FlagFR, FlagIT, FlagUS } from "./flags";

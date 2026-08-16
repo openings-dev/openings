@@ -3,18 +3,22 @@ import {
   DEFAULT_FILTERS,
   ITEMS_PER_PAGE_OPTIONS,
 } from "./defaults";
-import type {
-  OpportunityFiltersState,
+import {
   OpportunitySortOrder,
   OpportunityViewMode,
+  type OpportunityFiltersState,
 } from "@/app/opportunities/_components/opportunities-screen/types";
 
 function parseSortOrder(value: string | null): OpportunitySortOrder {
-  return value === "oldest" ? "oldest" : "recent";
+  return value === OpportunitySortOrder.Oldest
+    ? OpportunitySortOrder.Oldest
+    : OpportunitySortOrder.Recent;
 }
 
 function parseViewMode(value: string | null): OpportunityViewMode {
-  return value === "grid" ? "grid" : "list";
+  return value === OpportunityViewMode.Grid
+    ? OpportunityViewMode.Grid
+    : OpportunityViewMode.List;
 }
 
 function parseListParam(value: string | null) {

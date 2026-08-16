@@ -19,7 +19,7 @@ export function DirectoryListShell<TItem>({
   items,
   getKey,
   renderItem,
-}: DirectoryListShellProps<TItem>) {
+}: DirectoryListShellProps<TItem>): ReactNode {
   return (
     <section className="rounded-2xl border border-border/60 bg-card/40 p-4">
       <p className="text-sm text-muted-foreground">

@@ -1,14 +1,16 @@
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select } from "@/components/ui/select";
+import { SelectContent } from "@/components/ui/select/select-content";
+import { SelectItem } from "@/components/ui/select/select-item";
+import { SelectTrigger } from "@/components/ui/select/select-trigger";
+import { SelectValue } from "@/components/ui/select/select-value";
 import { compactSelectTriggerStyles } from "@/app/opportunities/_components/opportunities-screen/styles";
 import { formatTemplate } from "@/lib/utils/format-template";
 import { FilterSection } from "../filter-section";
-import type { OpportunityFilterOptions, OpportunityFiltersState, OpportunitySortOrder } from "@/app/opportunities/_components/opportunities-screen/types";
+import {
+  OpportunitySortOrder,
+  type OpportunityFilterOptions,
+  type OpportunityFiltersState,
+} from "@/app/opportunities/_components/opportunities-screen/types";
 
 interface FilterDisplayGroupProps {
   state: OpportunityFiltersState;
@@ -63,8 +65,8 @@ export function FilterDisplayGroup({
               <SelectValue placeholder={labels.sortPlaceholder} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="recent">{labels.sortRecent}</SelectItem>
-              <SelectItem value="oldest">{labels.sortOldest}</SelectItem>
+              <SelectItem value={OpportunitySortOrder.Recent}>{labels.sortRecent}</SelectItem>
+              <SelectItem value={OpportunitySortOrder.Oldest}>{labels.sortOldest}</SelectItem>
             </SelectContent>
           </Select>
         </div>

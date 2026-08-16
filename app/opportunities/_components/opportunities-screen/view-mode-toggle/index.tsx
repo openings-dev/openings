@@ -7,7 +7,10 @@ import {
   toggleGroupStyles,
   toggleItemStyles,
 } from "@/app/opportunities/_components/opportunities-screen/styles";
-import type { ViewModeToggleProps } from "@/app/opportunities/_components/opportunities-screen/types";
+import {
+  OpportunityViewMode,
+  type ViewModeToggleProps,
+} from "@/app/opportunities/_components/opportunities-screen/types";
 
 export function ViewModeToggle({ value, onChange }: ViewModeToggleProps) {
   const { messages } = useI18n();
@@ -21,18 +24,18 @@ export function ViewModeToggle({ value, onChange }: ViewModeToggleProps) {
     >
       <button
         type="button"
-        className={cn(toggleItemStyles({ active: value === "list" }))}
-        onClick={() => onChange("list")}
-        aria-pressed={value === "list"}
+        className={cn(toggleItemStyles({ active: value === OpportunityViewMode.List }))}
+        onClick={() => onChange(OpportunityViewMode.List)}
+        aria-pressed={value === OpportunityViewMode.List}
       >
         <Rows3 className="size-4" />
         {viewModeMessages.list}
       </button>
       <button
         type="button"
-        className={cn(toggleItemStyles({ active: value === "grid" }))}
-        onClick={() => onChange("grid")}
-        aria-pressed={value === "grid"}
+        className={cn(toggleItemStyles({ active: value === OpportunityViewMode.Grid }))}
+        onClick={() => onChange(OpportunityViewMode.Grid)}
+        aria-pressed={value === OpportunityViewMode.Grid}
       >
         <LayoutGrid className="size-4" />
         {viewModeMessages.grid}

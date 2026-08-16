@@ -3,13 +3,11 @@
 import * as React from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select } from "@/components/ui/select";
+import { SelectContent } from "@/components/ui/select/select-content";
+import { SelectItem } from "@/components/ui/select/select-item";
+import { SelectTrigger } from "@/components/ui/select/select-trigger";
+import { SelectValue } from "@/components/ui/select/select-value";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { cn } from "@/lib/utils/tailwind";
 import {

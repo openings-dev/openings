@@ -1,4 +1,9 @@
-import type { OpportunityFiltersState, OpportunityItem } from "@/app/opportunities/_components/opportunities-screen/types";
+import {
+  OpportunityIssueState,
+  OpportunitySortOrder,
+  type OpportunityFiltersState,
+  type OpportunityItem,
+} from "@/app/opportunities/_components/opportunities-screen/types";
 import { canonicalTagValue } from "./tag-normalization";
 
 export function matchesSearch(opportunity: OpportunityItem, searchText: string) {
@@ -32,7 +37,7 @@ export function getFilteredOpportunities(
 
   return opportunities
     .filter((opportunity) => {
-      if (opportunity.issueState !== "open") return false;
+      if (opportunity.issueState !== OpportunityIssueState.Open) return false;
       const matchesRepository =
         filters.repository === "all" || opportunity.repository === filters.repository;
       const matchesRegion = filters.region === "all" || opportunity.region === filters.region;
@@ -54,7 +59,9 @@ export function getFilteredOpportunities(
     .sort((left, right) => {
       const leftDate = new Date(left.createdAt).getTime();
       const rightDate = new Date(right.createdAt).getTime();
-      return filters.sortOrder === "recent" ? rightDate - leftDate : leftDate - rightDate;
+      return filters.sortOrder === OpportunitySortOrder.Recent
+        ? rightDate - leftDate
+        : leftDate - rightDate;
     });
 }
 

@@ -1,5 +1,6 @@
 import { loadSnapshotItems } from "./snapshot";
 import { dateToMs } from "./summary-helpers";
+import { OpportunityIssueState } from "./enums";
 
 type UnknownRecord = Record<string, unknown>;
 
@@ -57,8 +58,8 @@ export async function listSnapshotCommunities() {
     const repository = stringOrNull(record?.repository);
     if (!repository) continue;
 
-    const issueState = stringOrNull(record?.issueState) ?? "open";
-    const openOpportunity = issueState !== "closed" ? 1 : 0;
+    const issueState = stringOrNull(record?.issueState) ?? OpportunityIssueState.Open;
+    const openOpportunity = issueState !== OpportunityIssueState.Closed ? 1 : 0;
     const createdAtMs = dateToMs(record?.createdAt);
     const communityRecord = asRecord(record?.community);
     const existing = map.get(repository);
