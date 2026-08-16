@@ -26,7 +26,7 @@ export function OpportunitiesFilters(props: OpportunitiesFiltersProps) {
   }, [onToggleAuthor]);
 
   return (
-    <section className={panelStyles()} aria-label={filterMessages.ariaLabel}>
+    <section className={panelStyles} aria-label={filterMessages.ariaLabel}>
       <FilterPanelHeader
         title={filterMessages.title}
         hideLabel={filterMessages.hide}

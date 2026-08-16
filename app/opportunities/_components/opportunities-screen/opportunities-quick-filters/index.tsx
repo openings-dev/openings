@@ -41,7 +41,7 @@ function QuickSelect({
   return (
     <Select value={value} onValueChange={onValueChange} disabled={disabled}>
       <SelectTrigger
-        className={cn(compactSelectTriggerStyles(), "h-11 rounded-md bg-background/55")}
+        className={cn(compactSelectTriggerStyles, "h-11 rounded-md bg-background/55")}
       >
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
@@ -88,7 +88,7 @@ export function OpportunitiesQuickFilters({
               controller.handleFieldChange("searchText", event.target.value)
             }
             placeholder={filterMessages.searchPlaceholder}
-            className={cn(textInputStyles(), "h-11 rounded-md pl-9")}
+            className={cn(textInputStyles, "h-11 rounded-md pl-9")}
           />
         </div>
 

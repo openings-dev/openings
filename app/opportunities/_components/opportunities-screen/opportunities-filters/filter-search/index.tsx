@@ -28,7 +28,7 @@ export function FilterSearch({
           value={value}
           onChange={(event) => onChange(event.target.value)}
           placeholder={placeholder}
-          className={cn(textInputStyles(), "h-10 pl-8")}
+          className={cn(textInputStyles, "h-10 pl-8")}
         />
       </div>
     </div>

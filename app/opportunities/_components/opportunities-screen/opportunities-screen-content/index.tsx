@@ -24,8 +24,8 @@ export function OpportunitiesScreenContent({
     <>
       <OpportunitiesQuickFilters controller={controller} />
 
-      <div className={opportunitiesBodyStyles()}>
-        <aside className={opportunitiesSidebarStyles()}>
+      <div className={opportunitiesBodyStyles}>
+        <aside className={opportunitiesSidebarStyles}>
           <OpportunitiesFilters
             state={controller.normalizedFilters}
             options={controller.options}
@@ -39,7 +39,7 @@ export function OpportunitiesScreenContent({
           />
         </aside>
 
-        <div className={opportunitiesMainStyles()}>
+        <div className={opportunitiesMainStyles}>
           <OpportunitiesToolbar
             totalCount={controller.totalCount}
             rangeLabel={controller.rangeLabel}

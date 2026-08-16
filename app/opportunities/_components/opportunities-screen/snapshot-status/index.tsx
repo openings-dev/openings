@@ -52,7 +52,7 @@ export function SnapshotStatus({ totalCount, lastUpdatedAt }: SnapshotStatusProp
       : null;
 
   return (
-    <section className={opportunitiesSnapshotStatusStyles()} aria-label={statusMessages.ariaLabel}>
+    <section className={opportunitiesSnapshotStatusStyles} aria-label={statusMessages.ariaLabel}>
       <div className="flex flex-wrap items-center gap-3">
         <span className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-primary/30 bg-primary/10 text-primary">
           <Activity className="size-4" />

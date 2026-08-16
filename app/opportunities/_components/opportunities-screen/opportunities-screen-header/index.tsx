@@ -30,14 +30,14 @@ export function OpportunitiesScreenHeader({
 
   return (
     <motion.header
-      className={opportunitiesHeaderStyles()}
+      className={opportunitiesHeaderStyles}
       initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
     >
-      <p className={opportunitiesKickerStyles()}>{kicker}</p>
-      <h1 className={opportunitiesTitleStyles()}>{title}</h1>
-      <p className={opportunitiesDescriptionStyles()}>{description}</p>
+      <p className={opportunitiesKickerStyles}>{kicker}</p>
+      <h1 className={opportunitiesTitleStyles}>{title}</h1>
+      <p className={opportunitiesDescriptionStyles}>{description}</p>
 
       {profile ? (
         <div className="mt-4 rounded-2xl border border-border/60 bg-card/80 p-4 shadow-[0_2px_16px_-6px_rgb(0_0_0/0.10)] backdrop-blur sm:p-5">

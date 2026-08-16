@@ -22,7 +22,7 @@ export function OpportunityCardMeta({
   showRepository = true,
 }: OpportunityCardMetaProps) {
   return (
-    <div className={metadataRowStyles()}>
+    <div className={metadataRowStyles}>
       {salaryLabel ? (
         <span className="inline-flex items-center gap-1">
           <Wallet className="size-3.5" />

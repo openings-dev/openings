@@ -45,7 +45,7 @@ export function FilterDisplayGroup({
             value={String(state.itemsPerPage)}
             onValueChange={(value) => onItemsPerPageChange(Number(value))}
           >
-            <SelectTrigger className={compactSelectTriggerStyles()}>
+            <SelectTrigger className={compactSelectTriggerStyles}>
               <SelectValue placeholder={labels.itemsPerPagePlaceholder} />
             </SelectTrigger>
             <SelectContent>
@@ -61,7 +61,7 @@ export function FilterDisplayGroup({
         <div className="space-y-1">
           <p className="text-xs text-muted-foreground/85">{labels.sort}</p>
           <Select value={state.sortOrder} onValueChange={onSortOrderChange}>
-            <SelectTrigger className={compactSelectTriggerStyles()}>
+            <SelectTrigger className={compactSelectTriggerStyles}>
               <SelectValue placeholder={labels.sortPlaceholder} />
             </SelectTrigger>
             <SelectContent>

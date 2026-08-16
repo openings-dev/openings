@@ -96,7 +96,7 @@ export function FilterTaxonomyGroup({
         <div className="space-y-1">
           <p className="text-xs text-muted-foreground/85">{labels.authors}</p>
           <Select key={authorPickerVersion} onValueChange={onAuthorSelected}>
-            <SelectTrigger className={compactSelectTriggerStyles()}>
+            <SelectTrigger className={compactSelectTriggerStyles}>
               <SelectValue placeholder={labels.authorPlaceholder} />
             </SelectTrigger>
             <SelectContent>

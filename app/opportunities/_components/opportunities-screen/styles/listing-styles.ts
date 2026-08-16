@@ -29,10 +29,6 @@ export const opportunityCardStyles = cva(
   },
 );
 
-export const metadataRowStyles = cva(
-  "flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground",
-);
+export const metadataRowStyles = "flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground";
 
-export const cardPersonButtonStyles = cva(
-  "-mx-1.5 -my-1 flex items-center gap-2.5 rounded-md px-1.5 py-1 transition-colors hover:bg-muted/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card",
-);
+export const cardPersonButtonStyles = "-mx-1.5 -my-1 flex items-center gap-2.5 rounded-md px-1.5 py-1 transition-colors hover:bg-muted/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card";

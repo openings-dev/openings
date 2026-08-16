@@ -85,7 +85,7 @@ export function OpportunityDrawer({
 
   return (
     <>
-      <aside className={cn(panelStyles(), "hidden overflow-hidden p-0 lg:sticky lg:top-20 lg:block lg:max-h-[calc(100dvh-6rem)]")}>
+      <aside className={cn(panelStyles, "hidden overflow-hidden p-0 lg:sticky lg:top-20 lg:block lg:max-h-[calc(100dvh-6rem)]")}>
         {content}
       </aside>
       <DrawerMobileSheet open={open} closeLabel={cardMessages.closeDetails} onClose={onClose}>

@@ -23,7 +23,7 @@ export function FilterSelect({
 }: FilterSelectProps) {
   return (
     <Select value={value} onValueChange={onValueChange}>
-      <SelectTrigger className={compactSelectTriggerStyles()}>
+      <SelectTrigger className={compactSelectTriggerStyles}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>

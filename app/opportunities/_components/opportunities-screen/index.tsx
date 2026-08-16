@@ -10,7 +10,7 @@ export function OpportunitiesScreen(props: OpportunitiesScreenProps) {
   const controller = useOpportunitiesScreenController(props);
 
   return (
-    <section className={opportunitiesScreenStyles()}>
+    <section className={opportunitiesScreenStyles}>
       <OpportunitiesScreenHeader
         kicker={controller.headerKicker}
         title={controller.headerTitle}

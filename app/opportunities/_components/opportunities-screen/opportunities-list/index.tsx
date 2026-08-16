@@ -60,7 +60,7 @@ export function OpportunitiesList({
   }, [hasMore, isFetchingMore, isLoading, onLoadMore]);
 
   return (
-    <section className={cn(panelStyles(), "space-y-4")}>
+    <section className={cn(panelStyles, "space-y-4")}>
       <p className="text-sm text-muted-foreground">{rangeLabel}</p>
 
       {isLoading ? (

@@ -18,7 +18,7 @@ export function ViewModeToggle({ value, onChange }: ViewModeToggleProps) {
 
   return (
     <div
-      className={toggleGroupStyles()}
+      className={toggleGroupStyles}
       role="group"
       aria-label={viewModeMessages.ariaLabel}
     >

@@ -32,7 +32,7 @@ export function OpportunityCardFooter({
       {showCommunityIdentity ? (
         <button
           type="button"
-          className={cardPersonButtonStyles()}
+          className={cardPersonButtonStyles}
           onClick={(event) => {
             event.stopPropagation();
             event.preventDefault();
@@ -61,7 +61,7 @@ export function OpportunityCardFooter({
       {showAuthorIdentity ? (
         <button
           type="button"
-          className={cardPersonButtonStyles()}
+          className={cardPersonButtonStyles}
           onClick={(event) => {
             event.stopPropagation();
             event.preventDefault();

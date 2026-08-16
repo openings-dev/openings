@@ -25,7 +25,7 @@ export function TagCategoryPicker({
     <div className="space-y-1">
       <p className="text-xs text-muted-foreground/85">{label}</p>
       <Select key={selectKey} onValueChange={onSelect} disabled={options.length === 0}>
-        <SelectTrigger className={compactSelectTriggerStyles()}>
+        <SelectTrigger className={compactSelectTriggerStyles}>
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>
