@@ -2,7 +2,6 @@ import * as React from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useResponsiveFilterPanel } from "@/app/_hooks/use-responsive-filter-panel";
 import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
-import { fetchOpportunityById } from "@/lib/opportunities/api";
 import { DEFAULT_FILTERS } from "./defaults";
 import { buildServerFilters } from "./server-filters";
 import { normalizeFilterDependencies } from "./filter-dependencies";
@@ -15,8 +14,9 @@ import { useForcedAuthorAutoload } from "./use-forced-author-autoload";
 import { useLoadMoreHandler } from "./use-load-more-handler";
 import { useRemoteOpportunities } from "./use-remote-opportunities";
 import { useUrlSync } from "./use-url-sync";
+import { useSelectedOpportunity } from "./use-selected-opportunity";
 import { formatTemplate } from "@/lib/utils/format-template";
-import type { OpportunitiesScreenProps, OpportunityItem } from "@/app/opportunities/_components/opportunities-screen/types";
+import type { OpportunitiesScreenProps } from "@/app/opportunities/_components/opportunities-screen/types";
 import {
   normalizeSelectedOpportunityId,
   resolveCommunityProfileSummary,
@@ -47,10 +47,6 @@ export function useOpportunitiesScreenController({
   const normalizedForcedAuthor = normalizeForcedAuthor(forcedAuthor);
   const selectedOpportunityIdFromUrl = normalizeSelectedOpportunityId(searchParams.get("job"));
   const repositoryRegistry = useRepositoryFilterRegistry();
-  const [selectedOpportunityId, setSelectedOpportunityId] = React.useState<string | null>(
-    selectedOpportunityIdFromUrl,
-  );
-  const [directOpportunity, setDirectOpportunity] = React.useState<OpportunityItem | null>(null);
   const [filtersExpanded, setFiltersExpanded] = useResponsiveFilterPanel({
     desktopQuery: "(min-width: 1024px)",
   });
@@ -90,25 +86,18 @@ export function useOpportunitiesScreenController({
       repositoryRegistry.registry,
     ],
   );
-  React.useEffect(() => {
-    let isCurrent = true;
-
-    queueMicrotask(() => {
-      if (!isCurrent) return;
-      setSelectedOpportunityId((previous) =>
-        previous === selectedOpportunityIdFromUrl ? previous : selectedOpportunityIdFromUrl,
-      );
-    });
-
-    return () => {
-      isCurrent = false;
-    };
-  }, [selectedOpportunityIdFromUrl]);
-
+  const {
+    selectedOpportunity,
+    selectedOpportunityId,
+    setSelectedOpportunityId,
+  } = useSelectedOpportunity({
+    loadedOpportunity: null,
+    selectedIdFromUrl: selectedOpportunityIdFromUrl,
+  });
   const handleBeforeReload = React.useCallback(() => {
     setSelectedOpportunityId(null);
     setFilters((previous) => (previous.page === 1 ? previous : { ...previous, page: 1 }));
-  }, [setFilters]);
+  }, [setFilters, setSelectedOpportunityId]);
   const remote = useRemoteOpportunities({
     serverFilters,
     enabled: !repositoryRegistry.isLoading,
@@ -127,36 +116,6 @@ export function useOpportunitiesScreenController({
     locale,
     rangeMessages: opportunitiesMessages.range,
   });
-  React.useEffect(() => {
-    if (!selectedOpportunityId || derived.selectedOpportunity?.id === selectedOpportunityId) {
-      return;
-    }
-
-    let cancelled = false;
-
-    fetchOpportunityById(selectedOpportunityId)
-      .then((item) => {
-        if (!cancelled) {
-          setDirectOpportunity(item);
-        }
-      })
-      .catch(() => {
-        if (!cancelled) {
-          setDirectOpportunity(null);
-        }
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [derived.selectedOpportunity?.id, selectedOpportunityId]);
-
-  const selectedOpportunity = React.useMemo(
-    () =>
-      derived.selectedOpportunity ??
-      (directOpportunity?.id === selectedOpportunityId ? directOpportunity : null),
-    [derived.selectedOpportunity, directOpportunity, selectedOpportunityId],
-  );
   const userProfileSummary = React.useMemo(
     () =>
       resolveUserProfileSummary({
