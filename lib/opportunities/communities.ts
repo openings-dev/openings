@@ -1,8 +1,7 @@
 import { loadSnapshotItems } from "./snapshot";
 import { dateToMs } from "./summary-helpers";
 import { OpportunityIssueState } from "./enums";
-
-type UnknownRecord = Record<string, unknown>;
+import { asRecord, readNonEmptyString } from "./unknown-values";
 
 export interface CommunitySummary {
   repository: string;
@@ -17,14 +16,6 @@ export interface CommunitySummary {
 
 interface MutableCommunitySummary extends CommunitySummary {
   lastPostedMs: number;
-}
-
-function asRecord(value: unknown): UnknownRecord | null {
-  return value && typeof value === "object" ? (value as UnknownRecord) : null;
-}
-
-function stringOrNull(value: unknown) {
-  return typeof value === "string" && value.trim().length > 0 ? value : null;
 }
 
 function repositoryLabel(repository: string) {
@@ -55,10 +46,10 @@ export async function listSnapshotCommunities() {
 
   for (const item of items) {
     const record = asRecord(item);
-    const repository = stringOrNull(record?.repository);
+    const repository = readNonEmptyString(record?.repository);
     if (!repository) continue;
 
-    const issueState = stringOrNull(record?.issueState) ?? OpportunityIssueState.Open;
+    const issueState = readNonEmptyString(record?.issueState) ?? OpportunityIssueState.Open;
     const openOpportunity = issueState !== OpportunityIssueState.Closed ? 1 : 0;
     const createdAtMs = dateToMs(record?.createdAt);
     const communityRecord = asRecord(record?.community);
@@ -67,11 +58,11 @@ export async function listSnapshotCommunities() {
     if (!existing) {
       map.set(repository, {
         repository,
-        repositoryUrl: stringOrNull(record?.repositoryUrl) ?? `https://github.com/${repository}`,
-        name: stringOrNull(communityRecord?.name) ?? repositoryLabel(repository),
-        avatarUrl: stringOrNull(communityRecord?.avatarUrl) ?? "",
-        region: stringOrNull(record?.region) ?? "Unknown",
-        country: stringOrNull(record?.country) ?? "Unknown",
+        repositoryUrl: readNonEmptyString(record?.repositoryUrl) ?? `https://github.com/${repository}`,
+        name: readNonEmptyString(communityRecord?.name) ?? repositoryLabel(repository),
+        avatarUrl: readNonEmptyString(communityRecord?.avatarUrl) ?? "",
+        region: readNonEmptyString(record?.region) ?? "Unknown",
+        country: readNonEmptyString(record?.country) ?? "Unknown",
         opportunitiesCount: openOpportunity,
         lastPostedAt: null,
         lastPostedMs: createdAtMs,
@@ -81,8 +72,8 @@ export async function listSnapshotCommunities() {
 
     existing.opportunitiesCount += openOpportunity;
     if (createdAtMs > existing.lastPostedMs) existing.lastPostedMs = createdAtMs;
-    if (existing.region === "Unknown") existing.region = stringOrNull(record?.region) ?? existing.region;
-    if (existing.country === "Unknown") existing.country = stringOrNull(record?.country) ?? existing.country;
+    if (existing.region === "Unknown") existing.region = readNonEmptyString(record?.region) ?? existing.region;
+    if (existing.country === "Unknown") existing.country = readNonEmptyString(record?.country) ?? existing.country;
   }
 
   return toSortedList(map.values());

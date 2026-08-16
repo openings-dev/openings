@@ -1,26 +1,15 @@
 import { openingsDataUrl } from "./static-api";
+import { fetchJson } from "./fetch-json";
+import { asRecord, readNonEmptyString } from "./unknown-values";
 
 const SNAPSHOT_FETCH_BATCH_SIZE = 12;
 
-type UnknownRecord = Record<string, unknown>;
 interface SnapshotDataset {
   items: unknown[];
   generatedAt: string | null;
 }
 
 let snapshotDatasetPromise: Promise<SnapshotDataset> | null = null;
-
-function asRecord(value: unknown): UnknownRecord | null {
-  if (!value || typeof value !== "object") {
-    return null;
-  }
-
-  return value as UnknownRecord;
-}
-
-function stringOrNull(value: unknown) {
-  return typeof value === "string" && value.trim().length > 0 ? value : null;
-}
 
 function normalizeAuthorHandle(handle: string) {
   return handle.trim().replace(/^@+/, "");
@@ -34,21 +23,11 @@ function resolveSnapshotUrl() {
   );
 }
 
-async function fetchJson(url: string) {
-  const response = await fetch(url, { headers: { Accept: "application/json" } });
-
-  if (!response.ok) {
-    throw new Error(`Snapshot source unavailable (${response.status}) at ${url}`);
-  }
-
-  return response.json().catch(() => null);
-}
-
 function sortAndDedupeSnapshotItems(items: unknown[]) {
   const byId = new Map<string, unknown>();
 
   for (const item of items) {
-    const id = stringOrNull(asRecord(item)?.id);
+    const id = readNonEmptyString(asRecord(item)?.id);
 
     if (id) {
       byId.set(id, item);
@@ -56,8 +35,8 @@ function sortAndDedupeSnapshotItems(items: unknown[]) {
   }
 
   return Array.from(byId.values()).sort((left, right) => {
-    const leftUpdatedAt = Date.parse(stringOrNull(asRecord(left)?.updatedAt) ?? "");
-    const rightUpdatedAt = Date.parse(stringOrNull(asRecord(right)?.updatedAt) ?? "");
+    const leftUpdatedAt = Date.parse(readNonEmptyString(asRecord(left)?.updatedAt) ?? "");
+    const rightUpdatedAt = Date.parse(readNonEmptyString(asRecord(right)?.updatedAt) ?? "");
     return rightUpdatedAt - leftUpdatedAt;
   });
 }
@@ -84,7 +63,7 @@ async function loadSegmentedSnapshotItems(
   }
 
   const countryIndexUrls = record.countries
-    .map((entry) => stringOrNull(asRecord(entry)?.indexFile))
+    .map((entry) => readNonEmptyString(asRecord(entry)?.indexFile))
     .filter((indexFile): indexFile is string => Boolean(indexFile))
     .map((indexFile) => new URL(indexFile, snapshotUrl).toString());
 
@@ -98,7 +77,7 @@ async function loadSegmentedSnapshotItems(
       }
 
       return repositories
-        .map((repository) => stringOrNull(asRecord(repository)?.file))
+        .map((repository) => readNonEmptyString(asRecord(repository)?.file))
         .filter((file): file is string => Boolean(file));
     })
     .map((file) => new URL(file, snapshotUrl).toString());
@@ -111,7 +90,7 @@ async function loadSegmentedSnapshotItems(
 
   return {
     items: sortAndDedupeSnapshotItems(items),
-    generatedAt: stringOrNull(record.generatedAt),
+    generatedAt: readNonEmptyString(record.generatedAt),
   };
 }
 
@@ -139,7 +118,7 @@ export async function listSnapshotRepositories() {
   const repositories = new Set<string>();
 
   for (const item of items) {
-    const repository = stringOrNull(asRecord(item)?.repository);
+    const repository = readNonEmptyString(asRecord(item)?.repository);
 
     if (repository) {
       repositories.add(repository);
@@ -155,7 +134,7 @@ export async function listSnapshotAuthorHandles() {
 
   for (const item of items) {
     const authorRecord = asRecord(asRecord(item)?.author);
-    const rawHandle = stringOrNull(authorRecord?.handle);
+    const rawHandle = readNonEmptyString(authorRecord?.handle);
 
     if (!rawHandle) {
       continue;

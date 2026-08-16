@@ -6,8 +6,7 @@ import {
   mostFrequentLocation,
 } from "./summary-helpers";
 import { OpportunityIssueState } from "./enums";
-
-type UnknownRecord = Record<string, unknown>;
+import { asRecord, readNonEmptyString } from "./unknown-values";
 
 export interface UserSummary {
   handle: string;
@@ -22,14 +21,6 @@ export interface UserSummary {
 interface MutableUserSummary extends UserSummary {
   lastPostedMs: number;
   locations: Map<string, number>;
-}
-
-function asRecord(value: unknown): UnknownRecord | null {
-  return value && typeof value === "object" ? (value as UnknownRecord) : null;
-}
-
-function stringOrNull(value: unknown) {
-  return typeof value === "string" && value.trim().length > 0 ? value : null;
 }
 
 function toSortedUsers(users: Iterable<MutableUserSummary>) {
@@ -56,25 +47,25 @@ export async function listSnapshotUsers() {
 
   for (const item of items) {
     const record = asRecord(item);
-    const issueState = stringOrNull(record?.issueState) ?? OpportunityIssueState.Open;
+    const issueState = readNonEmptyString(record?.issueState) ?? OpportunityIssueState.Open;
     if (issueState === OpportunityIssueState.Closed) continue;
 
     const author = asRecord(record?.author);
-    const rawHandle = stringOrNull(author?.handle) ?? stringOrNull(author?.name) ?? "";
+    const rawHandle = readNonEmptyString(author?.handle) ?? readNonEmptyString(author?.name) ?? "";
     const handle = normalizeAuthorHandle(rawHandle);
     if (!handle) continue;
 
     const existing = users.get(handle);
-    const country = stringOrNull(record?.country) ?? "Unknown";
-    const region = stringOrNull(record?.region) ?? "Unknown";
+    const country = readNonEmptyString(record?.country) ?? "Unknown";
+    const region = readNonEmptyString(record?.region) ?? "Unknown";
     const location = locationKey(country, region);
     const postedAtMs = dateToMs(record?.createdAt);
 
     if (!existing) {
       users.set(handle, {
         handle,
-        name: stringOrNull(author?.name) ?? handle,
-        avatarUrl: stringOrNull(author?.avatarUrl) ?? "",
+        name: readNonEmptyString(author?.name) ?? handle,
+        avatarUrl: readNonEmptyString(author?.avatarUrl) ?? "",
         region: "Unknown",
         country: "Unknown",
         opportunitiesCount: 1,
@@ -88,7 +79,7 @@ export async function listSnapshotUsers() {
     existing.opportunitiesCount += 1;
     existing.locations.set(location, (existing.locations.get(location) ?? 0) + 1);
     if (postedAtMs > existing.lastPostedMs) existing.lastPostedMs = postedAtMs;
-    if (!existing.avatarUrl) existing.avatarUrl = stringOrNull(author?.avatarUrl) ?? "";
+    if (!existing.avatarUrl) existing.avatarUrl = readNonEmptyString(author?.avatarUrl) ?? "";
   }
 
   return toSortedUsers(users.values());
