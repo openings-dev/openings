@@ -47,8 +47,9 @@ assertContains(
   "app/community/[owner]/[name]/page.tsx",
   "forcedRepositoryProfile",
 );
-assertContains("app/docs/maintainers/page.tsx", '"maintainers"');
-assertContains("lib/content/markdown.ts", '| "maintainers"');
+assertContains("app/docs/maintainers/page.tsx", "ProjectDocumentKey.Maintainers");
+assertContains("lib/content/document-types.ts", 'Maintainers = "maintainers"');
+assertContains("lib/content/document-config.ts", "ProjectDocumentKey.Maintainers");
 assertContains("app/_components/document-page/types.ts", '| "maintainers"');
 assertContains("components/footer/index.tsx", "footerMessages.links.maintainers");
 assertContains("MAINTAINERS.md", canonicalCommunityUrl);

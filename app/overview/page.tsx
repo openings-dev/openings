@@ -1,3 +1,4 @@
 import { createProjectDocumentPage } from "@/app/_components/document-page/create-project-document-page";
+import { ProjectDocumentKey } from "@/lib/content/document-types";
 
-export default createProjectDocumentPage("overview", "overview");
+export default createProjectDocumentPage(ProjectDocumentKey.Overview, "overview");

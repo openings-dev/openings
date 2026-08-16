@@ -1,4 +1,5 @@
-import { readProjectDocumentBundle, type ProjectDocumentKey } from "@/lib/content/markdown";
+import { readProjectDocumentBundle } from "@/lib/content/read-project-document";
+import type { ProjectDocumentKey } from "@/lib/content/document-types";
 import { DocumentPage } from ".";
 import type { DocumentPageKey } from "./types";
 
