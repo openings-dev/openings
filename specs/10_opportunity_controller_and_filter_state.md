@@ -17,15 +17,15 @@
 - Refactor: `app/opportunities/_components/opportunities-screen/types/props-types.ts`
 - Refactor: `app/opportunities/_components/opportunities-screen/types/filter-types.ts`
 
-- [ ] **Step 1: Inventory controller consumers**
+- [x] **Step 1: Inventory controller consumers**
 
 List every field consumed by OpportunitiesScreen and its descendants. Classify each as remote data, URL filter, ephemeral UI state, derived view data, or command.
 
-- [ ] **Step 2: Define explicit grouped outputs**
+- [x] **Step 2: Define explicit grouped outputs**
 
 Return cohesive typed groups such as result state, filter state, panel/drawer state, and commands. Preserve every consumed capability while removing pass-through values no consumer uses.
 
-- [ ] **Step 3: Keep domain types outside prop modules**
+- [x] **Step 3: Keep domain types outside prop modules**
 
 Move shared filter and query types to the controller/domain boundary. Keep only component props in component `types.ts` files.
 
@@ -38,15 +38,15 @@ Move shared filter and query types to the controller/domain boundary. Keep only 
 - Refactor: `controller/normalize-forced-author.ts`
 - Refactor: `controller/use-url-sync.ts`
 
-- [ ] **Step 1: Establish one query-key map**
+- [x] **Step 1: Establish one query-key map**
 
 Represent every supported query parameter in one typed constant. Preserve names, repeated-value encoding, default omission, sort/view serialization, forced-author behavior, and unknown-value rejection.
 
-- [ ] **Step 2: Separate pure codec functions**
+- [x] **Step 2: Separate pure codec functions**
 
 Keep parsing and serialization as pure functions accepting `URLSearchParams` or the typed filter model. Keep router/history synchronization in `use-url-sync.ts` and preserve back, forward, and direct-link behavior.
 
-- [ ] **Step 3: Prevent feedback loops**
+- [x] **Step 3: Prevent feedback loops**
 
 Keep URL synchronization effects exhaustive and ensure a normalized URL does not trigger repeated equivalent writes. Do not silence lint or use mutable module state.
 
@@ -61,15 +61,15 @@ Keep URL synchronization effects exhaustive and ensure a normalized URL does not
 - Refactor: `controller/repository-filter-registry.ts`
 - Refactor: `controller/tag-categories.ts`, `tag-labels.ts`, `tag-normalization.ts`, `range-label.ts`
 
-- [ ] **Step 1: Map pure dependency flow**
+- [x] **Step 1: Map pure dependency flow**
 
 Document inputs and outputs for option building, dependency pruning, active chips, tag categorization, tag labels, salary/range labels, and client-side filtering. Remove circular imports before changing behavior.
 
-- [ ] **Step 2: Consolidate identical normalization**
+- [x] **Step 2: Consolidate identical normalization**
 
 Choose one owner for case folding, whitespace handling, tag key normalization, and repository-filter identity where semantics match. Preserve display labels separately from stable filter values.
 
-- [ ] **Step 3: Use closed values consistently**
+- [x] **Step 3: Use closed values consistently**
 
 Replace migrated raw sort, view, source, and filter-scope comparisons with enum members. Type complete maps with `Record` and retain explicit fallback behavior for partial remote facets.
 
@@ -81,15 +81,15 @@ Replace migrated raw sort, view, source, and filter-scope comparisons with enum 
 - Refactor: `controller/use-load-more-handler.ts`
 - Refactor: `controller/use-forced-author-autoload.ts`
 
-- [ ] **Step 1: Define remote lifecycle states**
+- [x] **Step 1: Define remote lifecycle states**
 
 Keep initial loading, success, empty, error, incremental loading, exhaustion, retry, and cancellation distinguishable. Preserve deduplication and result ordering.
 
-- [ ] **Step 2: Preserve stale-request protection**
+- [x] **Step 2: Preserve stale-request protection**
 
 Abort or ignore responses for superseded filters. Effects include every reactive dependency; callbacks are stabilized only where their identity controls synchronization.
 
-- [ ] **Step 3: Keep load commands idempotent**
+- [x] **Step 3: Keep load commands idempotent**
 
 Prevent duplicate page requests for the same active query and preserve forced-author auto-loading limits and termination rules.
 
@@ -100,15 +100,15 @@ Prevent duplicate page requests for the same active query and preserve forced-au
 - Refactor: `controller/use-derived-opportunities.ts`
 - Refactor: `controller/use-opportunities-screen-controller.ts`
 
-- [ ] **Step 1: Keep ephemeral UI state local**
+- [x] **Step 1: Keep ephemeral UI state local**
 
 Drawer selection, filter-panel visibility, and temporary notices remain local to the nearest owner. Share only state required by distant opportunity descendants.
 
-- [ ] **Step 2: Compose without duplicating state**
+- [x] **Step 2: Compose without duplicating state**
 
 The facade reads each state source once, derives display values, and exposes intent-named commands. It must not mirror URL filters or remote results into a second state store.
 
-- [ ] **Step 3: Enforce size and responsibility**
+- [x] **Step 3: Enforce size and responsibility**
 
 After extraction, the facade coordinates modules and contains no large parsing, filtering, request, or formatting implementation. Every remaining function in the controller directory has one describable responsibility and no barrel file is introduced.
 
@@ -117,17 +117,17 @@ After extraction, the facade coordinates modules and contains no large parsing, 
 **Files:**
 - Modify: controller, types, and direct consumers
 
-- [ ] **Step 1: Run lint and build**
+- [x] **Step 1: Run lint and build**
 
 Run: `npm run lint && npm run build`
 
 Expected: exit code 0 and static export succeeds against remote data.
 
-- [ ] **Step 2: Manually verify filter invariants**
+- [x] **Step 2: Manually verify filter invariants**
 
 Check direct query links, adding/removing each filter family, reset, sort, view mode, forced author, browser back/forward, load more, empty results, and error retry. Expected: behavior and visible state match the baseline.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 Run: `git add app/opportunities && git commit -m "refactor: decompose opportunity controller"`
 

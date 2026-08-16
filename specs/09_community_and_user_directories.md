@@ -17,15 +17,15 @@
 - Refactor: `app/_components/location-filters/**`
 - Refactor: `app/_hooks/use-responsive-filter-panel.ts`
 
-- [ ] **Step 1: Define shared view models**
+- [x] **Step 1: Define shared view models**
 
 Keep directory card details, list-shell counts, screen copy, and location filters as presentation contracts independent from `CommunitySummary` and `UserSummary`. Map domains to these contracts at their feature boundary.
 
-- [ ] **Step 2: Isolate interactive location filters**
+- [x] **Step 2: Isolate interactive location filters**
 
 Keep country and region selection, reset, responsive disclosure, and derived option counts in focused hooks/components. Preserve current sorting, disabled states, labels, and responsive behavior.
 
-- [ ] **Step 3: Preserve generic list semantics**
+- [x] **Step 3: Preserve generic list semantics**
 
 Keep empty states, result counts, stable keys, link destinations, and semantic list markup. Do not make the generic shell aware of community or user URL construction.
 
@@ -36,15 +36,15 @@ Keep empty states, result counts, stable keys, link destinations, and semantic l
 - Refactor: `app/community/[owner]/[name]/page.tsx`
 - Refactor: `app/community/_components/communities-screen/**`
 
-- [ ] **Step 1: Keep route data server-owned**
+- [x] **Step 1: Keep route data server-owned**
 
 Fetch community summaries and static params in server route files or server-only query modules. Pass serializable summaries and locale messages to the interactive screen.
 
-- [ ] **Step 2: Decompose the communities screen**
+- [x] **Step 2: Decompose the communities screen**
 
 Give CommunitiesScreen, CommunitiesList, and CommunityCard their own folders and props. Use the shared directory card where its contract matches; do not duplicate card markup for domain labels alone.
 
-- [ ] **Step 3: Preserve community path behavior**
+- [x] **Step 3: Preserve community path behavior**
 
 Keep owner/name encoding, repository reconstruction, not-found behavior, opportunity-filter destination, avatar fallback, counts, and revalidation unchanged.
 
@@ -54,11 +54,11 @@ Keep owner/name encoding, repository reconstruction, not-found behavior, opportu
 - Refactor: `app/users/page.tsx`
 - Refactor: `app/users/_components/users-screen/**`
 
-- [ ] **Step 1: Decompose user components**
+- [x] **Step 1: Decompose user components**
 
 Give UsersScreen, UsersList, and UserCard their own folders and prop types. Reuse shared directory presentation where behavior and layout are identical.
 
-- [ ] **Step 2: Preserve user filter destinations**
+- [x] **Step 2: Preserve user filter destinations**
 
 Keep normalized author handles, opportunity-filter links, avatar fallback, location filtering, counts, localization, and route revalidation unchanged.
 
@@ -67,17 +67,17 @@ Keep normalized author handles, opportunity-filter links, avatar fallback, locat
 **Files:**
 - Modify: all files changed above
 
-- [ ] **Step 1: Run lint and build**
+- [x] **Step 1: Run lint and build**
 
 Run: `npm run lint && npm run build`
 
 Expected: exit code 0; community index, generated community details, and user index export.
 
-- [ ] **Step 2: Compare route counts**
+- [x] **Step 2: Compare route counts**
 
 Compare generated community detail route count and directory counts with Spec 01 evidence. Expected: no unexplained difference caused by presentation refactoring.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 Run: `git add app && git commit -m "refactor: align community and user directories"`
 

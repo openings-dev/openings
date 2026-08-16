@@ -21,23 +21,23 @@
 - Move: `components/icons/github.tsx` to `components/icons/github/index.tsx`
 - Modify: every importing source file
 
-- [ ] **Step 1: Inventory exports and imports**
+- [x] **Step 1: Inventory exports and imports**
 
 Search each source path and list its exported runtime symbols, types, and consumers. Preserve the same public symbols while imports migrate to component folders.
 
-- [ ] **Step 2: Move Button responsibilities**
+- [x] **Step 2: Move Button responsibilities**
 
 Keep the `Button` implementation in `index.tsx`, component props in `types.ts`, and genuine CVA variant configuration in `constants.ts`. Preserve `asChild`, every current size and variant value, focus behavior, and disabled behavior.
 
-- [ ] **Step 3: Move Select responsibilities**
+- [x] **Step 3: Move Select responsibilities**
 
 Keep each React component in a kebab-case folder when it is a separately named component. Keep Radix composition and ref behavior unchanged. Do not create a barrel-only `index.ts`.
 
-- [ ] **Step 4: Move Toaster and GitHub icon**
+- [x] **Step 4: Move Toaster and GitHub icon**
 
 Keep Toaster as a focused client component. Keep the custom GitHub mark because it is a brand icon; preserve SVG view box, accessible propagation, and visual dimensions.
 
-- [ ] **Step 5: Update concrete imports**
+- [x] **Step 5: Update concrete imports**
 
 Update all consumers to import component folders or concrete support files. Search the repository for old `.tsx` paths and expect zero matches.
 
@@ -49,15 +49,15 @@ Update all consumers to import component folders or concrete support files. Sear
 - Refactor: `app/_components/document-page/create-project-document-page.tsx`
 - Modify: all consumers under `app/community`, `app/users`, and `app/docs`
 
-- [ ] **Step 1: Give every ordinary component a folder**
+- [x] **Step 1: Give every ordinary component a folder**
 
 Move `directory-entity-card`, `directory-list-shell`, `directory-screen-layout`, `location-filters-panel`, and the document-page factory into kebab-case component or functional module boundaries. Use `index.tsx` only for React implementations.
 
-- [ ] **Step 2: Remove route-shared barrels**
+- [x] **Step 2: Remove route-shared barrels**
 
 Replace `app/_components/directory/index.ts` and `app/_components/location-filters/index.ts` with concrete imports, then remove the barrel files. Expected: no `index.ts` remains solely to re-export symbols.
 
-- [ ] **Step 3: Colocate props**
+- [x] **Step 3: Colocate props**
 
 Move component-only props into each component's `types.ts`. Keep reusable directory item and location-filter domain shapes at the nearest shared feature boundary rather than importing one component's props from another.
 
@@ -69,19 +69,19 @@ Move component-only props into each component's `types.ts`. Keep reusable direct
 - Split: `lib/translations/types.ts` only when focused files reduce responsibility without creating barrels
 - Modify: consumers under `app/`, `components/`, and `lib/`
 
-- [ ] **Step 1: Introduce stable enums**
+- [x] **Step 1: Introduce stable enums**
 
 Represent locale codes, opportunity sort order, view mode, source type, and other repeated closed comparison sets as string enums. Preserve serialized values exactly: locale URL/data values remain `en`, `pt`, `es`, `it`, `fr`, and `de`; sort and view query values remain unchanged.
 
-- [ ] **Step 2: Split opportunity domain types**
+- [x] **Step 2: Split opportunity domain types**
 
 Create focused kebab-case files for opportunity items, people, communities, salary, facets, user summaries, and community summaries when each has independent consumers. Import the concrete type file; do not replace the original broad file with a barrel.
 
-- [ ] **Step 3: Type constant mappings**
+- [x] **Step 3: Type constant mappings**
 
 Use exhaustive module-level `Record` values for enum-to-label, enum-to-query, and enum-to-style mappings. Use `Partial<Record<...>>` only where missing keys have an explicit fallback.
 
-- [ ] **Step 4: Verify naming**
+- [x] **Step 4: Verify naming**
 
 Search ordinary source filenames for uppercase or space-containing names, barrel-only exports, raw comparisons against migrated closed strings, and `any`. Resolve matches inside this specification's scope.
 
@@ -90,19 +90,19 @@ Search ordinary source filenames for uppercase or space-containing names, barrel
 **Files:**
 - Modify: all files changed above
 
-- [ ] **Step 1: Run lint**
+- [x] **Step 1: Run lint**
 
 Run: `npm run lint`
 
 Expected: exit code 0 with no unresolved imports or unsafe enum comparisons.
 
-- [ ] **Step 2: Run build**
+- [x] **Step 2: Run build**
 
 Run: `npm run build`
 
 Expected: exit code 0 with the same route set recorded in Spec 01.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 Run: `git add app components lib && git commit -m "refactor: normalize source conventions"`
 

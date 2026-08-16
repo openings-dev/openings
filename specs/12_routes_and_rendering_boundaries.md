@@ -16,11 +16,11 @@
 - Read: relevant files under `node_modules/next/dist/docs/`
 - Inspect: `next.config.ts`, every file under `app/` named `page.tsx`, `layout.tsx`, or `not-found.tsx`
 
-- [ ] **Step 1: Read static export guidance**
+- [x] **Step 1: Read static export guidance**
 
 Read the installed documentation for static exports, dynamic routes and `generateStaticParams`, route parameters, metadata, Server and Client Components, caching/revalidation, and not-found behavior. Record only guidance that changes an implementation decision in the commit notes.
 
-- [ ] **Step 2: Build a route audit table**
+- [x] **Step 2: Build a route audit table**
 
 For every route, record server/client status, data source, dynamic params, static params, revalidation, metadata, and interactive descendant. Compare it with Spec 01.
 
@@ -30,15 +30,15 @@ For every route, record server/client status, data source, dynamic params, stati
 - Refactor as required: `app/layout.tsx`, `app/page.tsx`, `app/not-found.tsx`
 - Refactor as required: every route `page.tsx` under `app/`
 
-- [ ] **Step 1: Remove unnecessary client directives**
+- [x] **Step 1: Remove unnecessary client directives**
 
 Keep route entries server-renderable unless installed Next.js rules or direct browser interaction require otherwise. Move browser behavior into an owned child and pass serializable props.
 
-- [ ] **Step 2: Keep route entries thin**
+- [x] **Step 2: Keep route entries thin**
 
 Move reusable parsing, formatting, and domain querying out of route files. Retain route parameters, static generation, revalidation, not-found decisions, metadata, and top-level composition.
 
-- [ ] **Step 3: Preserve compatibility routing**
+- [x] **Step 3: Preserve compatibility routing**
 
 Keep the current legacy redirect resolution in `app/not-found.tsx` behaviorally equivalent. Isolate browser pathname inspection if required, but do not turn ordinary not-found rendering into a global client boundary unnecessarily.
 
@@ -49,15 +49,15 @@ Keep the current legacy redirect resolution in `app/not-found.tsx` behaviorally 
 - Inspect: remote-data functions used by static routes
 - Inspect: `next.config.ts`
 
-- [ ] **Step 1: Verify dynamic path encoding**
+- [x] **Step 1: Verify dynamic path encoding**
 
 Confirm community owner/name static params and route reconstruction are inverses for every generated repository identifier. Preserve URL encoding and not-found handling.
 
-- [ ] **Step 2: Verify build-time remote reads**
+- [x] **Step 2: Verify build-time remote reads**
 
 Confirm server-only modules perform snapshot reads and client bundles do not import Node filesystem APIs or build-only environment access.
 
-- [ ] **Step 3: Keep export configuration**
+- [x] **Step 3: Keep export configuration**
 
 Preserve `output: "export"`, unoptimized image behavior required for static output, and current remote image patterns.
 
@@ -66,17 +66,17 @@ Preserve `output: "export"`, unoptimized image behavior required for static outp
 **Files:**
 - Modify: route and boundary files changed above
 
-- [ ] **Step 1: Run lint and build**
+- [x] **Step 1: Run lint and build**
 
 Run: `npm run lint && npm run build`
 
 Expected: exit code 0, no Server/Client serialization error, and the same public route set as Spec 01.
 
-- [ ] **Step 2: Inspect generated output**
+- [x] **Step 2: Inspect generated output**
 
 Confirm `out/` contains the expected root, opportunity, directory, document, privacy, terms, and generated community pages. Confirm no API route or server runtime artifact was introduced.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 Run: `git add app lib next.config.ts && git commit -m "refactor: tighten rendering boundaries"`
 
