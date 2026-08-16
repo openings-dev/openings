@@ -16,13 +16,12 @@ import { useLoadMoreHandler } from "./use-load-more-handler";
 import { useRemoteOpportunities } from "./use-remote-opportunities";
 import { useUrlSync } from "./use-url-sync";
 import { formatTemplate } from "@/lib/utils/format-template";
+import type { OpportunitiesScreenProps, OpportunityItem } from "@/app/opportunities/_components/opportunities-screen/types";
 import {
-  OpportunityIssueState,
-  type CommunityProfileSummary,
-  type OpportunitiesScreenProps,
-  type OpportunityItem,
-  type UserProfileSummary,
-} from "@/app/opportunities/_components/opportunities-screen/types";
+  normalizeSelectedOpportunityId,
+  resolveCommunityProfileSummary,
+  resolveUserProfileSummary,
+} from "./profile-summary";
 
 interface ProfileHeaderData {
   title: string;
@@ -31,145 +30,6 @@ interface ProfileHeaderData {
   opportunitiesSummary: string;
   locationSummary: string;
   lastPostedSummary: string;
-}
-
-function resolveMostFrequentLocation(opportunities: OpportunityItem[]) {
-  const locationCounts = new Map<string, number>();
-
-  for (const opportunity of opportunities) {
-    const country = opportunity.country || "Unknown";
-    const region = opportunity.region || "Unknown";
-    const key = `${country}::${region}`;
-    locationCounts.set(key, (locationCounts.get(key) ?? 0) + 1);
-  }
-
-  const [topLocation = "Unknown::Unknown"] = [...locationCounts.entries()].sort(
-    (left, right) => right[1] - left[1],
-  )[0] ?? [];
-  const [country = "Unknown", region = "Unknown"] = topLocation.split("::");
-
-  return { country, region };
-}
-
-function resolveLatestPostedAt(opportunities: OpportunityItem[]) {
-  const latestPostedMs = opportunities.reduce((highest, opportunity) => {
-    const current = Date.parse(opportunity.createdAt);
-    return Number.isFinite(current) && current > highest ? current : highest;
-  }, 0);
-
-  return latestPostedMs > 0 ? new Date(latestPostedMs).toISOString() : null;
-}
-
-function buildFallbackUserProfile(handle: string, opportunities: OpportunityItem[]) {
-  if (opportunities.length === 0) {
-    return {
-      handle,
-      name: handle,
-      avatarUrl: "",
-      country: "Unknown",
-      region: "Unknown",
-      opportunitiesCount: 0,
-      lastPostedAt: null,
-    } satisfies UserProfileSummary;
-  }
-
-  const { country, region } = resolveMostFrequentLocation(opportunities);
-
-  return {
-    handle,
-    name: opportunities[0]?.author.name || handle,
-    avatarUrl: opportunities[0]?.author.avatarUrl || "",
-    country,
-    region,
-    opportunitiesCount: opportunities.length,
-    lastPostedAt: resolveLatestPostedAt(opportunities),
-  } satisfies UserProfileSummary;
-}
-
-function resolveUserProfileSummary(params: {
-  forcedAuthor: string | null;
-  forcedAuthorProfile?: UserProfileSummary | null;
-  opportunities: OpportunityItem[];
-}) {
-  const { forcedAuthor, forcedAuthorProfile, opportunities } = params;
-
-  if (!forcedAuthor) {
-    return null;
-  }
-
-  if (
-    forcedAuthorProfile &&
-    normalizeForcedAuthor(forcedAuthorProfile.handle) === forcedAuthor
-  ) {
-    return forcedAuthorProfile;
-  }
-
-  const authoredOpportunities = opportunities.filter(
-    (item) =>
-      item.issueState === OpportunityIssueState.Open &&
-      normalizeForcedAuthor(item.author.handle) === forcedAuthor,
-  );
-
-  return buildFallbackUserProfile(forcedAuthor, authoredOpportunities);
-}
-
-function buildFallbackCommunityProfile(
-  repository: string,
-  opportunities: OpportunityItem[],
-) {
-  if (opportunities.length === 0) {
-    return {
-      repository,
-      name: repository.split("/")[0] ?? repository,
-      avatarUrl: "",
-      country: "Unknown",
-      region: "Unknown",
-      opportunitiesCount: 0,
-      lastPostedAt: null,
-    } satisfies CommunityProfileSummary;
-  }
-
-  const { country, region } = resolveMostFrequentLocation(opportunities);
-
-  return {
-    repository,
-    name: opportunities[0]?.community.name || repository.split("/")[0] || repository,
-    avatarUrl: opportunities[0]?.community.avatarUrl || "",
-    country,
-    region,
-    opportunitiesCount: opportunities.length,
-    lastPostedAt: resolveLatestPostedAt(opportunities),
-  } satisfies CommunityProfileSummary;
-}
-
-function resolveCommunityProfileSummary(params: {
-  forcedRepository: string | null;
-  forcedRepositoryProfile?: CommunityProfileSummary | null;
-  opportunities: OpportunityItem[];
-}) {
-  const { forcedRepository, forcedRepositoryProfile, opportunities } = params;
-
-  if (!forcedRepository) {
-    return null;
-  }
-
-  if (
-    forcedRepositoryProfile &&
-    forcedRepositoryProfile.repository.trim() === forcedRepository
-  ) {
-    return forcedRepositoryProfile;
-  }
-
-  const communityOpportunities = opportunities.filter(
-    (item) => item.issueState === OpportunityIssueState.Open && item.repository === forcedRepository,
-  );
-
-  return buildFallbackCommunityProfile(forcedRepository, communityOpportunities);
-}
-
-function normalizeSelectedOpportunityId(id: string | null) {
-  const normalized = id?.trim();
-  return normalized ? normalized : null;
 }
 
 export function useOpportunitiesScreenController({
