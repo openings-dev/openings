@@ -44,7 +44,7 @@ export function LocationFiltersPanel({
   const [isExpanded, setIsExpanded] = useResponsiveFilterPanel();
 
   return (
-    <aside className="rounded-2xl border border-border/80 bg-surface-elevated p-4 shadow-soft-sm sm:p-5">
+    <aside className="rounded-xl border-2 border-border bg-card p-4 shadow-soft-md sm:p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <SlidersHorizontal className="size-3.5 text-primary" />
@@ -95,7 +95,7 @@ export function LocationFiltersPanel({
               {filtersMessages.region}
             </label>
             <select
-              className="h-11 w-full rounded-lg border border-border/90 bg-surface-elevated px-3 text-base text-foreground shadow-soft-sm transition-colors hover:border-input focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background md:text-sm"
+            className="h-11 w-full rounded-lg border-2 border-border bg-card px-3 text-base font-semibold text-foreground shadow-soft-sm transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:text-sm"
               value={state.region}
               onChange={(event) => onRegionChange(event.target.value)}
             >
@@ -118,7 +118,7 @@ export function LocationFiltersPanel({
               {filtersMessages.country}
             </label>
             <select
-              className="h-11 w-full rounded-lg border border-border/90 bg-surface-elevated px-3 text-base text-foreground shadow-soft-sm transition-colors hover:border-input focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background md:text-sm"
+              className="h-11 w-full rounded-lg border-2 border-border bg-card px-3 text-base font-semibold text-foreground shadow-soft-sm transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:text-sm"
               value={state.country}
               onChange={(event) => onCountryChange(event.target.value)}
             >

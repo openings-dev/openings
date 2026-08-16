@@ -4,7 +4,7 @@
 
 ## Contract
 
-Specs 00–13 refactor code without redesigning screens. Specs 14–24 define and implement the approved Calm Professional visual refinement. Specs 25–29 harden quality and accessibility. Specs 30–33 reposition community and user destinations as public, shareable profile pages and intentionally add `/users/[handle]`. None of these programs changes remote schemas or adds an automated test framework.
+Specs 00–13 refactor code without redesigning screens. Specs 14–24 record the earlier Calm Professional refinement. Specs 25–29 harden quality and accessibility. Specs 30–33 reposition community and user destinations as public, shareable profile pages and intentionally add `/users/[handle]`. Specs 34–40 replace the active visual baseline with Buffer Bold and the Soft Grape palette. None of these programs changes remote schemas or adds an automated test framework.
 
 Before each specification, confirm the previous one is complete and read the relevant [knowledge documents](../.knowledge/README.md). If current code has moved, update exact paths in the active spec before implementation without expanding its architectural scope.
 
@@ -46,13 +46,20 @@ Before each specification, confirm the previous one is complete and read the rel
 | 31 | [Community and user profile positioning](31_community_and_user_profile_positioning.md) | 30 | Complete |
 | 32 | [Dedicated user pages and social metadata](32_dedicated_user_pages_and_social_metadata.md) | 31 | Complete |
 | 33 | [Profile-copy final verification](33_profile_copy_final_verification.md) | 32 | Complete |
+| 34 | [Buffer Bold visual redesign](34_buffer_bold_visual_redesign.md) | 33 | Complete |
+| 35 | [Buffer Bold foundations and primitives](35_buffer_bold_foundations_and_primitives.md) | 34 | Complete |
+| 36 | [Quick filters and advanced-filter modal](36_quick_filters_and_advanced_filter_modal.md) | 35 | Complete |
+| 37 | [Buffer Bold shell and navigation](37_buffer_bold_shell_and_navigation.md) | 35 | Complete |
+| 38 | [Buffer Bold opportunity surfaces](38_buffer_bold_opportunity_surfaces.md) | 36, 37 | Complete |
+| 39 | [Buffer Bold directories and documents](39_buffer_bold_directories_and_documents.md) | 37 | Complete |
+| 40 | [Buffer Bold responsive and final verification](40_buffer_bold_responsive_and_final_verification.md) | 35–39 | Complete |
 
 ## Global invariants
 
 - `output: "export"` remains enabled.
 - The frontend continues to read only public remote Openings data.
 - Established routes, query parameters, compatibility redirects, locale behavior, accessibility, and user interactions remain compatible; `/users/[handle]` is the approved canonical user-profile route from Spec 32.
-- Visual implementation follows the approved Calm Professional design in Specs 14–24, including its themes, responsive layouts, typography, surfaces, and motion.
+- Visual implementation follows the approved Buffer Bold design in Specs 34–40; Specs 14–24 remain historical context rather than the active baseline.
 - No local opportunity data, API route, authentication system, backend proxy, unrelated product feature, or test framework is added.
 - Every ordinary component ends in its own kebab-case folder with `index.tsx`.
 - Every stage passes its required validations before the next stage begins.

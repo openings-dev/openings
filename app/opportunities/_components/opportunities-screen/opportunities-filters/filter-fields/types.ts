@@ -40,6 +40,7 @@ export interface FilterFieldsLabels {
 }
 
 export interface FilterFieldsProps extends OpportunitiesFiltersProps {
+  advancedOnly?: boolean;
   labels: FilterFieldsLabels;
   tagPickerVersion: number;
   authorPickerVersion: number;

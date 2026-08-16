@@ -60,9 +60,10 @@ export type OnFilterFieldChange = <TField extends keyof OpportunityFiltersState>
 export interface OpportunitiesFiltersProps {
   state: OpportunityFiltersState;
   options: OpportunityFilterOptions;
-  isExpanded: boolean;
+  open: boolean;
+  resultCount: number;
   activeFiltersCount: number;
-  onExpandedChange: (open: boolean) => void;
+  onOpenChange: (open: boolean) => void;
   onFieldChange: OnFilterFieldChange;
   onToggleTag: (tag: string) => void;
   onToggleAuthor: (authorHandle: string) => void;

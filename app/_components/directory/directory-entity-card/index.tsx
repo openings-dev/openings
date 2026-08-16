@@ -34,7 +34,7 @@ export function DirectoryEntityCard({
   return (
     <Link
       href={href}
-      className="group block h-full rounded-2xl border border-border/80 bg-surface-elevated p-4 shadow-soft-sm transition-[border-color,background-color,box-shadow] hover:border-primary/35 hover:bg-card hover:shadow-soft-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/70"
+      className="group block h-full rounded-xl border-2 border-border bg-card p-5 shadow-soft-md transition-[background-color,box-shadow,transform] hover:-translate-x-1 hover:-translate-y-1 hover:bg-accent hover:shadow-soft-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
       <div className="flex items-center gap-3">
         {avatarUrl ? (
@@ -42,10 +42,10 @@ export function DirectoryEntityCard({
           <img
             src={avatarUrl}
             alt={avatarAlt}
-            className="size-10 rounded-full border border-border/70 bg-muted object-cover"
+            className="size-11 rounded-full border-2 border-border bg-muted object-cover"
           />
         ) : (
-          <span className="inline-flex size-10 items-center justify-center rounded-full border border-border/70 bg-muted text-sm font-semibold text-muted-foreground">
+          <span className="inline-flex size-11 items-center justify-center rounded-full border-2 border-border bg-muted text-sm font-black text-muted-foreground">
             {avatarFallback}
           </span>
         )}

@@ -18,6 +18,7 @@ interface FilterLocationGroupProps {
     allCountries: string;
   };
   onFieldChange: (field: "region" | "country", value: string) => void;
+  hideCountry?: boolean;
 }
 
 export function FilterLocationGroup({
@@ -25,11 +26,12 @@ export function FilterLocationGroup({
   options,
   labels,
   onFieldChange,
+  hideCountry = false,
 }: FilterLocationGroupProps) {
   return (
     <FilterSection label={labels.section}>
       <div className="grid grid-cols-1 gap-3">
-        <div className="space-y-1">
+        {!hideCountry ? <div className="space-y-1">
           <p className="text-xs text-muted-foreground/85">{labels.region}</p>
           <FilterSelect
             value={state.region}
@@ -38,7 +40,7 @@ export function FilterLocationGroup({
             options={options.regions}
             onValueChange={(value) => onFieldChange("region", value)}
           />
-        </div>
+        </div> : null}
         <div className="space-y-1">
           <p className="text-xs text-muted-foreground/85">{labels.country}</p>
           <FilterSelect

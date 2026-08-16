@@ -19,7 +19,7 @@ Openings is a statically exported Next.js application for discovering technology
 - Typed dictionaries for `en`, `pt`, `es`, `it`, `fr`, and `de`
 - npm with Node.js 20.9 or newer
 
-The Calm Professional design system is the current visual baseline. Preserve product behavior while keeping its typography, semantic themes, application grid, surface hierarchy, interaction states, responsive usability, and accessibility coherent. Do not add a test framework.
+The Buffer Bold design system is the current visual baseline: warm cream canvas, warm-black 2-pixel outlines, white and lavender fields, hard offset shadows, bold Manrope display type, Geist interface type, and Soft Grape actions. Preserve product behavior, responsive usability, theme parity, and accessibility. Do not copy third-party logos, illustrations, branded assets, or copy. Do not add a test framework.
 
 ## Required workflow
 
@@ -72,7 +72,7 @@ The Calm Professional design system is the current visual baseline. Preserve pro
 - Keep theme tokens and truly global element behavior in `app/globals.css`; do not create another token system.
 - Do not introduce CSS Modules, component stylesheets, styled-components, or CSS-in-JS.
 - Prefer Lucide for generic interface icons. Keep custom SVGs for brand marks, flags, or shapes Lucide cannot represent equivalently.
-- Extend the Calm Professional spacing, typography, colors, themes, breakpoints, motion, focus, and semantic states without introducing a second visual system.
+- Extend the Buffer Bold spacing, typography, colors, themes, breakpoints, motion, focus, and semantic states without introducing a second visual system.
 
 ## State, hooks, and effects
 

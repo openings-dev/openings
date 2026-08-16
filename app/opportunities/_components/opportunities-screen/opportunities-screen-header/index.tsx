@@ -46,17 +46,17 @@ export function OpportunitiesScreenHeader({
       <p className={opportunitiesDescriptionStyles}>{description}</p>
 
       {profile ? (
-        <div className="mt-5 rounded-2xl border border-border/80 bg-surface-elevated p-4 shadow-soft-sm sm:p-5">
+        <div className="mt-5 rounded-xl border-2 border-border bg-card p-4 shadow-soft-md sm:p-5">
           <div className="flex flex-wrap items-center gap-3">
             {profile.avatarUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={profile.avatarUrl}
                 alt={profile.title}
-                className="size-14 rounded-full border border-border/70 bg-muted object-cover"
+                className="size-14 rounded-full border-2 border-border bg-muted object-cover"
               />
             ) : (
-              <span className="inline-flex size-14 items-center justify-center rounded-full border border-border/70 bg-muted text-lg font-semibold text-muted-foreground">
+              <span className="inline-flex size-14 items-center justify-center rounded-full border-2 border-border bg-muted text-lg font-black text-muted-foreground">
                 {avatarFallback}
               </span>
             )}
@@ -71,15 +71,15 @@ export function OpportunitiesScreenHeader({
           </div>
 
           <dl className="mt-4 grid gap-2 sm:grid-cols-3">
-            <div className="rounded-xl bg-surface px-3 py-2 text-sm text-muted-foreground">
+            <div className="rounded-lg border-2 border-border bg-surface px-3 py-2 text-sm font-semibold text-muted-foreground">
               <dt className="sr-only">{opportunitiesLabel}</dt>
               <dd>{profile.opportunitiesSummary}</dd>
             </div>
-            <div className="rounded-xl bg-surface px-3 py-2 text-sm text-muted-foreground">
+            <div className="rounded-lg border-2 border-border bg-surface px-3 py-2 text-sm font-semibold text-muted-foreground">
               <dt className="sr-only">{locationLabel}</dt>
               <dd>{profile.locationSummary}</dd>
             </div>
-            <div className="rounded-xl bg-surface px-3 py-2 text-sm text-muted-foreground">
+            <div className="rounded-lg border-2 border-border bg-surface px-3 py-2 text-sm font-semibold text-muted-foreground">
               <dt className="sr-only">{lastPostLabel}</dt>
               <dd>{profile.lastPostedSummary}</dd>
             </div>

@@ -15,6 +15,7 @@
 
 # local git worktrees
 /.worktrees/
+/.superpowers/
 
 # next.js
 /.next/

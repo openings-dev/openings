@@ -21,7 +21,7 @@ export function EmptyState({
   onClearFilters,
 }: EmptyStateProps) {
   return (
-    <div className="flex min-h-64 flex-col items-center justify-center rounded-xl border border-dashed border-border bg-surface/55 px-4 text-center">
+    <div className="flex min-h-64 flex-col items-center justify-center rounded-xl border-2 border-dashed border-border bg-accent px-4 text-center shadow-soft-sm">
       <div className="mb-4 inline-flex size-10 items-center justify-center rounded-xl bg-accent text-accent-foreground">
         <SearchX className="size-4" />
       </div>

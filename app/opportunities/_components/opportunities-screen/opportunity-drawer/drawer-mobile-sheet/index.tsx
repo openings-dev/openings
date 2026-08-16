@@ -37,7 +37,7 @@ export function DrawerMobileSheet({
           <button type="button" aria-label={closeLabel} className="absolute inset-0 bg-black/55 backdrop-blur-[2px]" onClick={onClose} />
           <motion.div
             ref={dialogRef}
-            className="absolute inset-x-0 bottom-0 max-h-[88dvh] overflow-hidden rounded-t-3xl border border-border/80 bg-surface-elevated pb-[env(safe-area-inset-bottom)] shadow-soft-lg"
+            className="absolute inset-x-0 bottom-0 max-h-[88dvh] overflow-hidden rounded-t-2xl border-2 border-border bg-card pb-[env(safe-area-inset-bottom)] shadow-soft-lg"
             initial={{ y: 32, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 24, opacity: 0 }}

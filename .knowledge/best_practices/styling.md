@@ -1,10 +1,10 @@
 # Styling
 
-> Extend the Calm Professional interface through explicit Tailwind ownership.
+> Extend the Buffer Bold interface through explicit Tailwind ownership.
 
 ## Current system
 
-Tailwind CSS 4 is imported from `app/globals.css`. CSS custom properties define the semantic light and dark theme, surface hierarchy, accent roles, radii, and layered shadows; `@theme inline` exposes them as utilities. Manrope is the display family, Geist Sans is the interface family, and Geist Mono supports technical and numerical content. Framer Motion supplies functional orientation and Lucide supplies general interface icons.
+Tailwind CSS 4 is imported from `app/globals.css`. CSS custom properties define the semantic light and dark theme, warm-neutral surface hierarchy, Soft Grape actions, lavender accents, compact radii, and hard offset shadows; `@theme inline` exposes them as utilities. Manrope is the display family, Geist Sans is the interface family, and Geist Mono supports technical and numerical content. Framer Motion supplies functional orientation and Lucide supplies general interface icons.
 
 ## Target rules
 
@@ -17,7 +17,7 @@ Tailwind CSS 4 is imported from `app/globals.css`. CSS custom properties define 
 
 ## Visual contract
 
-Keep content dominant and chrome quiet. Use typography and spacing before containers, reserve primary color for actions and selection, use elevated surfaces sparingly, keep child radii no larger than parent radii, and increase contrast on interaction. Light and dark themes must be equally intentional. Preserve responsive usability, reduced motion, and semantic states.
+Keep content dominant with a confident, editorial hierarchy. Use 2-pixel warm-black outlines, flat cream/white/lavender fields, and hard offset shadows on interactive or important surfaces. Reserve Soft Grape for actions, focus, and selection. Hover may shift an object slightly up and left while its shadow grows; active states reverse that movement. Keep child radii no larger than parent radii. Light and dark themes must be equally intentional. Preserve responsive usability, reduced motion, and semantic states.
 
 ## Accessibility
 

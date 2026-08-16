@@ -29,7 +29,7 @@ export function HeaderNav({ className, items, ariaLabel }: HeaderNavProps): Reac
   const pathname = usePathname();
 
   return (
-    <nav className={cn("hidden items-center justify-center gap-1 rounded-xl border border-border/70 bg-surface/70 p-1 justify-self-center shadow-soft-sm md:flex", className)} aria-label={ariaLabel}>
+    <nav className={cn("hidden items-center justify-center gap-1 rounded-lg border-2 border-border bg-card p-1 justify-self-center shadow-soft-sm md:flex", className)} aria-label={ariaLabel}>
       {items.map((item) => {
         const isActive = isActivePath(pathname, item.href);
 

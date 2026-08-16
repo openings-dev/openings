@@ -6,7 +6,6 @@ import { OpportunityDrawer } from "@/app/opportunities/_components/opportunities
 import {
   opportunitiesBodyStyles,
   opportunitiesMainStyles,
-  opportunitiesSidebarStyles,
   splitViewStyles,
 } from "@/app/opportunities/_components/opportunities-screen/styles";
 import { useOpportunitiesScreenController } from "@/app/opportunities/_components/opportunities-screen/controller/use-opportunities-screen-controller";
@@ -25,27 +24,12 @@ export function OpportunitiesScreenContent({
       <OpportunitiesQuickFilters
         filters={controller.normalizedFilters}
         options={controller.options}
-        filtersExpanded={controller.filtersExpanded}
-        onFiltersExpandedChange={controller.setFiltersExpanded}
+        activeFiltersCount={controller.activeFiltersCount}
+        onOpenAdvancedFilters={() => controller.setFiltersModalOpen(true)}
         onFieldChange={controller.handleFieldChange}
-        onToggleTag={controller.handleToggleTag}
       />
 
       <div className={opportunitiesBodyStyles}>
-        <aside className={opportunitiesSidebarStyles}>
-          <OpportunitiesFilters
-            state={controller.normalizedFilters}
-            options={controller.options}
-            isExpanded={controller.filtersExpanded}
-            activeFiltersCount={controller.activeFiltersCount}
-            onExpandedChange={controller.setFiltersExpanded}
-            onFieldChange={controller.handleFieldChange}
-            onToggleTag={controller.handleToggleTag}
-            onToggleAuthor={controller.handleToggleAuthor}
-            onClearFilters={controller.handleClearFilters}
-          />
-        </aside>
-
         <div className={opportunitiesMainStyles}>
           <OpportunitiesToolbar
             totalCount={controller.totalCount}
@@ -96,6 +80,19 @@ export function OpportunitiesScreenContent({
           </div>
         </div>
       </div>
+
+      <OpportunitiesFilters
+        state={controller.normalizedFilters}
+        options={controller.options}
+        open={controller.filtersModalOpen}
+        resultCount={controller.totalCount}
+        activeFiltersCount={controller.activeFiltersCount}
+        onOpenChange={controller.setFiltersModalOpen}
+        onFieldChange={controller.handleFieldChange}
+        onToggleTag={controller.handleToggleTag}
+        onToggleAuthor={controller.handleToggleAuthor}
+        onClearFilters={controller.handleClearFilters}
+      />
     </>
   );
 }

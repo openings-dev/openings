@@ -111,7 +111,7 @@ export function Footer({
       .replace("{brand}", brandName);
 
   return (
-    <footer className={cn("relative mt-16 border-t border-border/70 bg-surface/45 text-foreground", className)}>
+    <footer className={cn("relative mt-16 border-t-2 border-border bg-accent text-foreground", className)}>
 
       <div className="relative mx-auto flex w-full max-w-[90rem] flex-col gap-8 px-4 pb-7 pt-9 sm:px-6 lg:px-8 xl:px-10">
         <motion.div

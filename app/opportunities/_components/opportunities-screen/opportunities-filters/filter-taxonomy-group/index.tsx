@@ -33,6 +33,7 @@ interface FilterTaxonomyGroupProps {
   onToggleTag: (tag: string) => void;
   onAuthorSelected: (author: string) => void;
   onToggleAuthor: (author: string) => void;
+  hideStack?: boolean;
 }
 
 export function FilterTaxonomyGroup({
@@ -45,6 +46,7 @@ export function FilterTaxonomyGroup({
   onToggleTag,
   onAuthorSelected,
   onToggleAuthor,
+  hideStack = false,
 }: FilterTaxonomyGroupProps) {
   const selectedTags = state.tags.map((tag) => ({
     key: tag,
@@ -59,13 +61,13 @@ export function FilterTaxonomyGroup({
   return (
     <FilterSection label={labels.section}>
       <div className="grid grid-cols-1 gap-3">
-        <TagCategoryPicker
+        {!hideStack ? <TagCategoryPicker
           selectKey={`work-model-${tagPickerVersion}`}
           label={labels.workModeLabel}
           placeholder={labels.workModePlaceholder}
           options={options.tagCategories.workModel}
           onSelect={onTagSelected}
-        />
+        /> : null}
         <TagCategoryPicker
           selectKey={`stack-${tagPickerVersion}`}
           label={labels.stackLabel}

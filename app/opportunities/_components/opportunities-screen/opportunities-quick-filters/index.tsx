@@ -24,10 +24,9 @@ import type {
 interface OpportunitiesQuickFiltersProps {
   filters: OpportunityFiltersState;
   options: OpportunityFilterOptions;
-  filtersExpanded: boolean;
-  onFiltersExpandedChange: (expanded: boolean) => void;
+  activeFiltersCount: number;
+  onOpenAdvancedFilters: () => void;
   onFieldChange: OnFilterFieldChange;
-  onToggleTag: (tag: string) => void;
 }
 
 interface QuickSelectProps {
@@ -69,28 +68,28 @@ function QuickSelect({
 export function OpportunitiesQuickFilters({
   filters,
   options,
-  filtersExpanded,
-  onFiltersExpandedChange,
+  activeFiltersCount,
+  onOpenAdvancedFilters,
   onFieldChange,
-  onToggleTag,
 }: OpportunitiesQuickFiltersProps) {
   const { messages } = useI18n();
   const filterMessages = messages.opportunities.filters;
-  const handleAddTag = React.useCallback(
-    (tag: string) => {
-      if (!filters.tags.includes(tag)) {
-        onToggleTag(tag);
-      }
-    },
-    [filters.tags, onToggleTag],
+  const stackValues = React.useMemo(
+    () => new Set(options.tagCategories.stack.map((option) => option.value)),
+    [options.tagCategories.stack],
   );
+  const selectedStack = filters.tags.find((tag) => stackValues.has(tag)) ?? "all";
+  const handleStackChange = React.useCallback((value: string) => {
+    const tagsWithoutStack = filters.tags.filter((tag) => !stackValues.has(tag));
+    onFieldChange("tags", value === "all" ? tagsWithoutStack : [...tagsWithoutStack, value]);
+  }, [filters.tags, onFieldChange, stackValues]);
 
   return (
     <section
-      className="rounded-2xl border border-border/80 bg-surface-elevated p-2.5 shadow-soft-md"
+      className="rounded-xl border-2 border-border bg-card p-3 shadow-soft-md"
       aria-label={filterMessages.ariaLabel}
     >
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-[minmax(220px,1.5fr)_minmax(160px,0.85fr)_minmax(160px,0.85fr)_minmax(150px,0.75fr)_auto]">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-[minmax(260px,1.6fr)_minmax(180px,0.8fr)_minmax(180px,0.8fr)_auto]">
         <div className="relative md:col-span-2 xl:col-span-1">
           <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-primary" />
           <input
@@ -103,14 +102,6 @@ export function OpportunitiesQuickFilters({
         </div>
 
         <QuickSelect
-          placeholder={filterMessages.repositoryPlaceholder}
-          allLabel={filterMessages.allRepositories}
-          value={filters.repository}
-          options={options.repositories}
-          onValueChange={(value) => onFieldChange("repository", value)}
-        />
-
-        <QuickSelect
           placeholder={filterMessages.countryPlaceholder}
           allLabel={filterMessages.allCountries}
           value={filters.country}
@@ -119,21 +110,26 @@ export function OpportunitiesQuickFilters({
         />
 
         <QuickSelect
-          key={`quick-work-mode-${filters.tags.join("|")}`}
-          placeholder={filterMessages.workModePlaceholder}
-          options={options.tagCategories.workModel}
-          disabled={options.tagCategories.workModel.length === 0}
-          onValueChange={handleAddTag}
+          placeholder={filterMessages.stackPlaceholder}
+          allLabel={filterMessages.noTagsSelected}
+          value={selectedStack}
+          options={options.tagCategories.stack}
+          disabled={options.tagCategories.stack.length === 0}
+          onValueChange={handleStackChange}
         />
 
         <Button
           type="button"
-          variant="outline"
-          className="h-11 justify-center px-4 md:min-w-32"
-          onClick={() => onFiltersExpandedChange(!filtersExpanded)}
+          className="h-11 justify-center px-5 md:min-w-44"
+          onClick={onOpenAdvancedFilters}
         >
-          <SlidersHorizontal className="size-4 text-primary" />
-          {filtersExpanded ? filterMessages.hide : filterMessages.show}
+          <SlidersHorizontal className="size-4" />
+          {filterMessages.show}
+          {activeFiltersCount > 0 ? (
+            <span className="rounded-full bg-primary-foreground/20 px-2 py-0.5 text-xs">
+              {activeFiltersCount}
+            </span>
+          ) : null}
         </Button>
       </div>
     </section>

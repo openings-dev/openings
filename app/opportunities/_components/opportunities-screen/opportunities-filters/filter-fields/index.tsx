@@ -17,9 +17,10 @@ export function FilterFields({
   onToggleAuthor,
   onTagSelected,
   onAuthorSelected,
+  advancedOnly = false,
 }: FilterFieldsProps) {
   return (
-    <div className="space-y-3">
+    <div className="grid gap-4 md:grid-cols-2 md:items-start">
       <FilterLocationGroup
         state={state}
         options={options}
@@ -33,13 +34,16 @@ export function FilterFields({
           allCountries: labels.allCountries,
         }}
         onFieldChange={onFieldChange}
+        hideCountry={advancedOnly}
       />
-      <FilterSearch
-        label={labels.searchLabel}
-        placeholder={labels.searchPlaceholder}
-        value={state.searchText}
-        onChange={(value) => onFieldChange("searchText", value)}
-      />
+      {!advancedOnly ? (
+        <FilterSearch
+          label={labels.searchLabel}
+          placeholder={labels.searchPlaceholder}
+          value={state.searchText}
+          onChange={(value) => onFieldChange("searchText", value)}
+        />
+      ) : null}
       <FilterScopeGroup
         state={state}
         options={options}
@@ -75,6 +79,7 @@ export function FilterFields({
         onToggleTag={onToggleTag}
         onAuthorSelected={onAuthorSelected}
         onToggleAuthor={onToggleAuthor}
+        hideStack={advancedOnly}
       />
       <FilterDisplayGroup
         state={state}

@@ -1,6 +1,5 @@
 import * as React from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useResponsiveFilterPanel } from "@/app/_hooks/use-responsive-filter-panel";
 import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
 import { DEFAULT_FILTERS } from "./defaults";
 import { buildServerFilters } from "./server-filters";
@@ -43,9 +42,7 @@ export function useOpportunitiesScreenController({
   const normalizedForcedAuthor = normalizeForcedAuthor(forcedAuthor);
   const selectedOpportunityIdFromUrl = normalizeSelectedOpportunityId(searchParams.get("job"));
   const repositoryRegistry = useRepositoryFilterRegistry();
-  const [filtersExpanded, setFiltersExpanded] = useResponsiveFilterPanel({
-    desktopQuery: "(min-width: 1024px)",
-  });
+  const [filtersModalOpen, setFiltersModalOpen] = React.useState(false);
   const { filters, setFilters, handleFieldChange, handleToggleTag, handleToggleAuthor, handleClearFilters } = useFiltersState({
     searchParamsValue: searchParams.toString(),
     forcedRepository: normalizedForcedRepository,
@@ -252,8 +249,8 @@ export function useOpportunitiesScreenController({
     hideCommunityIdentity: Boolean(normalizedForcedRepository),
     hideAuthorIdentity: Boolean(normalizedForcedAuthor),
     lastUpdatedAt: remote.lastUpdatedAt ?? remote.snapshotGeneratedAt,
-    filtersExpanded,
-    setFiltersExpanded,
+    filtersModalOpen,
+    setFiltersModalOpen,
     handleFieldChange,
     handleToggleTag,
     handleToggleAuthor,

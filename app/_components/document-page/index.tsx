@@ -18,13 +18,13 @@ export function DocumentPage({
 
   return (
     <section className="mx-auto w-full max-w-[90rem] flex-1 px-4 pb-20 pt-12 sm:px-6 sm:pt-16 lg:px-8 xl:px-10">
-      <header className="mx-auto max-w-3xl border-b border-border/70 pb-8 sm:pb-10">
+      <header className="mx-auto max-w-3xl rounded-xl border-2 border-border bg-accent p-6 shadow-soft-lg sm:p-9">
         <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">{messages.header.brandTagline}</p>
-        <h1 className="font-display mt-3 text-3xl font-bold tracking-[-0.045em] sm:text-4xl lg:text-[2.75rem]">{copy.title}</h1>
+        <h1 className="font-display mt-3 text-3xl font-black tracking-[-0.045em] sm:text-4xl lg:text-5xl">{copy.title}</h1>
         <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">{copy.description}</p>
       </header>
 
-      <section className="mx-auto mt-8 max-w-3xl rounded-2xl border border-border/80 bg-surface-elevated px-5 py-7 shadow-soft-sm sm:px-8 sm:py-10">
+      <section className="mx-auto mt-10 max-w-3xl rounded-xl border-2 border-border bg-card px-5 py-7 shadow-soft-md sm:px-8 sm:py-10">
         <DocumentMarkdown markdown={markdown} />
       </section>
 

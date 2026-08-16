@@ -22,8 +22,8 @@ export function DocumentMarkdown({ markdown }: DocumentMarkdownProps): React.Rea
           p: ({ children }) => <p className="text-[15px] leading-7 text-foreground/88 sm:text-base sm:leading-7.5">{children}</p>,
           ul: ({ children }) => <ul className="list-disc space-y-2 pl-5 text-[15px] leading-7 text-foreground/90 marker:text-muted-foreground">{children}</ul>,
           ol: ({ children }) => <ol className="list-decimal space-y-2 pl-5 text-[15px] leading-7 text-foreground/90 marker:text-muted-foreground">{children}</ol>,
-          blockquote: ({ children }) => <blockquote className="rounded-r-xl border-l-2 border-primary/45 bg-accent/45 py-2 pl-4 pr-3 text-muted-foreground">{children}</blockquote>,
-          pre: ({ children }) => <pre className="overflow-x-auto rounded-xl border border-border/70 bg-surface px-4 py-3 text-[13px] leading-6 text-foreground">{children}</pre>,
+          blockquote: ({ children }) => <blockquote className="rounded-r-xl border-l-4 border-primary bg-accent py-3 pl-5 pr-4 text-foreground">{children}</blockquote>,
+          pre: ({ children }) => <pre className="overflow-x-auto rounded-xl border-2 border-border bg-surface px-4 py-3 text-[13px] leading-6 text-foreground shadow-soft-sm">{children}</pre>,
           code: ({ children, className }) => className
             ? <code className={className}>{children}</code>
             : <code className="rounded-sm bg-muted px-1.5 py-0.5 text-[13px] text-foreground">{children}</code>,
@@ -31,8 +31,8 @@ export function DocumentMarkdown({ markdown }: DocumentMarkdownProps): React.Rea
             ? <a href={href} target="_blank" rel="noreferrer" className={LINK_CLASS}>{children}</a>
             : <Link href={href} className={LINK_CLASS}>{children}</Link>,
           hr: () => <hr className="border-border/70" />,
-          table: ({ children }) => <div className="overflow-x-auto rounded-xl border border-border/70"><table className="w-full border-collapse text-sm">{children}</table></div>,
-          th: ({ children }) => <th className="border border-border bg-muted/45 px-3 py-2 text-left font-semibold">{children}</th>,
+          table: ({ children }) => <div className="overflow-x-auto rounded-xl border-2 border-border shadow-soft-sm"><table className="w-full border-collapse text-sm">{children}</table></div>,
+          th: ({ children }) => <th className="border border-border bg-accent px-3 py-2 text-left font-bold">{children}</th>,
           td: ({ children }) => <td className="border border-border px-3 py-2 align-top">{children}</td>,
         }}
       >

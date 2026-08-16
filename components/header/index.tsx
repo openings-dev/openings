@@ -75,7 +75,7 @@ export function Header({
             href="https://github.com/openings-dev/openings"
             target="_blank"
             rel="noreferrer"
-            className="hidden h-9 items-center gap-1.5 rounded-lg border border-transparent px-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-border/70 hover:bg-surface hover:text-foreground focus-visible:outline-none lg:inline-flex"
+            className="hidden h-9 items-center gap-1.5 rounded-md border-2 border-border bg-card px-3 text-sm font-bold text-foreground shadow-soft-sm transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-soft-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring lg:inline-flex"
             aria-label={messages.footer.social.githubAriaLabel}
           >
             <GithubIcon className="size-4" />

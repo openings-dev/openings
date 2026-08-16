@@ -1,12 +1,12 @@
 # Design System
 
-> Record the Calm Professional visual and interaction system.
+> Record the Buffer Bold visual and interaction system used by Openings.
 
 ## Foundations
 
-The interface uses semantic CSS variables exposed through Tailwind for background, foreground, card, surface, elevated surface, muted, subtle foreground, border, input, ring, primary, and accent roles. Light mode uses quiet cool-neutral surfaces with a blue-violet accent; dark mode uses deep graphite surfaces with equivalent semantic contrast. Components consume semantic roles instead of duplicating raw color values.
+The interface uses semantic CSS variables exposed through Tailwind for background, foreground, card, surface, elevated surface, muted, subtle foreground, border, input, ring, primary, and accent roles. Light mode uses a warm cream canvas, white cards, warm-black ink, lavender fields, and Soft Grape actions. Dark mode uses warm graphite surfaces with equivalent semantic contrast. Components consume semantic roles instead of duplicating raw color values.
 
-Manrope owns display headings, Geist Sans owns interface and body text, and Geist Mono or tabular features own compact numerical metadata. A shared application grid, a 4-pixel spacing rhythm, concentric radii, and layered shadows create consistency across routes.
+Manrope owns bold display headings, Geist Sans owns interface and body text, and Geist Mono or tabular features own compact numerical metadata. A shared application grid, a 4-pixel spacing rhythm, compact radii, 2-pixel outlines, and hard offset shadows create consistency across routes.
 
 ## Components
 
@@ -19,10 +19,11 @@ Use Tailwind directly for fixed appearance. CVA remains appropriate for genuine 
 - Preserve keyboard access and visible focus.
 - Preserve link-versus-button semantics.
 - Preserve disabled, loading, selected, expanded, and error states.
-- Preserve responsive filter panels, drawers, theme changes, language selection, and motion behavior.
+- Keep search, location, and stack available as quick filters; put advanced opportunity filters in the native modal dialog.
+- Preserve drawers, theme changes, language selection, and restrained motion behavior.
 - Keep icon-only controls named for assistive technology.
 - Respect reduced-motion preferences when animation is not essential.
 
 ## Change constraint
 
-Visual changes must extend Calm Professional rather than introducing another token system or copying another product's branded shell. Preserve product behavior, routes, data contracts, locale coverage, responsive usability, theme parity, and accessibility while evolving appearance through an approved product task.
+Visual changes must extend Buffer Bold rather than introducing another token system. The system borrows the energy of creator tools through strong outlines, hard shadows, flat pastel fields, and confident typography, but must not copy another product's logos, illustrations, branded assets, or copy. Preserve product behavior, routes, data contracts, locale coverage, responsive usability, theme parity, and accessibility.

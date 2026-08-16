@@ -13,12 +13,12 @@ export const resultsGridStyles = cva("grid gap-3", {
 });
 
 export const opportunityCardStyles = cva(
-  "group relative h-full rounded-xl border border-border/80 bg-surface-elevated p-4 text-left shadow-soft-sm transition-[border-color,background-color,box-shadow] duration-150 hover:border-primary/30 hover:bg-card hover:shadow-soft-md has-focus-visible:ring-2 has-focus-visible:ring-ring/70 has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-background",
+  "group relative h-full rounded-xl border-2 border-border bg-card p-4 text-left shadow-soft-sm transition-[background-color,box-shadow,transform] duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-soft-md has-focus-visible:ring-2 has-focus-visible:ring-ring has-focus-visible:ring-offset-2 has-focus-visible:ring-offset-background",
   {
     variants: {
       viewMode: { list: "", grid: "" },
       selected: {
-        true: "border-primary/45 bg-accent/70 shadow-soft-md hover:border-primary/55",
+        true: "bg-accent shadow-soft-md",
         false: "",
       },
     },
