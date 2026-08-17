@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
 import { Button } from "@/components/ui/button";
 import { Wordmark } from "@/components/brand/wordmark";
@@ -30,7 +30,6 @@ export function OpportunityDetails({
   onAuthorSelect,
   communityHref,
   authorHref,
-  returnHref = "/#opportunity-results",
   specimenMode = false,
 }: OpportunityDetailsProps): React.ReactNode {
   const { locale, messages } = useI18n();
@@ -80,37 +79,32 @@ export function OpportunityDetails({
         isDialog ? "h-full" : "min-h-[calc(100dvh-4.5rem)]",
       )}
     >
-      <header className="z-20 flex min-h-16 shrink-0 items-center gap-4 border-b border-line bg-surface-elevated/95 px-4 backdrop-blur-sm sm:min-h-[4.5rem] sm:px-6 lg:px-8">
-        <Link
-          href="/"
-          className="mr-auto inline-flex min-h-11 items-center rounded-control focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          aria-label={messages.header.brandName}
-        >
-          <Wordmark size={WordmarkSize.Compact} className="h-7" />
-        </Link>
-        <p className="hidden text-sm font-medium text-muted-foreground sm:block">
-          {copy.detailsTitle}
-        </p>
-        {isDialog && onClose ? (
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            data-detail-close=""
-            onClick={onClose}
-            aria-label={copy.closeDetails}
+      {isDialog ? (
+        <header className="z-20 flex min-h-16 shrink-0 items-center gap-4 border-b border-line bg-surface-elevated/95 px-4 backdrop-blur-sm sm:min-h-[4.5rem] sm:px-6 lg:px-8">
+          <Link
+            href="/"
+            className="mr-auto inline-flex min-h-11 items-center rounded-control focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            aria-label={messages.header.brandName}
           >
-            <X className="size-5" aria-hidden="true" />
-          </Button>
-        ) : (
-          <Button asChild variant="outline" size="sm">
-            <Link href={returnHref}>
-              <ArrowLeft className="size-4" aria-hidden="true" />
-              {messages.communities.list.browseJobs}
-            </Link>
-          </Button>
-        )}
-      </header>
+            <Wordmark size={WordmarkSize.Compact} className="h-7" />
+          </Link>
+          <p className="hidden text-sm font-medium text-muted-foreground sm:block">
+            {copy.detailsTitle}
+          </p>
+          {onClose ? (
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              data-detail-close=""
+              onClick={onClose}
+              aria-label={copy.closeDetails}
+            >
+              <X className="size-5" aria-hidden="true" />
+            </Button>
+          ) : null}
+        </header>
+      ) : null}
 
       <div className={cn("min-h-0 flex-1", isDialog && "overflow-y-auto overscroll-contain")}>
         <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-7 sm:px-6 sm:py-9 lg:grid-cols-[minmax(0,1fr)_minmax(19rem,22rem)] lg:gap-12 lg:px-8 lg:py-12">

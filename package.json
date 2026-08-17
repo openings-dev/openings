@@ -10,6 +10,7 @@
     "build": "next build && node tooling/publish-social-images.mjs",
     "start": "next start",
     "lint": "eslint",
+    "test:job-header": "node tooling/validate-opportunity-details-header.mjs",
     "test:metadata": "node tooling/validate-metadata-export.mjs"
   },
   "dependencies": {
