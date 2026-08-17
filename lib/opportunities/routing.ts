@@ -37,7 +37,8 @@ export function communityRouteSegmentsFromRepository(repository: string) {
 }
 
 export function buildOpportunityPath(id: string) {
-  return buildHomePathWithParam("job", id);
+  const normalized = id.trim();
+  return normalized ? `/jobs/${encodeURIComponent(normalized)}` : "/";
 }
 
 export function buildCommunityPath(repository: string) {
