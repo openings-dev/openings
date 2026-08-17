@@ -1,6 +1,5 @@
 export interface OpportunityDetailsElementIds {
   dialog: string;
-  panel: string;
 }
 
 function detailsIdBase(opportunityId: string): string {
@@ -13,7 +12,6 @@ export function getOpportunityDetailsElementIds(
   const base = detailsIdBase(opportunityId);
   return {
     dialog: `${base}-dialog`,
-    panel: `${base}-panel`,
   };
 }
 

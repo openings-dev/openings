@@ -7,10 +7,8 @@ import { OpportunityDrawer } from "@/app/opportunities/_components/opportunities
 import {
   opportunitiesBodyStyles,
   opportunitiesMainStyles,
-  splitViewStyles,
 } from "@/app/opportunities/_components/opportunities-screen/styles";
 import { useOpportunitiesScreenController } from "@/app/opportunities/_components/opportunities-screen/controller/use-opportunities-screen-controller";
-import { OpportunityViewMode } from "@/app/opportunities/_components/opportunities-screen/types";
 
 interface OpportunitiesScreenContentProps {
   controller: ReturnType<typeof useOpportunitiesScreenController>;
@@ -52,39 +50,37 @@ export function OpportunitiesScreenContent({
             onViewModeChange={(value) => controller.handleFieldChange("viewMode", value)}
           />
 
-          <div className={splitViewStyles({ open: controller.isDetailsOpen })}>
-            <OpportunitiesList
-              items={controller.visibleOpportunities}
-              viewMode={controller.isDetailsOpen ? OpportunityViewMode.List : controller.normalizedFilters.viewMode}
-              selectedOpportunityId={controller.selectedOpportunityId}
-              isLoading={controller.isLoading}
-              hasLoadError={controller.hasLoadError}
-              hasLoadMoreError={controller.hasLoadMoreError}
-              isFetchingMore={controller.isFetchingMore}
-              hasMore={controller.hasMore}
-              hasActiveFilters={controller.hasActiveFilters}
-              skeletonCount={Math.min(controller.normalizedFilters.itemsPerPage, 8)}
-              onLoadMore={controller.handleLoadMore}
-              onClearFilters={controller.handleClearFilters}
-              onSelectOpportunity={(item) => controller.setSelectedOpportunityId(item.id)}
-              onCommunitySelect={controller.onCommunitySelect}
-              onAuthorSelect={controller.onAuthorSelect}
-              hideCommunityIdentity={controller.hideCommunityIdentity}
-              hideAuthorIdentity={controller.hideAuthorIdentity}
-            />
+          <OpportunitiesList
+            items={controller.visibleOpportunities}
+            viewMode={controller.normalizedFilters.viewMode}
+            selectedOpportunityId={controller.selectedOpportunityId}
+            isLoading={controller.isLoading}
+            hasLoadError={controller.hasLoadError}
+            hasLoadMoreError={controller.hasLoadMoreError}
+            isFetchingMore={controller.isFetchingMore}
+            hasMore={controller.hasMore}
+            hasActiveFilters={controller.hasActiveFilters}
+            skeletonCount={Math.min(controller.normalizedFilters.itemsPerPage, 8)}
+            onLoadMore={controller.handleLoadMore}
+            onClearFilters={controller.handleClearFilters}
+            onSelectOpportunity={(item) => controller.setSelectedOpportunityId(item.id)}
+            onCommunitySelect={controller.onCommunitySelect}
+            onAuthorSelect={controller.onAuthorSelect}
+            hideCommunityIdentity={controller.hideCommunityIdentity}
+            hideAuthorIdentity={controller.hideAuthorIdentity}
+          />
 
-            <OpportunityDrawer
-              item={controller.selectedOpportunity}
-              open={controller.isDetailsOpen}
-              selectedOpportunityId={controller.selectedOpportunityId}
-              selectionStatus={controller.selectionStatus}
-              hideCommunityIdentity={controller.hideCommunityIdentity}
-              hideAuthorIdentity={controller.hideAuthorIdentity}
-              onClose={handleCloseDetails}
-              onCommunitySelect={controller.onCommunitySelect}
-              onAuthorSelect={controller.onAuthorSelect}
-            />
-          </div>
+          <OpportunityDrawer
+            item={controller.selectedOpportunity}
+            open={controller.isDetailsOpen}
+            selectedOpportunityId={controller.selectedOpportunityId}
+            selectionStatus={controller.selectionStatus}
+            hideCommunityIdentity={controller.hideCommunityIdentity}
+            hideAuthorIdentity={controller.hideAuthorIdentity}
+            onClose={handleCloseDetails}
+            onCommunitySelect={controller.onCommunitySelect}
+            onAuthorSelect={controller.onAuthorSelect}
+          />
         </div>
       </div>
 

@@ -69,7 +69,7 @@ export function OpportunityCard({
           title: item.title,
         })}
         aria-expanded={isSelected}
-        aria-controls={`${detailsElementIds.panel} ${detailsElementIds.dialog}`}
+        aria-controls={detailsElementIds.dialog}
         onClick={() => onSelectOpportunity(item)}
       />
       <div className="pointer-events-none relative flex h-full flex-col gap-4">

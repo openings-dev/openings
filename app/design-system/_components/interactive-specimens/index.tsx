@@ -207,7 +207,7 @@ export function InteractiveSpecimens(): React.ReactNode {
           variant="outline"
           data-opportunity-trigger={localizedOpportunity.id}
           aria-expanded={sheetOpen}
-          aria-controls={`${opportunityDetailsElementIds.panel} ${opportunityDetailsElementIds.dialog}`}
+          aria-controls={opportunityDetailsElementIds.dialog}
           onClick={() => setSheetOpen(true)}
         >
           {copy.actions.openSheet}

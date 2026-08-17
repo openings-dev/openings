@@ -6,8 +6,6 @@ export {
   opportunitiesMainStyles,
   opportunitiesScreenStyles,
   opportunitiesTitleStyles,
-  panelStyles,
-  splitViewStyles,
 } from "./styles/layout-styles";
 export {
   compactSelectTriggerStyles,
