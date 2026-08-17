@@ -10,10 +10,11 @@ export type DocumentPageKey =
 
 export interface DocumentPageProps {
   documentKey: DocumentPageKey;
-  markdownByLocale: Record<LocaleCode, string>;
-  sourceFileByLocale: Record<LocaleCode, string>;
+  markdownByLocale: Partial<Record<LocaleCode, string>>;
+  sourceFileByLocale: Partial<Record<LocaleCode, string>>;
 }
 
 export interface DocumentMarkdownProps {
   markdown: string;
+  idPrefix?: string;
 }

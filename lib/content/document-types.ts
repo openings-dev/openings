@@ -10,6 +10,6 @@ export enum ProjectDocumentKey {
 }
 
 export interface ProjectDocumentBundle {
-  markdownByLocale: Record<LocaleCode, string>;
-  sourceFileByLocale: Record<LocaleCode, string>;
+  markdownByLocale: Partial<Record<LocaleCode, string>>;
+  sourceFileByLocale: Partial<Record<LocaleCode, string>>;
 }
