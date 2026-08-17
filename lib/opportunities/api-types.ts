@@ -23,25 +23,45 @@ export type OpportunityFacetIndexDimensions = Record<
   Record<string, string[]>
 >;
 
+export interface StaticManifestPage {
+  page: number;
+  file: string;
+  count: number;
+}
+
+export interface StaticManifestTotals {
+  openOpportunities: number;
+  pages: number;
+  repositories: number;
+  countries: number;
+  regions: number;
+}
+
 export interface StaticManifest {
-  generatedAt: string | null;
+  schemaVersion: 3;
+  generatedAt: string;
+  dataHash: string;
   pageSize: number;
-  totals: { openOpportunities: number };
+  totals: StaticManifestTotals;
   files: {
     facets: string;
     pageLookup: string;
     search: string;
+    jobIds: string;
     order: string;
   };
   facets: OpportunityFilterFacets;
+  pages: StaticManifestPage[];
 }
 
 export interface StaticFacetIndex {
+  generatedAt: string;
   dimensions: OpportunityFacetIndexDimensions;
   labels: { authors?: Record<string, string> };
 }
 
 export interface StaticSearchIndex {
+  generatedAt: string;
   items: Array<{ id: string; text: string }>;
 }
 

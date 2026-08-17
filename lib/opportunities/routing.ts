@@ -57,6 +57,24 @@ export function buildUserPath(handle: string) {
   return normalized ? `/users/${encodeURIComponent(normalized)}` : "/users";
 }
 
+export function buildGitHubRepositoryUrl(repository: string) {
+  const segments = communityRouteSegmentsFromRepository(repository);
+
+  if (!segments) {
+    return "https://github.com";
+  }
+
+  return `https://github.com/${segments.encodedOwner}/${segments.encodedName}`;
+}
+
+export function buildGitHubUserUrl(handle: string) {
+  const normalized = normalizeAuthorHandle(handle);
+
+  return normalized
+    ? `https://github.com/${encodeURIComponent(normalized)}`
+    : "https://github.com";
+}
+
 export function repositoryFromCommunitySegments(segments: string[]) {
   return segments.map((segment) => safeDecode(segment)).join("/");
 }

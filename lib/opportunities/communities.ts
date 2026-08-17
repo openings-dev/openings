@@ -1,21 +1,18 @@
 import { loadSnapshotItems } from "./snapshot";
-import { dateToMs } from "./summary-helpers";
+import { dateToMs, normalizeLocationValue } from "./summary-helpers";
 import { OpportunityIssueState } from "./enums";
+import { buildGitHubRepositoryUrl } from "./routing";
 import { asRecord, readNonEmptyString } from "./unknown-values";
+import type { CommunityProfileSummary } from "./types";
 
-export interface CommunitySummary {
-  repository: string;
-  repositoryUrl: string;
-  name: string;
+export interface CommunitySummary extends CommunityProfileSummary {
   avatarUrl: string;
   region: string;
   country: string;
-  opportunitiesCount: number;
-  lastPostedAt: string | null;
 }
 
 interface MutableCommunitySummary extends CommunitySummary {
-  lastPostedMs: number;
+  lastPostedMs: number | null;
 }
 
 function repositoryLabel(repository: string) {
@@ -29,14 +26,25 @@ function toSortedList(values: Iterable<MutableCommunitySummary>) {
       if (right.opportunitiesCount !== left.opportunitiesCount) {
         return right.opportunitiesCount - left.opportunitiesCount;
       }
-      if (right.lastPostedMs !== left.lastPostedMs) {
+      if (left.lastPostedMs === null && right.lastPostedMs !== null) return 1;
+      if (right.lastPostedMs === null && left.lastPostedMs !== null) return -1;
+      if (
+        left.lastPostedMs !== null &&
+        right.lastPostedMs !== null &&
+        right.lastPostedMs !== left.lastPostedMs
+      ) {
         return right.lastPostedMs - left.lastPostedMs;
       }
-      return left.repository.localeCompare(right.repository);
+      return left.repository < right.repository
+        ? -1
+        : left.repository > right.repository
+          ? 1
+          : 0;
     })
     .map(({ lastPostedMs, ...community }) => ({
       ...community,
-      lastPostedAt: lastPostedMs > 0 ? new Date(lastPostedMs).toISOString() : null,
+      lastPostedAt:
+        lastPostedMs === null ? null : new Date(lastPostedMs).toISOString(),
     }));
 }
 
@@ -49,8 +57,9 @@ export async function listSnapshotCommunities() {
     const repository = readNonEmptyString(record?.repository);
     if (!repository) continue;
 
-    const issueState = readNonEmptyString(record?.issueState) ?? OpportunityIssueState.Open;
-    const openOpportunity = issueState !== OpportunityIssueState.Closed ? 1 : 0;
+    const issueState = readNonEmptyString(record?.issueState);
+    if (issueState !== OpportunityIssueState.Open) continue;
+
     const createdAtMs = dateToMs(record?.createdAt);
     const communityRecord = asRecord(record?.community);
     const existing = map.get(repository);
@@ -58,22 +67,31 @@ export async function listSnapshotCommunities() {
     if (!existing) {
       map.set(repository, {
         repository,
-        repositoryUrl: readNonEmptyString(record?.repositoryUrl) ?? `https://github.com/${repository}`,
+        repositoryUrl: buildGitHubRepositoryUrl(repository),
         name: readNonEmptyString(communityRecord?.name) ?? repositoryLabel(repository),
         avatarUrl: readNonEmptyString(communityRecord?.avatarUrl) ?? "",
-        region: readNonEmptyString(record?.region) ?? "Unknown",
-        country: readNonEmptyString(record?.country) ?? "Unknown",
-        opportunitiesCount: openOpportunity,
+        region: normalizeLocationValue(readNonEmptyString(record?.region)),
+        country: normalizeLocationValue(readNonEmptyString(record?.country)),
+        opportunitiesCount: 1,
         lastPostedAt: null,
         lastPostedMs: createdAtMs,
       });
       continue;
     }
 
-    existing.opportunitiesCount += openOpportunity;
-    if (createdAtMs > existing.lastPostedMs) existing.lastPostedMs = createdAtMs;
-    if (existing.region === "Unknown") existing.region = readNonEmptyString(record?.region) ?? existing.region;
-    if (existing.country === "Unknown") existing.country = readNonEmptyString(record?.country) ?? existing.country;
+    existing.opportunitiesCount += 1;
+    if (
+      createdAtMs !== null &&
+      (existing.lastPostedMs === null || createdAtMs > existing.lastPostedMs)
+    ) {
+      existing.lastPostedMs = createdAtMs;
+    }
+    if (!existing.region) {
+      existing.region = normalizeLocationValue(readNonEmptyString(record?.region));
+    }
+    if (!existing.country) {
+      existing.country = normalizeLocationValue(readNonEmptyString(record?.country));
+    }
   }
 
   return toSortedList(map.values());

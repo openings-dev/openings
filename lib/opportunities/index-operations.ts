@@ -14,7 +14,7 @@ export function uniqueOpportunityIds(ids: string[]) {
   return [...new Set(ids)];
 }
 
-function normalizeSearchText(value: string) {
+export function normalizeOpportunitySearchText(value: string) {
   return value
     .toLowerCase()
     .normalize("NFD")
@@ -27,7 +27,7 @@ export function buildOpportunitySearchHits(
   searchIndex: StaticSearchIndex,
   searchText: string,
 ) {
-  const query = normalizeSearchText(searchText);
+  const query = normalizeOpportunitySearchText(searchText);
   if (!query) return null;
 
   return new Set(

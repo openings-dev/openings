@@ -1,61 +1,436 @@
-import type { OpportunityItem } from "./types";
 import type {
   StaticFacetIndex,
   StaticManifest,
   StaticSearchIndex,
 } from "./api-types";
+import {
+  parseStaticOpportunityBucket,
+  parseStaticOpportunityFacetIndex,
+  parseStaticOpportunityJobIds,
+  parseStaticOpportunityManifest,
+  parseStaticOpportunityOrder,
+  parseStaticOpportunityPage,
+  parseStaticOpportunityPageLookup,
+  parseStaticOpportunitySearchIndex,
+  type StaticOpportunityBucket,
+  type StaticOpportunityOrder,
+  type StaticOpportunityPage,
+  type StaticOpportunityPageLookup,
+} from "./static-artifact-validation";
 import { fetchStaticJson } from "./fetch-static-json";
 import { uniqueOpportunityIds } from "./index-operations";
+import {
+  createStaticArtifactViewToken,
+  isStaticArtifactOutsideView,
+  versionStaticArtifactPath,
+} from "./static-artifact-versioning";
 
-interface StaticPageLookup {
-  pageLookup: Record<string, string>;
+type StaticArtifactParser<T> = (value: unknown, path: string) => T;
+
+interface StaticArtifactView {
+  id: number;
+  baseKey: string;
+  generatedAt: string;
+  token: string;
+  manifest: StaticManifest;
 }
 
-interface StaticPagePayload {
-  items: OpportunityItem[];
+interface PendingStaticArtifactRecovery {
+  baseKey: string | null;
 }
 
-export function loadOpportunityManifest() {
-  return fetchStaticJson<StaticManifest>("api/manifest.json", {
-    cache: "no-store",
+class StaticArtifactViewChangedError extends Error {
+  constructor(message: string, options?: ErrorOptions) {
+    super(message, options);
+    this.name = "StaticArtifactViewChangedError";
+  }
+}
+
+const MAX_STATIC_ARTIFACT_RECOVERY_ATTEMPTS = 2;
+const MANIFEST_PATH = "api/manifest.json";
+
+// Upstream artifact paths are mutable. Keep one validated view per module
+// lifetime so a refreshed manifest is never combined with previously cached
+// dependent artifacts; a reload or rebuild starts a fresh view. Any failed
+// fetch, parse, or generation mismatch invalidates that view atomically.
+const FACET_INDEX_CACHE = new Map<string, Promise<StaticFacetIndex>>();
+const SEARCH_INDEX_CACHE = new Map<string, Promise<StaticSearchIndex>>();
+const ORDER_CACHE = new Map<string, Promise<StaticOpportunityOrder>>();
+const JOB_IDS_CACHE = new Map<string, Promise<StaticOpportunityOrder>>();
+const PAGE_LOOKUP_CACHE = new Map<string, Promise<StaticOpportunityPageLookup>>();
+const PAGE_CACHE = new Map<string, Promise<StaticOpportunityPage>>();
+const BUCKET_CACHE = new Map<string, Promise<StaticOpportunityBucket>>();
+const INDEX_CONSISTENCY_CACHE = new Map<string, Promise<void>>();
+const VIEW_BY_MANIFEST = new WeakMap<StaticManifest, StaticArtifactView>();
+
+let activeStaticArtifactView: StaticArtifactView | null = null;
+let activeStaticArtifactViewRequest: Promise<StaticArtifactView> | null = null;
+let pendingStaticArtifactRecovery: PendingStaticArtifactRecovery | null = null;
+let staticArtifactViewSequence = 0;
+
+function clearStaticArtifactCaches() {
+  FACET_INDEX_CACHE.clear();
+  SEARCH_INDEX_CACHE.clear();
+  ORDER_CACHE.clear();
+  JOB_IDS_CACHE.clear();
+  PAGE_LOOKUP_CACHE.clear();
+  PAGE_CACHE.clear();
+  BUCKET_CACHE.clear();
+  INDEX_CONSISTENCY_CACHE.clear();
+}
+
+function staticArtifactBaseKey(manifest: StaticManifest) {
+  return `${manifest.generatedAt}:${manifest.dataHash}`;
+}
+
+function buildStaticArtifactView(sourceManifest: StaticManifest): StaticArtifactView {
+  const baseKey = staticArtifactBaseKey(sourceManifest);
+  const generatedAt = sourceManifest.generatedAt;
+  const manifest = sourceManifest;
+  const id = ++staticArtifactViewSequence;
+  const view: StaticArtifactView = {
+    id,
+    baseKey,
+    generatedAt,
+    token: createStaticArtifactViewToken({
+      manifestGeneratedAt: sourceManifest.generatedAt,
+      dataHash: sourceManifest.dataHash,
+      viewGeneratedAt: generatedAt,
+      viewNonce: id,
+    }),
+    manifest,
+  };
+  VIEW_BY_MANIFEST.set(manifest, view);
+  return view;
+}
+
+function loadStaticArtifactView(): Promise<StaticArtifactView> {
+  if (activeStaticArtifactView) return Promise.resolve(activeStaticArtifactView);
+  if (activeStaticArtifactViewRequest) return activeStaticArtifactViewRequest;
+
+  const recovery = pendingStaticArtifactRecovery;
+  const request = fetchStaticJson(MANIFEST_PATH, {
+    cache: recovery ? "no-store" : "force-cache",
+  })
+    .then((payload) => parseStaticOpportunityManifest(payload, MANIFEST_PATH))
+    .then((manifest) => {
+      const view = buildStaticArtifactView(manifest);
+      activeStaticArtifactView = view;
+      pendingStaticArtifactRecovery = null;
+      return view;
+    })
+    .catch((error) => {
+      pendingStaticArtifactRecovery = recovery ?? {
+        baseKey: null,
+      };
+      clearStaticArtifactCaches();
+      throw new StaticArtifactViewChangedError(
+        `Unable to load the static opportunity manifest at ${MANIFEST_PATH}`,
+        { cause: error },
+      );
+    })
+    .finally(() => {
+      if (activeStaticArtifactViewRequest === request) {
+        activeStaticArtifactViewRequest = null;
+      }
+    });
+
+  activeStaticArtifactViewRequest = request;
+  return request;
+}
+
+function invalidateStaticArtifactView(
+  view: StaticArtifactView,
+): void {
+  if (activeStaticArtifactView?.id !== view.id) {
+    return;
+  }
+
+  pendingStaticArtifactRecovery = {
+    baseKey: view.baseKey,
+  };
+  activeStaticArtifactView = null;
+  activeStaticArtifactViewRequest = null;
+  clearStaticArtifactCaches();
+}
+
+function retryStaticArtifactView(
+  view: StaticArtifactView,
+  message: string,
+  options?: ErrorOptions,
+): never {
+  invalidateStaticArtifactView(view);
+  throw new StaticArtifactViewChangedError(message, options);
+}
+
+function viewForManifest(manifest: StaticManifest): StaticArtifactView {
+  const view = VIEW_BY_MANIFEST.get(manifest);
+  if (!view) {
+    throw new Error("Static opportunity manifest is not attached to an active view");
+  }
+  return view;
+}
+
+function assertStaticArtifactViewIsActive(
+  view: StaticArtifactView,
+  path: string,
+): void {
+  if (activeStaticArtifactView?.id !== view.id) {
+    throw new StaticArtifactViewChangedError(
+      `Static opportunity artifact view changed while loading ${path}`,
+    );
+  }
+}
+
+async function loadStaticArtifact<T>(
+  path: string,
+  parse: StaticArtifactParser<T>,
+  artifactCache: Map<string, Promise<T>>,
+  options: { cache?: RequestCache } = {},
+) {
+  const cached = artifactCache.get(path);
+  if (cached) return cached;
+
+  const request = fetchStaticJson(path, options).then((payload) =>
+    parse(payload, path)
+  );
+  artifactCache.set(path, request);
+  request.catch(() => {
+    if (artifactCache.get(path) === request) artifactCache.delete(path);
   });
+  return request;
 }
 
-export function loadOpportunityFacetIndex(manifest: StaticManifest) {
-  return fetchStaticJson<StaticFacetIndex>(manifest.files.facets);
+async function loadVersionedStaticArtifact<T extends { generatedAt: string }>(
+  path: string,
+  manifest: StaticManifest,
+  parse: StaticArtifactParser<T>,
+  artifactCache: Map<string, Promise<T>>,
+): Promise<T> {
+  const view = viewForManifest(manifest);
+  const versionedPath = versionStaticArtifactPath(path, view.token);
+  try {
+    assertStaticArtifactViewIsActive(view, versionedPath);
+    const artifact = await loadStaticArtifact(
+      versionedPath,
+      parse,
+      artifactCache,
+    );
+    assertStaticArtifactViewIsActive(view, versionedPath);
+    if (isStaticArtifactOutsideView({
+      artifactGeneratedAt: artifact.generatedAt,
+      viewGeneratedAt: view.generatedAt,
+    })) {
+      invalidateStaticArtifactView(view);
+      throw new StaticArtifactViewChangedError(
+        `Static opportunity artifact generation does not match the active view at ${versionedPath}`,
+      );
+    }
+    return artifact;
+  } catch (error) {
+    if (error instanceof StaticArtifactViewChangedError) throw error;
+    retryStaticArtifactView(
+      view,
+      `Unable to load a consistent static opportunity artifact at ${versionedPath}`,
+      { cause: error },
+    );
+    throw error;
+  }
 }
 
-export function loadOpportunitySearchIndex(manifest: StaticManifest) {
-  return fetchStaticJson<StaticSearchIndex>(manifest.files.search);
+export async function withStaticArtifactRecovery<T>(
+  operation: () => Promise<T>,
+): Promise<T> {
+  for (
+    let attempt = 0;
+    attempt <= MAX_STATIC_ARTIFACT_RECOVERY_ATTEMPTS;
+    attempt += 1
+  ) {
+    try {
+      return await operation();
+    } catch (error) {
+      if (!(error instanceof StaticArtifactViewChangedError)) throw error;
+      if (attempt === MAX_STATIC_ARTIFACT_RECOVERY_ATTEMPTS) {
+        throw new Error(
+          "Static opportunity artifact view could not be stabilized",
+          { cause: error },
+        );
+      }
+    }
+  }
+
+  throw new Error("Static opportunity artifact recovery exhausted");
 }
 
-export async function loadOpportunityOrder(manifest: StaticManifest) {
-  return (await fetchStaticJson<{ ids: string[] }>(manifest.files.order)).ids;
+export async function loadOpportunityManifest() {
+  return (await loadStaticArtifactView()).manifest;
+}
+
+export function loadOpportunityFacetIndex(
+  manifest: StaticManifest,
+) {
+  return loadVersionedStaticArtifact(
+    manifest.files.facets,
+    manifest,
+    parseStaticOpportunityFacetIndex,
+    FACET_INDEX_CACHE,
+  );
+}
+
+export function loadOpportunitySearchIndex(
+  manifest: StaticManifest,
+) {
+  return loadVersionedStaticArtifact(
+    manifest.files.search,
+    manifest,
+    parseStaticOpportunitySearchIndex,
+    SEARCH_INDEX_CACHE,
+  );
+}
+
+export async function loadOpportunityOrder(
+  manifest: StaticManifest,
+) {
+  const payload = await loadVersionedStaticArtifact(
+    manifest.files.order,
+    manifest,
+    parseStaticOpportunityOrder,
+    ORDER_CACHE,
+  );
+  return payload.ids;
+}
+
+export async function loadOpportunityJobIds(
+  manifest: StaticManifest,
+) {
+  const payload = await loadVersionedStaticArtifact(
+    manifest.files.jobIds,
+    manifest,
+    parseStaticOpportunityJobIds,
+    JOB_IDS_CACHE,
+  );
+  return payload.ids;
+}
+
+export async function assertStaticOpportunityIndexConsistency(
+  manifest: StaticManifest,
+): Promise<void> {
+  const view = viewForManifest(manifest);
+  const existing = INDEX_CONSISTENCY_CACHE.get(view.token);
+  if (existing) return existing;
+
+  const request = Promise.all([
+    loadVersionedStaticArtifact(
+      manifest.files.order,
+      manifest,
+      parseStaticOpportunityOrder,
+      ORDER_CACHE,
+    ),
+    loadVersionedStaticArtifact(
+      manifest.files.jobIds,
+      manifest,
+      parseStaticOpportunityJobIds,
+      JOB_IDS_CACHE,
+    ),
+    loadVersionedStaticArtifact(
+      manifest.files.pageLookup,
+      manifest,
+      parseStaticOpportunityPageLookup,
+      PAGE_LOOKUP_CACHE,
+    ),
+  ]).then(([order, jobIds, pageLookup]) => {
+    const orderIds = new Set(order.ids);
+    const jobIdSet = new Set(jobIds.ids);
+    const lookupIds = new Set(Object.keys(pageLookup.pageLookup));
+    const expectedCount = manifest.totals.openOpportunities;
+    const setsMatch = orderIds.size === expectedCount &&
+      jobIdSet.size === expectedCount &&
+      lookupIds.size === expectedCount &&
+      order.ids.every((id) => jobIdSet.has(id) && lookupIds.has(id));
+
+    if (!setsMatch) {
+      retryStaticArtifactView(
+        view,
+        "Static opportunity order, job IDs, page lookup, and manifest total do not match",
+      );
+    }
+  });
+
+  INDEX_CONSISTENCY_CACHE.set(view.token, request);
+  request.catch(() => {
+    if (INDEX_CONSISTENCY_CACHE.get(view.token) === request) {
+      INDEX_CONSISTENCY_CACHE.delete(view.token);
+    }
+  });
+  return request;
 }
 
 export async function loadOpportunityItems(
   ids: string[],
   manifest: StaticManifest,
 ) {
-  const lookup = await fetchStaticJson<StaticPageLookup>(manifest.files.pageLookup);
+  const lookup = await loadVersionedStaticArtifact(
+    manifest.files.pageLookup,
+    manifest,
+    parseStaticOpportunityPageLookup,
+    PAGE_LOOKUP_CACHE,
+  );
+  const missingLookupId = ids.find((id) => !lookup.pageLookup[id]);
+  if (missingLookupId) {
+    retryStaticArtifactView(
+      viewForManifest(manifest),
+      `Invalid static opportunity page lookup at ${manifest.files.pageLookup}: missing ${missingLookupId}`,
+    );
+  }
+
   const files = uniqueOpportunityIds(
     ids.map((id) => lookup.pageLookup[id]).filter(Boolean),
   );
   const pages = await Promise.all(
-    files.map((file) => fetchStaticJson<StaticPagePayload>(file)),
+    files.map((file) =>
+      loadVersionedStaticArtifact(
+        file,
+        manifest,
+        parseStaticOpportunityPage,
+        PAGE_CACHE,
+      )
+    ),
   );
   const itemsById = new Map(
     pages.flatMap((page) => page.items.map((item) => [item.id, item] as const)),
   );
-  return ids
-    .map((id) => itemsById.get(id))
-    .filter((item): item is OpportunityItem => Boolean(item));
+  return ids.map((id) => {
+    const item = itemsById.get(id);
+    if (!item) {
+      retryStaticArtifactView(
+        viewForManifest(manifest),
+        `Invalid static opportunity page at ${lookup.pageLookup[id]}: missing ${id}`,
+      );
+    }
+    return item;
+  });
 }
 
 export async function loadOpportunityById(id: string) {
+  const manifest = await loadOpportunityManifest();
+  await assertStaticOpportunityIndexConsistency(manifest);
+  const jobIds = await loadOpportunityJobIds(manifest);
+  if (!jobIds.includes(id)) return null;
+
   const bucket = id.replace(/^gh_/, "").slice(0, 2) || "unknown";
-  const payload = await fetchStaticJson<{
-    items?: Record<string, OpportunityItem>;
-  }>(`api/jobs/${encodeURIComponent(bucket)}.json`);
-  return payload.items?.[id] ?? null;
+  const path = `api/jobs/${encodeURIComponent(bucket)}.json`;
+  const payload = await loadVersionedStaticArtifact(
+    path,
+    manifest,
+    parseStaticOpportunityBucket,
+    BUCKET_CACHE,
+  );
+  const item = payload.items[id];
+  if (!item) {
+    retryStaticArtifactView(
+      viewForManifest(manifest),
+      `Invalid static opportunity bucket at ${path}: missing ${id}`,
+    );
+  }
+  return item;
 }

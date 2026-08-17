@@ -13,12 +13,14 @@ import {
   selectedOpportunityDimensionIds,
 } from "./index-operations";
 import {
+  assertStaticOpportunityIndexConsistency,
   loadOpportunityById,
   loadOpportunityFacetIndex,
   loadOpportunityItems,
   loadOpportunityManifest,
   loadOpportunityOrder,
   loadOpportunitySearchIndex,
+  withStaticArtifactRecovery,
 } from "./static-artifacts";
 
 export type {
@@ -88,54 +90,59 @@ async function buildFacets(params: {
 }
 
 export async function fetchOpportunityById(id: string) {
-  return loadOpportunityById(id);
+  return withStaticArtifactRecovery(() => loadOpportunityById(id));
 }
 
 export async function fetchOpportunitiesPage(
   filters: OpportunityServerFilters,
   params: { cursor: string | null; limit: number; signal?: AbortSignal },
 ) {
-  if (params.signal?.aborted) throw new DOMException("Aborted", "AbortError");
+  return withStaticArtifactRecovery(async () => {
+    if (params.signal?.aborted) throw new DOMException("Aborted", "AbortError");
 
-  const manifest = await loadOpportunityManifest();
-  const facetIndex = await loadOpportunityFacetIndex(manifest);
-  const searchIndex = filters.searchText
-    ? await loadOpportunitySearchIndex(manifest)
-    : null;
-  const searchHits = searchIndex
-    ? buildOpportunitySearchHits(searchIndex, filters.searchText)
-    : null;
-  const recentIds = await orderedIdsForFilters({
-    manifest,
-    facetIndex,
-    filters,
-    searchHits,
+    const manifest = await loadOpportunityManifest();
+    await assertStaticOpportunityIndexConsistency(manifest);
+    const facetIndex = await loadOpportunityFacetIndex(manifest);
+    const searchIndex = filters.searchText
+      ? await loadOpportunitySearchIndex(manifest)
+      : null;
+    const searchHits = searchIndex
+      ? buildOpportunitySearchHits(searchIndex, filters.searchText)
+      : null;
+    const recentIds = await orderedIdsForFilters({
+      manifest,
+      facetIndex,
+      filters,
+      searchHits,
+    });
+    const orderedIds = filters.sortOrder === OpportunitySortOrder.Oldest
+      ? [...recentIds].reverse()
+      : recentIds;
+    const offset = parseOpportunityOffset(params.cursor);
+    const limit = Math.max(1, params.limit);
+    const pageIds = orderedIds.slice(offset, offset + limit);
+    const [items, facets] = await Promise.all([
+      loadOpportunityItems(pageIds, manifest),
+      buildFacets({ manifest, facetIndex, filters, searchHits }),
+    ]);
+    const nextOffset = offset + pageIds.length;
+
+    return {
+      items,
+      nextCursor: nextOffset < orderedIds.length ? String(nextOffset) : null,
+      hasMore: nextOffset < orderedIds.length,
+      rateLimited: false,
+      retryAfterSeconds: null,
+      meta: {
+        snapshotGeneratedAt: manifest.generatedAt,
+        deployedAt: null,
+        lastUpdatedAt: manifest.generatedAt,
+        totalCount: manifest.totals.openOpportunities,
+        filteredCount: orderedIds.length,
+        facets: Object.keys(facets.repositories).length > 0
+          ? facets
+          : EMPTY_FACETS,
+      },
+    } satisfies OpportunitiesApiPayload;
   });
-  const orderedIds = filters.sortOrder === OpportunitySortOrder.Oldest
-    ? [...recentIds].reverse()
-    : recentIds;
-  const offset = parseOpportunityOffset(params.cursor);
-  const limit = Math.max(1, params.limit);
-  const pageIds = orderedIds.slice(offset, offset + limit);
-  const [items, facets] = await Promise.all([
-    loadOpportunityItems(pageIds, manifest),
-    buildFacets({ manifest, facetIndex, filters, searchHits }),
-  ]);
-  const nextOffset = offset + pageIds.length;
-
-  return {
-    items,
-    nextCursor: nextOffset < orderedIds.length ? String(nextOffset) : null,
-    hasMore: nextOffset < orderedIds.length,
-    rateLimited: false,
-    retryAfterSeconds: null,
-    meta: {
-      snapshotGeneratedAt: manifest.generatedAt,
-      deployedAt: null,
-      lastUpdatedAt: manifest.generatedAt,
-      totalCount: manifest.totals.openOpportunities,
-      filteredCount: orderedIds.length,
-      facets: Object.keys(facets.repositories).length > 0 ? facets : EMPTY_FACETS,
-    },
-  } satisfies OpportunitiesApiPayload;
 }

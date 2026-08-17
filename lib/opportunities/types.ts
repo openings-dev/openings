@@ -68,19 +68,20 @@ export interface OpportunityFilterFacets {
 export interface UserProfileSummary {
   handle: string;
   name: string;
-  avatarUrl: string;
-  region: string;
-  country: string;
+  avatarUrl?: string;
+  region?: string;
+  country?: string;
   opportunitiesCount: number;
   lastPostedAt: string | null;
 }
 
 export interface CommunityProfileSummary {
   repository: string;
+  repositoryUrl: string;
   name: string;
-  avatarUrl: string;
-  region: string;
-  country: string;
+  avatarUrl?: string;
+  region?: string;
+  country?: string;
   opportunitiesCount: number;
   lastPostedAt: string | null;
 }
