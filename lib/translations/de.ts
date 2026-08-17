@@ -11,6 +11,7 @@ export const deTranslations: TranslationMessages = {
       discover: "Jobs",
       communities: "Communities",
       authors: "Autor:innen",
+      docs: "Docs",
     },
     mobileNavigation: {
       groups: {
@@ -388,6 +389,52 @@ export const deTranslations: TranslationMessages = {
     social: {
       linksAriaLabel: "Links zu Projektprofilen",
       githubAriaLabel: "openings.dev auf GitHub öffnen",
+    },
+  },
+  docsHub: {
+    eyebrow: "Dokumentation",
+    title: "Openings verstehen – vom Produkt bis zu den Daten.",
+    description:
+      "Beginne mit dem Produktüberblick, sieh dir das Format der öffentlichen Daten an oder finde den passenden Leitfaden für Beiträge und deine Community.",
+    navigationLabel: "Dokumentationsressourcen",
+    groups: {
+      startHere: "Erste Schritte",
+      integration: "Integration und Mitwirkung",
+      product: "Produkt und Support",
+    },
+    resources: {
+      overview: {
+        title: "Produktüberblick",
+        description: "Erfahre, wie Stellen aus öffentlichen Communities auf Openings durchsuchbar werden.",
+      },
+      apiReference: {
+        title: "Referenz für statische Daten",
+        description: "Lies die Verträge für Manifestdatei, Seitennavigation, Indizes und JSON-Dateien.",
+      },
+      communityGuide: {
+        title: "Leitfaden für Communities",
+        description: "Teile die Seite deiner Community und bitte bei Bedarf um eine Korrektur oder Entfernung.",
+      },
+      contributing: {
+        title: "Mitwirken",
+        description: "Schlage ein Repository vor, melde ein Problem oder trage eine Codeänderung bei.",
+      },
+      designSystem: {
+        title: "Designsystem",
+        description: "Sieh dir Grundlagen, Komponenten, Inhaltsregeln und responsive Muster aus der Produktion an.",
+      },
+      support: {
+        title: "Support",
+        description: "Kontaktiere uns bei einer Frage oder Korrektur, die hier nicht behandelt wird.",
+      },
+      privacy: {
+        title: "Datenschutzerklärung",
+        description: "Erfahre, wie Openings lokale Einstellungen, öffentliche GitHub-Daten und externe Links behandelt.",
+      },
+      terms: {
+        title: "Nutzungsbedingungen",
+        description: "Lies die Regeln und Verantwortlichkeiten für die Nutzung von Openings.",
+      },
     },
   },
   documents: {

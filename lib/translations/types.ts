@@ -14,6 +14,7 @@ export interface TranslationMessages {
       discover: string;
       communities: string;
       authors: string;
+      docs: string;
     };
     mobileNavigation: {
       groups: {
@@ -365,6 +366,27 @@ export interface TranslationMessages {
     social: {
       linksAriaLabel: string;
       githubAriaLabel: string;
+    };
+  };
+  docsHub: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    navigationLabel: string;
+    groups: {
+      startHere: string;
+      integration: string;
+      product: string;
+    };
+    resources: {
+      overview: DocumentMessages;
+      apiReference: DocumentMessages;
+      communityGuide: DocumentMessages;
+      contributing: DocumentMessages;
+      designSystem: DocumentMessages;
+      support: DocumentMessages;
+      privacy: DocumentMessages;
+      terms: DocumentMessages;
     };
   };
   documents: {

@@ -2,6 +2,7 @@ export const PUBLIC_ROUTES = {
   home: "/",
   communities: "/communities",
   authors: "/authors",
+  docs: "/docs",
   design: "/design",
   overview: "/overview",
   apiReference: "/docs/api",

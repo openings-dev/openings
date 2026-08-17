@@ -11,6 +11,7 @@ export const enTranslations: TranslationMessages = {
       discover: "Jobs",
       communities: "Communities",
       authors: "Authors",
+      docs: "Docs",
     },
     mobileNavigation: {
       groups: {
@@ -383,6 +384,52 @@ export const enTranslations: TranslationMessages = {
     social: {
       linksAriaLabel: "Social links",
       githubAriaLabel: "Open openings.dev on GitHub",
+    },
+  },
+  docsHub: {
+    eyebrow: "Documentation",
+    title: "Understand Openings, from the product to the data.",
+    description:
+      "Start with the product overview, explore the public data format, or find the guide you need to contribute and support your community.",
+    navigationLabel: "Documentation resources",
+    groups: {
+      startHere: "Start here",
+      integration: "Integration and contribution",
+      product: "Product and support",
+    },
+    resources: {
+      overview: {
+        title: "Product overview",
+        description: "See how public community job listings become searchable on Openings.",
+      },
+      apiReference: {
+        title: "Static data reference",
+        description: "Read the manifest, paging, index, and JSON file contracts used by the site.",
+      },
+      communityGuide: {
+        title: "Guide for communities",
+        description: "Share your community page and request a correction or removal when needed.",
+      },
+      contributing: {
+        title: "Contributing",
+        description: "Propose a repository, report a problem, or contribute a code change.",
+      },
+      designSystem: {
+        title: "Design system",
+        description: "Review the foundations, components, content rules, and responsive patterns in production.",
+      },
+      support: {
+        title: "Support",
+        description: "Contact the project about a question or correction that is not covered here.",
+      },
+      privacy: {
+        title: "Privacy Policy",
+        description: "Learn how Openings handles local preferences, public GitHub data, and external links.",
+      },
+      terms: {
+        title: "Terms of Service",
+        description: "Review the rules and responsibilities that apply when using Openings.",
+      },
     },
   },
   documents: {
