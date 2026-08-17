@@ -27,7 +27,7 @@ export interface LocationFiltersMessages {
   clear: string;
 }
 
-export interface PreferredLocation {
-  country: string;
-  region: string;
-}
+export const NEUTRAL_LOCATION_FILTERS: LocationFilterState = {
+  country: ALL_FILTER_VALUE,
+  region: ALL_FILTER_VALUE,
+};

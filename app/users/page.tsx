@@ -1,15 +1,25 @@
+import type { Metadata } from "next";
 import { UsersScreen } from "@/app/users/_components/users-screen";
-import { loadSafely } from "@/lib/utils/load-safely";
-import type { UserSummary } from "@/lib/opportunities/users";
+import { createPageMetadata } from "@/lib/metadata/site-metadata";
+import { LoadResultStatus, loadWithStatus } from "@/lib/utils/load-safely";
 import { listSnapshotUsers } from "@/lib/opportunities/users";
 
-export const revalidate = 10800;
+export const metadata: Metadata = createPageMetadata({
+  title: "GitHub authors sharing tech jobs",
+  description:
+    "Browse the GitHub accounts that authored public job listings in community repositories and view the jobs linked to each account.",
+  path: "/users",
+});
 
 export default async function UsersIndexPage(): Promise<React.ReactNode> {
-  const users = await loadSafely<UserSummary[]>({
+  const result = await loadWithStatus({
     load: () => listSnapshotUsers(),
-    defaultValue: [],
   });
 
-  return <UsersScreen users={users} />;
+  return (
+    <UsersScreen
+      users={result.status === LoadResultStatus.Success ? result.data : []}
+      sourceUnavailable={result.status === LoadResultStatus.Failure}
+    />
+  );
 }

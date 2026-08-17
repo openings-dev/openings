@@ -1,11 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { ChevronDown, RotateCcw, SlidersHorizontal } from "lucide-react";
+import { ChevronDown, MapPin } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Field } from "@/components/ui/field";
 import { useResponsiveFilterPanel } from "@/app/_hooks/use-responsive-filter-panel";
 import { formatTemplate } from "@/lib/utils/format-template";
 import { cn } from "@/lib/utils/tailwind";
+import { ALL_FILTER_VALUE } from "../types";
 import type {
   LocationFilterOption,
   LocationFiltersMessages,
@@ -20,7 +23,6 @@ interface LocationFiltersPanelProps {
   countries: LocationFilterOption[];
   onRegionChange: (value: string) => void;
   onCountryChange: (value: string) => void;
-  onClear: () => void;
 }
 
 function optionLabel(template: string, locale: string, value: string, count: number) {
@@ -38,105 +40,104 @@ export function LocationFiltersPanel({
   countries,
   onRegionChange,
   onCountryChange,
-  onClear,
 }: LocationFiltersPanelProps): React.ReactNode {
   const contentId = React.useId();
   const [isExpanded, setIsExpanded] = useResponsiveFilterPanel();
+  const activeValues = [
+    state.country !== ALL_FILTER_VALUE
+      ? { label: filtersMessages.country, value: state.country }
+      : null,
+    state.region !== ALL_FILTER_VALUE
+      ? { label: filtersMessages.region, value: state.region }
+      : null,
+  ].filter((entry): entry is NonNullable<typeof entry> => entry !== null);
 
   return (
-    <aside className="rounded-xl border-2 border-border bg-card p-4 shadow-soft-md sm:p-5">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <SlidersHorizontal className="size-3.5 text-primary" />
-          <h2 className="text-sm font-semibold tracking-[-0.01em] text-foreground">
+    <div className="mt-4 border-t border-line pt-4">
+      <div className="flex min-h-11 items-center justify-between gap-3">
+        <div className="min-w-0">
+          <p className="text-label font-medium text-foreground">
             {filtersMessages.title}
-          </h2>
+          </p>
+          {activeValues.length > 0 ? (
+            <div className="mt-2 flex min-w-0 flex-wrap gap-1.5 md:hidden">
+              {activeValues.map((entry) => (
+                <Badge key={entry.label} tone="primary" size="compact">
+                  <MapPin aria-hidden="true" />
+                  {entry.label}: {entry.value}
+                </Badge>
+              ))}
+            </div>
+          ) : null}
         </div>
 
-        <div className="flex items-center gap-1">
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            className="h-9 gap-1 px-2.5 text-xs"
-            onClick={() => setIsExpanded(!isExpanded)}
-            aria-expanded={isExpanded}
-            aria-controls={contentId}
-          >
-            {isExpanded ? filtersMessages.hide : filtersMessages.show}
-            <ChevronDown
-              className={cn(
-                "size-3.5 transition-transform duration-200",
-                isExpanded && "rotate-180",
-              )}
-            />
-          </Button>
-
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            className="h-9 gap-1.5 px-2.5 text-xs"
-            onClick={onClear}
-          >
-            <RotateCcw className="size-3" />
-            {filtersMessages.clear}
-          </Button>
-        </div>
+        <Button
+          type="button"
+          variant="secondary"
+          size="sm"
+          className="shrink-0 md:hidden"
+          aria-expanded={isExpanded}
+          aria-controls={contentId}
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          {isExpanded ? filtersMessages.hide : filtersMessages.show}
+          <ChevronDown
+            className={cn(
+              "transition-transform duration-200",
+              isExpanded && "rotate-180",
+            )}
+            aria-hidden="true"
+          />
+        </Button>
       </div>
 
-      {isExpanded ? (
-        <div
-          id={contentId}
-          className="mt-4 grid gap-3 md:grid-cols-2 md:items-end"
-        >
-          <div className="space-y-1.5">
-            <label className="block text-[11px] font-semibold uppercase tracking-[0.08em] text-subtle-foreground">
-              {filtersMessages.region}
-            </label>
-            <select
-            className="h-11 w-full rounded-lg border-2 border-border bg-card px-3 text-base font-semibold text-foreground shadow-soft-sm transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:text-sm"
-              value={state.region}
-              onChange={(event) => onRegionChange(event.target.value)}
-            >
-              <option value="all">{filtersMessages.allRegions}</option>
-              {regions.map((entry) => (
-                <option key={entry.value} value={entry.value}>
-                  {optionLabel(
-                    filtersMessages.optionWithCount,
-                    locale,
-                    entry.value,
-                    entry.count,
-                  )}
-                </option>
-              ))}
-            </select>
-          </div>
+      <div
+        id={contentId}
+        className={cn(
+          "mt-3 grid gap-4 md:grid md:grid-cols-2 md:items-end",
+          !isExpanded && "hidden",
+        )}
+      >
+        <Field label={filtersMessages.country} controlId="directory-country">
+          <select
+            value={state.country}
+            className="h-11 min-h-11 w-full rounded-control border border-control bg-surface px-3 text-base font-medium text-foreground outline-none transition-[background-color,border-color,box-shadow] hover:bg-surface-muted focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-ring md:text-sm"
+            onChange={(event) => onCountryChange(event.target.value)}
+          >
+            <option value={ALL_FILTER_VALUE}>{filtersMessages.allCountries}</option>
+            {countries.map((entry) => (
+              <option key={entry.value} value={entry.value}>
+                {optionLabel(
+                  filtersMessages.optionWithCount,
+                  locale,
+                  entry.value,
+                  entry.count,
+                )}
+              </option>
+            ))}
+          </select>
+        </Field>
 
-          <div className="space-y-1.5">
-            <label className="block text-[11px] font-semibold uppercase tracking-[0.08em] text-subtle-foreground">
-              {filtersMessages.country}
-            </label>
-            <select
-              className="h-11 w-full rounded-lg border-2 border-border bg-card px-3 text-base font-semibold text-foreground shadow-soft-sm transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:text-sm"
-              value={state.country}
-              onChange={(event) => onCountryChange(event.target.value)}
-            >
-              <option value="all">{filtersMessages.allCountries}</option>
-              {countries.map((entry) => (
-                <option key={entry.value} value={entry.value}>
-                  {optionLabel(
-                    filtersMessages.optionWithCount,
-                    locale,
-                    entry.value,
-                    entry.count,
-                  )}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-      ) : null}
-    </aside>
+        <Field label={filtersMessages.region} controlId="directory-region">
+          <select
+            value={state.region}
+            className="h-11 min-h-11 w-full rounded-control border border-control bg-surface px-3 text-base font-medium text-foreground outline-none transition-[background-color,border-color,box-shadow] hover:bg-surface-muted focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-ring md:text-sm"
+            onChange={(event) => onRegionChange(event.target.value)}
+          >
+            <option value={ALL_FILTER_VALUE}>{filtersMessages.allRegions}</option>
+            {regions.map((entry) => (
+              <option key={entry.value} value={entry.value}>
+                {optionLabel(
+                  filtersMessages.optionWithCount,
+                  locale,
+                  entry.value,
+                  entry.count,
+                )}
+              </option>
+            ))}
+          </select>
+        </Field>
+      </div>
+    </div>
   );
 }

@@ -1,33 +1,102 @@
-import { Search } from "lucide-react";
+import type { ReactNode } from "react";
+import { RotateCcw, Search } from "lucide-react";
+import { DirectorySortMode } from "@/app/_components/directory/types";
+import { Button } from "@/components/ui/button";
+import { Field } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 
 interface DirectoryDiscoveryControlsProps {
   query: string;
-  sort: "count" | "recent" | "name";
+  sort: DirectorySortMode;
+  discoveryLabel: string;
+  searchLabel: string;
   searchPlaceholder: string;
   sortLabel: string;
   sortCount: string;
   sortRecent: string;
   sortName: string;
+  resultSummary?: string;
+  clearLabel: string;
+  hasActiveFilters: boolean;
+  geography: ReactNode;
   onQueryChange: (query: string) => void;
-  onSortChange: (sort: "count" | "recent" | "name") => void;
+  onSortChange: (sort: DirectorySortMode) => void;
+  onClearAll: () => void;
 }
 
-export function DirectoryDiscoveryControls({ query, sort, searchPlaceholder, sortLabel, sortCount, sortRecent, sortName, onQueryChange, onSortChange }: DirectoryDiscoveryControlsProps): React.ReactNode {
+export function DirectoryDiscoveryControls({
+  query,
+  sort,
+  discoveryLabel,
+  searchLabel,
+  searchPlaceholder,
+  sortLabel,
+  sortCount,
+  sortRecent,
+  sortName,
+  resultSummary,
+  clearLabel,
+  hasActiveFilters,
+  geography,
+  onQueryChange,
+  onSortChange,
+  onClearAll,
+}: DirectoryDiscoveryControlsProps): React.ReactNode {
   return (
-    <div className="grid gap-3 rounded-xl border-2 border-border bg-card p-3 md:grid-cols-[minmax(0,1fr)_minmax(12rem,0.35fr)]">
-      <label className="relative">
-        <span className="sr-only">{searchPlaceholder}</span>
-        <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-primary" />
-        <input value={query} onChange={(event) => onQueryChange(event.target.value)} placeholder={searchPlaceholder} className="h-11 w-full rounded-lg border-2 border-border bg-card pl-10 pr-3 text-base font-semibold shadow-soft-sm outline-none placeholder:text-subtle-foreground focus-visible:ring-2 focus-visible:ring-ring md:text-sm" />
-      </label>
-      <label>
-        <span className="sr-only">{sortLabel}</span>
-        <select value={sort} onChange={(event) => onSortChange(event.target.value as "count" | "recent" | "name")} className="h-11 w-full rounded-lg border-2 border-border bg-card px-3 text-base font-bold shadow-soft-sm outline-none focus-visible:ring-2 focus-visible:ring-ring md:text-sm">
-          <option value="count">{sortCount}</option>
-          <option value="recent">{sortRecent}</option>
-          <option value="name">{sortName}</option>
-        </select>
-      </label>
-    </div>
+    <section
+      className="rounded-card border border-line bg-surface p-4 sm:p-5"
+      aria-label={discoveryLabel}
+    >
+      <div className="grid gap-4 md:grid-cols-[minmax(0,1.5fr)_minmax(13rem,0.5fr)] md:items-end">
+        <Field label={searchLabel} controlId="directory-search">
+          <Input
+            type="search"
+            value={query}
+            placeholder={searchPlaceholder}
+            leadingVisual={<Search />}
+            onChange={(event) => onQueryChange(event.target.value)}
+          />
+        </Field>
+
+        <Field label={sortLabel} controlId="directory-sort">
+          <select
+            value={sort}
+            className="h-11 min-h-11 w-full rounded-control border border-control bg-surface px-3 text-base font-medium text-foreground outline-none transition-[background-color,border-color,box-shadow] hover:bg-surface-muted focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-ring md:text-sm"
+            onChange={(event) =>
+              onSortChange(event.target.value as DirectorySortMode)
+            }
+          >
+            <option value={DirectorySortMode.Count}>{sortCount}</option>
+            <option value={DirectorySortMode.Recent}>{sortRecent}</option>
+            <option value={DirectorySortMode.Name}>{sortName}</option>
+          </select>
+        </Field>
+      </div>
+
+      {geography}
+
+      <div className="mt-4 flex min-h-11 flex-wrap items-center justify-between gap-3 border-t border-line pt-4">
+        {resultSummary ? (
+          <p
+            className="font-tabular min-h-5 text-sm font-semibold text-foreground"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            {resultSummary}
+          </p>
+        ) : <span aria-hidden="true" />}
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          disabled={!hasActiveFilters}
+          onClick={onClearAll}
+        >
+          <RotateCcw aria-hidden="true" />
+          {clearLabel}
+        </Button>
+      </div>
+    </section>
   );
 }

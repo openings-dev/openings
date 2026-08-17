@@ -1,56 +1,61 @@
 "use client";
 
-import { MapPin, Rows3, User } from "lucide-react";
+import { CalendarDays, MapPin } from "lucide-react";
 import { DirectoryEntityCard } from "@/app/_components/directory/directory-entity-card";
 import { buildUserPath } from "@/lib/opportunities/routing";
+import {
+  formatLocationSegments,
+  validDateToMs,
+} from "@/lib/opportunities/summary-helpers";
 import { formatTemplate } from "@/lib/utils/format-template";
-import type { UserSummary } from "@/lib/opportunities/users";
+import type { UserCardProps } from "../types";
 
-interface UserCardProps {
-  item: UserSummary;
-  locale: string;
-  listMessages: {
-    handleLabel: string;
-    countryLabel: string;
-    regionLabel: string;
-    opportunitiesCount: string;
-    openUser: string;
-  };
-}
-
-export function UserCard({ item, locale, listMessages }: UserCardProps): React.ReactNode {
+export function UserCard({
+  item,
+  locale,
+  listMessages,
+}: UserCardProps): React.ReactNode {
   const avatarFallback = item.name.trim().charAt(0).toUpperCase() || "@";
+  const location = formatLocationSegments([item.region, item.country]);
+  const activityMs = validDateToMs(item.lastPostedAt);
+  const activityDate = activityMs === null ? null : new Date(activityMs);
   const details = [
-    {
-      icon: User,
-      label: listMessages.handleLabel,
-      value: `@${item.handle}`,
-    },
-    {
-      icon: MapPin,
-      label: listMessages.countryLabel,
-      value: item.country,
-    },
-    {
-      icon: Rows3,
-      label: listMessages.regionLabel,
-      value: item.region,
-    },
-  ];
+    location
+      ? {
+          icon: MapPin,
+          label: listMessages.locationLabel,
+          value: location,
+        }
+      : null,
+    activityDate
+      ? {
+          icon: CalendarDays,
+          label: listMessages.latestActivityLabel,
+          value: new Intl.DateTimeFormat(locale, {
+            dateStyle: "medium",
+            timeZone: "UTC",
+          }).format(activityDate),
+          dateTime: activityDate.toISOString(),
+        }
+      : null,
+  ].filter((detail): detail is NonNullable<typeof detail> => detail !== null);
+  const opportunitiesLabel =
+    item.opportunitiesCount === 1
+      ? listMessages.opportunityCountOne
+      : formatTemplate(listMessages.opportunitiesCount, {
+          count: item.opportunitiesCount.toLocaleString(locale),
+        });
 
   return (
     <DirectoryEntityCard
       href={buildUserPath(item.handle)}
       avatarUrl={item.avatarUrl}
-      avatarAlt={item.name}
       avatarFallback={avatarFallback}
       title={item.name}
       subtitle={`@${item.handle}`}
       details={details}
-      opportunitiesLabel={formatTemplate(listMessages.opportunitiesCount, {
-        count: item.opportunitiesCount.toLocaleString(locale),
-      })}
-      actionLabel={listMessages.openUser}
+      opportunitiesLabel={opportunitiesLabel}
+      actionLabel={listMessages.openPublisher}
     />
   );
 }

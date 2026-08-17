@@ -1,55 +1,60 @@
 "use client";
 
-import { MapPin, Rows3, Building2 } from "lucide-react";
+import { CalendarDays, MapPin } from "lucide-react";
 import { DirectoryEntityCard } from "@/app/_components/directory/directory-entity-card";
 import { buildCommunityPath } from "@/lib/opportunities/routing";
+import {
+  formatLocationSegments,
+  validDateToMs,
+} from "@/lib/opportunities/summary-helpers";
 import { formatTemplate } from "@/lib/utils/format-template";
-import type { CommunitySummary } from "@/lib/opportunities/communities";
+import type { CommunityCardProps } from "../types";
 
-interface CommunityCardProps {
-  item: CommunitySummary;
-  locale: string;
-  listMessages: {
-    repositoryLabel: string;
-    countryLabel: string;
-    regionLabel: string;
-    opportunitiesCount: string;
-    openCommunity: string;
-  };
-}
-
-export function CommunityCard({ item, locale, listMessages }: CommunityCardProps): React.ReactNode {
+export function CommunityCard({
+  item,
+  locale,
+  listMessages,
+}: CommunityCardProps): React.ReactNode {
   const communityInitial = item.name.trim().charAt(0).toUpperCase() || "#";
+  const location = formatLocationSegments([item.region, item.country]);
+  const activityMs = validDateToMs(item.lastPostedAt);
+  const activityDate = activityMs === null ? null : new Date(activityMs);
   const details = [
-    {
-      icon: Building2,
-      label: listMessages.repositoryLabel,
-      value: item.repository,
-    },
-    {
-      icon: MapPin,
-      label: listMessages.countryLabel,
-      value: item.country,
-    },
-    {
-      icon: Rows3,
-      label: listMessages.regionLabel,
-      value: item.region,
-    },
-  ];
+    location
+      ? {
+          icon: MapPin,
+          label: listMessages.locationLabel,
+          value: location,
+        }
+      : null,
+    activityDate
+      ? {
+          icon: CalendarDays,
+          label: listMessages.latestActivityLabel,
+          value: new Intl.DateTimeFormat(locale, {
+            dateStyle: "medium",
+            timeZone: "UTC",
+          }).format(activityDate),
+          dateTime: activityDate.toISOString(),
+        }
+      : null,
+  ].filter((detail): detail is NonNullable<typeof detail> => detail !== null);
+  const opportunitiesLabel =
+    item.opportunitiesCount === 1
+      ? listMessages.opportunityCountOne
+      : formatTemplate(listMessages.opportunitiesCount, {
+          count: item.opportunitiesCount.toLocaleString(locale),
+        });
 
   return (
     <DirectoryEntityCard
       href={buildCommunityPath(item.repository)}
       avatarUrl={item.avatarUrl}
-      avatarAlt={item.name}
       avatarFallback={communityInitial}
       title={item.name}
       subtitle={item.repository}
       details={details}
-      opportunitiesLabel={formatTemplate(listMessages.opportunitiesCount, {
-        count: item.opportunitiesCount.toLocaleString(locale),
-      })}
+      opportunitiesLabel={opportunitiesLabel}
       actionLabel={listMessages.openCommunity}
     />
   );

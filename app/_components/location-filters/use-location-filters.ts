@@ -5,41 +5,21 @@ import {
   buildCountryOptions,
   buildRegionOptions,
   filterByLocation,
-  resolveInitialLocationFilters,
   normalizeLocationFilters,
 } from "./utils";
-import { ALL_FILTER_VALUE } from "./types";
-import type {
-  LocationScopedItem,
-  PreferredLocation,
-} from "./types";
-
-const DEFAULT_PREFERRED_LOCATION: PreferredLocation = {
-  country: "Brazil",
-  region: "South America",
-};
+import { ALL_FILTER_VALUE, NEUTRAL_LOCATION_FILTERS } from "./types";
+import type { LocationScopedItem } from "./types";
 
 interface UseLocationFiltersParams<TItem extends LocationScopedItem> {
   items: TItem[];
-  preferredLocation?: PreferredLocation;
 }
 
 export function useLocationFilters<TItem extends LocationScopedItem>({
   items,
-  preferredLocation = DEFAULT_PREFERRED_LOCATION,
 }: UseLocationFiltersParams<TItem>) {
-  const preferredCountry = preferredLocation.country;
-  const preferredRegion = preferredLocation.region;
-
-  const initialFilters = React.useMemo(
-    () =>
-      resolveInitialLocationFilters(items, {
-        country: preferredCountry,
-        region: preferredRegion,
-      }),
-    [items, preferredCountry, preferredRegion],
-  );
-  const [filters, setFilters] = React.useState(initialFilters);
+  const [filters, setFilters] = React.useState(() => ({
+    ...NEUTRAL_LOCATION_FILTERS,
+  }));
 
   React.useEffect(() => {
     let isCurrent = true;
@@ -59,10 +39,13 @@ export function useLocationFilters<TItem extends LocationScopedItem>({
     };
   }, [items]);
 
-  const regionOptions = React.useMemo(() => buildRegionOptions(items), [items]);
   const countryOptions = React.useMemo(
-    () => buildCountryOptions(items, filters.region),
-    [filters.region, items],
+    () => buildCountryOptions(items),
+    [items],
+  );
+  const regionOptions = React.useMemo(
+    () => buildRegionOptions(items, filters.country),
+    [filters.country, items],
   );
   const filteredItems = React.useMemo(
     () => filterByLocation(items, filters),
@@ -71,32 +54,44 @@ export function useLocationFilters<TItem extends LocationScopedItem>({
 
   const handleRegionChange = React.useCallback(
     (region: string) => {
-      setFilters((previous) => {
-        if (previous.region === region && previous.country === ALL_FILTER_VALUE) {
-          return previous;
-        }
-
-        return { region, country: ALL_FILTER_VALUE };
-      });
+      setFilters((previous) => normalizeLocationFilters(
+        items,
+        { ...previous, region },
+      ));
     },
-    [],
+    [items],
   );
 
   const handleCountryChange = React.useCallback((country: string) => {
-    setFilters((previous) =>
-      previous.country === country ? previous : { ...previous, country },
-    );
-  }, []);
+    setFilters((previous) => normalizeLocationFilters(
+      items,
+      { ...previous, country },
+    ));
+  }, [items]);
 
   const handleClear = React.useCallback(() => {
-    setFilters(initialFilters);
-  }, [initialFilters]);
+    setFilters({ ...NEUTRAL_LOCATION_FILTERS });
+  }, []);
+
+  const activeFilters = React.useMemo(
+    () => [
+      filters.country !== ALL_FILTER_VALUE
+        ? { kind: "country" as const, value: filters.country }
+        : null,
+      filters.region !== ALL_FILTER_VALUE
+        ? { kind: "region" as const, value: filters.region }
+        : null,
+    ].filter((entry): entry is NonNullable<typeof entry> => entry !== null),
+    [filters.country, filters.region],
+  );
 
   return {
     filters,
     regionOptions,
     countryOptions,
     filteredItems,
+    activeFilters,
+    hasActiveFilters: activeFilters.length > 0,
     handleRegionChange,
     handleCountryChange,
     handleClear,
