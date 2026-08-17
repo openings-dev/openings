@@ -9,13 +9,13 @@ Openings non modifica le pubblicazioni della comunità, non riceve candidature e
 Sostituisci `OWNER/REPO` con il nome del repository su GitHub:
 
 ```txt
-https://openings.dev/community/OWNER/REPO
+https://openings.dev/communities/OWNER/REPO
 ```
 
 Esempio:
 
 ```txt
-https://openings.dev/community/qa-brasil/vagas
+https://openings.dev/communities/qa-brasil/vagas
 ```
 
 Controlla che la pagina esista prima di condividerla.
@@ -23,20 +23,20 @@ Controlla che la pagina esista prima di condividerla.
 ## Link per il README
 
 ```md
-[Vedi le offerte di questa comunità su openings.dev](https://openings.dev/community/OWNER/REPO)
+[Vedi le offerte di questa comunità su openings.dev](https://openings.dev/communities/OWNER/REPO)
 ```
 
 ## Badge per il README
 
 ```md
-[![Offerte aperte su openings.dev](https://img.shields.io/badge/openings.dev-open_jobs-111827?logo=github)](https://openings.dev/community/OWNER/REPO)
+[![Offerte aperte su openings.dev](https://img.shields.io/badge/openings.dev-open_jobs-111827?logo=github)](https://openings.dev/communities/OWNER/REPO)
 ```
 
 ## Messaggio breve
 
 ```md
 Consulta le offerte aperte di questa comunità su openings.dev:
-https://openings.dev/community/OWNER/REPO
+https://openings.dev/communities/OWNER/REPO
 
 Openings facilita la ricerca degli annunci pubblici della comunità e mantiene il link alla fonte originale di ogni offerta.
 ```

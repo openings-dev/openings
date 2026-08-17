@@ -7,32 +7,32 @@ Openings verändert keine Quellinhalte, nimmt keine Bewerbungen an und greift we
 Ersetze bei einer bereits gelisteten Community `OWNER/REPO` durch den Namen ihres GitHub-Repositorys:
 
 ```txt
-https://openings.dev/community/OWNER/REPO
+https://openings.dev/communities/OWNER/REPO
 ```
 
 Beispiel:
 
 ```txt
-https://openings.dev/community/qa-brasil/vagas
+https://openings.dev/communities/qa-brasil/vagas
 ```
 
 ## Link für den README
 
 ```md
-[Stellen dieser Community auf openings.dev ansehen](https://openings.dev/community/OWNER/REPO)
+[Stellen dieser Community auf openings.dev ansehen](https://openings.dev/communities/OWNER/REPO)
 ```
 
 ## Badge für den README
 
 ```md
-[![Offene Stellen auf openings.dev](https://img.shields.io/badge/openings.dev-open_jobs-111827?logo=github)](https://openings.dev/community/OWNER/REPO)
+[![Offene Stellen auf openings.dev](https://img.shields.io/badge/openings.dev-open_jobs-111827?logo=github)](https://openings.dev/communities/OWNER/REPO)
 ```
 
 ## Kurzer Hinweis
 
 ```md
 Die öffentlichen Stellen dieser Community findest du auch auf openings.dev:
-https://openings.dev/community/OWNER/REPO
+https://openings.dev/communities/OWNER/REPO
 
 Die Seite macht die Anzeigen durchsuchbar, filterbar und teilbar. Prüfe aktuelle Angaben und die nächsten Schritte in der Originalquelle, die bei jeder Stelle verlinkt ist.
 ```

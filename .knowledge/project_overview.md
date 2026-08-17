@@ -24,12 +24,13 @@ The frontend owns presentation, filtering interaction, route generation, localiz
 ## User-facing routes
 
 - `/` — opportunity discovery
-- `/community` and `/community/[owner]/[name]` — repository communities
-- `/users` and `/users/[handle]` — opportunity-author directory and shareable profiles
+- `/communities` and `/communities/[owner]/[name]` — repository communities
+- `/authors` and `/authors/[handle]` — opportunity-author directory and shareable profiles
+- `/design` — production design-system showcase
 - `/overview`, `/privacy`, and `/terms` — project documents
 - `/docs/api`, `/docs/contributing`, and `/docs/maintainers` — contributor documents
 
-Some removed dynamic routes are handled through the current not-found compatibility behavior. Preserve verified compatibility paths during refactoring.
+Legacy `/community`, `/users`, and `/design-system` paths are static compatibility pages that forward to the canonical routes. Preserve these verified redirects during refactoring.
 
 ## Non-goals
 

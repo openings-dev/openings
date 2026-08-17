@@ -374,8 +374,8 @@ export const itTranslations: TranslationMessages = {
     links: {
       overview: "Panoramica",
       communities: "Comunità",
-      users: "Chi pubblica",
-      apiReference: "Dati statici",
+      users: "Autori",
+      apiReference: "Riferimento dati statici",
       maintainers: "Per le comunità",
       github: "GitHub",
       contributing: "Contribuire",

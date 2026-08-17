@@ -19,7 +19,7 @@ Openings is a statically exported Next.js application for discovering technology
 - Typed dictionaries for `en`, `pt`, `es`, `it`, `fr`, and `de`
 - npm with Node.js 20.9 or newer
 
-The current visual baseline is the Openings editorial system defined in `DESIGN.md`: Buffer-like warmth and composition, Resend-like precision, the supplied `openings.dev` stacked-page lockup, Figtree-led typography, Warm Paper and Community Ink neutrals, controlled Brand Mint actions, 1-pixel hairlines, and rare diffuse elevation. Design authority is ordered: `DESIGN.md`, then production tokens and primitives, then the `/design-system` showcase that inspects what ships. Marketing, discovery, profiles, and documentation use different densities without creating separate systems. Preserve product behavior, responsive usability, theme parity, and accessibility. Do not copy third-party logos, illustrations, branded assets, layouts, or copy. Do not add a test framework.
+The current visual baseline is the Openings editorial system defined in `DESIGN.md`: Buffer-like warmth and composition, Resend-like precision, the supplied `openings.dev` stacked-page lockup, Figtree-led typography, Warm Paper and Community Ink neutrals, controlled Brand Mint actions, 1-pixel hairlines, and rare diffuse elevation. Design authority is ordered: `DESIGN.md`, then production tokens and primitives, then the `/design` showcase that inspects what ships. Marketing, discovery, profiles, and documentation use different densities without creating separate systems. Preserve product behavior, responsive usability, theme parity, and accessibility. Do not copy third-party logos, illustrations, branded assets, layouts, or copy. Do not add a test framework.
 
 ## Required workflow
 

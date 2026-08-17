@@ -4,7 +4,7 @@
 
 ## Authority
 
-[`DESIGN.md`](../../DESIGN.md) records the approved product and visual direction. Production tokens in `app/globals.css` and production brand/UI primitives implement it. The static `/design-system` route inspects those sources without replacing them. This is the authority order: `DESIGN.md` → production tokens and primitives → `/design-system`. This folder translates that direction into focused implementation guidance, while [`AGENTS.md`](../../AGENTS.md) remains the canonical instruction file for repository work.
+[`DESIGN.md`](../../DESIGN.md) records the approved product and visual direction. Production tokens in `app/globals.css` and production brand/UI primitives implement it. The static `/design` route inspects those sources without replacing them. This is the authority order: `DESIGN.md` → production tokens and primitives → `/design`. This folder translates that direction into focused implementation guidance, while [`AGENTS.md`](../../AGENTS.md) remains the canonical instruction file for repository work.
 
 Historical Specs 34–45 document the retired “Buffer Bold” implementation. Their thick outlines, hard offset shadows, repeated black weights, and boxed compositions are not the current baseline.
 

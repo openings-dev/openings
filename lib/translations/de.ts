@@ -375,7 +375,7 @@ export const deTranslations: TranslationMessages = {
     links: {
       overview: "Überblick",
       communities: "Communities",
-      users: "Wer veröffentlicht",
+      users: "Autor:innen",
       apiReference: "Referenz der statischen Daten",
       maintainers: "Für Communities",
       github: "GitHub",

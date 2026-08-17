@@ -5,32 +5,32 @@ openings.dev makes public job listings from supported GitHub community repositor
 Use the repository URL pattern below and replace `OWNER/REPO` with your GitHub repository name:
 
 ```txt
-https://openings.dev/community/OWNER/REPO
+https://openings.dev/communities/OWNER/REPO
 ```
 
 For example:
 
 ```txt
-https://openings.dev/community/qa-brasil/vagas
+https://openings.dev/communities/qa-brasil/vagas
 ```
 
 ## README link
 
 ```md
-[View this community's jobs on openings.dev](https://openings.dev/community/OWNER/REPO)
+[View this community's jobs on openings.dev](https://openings.dev/communities/OWNER/REPO)
 ```
 
 ## README badge
 
 ```md
-[![Open jobs on openings.dev](https://img.shields.io/badge/openings.dev-open_jobs-111827?logo=github)](https://openings.dev/community/OWNER/REPO)
+[![Open jobs on openings.dev](https://img.shields.io/badge/openings.dev-open_jobs-111827?logo=github)](https://openings.dev/communities/OWNER/REPO)
 ```
 
 ## Suggested short message
 
 ```md
 This community’s public job listings are easier to browse on openings.dev:
-https://openings.dev/community/OWNER/REPO
+https://openings.dev/communities/OWNER/REPO
 
 The page makes those listings easier to search, filter, and share. Each result still links to its original source for current details and next steps.
 ```

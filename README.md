@@ -29,11 +29,15 @@ The production job catalog does not use local job data, mocks, fixtures, or JSON
 app/
   _components/             shared route-level components
   _hooks/                  route-level React hooks
-  community/               community directory and repository routes
+  authors/                 canonical GitHub-author directory and profiles
+  communities/             canonical community directory and profiles
+  community/               legacy route compatibility and community UI modules
+  design/                  canonical design-system showcase
+  design-system/           legacy route compatibility and showcase modules
   docs/                    rendered project documentation pages
   jobs/                    canonical static job pages and social images
   opportunities/           opportunities screen and feature UI
-  users/                   GitHub author directory and profile routes
+  users/                   legacy route compatibility and author UI modules
 components/
   footer/                  global footer components
   header/                  global header components
@@ -44,6 +48,7 @@ lib/
   constants/               locale constants
   content/                 markdown document loading
   metadata/                canonical metadata and social-card rendering
+  navigation/              canonical public and external destinations
   opportunities/           remote data services, routing helpers, and domain types
   translations/            UI copy by locale
   utils/                   framework-agnostic utilities
@@ -60,6 +65,18 @@ Key boundaries:
 - `lib/opportunities/static-api.ts` centralizes raw data base URLs.
 - `lib/opportunities/types.ts` owns shared opportunity domain types.
 - `lib/metadata/social-card.tsx` renders the shared Product Sheet social image.
+
+## Public routes
+
+- `/` — job discovery
+- `/communities` and `/communities/[owner]/[name]` — community directory and profiles
+- `/authors` and `/authors/[handle]` — GitHub-author directory and profiles
+- `/jobs/[id]` — canonical job detail and sharing pages
+- `/design` — production design-system showcase
+- `/overview`, `/docs/*`, `/privacy`, and `/terms` — project documentation
+
+The previous `/community`, `/users`, and `/design-system` addresses remain as
+non-indexable compatibility pages and forward visitors to the canonical routes.
 
 ## Data Source
 

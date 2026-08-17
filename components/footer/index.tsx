@@ -2,6 +2,7 @@
 
 import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
 import { GithubIcon } from "@/components/icons/github";
+import { EXTERNAL_ROUTES, PUBLIC_ROUTES } from "@/lib/navigation/routes";
 import { cn } from "@/lib/utils/tailwind";
 import { FooterBottom } from "./footer-bottom";
 import { FooterBrand } from "./footer-brand";
@@ -34,12 +35,12 @@ export function Footer({
       title: footerMessages.groups.project,
       ariaLabel: footerMessages.groupAriaLabels.project,
       links: [
-        { label: footerMessages.links.overview, href: "/overview" },
-        { label: footerMessages.links.designSystem, href: "/design-system" },
-        { label: footerMessages.links.communities, href: "/community" },
-        { label: footerMessages.links.maintainers, href: "/docs/maintainers" },
-        { label: footerMessages.links.users, href: "/users" },
-        { label: footerMessages.links.apiReference, href: "/docs/api" },
+        { label: footerMessages.links.overview, href: PUBLIC_ROUTES.overview },
+        { label: footerMessages.links.designSystem, href: PUBLIC_ROUTES.design },
+        { label: footerMessages.links.communities, href: PUBLIC_ROUTES.communities },
+        { label: footerMessages.links.maintainers, href: PUBLIC_ROUTES.communityGuide },
+        { label: footerMessages.links.users, href: PUBLIC_ROUTES.authors },
+        { label: footerMessages.links.apiReference, href: PUBLIC_ROUTES.apiReference },
       ],
     },
     {
@@ -49,16 +50,16 @@ export function Footer({
       links: [
         {
           label: footerMessages.links.github,
-          href: "https://github.com/openings-dev/openings",
+          href: EXTERNAL_ROUTES.githubRepository,
           external: true,
         },
         {
           label: footerMessages.links.contributing,
-          href: "/docs/contributing",
+          href: PUBLIC_ROUTES.contributing,
         },
         {
           label: footerMessages.links.reportIssue,
-          href: "https://github.com/openings-dev/openings/issues/new/choose",
+          href: EXTERNAL_ROUTES.reportIssue,
           external: true,
         },
       ],
@@ -68,8 +69,8 @@ export function Footer({
       title: footerMessages.groups.legal,
       ariaLabel: footerMessages.groupAriaLabels.legal,
       links: [
-        { label: footerMessages.links.privacyPolicy, href: "/privacy" },
-        { label: footerMessages.links.termsOfService, href: "/terms" },
+        { label: footerMessages.links.privacyPolicy, href: PUBLIC_ROUTES.privacy },
+        { label: footerMessages.links.termsOfService, href: PUBLIC_ROUTES.terms },
       ],
     },
   ];
@@ -77,7 +78,7 @@ export function Footer({
   const defaultSocialLinks: FooterSocialLink[] = [
     {
       label: footerMessages.links.github,
-      href: "https://github.com/openings-dev/openings",
+      href: EXTERNAL_ROUTES.githubRepository,
       icon: GithubIcon,
       external: true,
       ariaLabel: footerMessages.social.githubAriaLabel,

@@ -5,32 +5,32 @@ O openings.dev facilita a busca e o compartilhamento de anúncios públicos de v
 Use o padrão de URL abaixo e substitua `OWNER/REPO` pelo nome do seu repositório no GitHub:
 
 ```txt
-https://openings.dev/community/OWNER/REPO
+https://openings.dev/communities/OWNER/REPO
 ```
 
 Por exemplo:
 
 ```txt
-https://openings.dev/community/qa-brasil/vagas
+https://openings.dev/communities/qa-brasil/vagas
 ```
 
 ## Link no README
 
 ```md
-[Ver as vagas desta comunidade no openings.dev](https://openings.dev/community/OWNER/REPO)
+[Ver as vagas desta comunidade no openings.dev](https://openings.dev/communities/OWNER/REPO)
 ```
 
 ## Badge no README
 
 ```md
-[![Vagas abertas no openings.dev](https://img.shields.io/badge/openings.dev-open_jobs-111827?logo=github)](https://openings.dev/community/OWNER/REPO)
+[![Vagas abertas no openings.dev](https://img.shields.io/badge/openings.dev-open_jobs-111827?logo=github)](https://openings.dev/communities/OWNER/REPO)
 ```
 
 ## Sugestão de mensagem curta
 
 ```md
 Os anúncios públicos de vagas desta comunidade estão mais fáceis de consultar no openings.dev:
-https://openings.dev/community/OWNER/REPO
+https://openings.dev/communities/OWNER/REPO
 
 A página facilita a busca, a filtragem e o compartilhamento desses anúncios. Cada resultado mantém o link para a fonte original, onde estão os detalhes atuais e os próximos passos.
 ```

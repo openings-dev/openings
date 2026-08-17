@@ -6,7 +6,7 @@
 
 Tailwind CSS 4 is imported from `app/globals.css`. CSS custom properties define semantic light and dark roles and `@theme inline` exposes them as utilities. The active target is documented in [`DESIGN.md`](../../DESIGN.md): Figtree-led typography, a Warm Paper and Community Ink foundation, controlled Brand Mint interaction, low-contrast 1-pixel hairlines, and diffuse elevation only for real floating layers. Newsreader is a rare editorial accent and Geist Mono supports technical and numerical content. Framer Motion supplies functional orientation and Lucide supplies general interface icons.
 
-When sources disagree, follow [`DESIGN.md`](../../DESIGN.md), then the production tokens and primitives that implement it, then `/design-system` as an inspection surface. The showcase never owns a parallel token, component, or asset contract.
+When sources disagree, follow [`DESIGN.md`](../../DESIGN.md), then the production tokens and primitives that implement it, then `/design` as an inspection surface. The showcase never owns a parallel token, component, or asset contract.
 
 ## Target rules
 

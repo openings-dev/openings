@@ -370,7 +370,7 @@ export const enTranslations: TranslationMessages = {
     links: {
       overview: "Overview",
       communities: "Communities",
-      users: "Who posts",
+      users: "Authors",
       apiReference: "Static data reference",
       maintainers: "For communities",
       github: "GitHub",
