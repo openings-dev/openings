@@ -35,6 +35,7 @@ export function Footer({
       title: footerMessages.groups.project,
       ariaLabel: footerMessages.groupAriaLabels.project,
       links: [
+        { label: messages.header.nav.docs, href: PUBLIC_ROUTES.docs },
         { label: footerMessages.links.overview, href: PUBLIC_ROUTES.overview },
         { label: footerMessages.links.designSystem, href: PUBLIC_ROUTES.design },
         { label: footerMessages.links.communities, href: PUBLIC_ROUTES.communities },

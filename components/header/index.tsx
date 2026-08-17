@@ -33,6 +33,7 @@ export function Header({
     { label: messages.header.nav.discover, href: PUBLIC_ROUTES.home },
     { label: messages.header.nav.communities, href: PUBLIC_ROUTES.communities },
     { label: messages.header.nav.authors, href: PUBLIC_ROUTES.authors },
+    { label: messages.header.nav.docs, href: PUBLIC_ROUTES.docs },
   ];
   const mobileNavigation = messages.header.mobileNavigation;
   const mobileGroups: MobileNavigationGroup[] = [
