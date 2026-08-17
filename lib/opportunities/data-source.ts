@@ -5,8 +5,8 @@ const DEFAULT_DATA_REPOSITORY_BASE_URL =
 
 export function getOpeningsDataBaseUrl() {
   return (
-    process.env.NEXT_PUBLIC_OPENINGS_DATA_BASE_URL ||
     process.env.OPENINGS_DATA_BASE_URL ||
+    process.env.NEXT_PUBLIC_OPENINGS_DATA_BASE_URL ||
     DEFAULT_DATA_BASE_URL
   ).replace(/\/+$/, "");
 }
@@ -17,8 +17,8 @@ export function openingsDataUrl(path: string) {
 
 export function getOpeningsDataRepositoryBaseUrl() {
   return (
-    process.env.NEXT_PUBLIC_OPENINGS_DATA_REPOSITORY_BASE_URL ||
     process.env.OPENINGS_DATA_REPOSITORY_BASE_URL ||
+    process.env.NEXT_PUBLIC_OPENINGS_DATA_REPOSITORY_BASE_URL ||
     DEFAULT_DATA_REPOSITORY_BASE_URL
   ).replace(/\/+$/, "");
 }
