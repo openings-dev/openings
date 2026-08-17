@@ -32,7 +32,6 @@ lib/
 └── utils/                        # domain-independent helpers
 docs/                            # localized Markdown rendered by routes
 public/                          # logos and static brand assets
-scripts/                         # repository validation scripts
 ```
 
 ## Ownership rules

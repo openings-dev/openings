@@ -1,10 +1,12 @@
 # Styling
 
-> Extend the Buffer Bold interface through explicit Tailwind ownership.
+> Implement the approved Openings editorial system through explicit Tailwind ownership.
 
 ## Current system
 
-Tailwind CSS 4 is imported from `app/globals.css`. CSS custom properties define the semantic light and dark theme, warm-neutral surface hierarchy, Soft Grape actions, lavender accents, compact radii, and hard offset shadows; `@theme inline` exposes them as utilities. Manrope is the display family, Geist Sans is the interface family, and Geist Mono supports technical and numerical content. Framer Motion supplies functional orientation and Lucide supplies general interface icons.
+Tailwind CSS 4 is imported from `app/globals.css`. CSS custom properties define semantic light and dark roles and `@theme inline` exposes them as utilities. The active target is documented in [`DESIGN.md`](../../DESIGN.md): Figtree-led typography, a Warm Paper and Community Ink foundation, controlled Brand Mint interaction, low-contrast 1-pixel hairlines, and diffuse elevation only for real floating layers. Newsreader is a rare editorial accent and Geist Mono supports technical and numerical content. Framer Motion supplies functional orientation and Lucide supplies general interface icons.
+
+When sources disagree, follow [`DESIGN.md`](../../DESIGN.md), then the production tokens and primitives that implement it, then `/design-system` as an inspection surface. The showcase never owns a parallel token, component, or asset contract.
 
 ## Target rules
 
@@ -17,9 +19,13 @@ Tailwind CSS 4 is imported from `app/globals.css`. CSS custom properties define 
 
 ## Visual contract
 
-Keep content dominant with a confident, editorial hierarchy. Use 2-pixel warm-black outlines, flat cream/white/lavender fields, and hard offset shadows on interactive or important surfaces. Reserve Soft Grape for actions, focus, and selection. Hover may shift an object slightly up and left while its shadow grows; active states reverse that movement. Keep child radii no larger than parent radii. Light and dark themes must be equally intentional. Preserve responsive usability, reduced motion, and semantic states.
+Keep content dominant through typography, spacing, composition, and tonal contrast. Default boundaries are 1-pixel low-contrast hairlines. Use 10–14 px radii for controls, 14–18 px for cards, and 18–24 px for large editorial panels. Pills belong to primary marketing actions, chips, segmented controls, and compact toggles—not every button.
 
-Medium and large hard shadows belong to title blocks, dialogs, primary calls to action, and interactive entity cards. Secondary grouping surfaces use a 2-pixel outline without elevation. This distinction is required: applying a hard shadow to every nested surface destroys hierarchy.
+The submitted logo stays monochrome. Brand Mint belongs to a prioritized fill and selected state, while Primary Deep provides accessible light-theme accent text and focus. Lavender supports editorial selection, Fresh Mint signals open/positive context, and Peach supplies occasional editorial contrast. Do not change those roles between routes.
+
+Shadows are diffuse, quiet, and limited to popovers, dialogs, drawers, selected floating layers, and rare editorial objects. Do not use hard offset shadows, 2-pixel default outlines, repeated hover translation, `font-black`, or 10-pixel uppercase product labels. Light and dark themes must preserve the same hierarchy through their own tonal systems.
+
+Marketing is generous, discovery is compact, profiles are identity-led, and documentation is reading-led. These are composition densities within one token and primitive system.
 
 ## Accessibility
 

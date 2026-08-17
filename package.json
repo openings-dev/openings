@@ -9,8 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "test:outreach": "node scripts/validate-maintainer-outreach.mjs"
+    "lint": "eslint"
   },
   "dependencies": {
     "@radix-ui/react-select": "^2.2.6",

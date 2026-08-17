@@ -20,10 +20,14 @@ Openings is a statically exported Next.js application for discovering technology
 - [Naming conventions](best_practices/naming_conventions.md) — source and symbol naming
 - [Styling](best_practices/styling.md) — Tailwind, CVA, themes, and visual preservation
 - [Performance](best_practices/performance.md) — static rendering and client bundle discipline
-- [Design system](design_system/README.md) — visual and interaction invariants
+- [Design system](design_system/README.md) — index for visual, brand, copy, and interaction guidance
+  - [Foundations](design_system/foundations.md)
+  - [Brand and copy](design_system/brand_and_copy.md)
+  - [Experience patterns](design_system/experience_patterns.md)
+  - [Accessibility and motion](design_system/accessibility_and_motion.md)
 
 ## Authority
 
 [`AGENTS.md`](../AGENTS.md) is canonical. This knowledge base expands its rules with verified project detail. When documentation and code disagree, inspect both and explicitly decide whether the implementation is legacy debt or the documentation is stale.
 
-The ordered repository refactor is defined in [`specs/`](../specs/README.md). Those specifications describe target changes; this knowledge base describes the durable standards.
+Local implementation plans may describe temporary delivery steps, but they are not part of the versioned repository. This knowledge base records only durable standards.

@@ -6,7 +6,7 @@ This project uses Next.js 16.2. Before changing framework behavior, inspect the 
 
 # Openings Agent Instructions
 
-`AGENTS.md` is the single canonical instruction file for assistants working in this repository. `CLAUDE.md` delegates here. Detailed factual guidance lives in [`.knowledge/`](.knowledge/README.md), and the ordered repository refactor lives in [`specs/`](specs/README.md).
+`AGENTS.md` is the single canonical instruction file for assistants working in this repository. `CLAUDE.md` delegates here. Detailed factual guidance lives in [`.knowledge/`](.knowledge/README.md), and the approved product and visual direction lives in [`DESIGN.md`](DESIGN.md). Local implementation plans and visual explorations are development artifacts and are not versioned.
 
 ## Product and stack
 
@@ -19,7 +19,7 @@ Openings is a statically exported Next.js application for discovering technology
 - Typed dictionaries for `en`, `pt`, `es`, `it`, `fr`, and `de`
 - npm with Node.js 20.9 or newer
 
-The Buffer Bold design system is the current visual baseline: warm cream canvas, warm-black 2-pixel outlines, white and lavender fields, hard offset shadows, bold Manrope display type, Geist interface type, and Soft Grape actions. Preserve product behavior, responsive usability, theme parity, and accessibility. Do not copy third-party logos, illustrations, branded assets, or copy. Do not add a test framework.
+The current visual baseline is the Openings editorial system defined in `DESIGN.md`: Buffer-like warmth and composition, Resend-like precision, the supplied `openings.dev` stacked-page lockup, Figtree-led typography, Warm Paper and Community Ink neutrals, controlled Brand Mint actions, 1-pixel hairlines, and rare diffuse elevation. Design authority is ordered: `DESIGN.md`, then production tokens and primitives, then the `/design-system` showcase that inspects what ships. Marketing, discovery, profiles, and documentation use different densities without creating separate systems. Preserve product behavior, responsive usability, theme parity, and accessibility. Do not copy third-party logos, illustrations, branded assets, layouts, or copy. Do not add a test framework.
 
 ## Required workflow
 
@@ -72,7 +72,10 @@ The Buffer Bold design system is the current visual baseline: warm cream canvas,
 - Keep theme tokens and truly global element behavior in `app/globals.css`; do not create another token system.
 - Do not introduce CSS Modules, component stylesheets, styled-components, or CSS-in-JS.
 - Prefer Lucide for generic interface icons. Keep custom SVGs for brand marks, flags, or shapes Lucide cannot represent equivalently.
-- Extend the Buffer Bold spacing, typography, colors, themes, breakpoints, motion, focus, and semantic states without introducing a second visual system.
+- Extend the approved Openings foundations, experience patterns, themes, breakpoints, motion, focus, and semantic states without introducing a second visual system.
+- Do not use 2-pixel borders, hard offset shadows, `font-black`, repeated 10-pixel uppercase labels, generic AI gradients, or nested cards as default visual language.
+- Keep the submitted logo monochrome. Use Brand Mint `#B0EC9C` for prioritized fills and selection, Primary Deep for accessible light-theme accent text and focus, and do not apply either to every tag, icon, border, or surface.
+- Use Figtree for display, interface, and body roles, Newsreader only as a rare editorial accent, and Geist Mono for technical content.
 
 ## State, hooks, and effects
 

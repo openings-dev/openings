@@ -1,33 +1,29 @@
 # Design System
 
-> Record the Buffer Bold visual and interaction system used by Openings.
+> Index the durable visual, brand, copy, and interaction rules used by Openings.
 
-## Foundations
+## Authority
 
-The interface uses semantic CSS variables exposed through Tailwind for background, foreground, card, surface, elevated surface, muted, subtle foreground, border, input, ring, primary, and accent roles. Light mode uses a warm cream canvas, white cards, warm-black ink, lavender fields, and Soft Grape actions. Dark mode uses warm graphite surfaces with equivalent semantic contrast. Components consume semantic roles instead of duplicating raw color values.
+[`DESIGN.md`](../../DESIGN.md) records the approved product and visual direction. Production tokens in `app/globals.css` and production brand/UI primitives implement it. The static `/design-system` route inspects those sources without replacing them. This is the authority order: `DESIGN.md` → production tokens and primitives → `/design-system`. This folder translates that direction into focused implementation guidance, while [`AGENTS.md`](../../AGENTS.md) remains the canonical instruction file for repository work.
 
-Manrope owns bold display headings, Geist Sans owns interface and body text, and Geist Mono or tabular features own compact numerical metadata. A shared application grid, a 4-pixel spacing rhythm, compact radii, 2-pixel outlines, and hard offset shadows create consistency across routes.
+Historical Specs 34–45 document the retired “Buffer Bold” implementation. Their thick outlines, hard offset shadows, repeated black weights, and boxed compositions are not the current baseline.
 
-## Components
+## Documentation map
 
-Application-wide primitives live under `components/ui/`. Shared shell components live under `components/`. Feature components may compose primitives but must not fork their interaction or accessibility contracts.
+- [Foundations](foundations.md) — typography, color, spacing, shape, elevation, iconography, and themes
+- [Brand and copy](brand_and_copy.md) — wordmark, visual subject, positioning, voice, claims, and CTA vocabulary
+- [Experience patterns](experience_patterns.md) — marketing, discovery, profiles, directories, documentation, and showcase behavior
+- [Accessibility and motion](accessibility_and_motion.md) — semantic, focus, responsive, overlay, and reduced-motion contracts
 
-The three offset connection blocks in `app/_components/openings-motif/` are the product's reusable visual signature. Use them sparingly in primary title blocks and intentional empty states. Do not turn the motif into background decoration or repeat it inside dense lists.
+## Durable rules
 
-Use Tailwind directly for fixed appearance. CVA remains appropriate for genuine component variants. Lucide is the default for generic interface icons; logos, flags, and brand-specific marks may remain custom SVG components or assets.
-
-## Interaction
-
-- Preserve keyboard access and visible focus.
-- Preserve link-versus-button semantics.
-- Preserve disabled, loading, selected, expanded, and error states.
-- Keep search, location, and stack available as quick filters; put advanced opportunity filters in the native modal dialog.
-- Keep all three primary destinations available through the desktop navigation and the native mobile-navigation dialog.
-- Public community and user profiles expose a direct opportunities action and a native share/copy action.
-- Preserve drawers, theme changes, language selection, and restrained motion behavior.
-- Keep icon-only controls named for assistive technology.
-- Respect reduced-motion preferences when animation is not essential.
-
-## Change constraint
-
-Visual changes must extend Buffer Bold rather than introducing another token system. The system borrows the energy of creator tools through strong outlines, hard shadows, flat pastel fields, and confident typography, but must not copy another product's logos, illustrations, branded assets, or copy. Preserve product behavior, routes, data contracts, locale coverage, responsive usability, theme parity, and accessibility.
+- Use one token and primitive system across marketing, discovery, profiles, and documentation.
+- Use the exact supplied `openings.dev` vector through the shared `Wordmark` and `BrandMark` components; do not redraw, typeset, or independently recolor it.
+- Change density and composition by context; do not fork visual foundations.
+- Build hierarchy with type, whitespace, and tonal contrast before adding decoration.
+- Use public opportunities, communities, repositories, publishers, filters, and source context as the visual subject.
+- Keep quick search, location, and stack visible; advanced opportunity filters remain in the accessible dialog.
+- Keep community and publisher profiles shareable, identity-led destinations.
+- Preserve all six locales, light and dark modes, responsive reflow, and static export.
+- Do not copy third-party brand assets, illustrations, layouts, or proprietary copy.
+- Do not introduce a second token system, component stylesheet strategy, or generic AI-SaaS visual layer.
