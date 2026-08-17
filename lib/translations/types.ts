@@ -409,7 +409,7 @@ export interface TranslationMessages {
       secondary: string;
       showToast: string;
       openFilters: string;
-      openSheet: string;
+      openDetails: string;
       demonstrateLoading: string;
       close: string;
     };
@@ -422,9 +422,6 @@ export interface TranslationMessages {
       invalidError: string;
       toastTitle: string;
       toastDescription: string;
-      sheetTitle: string;
-      sheetDescription: string;
-      sheetLabel: string;
       loadingComplete: string;
     };
     specimens: {

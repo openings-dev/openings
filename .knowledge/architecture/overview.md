@@ -4,7 +4,7 @@
 
 ## Runtime model
 
-The application uses the App Router and `output: "export"`. Server Components and build-time functions fetch public remote JSON to generate static output. Focused Client Components own filters, theme and language controls, responsive panels, drawers, and other browser interactions.
+The application uses the App Router and `output: "export"`. Server Components and build-time functions fetch public remote JSON to generate static output, including canonical job pages and route-specific social images. Focused Client Components own filters, theme and language controls, fullscreen dialogs, and other browser interactions.
 
 ## Source map
 

@@ -31,6 +31,7 @@ app/
   _hooks/                  route-level React hooks
   community/               community directory and repository routes
   docs/                    rendered project documentation pages
+  jobs/                    canonical static job pages and social images
   opportunities/           opportunities screen and feature UI
   users/                   GitHub author directory and profile routes
 components/
@@ -42,6 +43,7 @@ components/
 lib/
   constants/               locale constants
   content/                 markdown document loading
+  metadata/                canonical metadata and social-card rendering
   opportunities/           remote data services, routing helpers, and domain types
   translations/            UI copy by locale
   utils/                   framework-agnostic utilities
@@ -57,6 +59,7 @@ Key boundaries:
 - `lib/opportunities/snapshot.ts` reads the remote segmented snapshot index for static community/user route generation.
 - `lib/opportunities/static-api.ts` centralizes raw data base URLs.
 - `lib/opportunities/types.ts` owns shared opportunity domain types.
+- `lib/metadata/social-card.tsx` renders the shared Product Sheet social image.
 
 ## Data Source
 
@@ -120,9 +123,10 @@ npm run build
 
 `npm run build` runs the production Next.js static export and writes the generated site to `out/`.
 
-Community and GitHub-author directory pages, profile summaries, metadata, and
-route lists are generated during that build. Publishing a new data snapshot
-therefore requires a fresh site build; these pages do not update through ISR.
+Job pages, community and GitHub-author profiles, route-specific social images,
+metadata, and route lists are generated during that build. Publishing a new
+data snapshot therefore requires a fresh site build; these pages do not update
+through ISR.
 
 ## Contributing
 

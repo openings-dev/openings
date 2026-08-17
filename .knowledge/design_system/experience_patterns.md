@@ -10,7 +10,9 @@ The homepage combines an asymmetric editorial hero, primary search, factual live
 
 Opportunity discovery prioritizes scan speed. Quick search, location, and stack remain visible. Advanced filters remain in the accessible dialog. Result count, data recency, sorting, and view mode form one compact result bar.
 
-List and grid use distinct information compositions. From `xl` upward, list and persistent detail may appear side by side. Below `xl`, detail remains in the sheet/overlay flow so it never falls below a long result list.
+List and grid use distinct information compositions. Selecting a result opens the same fullscreen native dialog at every breakpoint, preserving the discovery context behind it. The canonical `/jobs/<id>` page reuses the same Product Sheet information hierarchy for direct visits and sharing.
+
+Job, community, and GitHub-author social previews use route-specific 1200×630 Product Sheet cards generated from validated build-time data. They use the canonical wordmark and tokens, omit absent optional fields, and never introduce remote avatars, fake listings, or unsupported claims.
 
 Opportunity cards show company/community, semantic role heading, salary/work model/location, stack/seniority, publisher/date, and source context in that order. Do not duplicate repository metadata.
 

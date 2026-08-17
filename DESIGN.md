@@ -261,8 +261,9 @@ The dedicated opportunity experience prioritizes scan speed.
 - Advanced filters stay in the accessible modal.
 - Result count, update recency, sorting, and view controls form one compact result bar.
 - List and grid are genuinely different compositions.
-- Wide desktop uses list + persistent detail from `xl` upward.
-- Below `xl`, details use the mobile/tablet sheet so no detail falls below the list.
+- Selecting a result opens one fullscreen native dialog at every breakpoint.
+- The same Product Sheet hierarchy is reused by the canonical `/jobs/<id>` page.
+- Closing the dialog restores focus to the actual opener, or to the results region when the job came from a direct link.
 - Active selection uses a soft semantic surface and a Brand Mint indicator, not heavy outlines.
 
 #### Opportunity hierarchy
@@ -292,19 +293,36 @@ Each profile provides:
 
 The public URL must read well when placed in an Instagram profile, README, community page, or social post.
 
-Social previews use the governed 1200×630 editorial card from Spec 58. The
+Social previews use the governed 1200×630 Product Sheet card. The
 card carries the same Warm Paper, Community Ink, Brand Mint, hairline, search,
 and opportunity-preview language as the production interface. It must remain
 truthful, legible at feed size, and free of invented metrics, testimonials, or
 application claims.
 
-### 4. Directories
+### 4. Public job pages and social cards
+
+Every indexed job has a statically exported `/jobs/<id>` page. Discovery keeps
+its query-driven selection so visitors can close the fullscreen dialog and
+return to the same results, while Share always uses the canonical job URL.
+
+The page, dialog, and social card share one Product Sheet information order:
+community context, title, factual job metadata, description, taxonomy, dates,
+and the original public source. Missing salary, location, tags, or description
+collapse without placeholders or inferred claims.
+
+Open Graph and Twitter images are generated from the same validated build-time
+record. Job, community, and GitHub-author cards use the canonical wordmark,
+Warm Paper, Community Ink, Brand Mint, one-pixel lines, meaningful alternative
+text, and `1200 × 630` dimensions. They never depend on remote avatars or fake
+example listings.
+
+### 5. Directories
 
 Directories use one discovery bar and an unboxed grid/list. They do not stack a hero card, filter card, location card, outer list card, and inner entity card.
 
 Entity cards emphasize identity, open-job count, recent activity, and one explicit destination action. Community and author cards share system rules but may use different metadata.
 
-### 5. Documentation
+### 6. Documentation
 
 Documentation uses a quiet reading system:
 
@@ -317,7 +335,7 @@ Documentation uses a quiet reading system:
 - code, tables, callouts, and links with complete light/dark states;
 - mobile navigation that preserves reading position and touch targets.
 
-### 6. Design-system showcase
+### 7. Design-system showcase
 
 Create a static-export-compatible route under the application that serves as the inspectable implementation reference beneath this document and the production token/primitive sources. It must show:
 
@@ -325,7 +343,7 @@ Create a static-export-compatible route under the application that serves as the
 - color tokens in light and dark;
 - typography roles and scale;
 - spacing, radius, border, and elevation;
-- buttons, inputs, selects, chips, cards, toast, dialog, drawer, navigation, opportunity row, profile block, and documentation content;
+- buttons, inputs, selects, chips, cards, toast, fullscreen detail dialog, navigation, opportunity row, profile block, and documentation content;
 - default, hover/focus guidance, active/selected, disabled, invalid, loading, empty, and destructive states;
 - responsive compositions;
 - icon sizing and usage;

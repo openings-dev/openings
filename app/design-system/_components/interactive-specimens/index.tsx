@@ -82,7 +82,7 @@ export function InteractiveSpecimens(): React.ReactNode {
   const copy = messages.designSystem;
   const [selectedValue, setSelectedValue] = React.useState("");
   const [filtersOpen, setFiltersOpen] = React.useState(false);
-  const [sheetOpen, setSheetOpen] = React.useState(false);
+  const [detailsOpen, setDetailsOpen] = React.useState(false);
   const [filters, setFilters] = React.useState<OpportunityFiltersState>(DEFAULT_FILTERS);
   const [loadingState, setLoadingState] = React.useState(LoadingSpecimenState.Idle);
   const loadingTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -206,11 +206,11 @@ export function InteractiveSpecimens(): React.ReactNode {
           type="button"
           variant="outline"
           data-opportunity-trigger={localizedOpportunity.id}
-          aria-expanded={sheetOpen}
+          aria-expanded={detailsOpen}
           aria-controls={opportunityDetailsElementIds.dialog}
-          onClick={() => setSheetOpen(true)}
+          onClick={() => setDetailsOpen(true)}
         >
-          {copy.actions.openSheet}
+          {copy.actions.openDetails}
         </Button>
         <Button
           type="button"
@@ -245,9 +245,9 @@ export function InteractiveSpecimens(): React.ReactNode {
         <OpportunityCard
           item={localizedOpportunity}
           viewMode={OpportunityViewMode.List}
-          isSelected={sheetOpen}
+          isSelected={detailsOpen}
           onSelectOpportunity={() => {
-            setSheetOpen(true);
+            setDetailsOpen(true);
           }}
           onCommunitySelect={(repository) => {
             setFilters((current) => ({ ...current, repository, page: 1 }));
@@ -294,18 +294,18 @@ export function InteractiveSpecimens(): React.ReactNode {
       <div>
         <OpportunityDrawer
           item={localizedOpportunity}
-          open={sheetOpen}
+          open={detailsOpen}
           hideCommunityIdentity={false}
           hideAuthorIdentity={false}
-          onClose={() => setSheetOpen(false)}
+          onClose={() => setDetailsOpen(false)}
           onCommunitySelect={(repository) => {
             setFilters((current) => ({ ...current, repository, page: 1 }));
-            setSheetOpen(false);
+            setDetailsOpen(false);
             setFiltersOpen(true);
           }}
           onAuthorSelect={(author) => {
             setFilters((current) => ({ ...current, authors: [author], page: 1 }));
-            setSheetOpen(false);
+            setDetailsOpen(false);
             setFiltersOpen(true);
           }}
           specimenMode

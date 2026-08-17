@@ -6,7 +6,7 @@
 
 The application uses React state, URL search parameters, and two cross-cutting providers. It has no global store, query cache, authentication state, or persistent application database.
 
-`I18nProvider` owns the active locale and typed translations. `ThemeProvider` owns theme selection and synchronization with browser storage, document classes, and system preference. Opportunity and directory features own their transient filters, pagination, drawer, and loading state locally.
+`I18nProvider` owns the active locale and typed translations. `ThemeProvider` owns theme selection and synchronization with browser storage, document classes, and system preference. Opportunity and directory features own their transient filters, pagination, fullscreen detail dialog, and loading state locally.
 
 ## Ownership order
 
