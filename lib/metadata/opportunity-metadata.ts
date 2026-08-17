@@ -25,10 +25,13 @@ export function opportunityMetadataDescription(item: OpportunityItem): string {
 }
 
 export function createOpportunityMetadata(item: OpportunityItem): Metadata {
+  const path = buildOpportunityPath(item.id);
+
   return createPageMetadata({
     title: item.title,
     description: opportunityMetadataDescription(item),
-    path: buildOpportunityPath(item.id),
+    path,
     openGraphType: "article",
+    socialImageAlt: `${item.title} — Open job on openings.dev`,
   });
 }

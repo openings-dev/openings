@@ -23,6 +23,7 @@ export function createCommunityProfileMetadata({
       ? `Browse open jobs shared through ${profile.name}. Each listing links to its original public source.`
       : `This community profile is unavailable. Browse current jobs on openings.dev instead.`,
     path,
+    socialImageAlt: `${identity} community jobs on openings.dev`,
   });
 
 }
@@ -46,6 +47,7 @@ export function createPublisherProfileMetadata({
       ? `Browse open jobs authored by @${profile.handle} across public GitHub community repositories.`
       : `This GitHub author profile is unavailable. Browse current jobs on openings.dev instead.`,
     path,
+    socialImageAlt: `${profile?.name ?? `@${handle}`} — GitHub author job profile on openings.dev`,
   });
 
 }

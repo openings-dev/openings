@@ -5,6 +5,7 @@ import {
   SOCIAL_CARD_SIZE,
 } from "@/lib/metadata/social-card";
 import { createOpportunitySocialCard } from "@/lib/metadata/social-card-presentations";
+import { listJobSocialCardParams } from "@/lib/metadata/social-card-static-params";
 import { fetchOpportunityById } from "@/lib/opportunities/api";
 
 interface JobSocialImageProps {
@@ -12,8 +13,15 @@ interface JobSocialImageProps {
 }
 
 export const dynamic = "force-static";
+export const alt = "Open job on openings.dev";
+export const size = SOCIAL_CARD_SIZE;
+export const contentType = SOCIAL_CARD_CONTENT_TYPE;
 
 const getOpportunity = cache(fetchOpportunityById);
+
+export async function generateStaticParams(): Promise<Array<{ id: string }>> {
+  return listJobSocialCardParams();
+}
 
 async function resolveOpportunity(params: JobSocialImageProps["params"]) {
   const { id: encodedId } = await params;
@@ -25,21 +33,6 @@ async function resolveOpportunity(params: JobSocialImageProps["params"]) {
   }
 
   return opportunity;
-}
-
-export async function generateImageMetadata({
-  params,
-}: JobSocialImageProps) {
-  const opportunity = await resolveOpportunity(params);
-
-  return [
-    {
-      id: "primary",
-      alt: `${opportunity.title} — Open job on openings.dev`,
-      size: SOCIAL_CARD_SIZE,
-      contentType: SOCIAL_CARD_CONTENT_TYPE,
-    },
-  ];
 }
 
 export default async function JobSocialImage({

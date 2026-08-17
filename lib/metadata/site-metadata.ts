@@ -22,6 +22,19 @@ interface CreatePageMetadataParams {
   description: string;
   path: string;
   openGraphType?: OpenGraphType;
+  socialImageAlt?: string;
+}
+
+function createRouteSocialImage(path: string, alt: string) {
+  const pathname = path.split(/[?#]/u, 1)[0] ?? "/";
+  const normalizedPath = pathname === "/" ? "" : pathname.replace(/\/+$/u, "");
+
+  return {
+    url: resolvePublicSiteUrl(`${normalizedPath}/opengraph-image`),
+    width: 1200,
+    height: 630,
+    alt,
+  } as const;
 }
 
 export function resolveCanonicalUrl(path: string): string {
@@ -41,8 +54,12 @@ export function createPageMetadata({
   description,
   path,
   openGraphType = "website",
+  socialImageAlt,
 }: CreatePageMetadataParams): Metadata {
   const canonical = resolveCanonicalUrl(path);
+  const socialImage = socialImageAlt
+    ? createRouteSocialImage(path, socialImageAlt)
+    : DEFAULT_SOCIAL_IMAGE;
 
   return {
     title,
@@ -55,13 +72,13 @@ export function createPageMetadata({
       url: canonical,
       siteName: SITE_NAME,
       locale: "en_US",
-      images: [DEFAULT_SOCIAL_IMAGE],
+      images: [socialImage],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [DEFAULT_TWITTER_IMAGE],
+      images: [socialImageAlt ? socialImage : DEFAULT_TWITTER_IMAGE],
     },
   };
 }

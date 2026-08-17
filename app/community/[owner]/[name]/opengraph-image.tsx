@@ -5,6 +5,7 @@ import {
   SOCIAL_CARD_SIZE,
 } from "@/lib/metadata/social-card";
 import { createCommunitySocialCard } from "@/lib/metadata/social-card-presentations";
+import { listCommunitySocialCardParams } from "@/lib/metadata/social-card-static-params";
 import { getSnapshotCommunityByRepository } from "@/lib/opportunities/communities";
 import { repositoryFromCommunitySegments } from "@/lib/opportunities/routing";
 
@@ -13,8 +14,17 @@ interface CommunitySocialImageProps {
 }
 
 export const dynamic = "force-static";
+export const alt = "Community jobs on openings.dev";
+export const size = SOCIAL_CARD_SIZE;
+export const contentType = SOCIAL_CARD_CONTENT_TYPE;
 
 const getCommunity = cache(getSnapshotCommunityByRepository);
+
+export async function generateStaticParams(): Promise<
+  Array<{ owner: string; name: string }>
+> {
+  return listCommunitySocialCardParams();
+}
 
 async function resolveCommunity(params: CommunitySocialImageProps["params"]) {
   const { owner, name } = await params;
@@ -28,21 +38,6 @@ async function resolveCommunity(params: CommunitySocialImageProps["params"]) {
   }
 
   return community;
-}
-
-export async function generateImageMetadata({
-  params,
-}: CommunitySocialImageProps) {
-  const community = await resolveCommunity(params);
-
-  return [
-    {
-      id: "primary",
-      alt: `${community.name} community jobs on openings.dev`,
-      size: SOCIAL_CARD_SIZE,
-      contentType: SOCIAL_CARD_CONTENT_TYPE,
-    },
-  ];
 }
 
 export default async function CommunitySocialImage({

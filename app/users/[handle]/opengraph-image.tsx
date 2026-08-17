@@ -5,6 +5,7 @@ import {
   SOCIAL_CARD_SIZE,
 } from "@/lib/metadata/social-card";
 import { createAuthorSocialCard } from "@/lib/metadata/social-card-presentations";
+import { listAuthorSocialCardParams } from "@/lib/metadata/social-card-static-params";
 import {
   authorHandleFromRoute,
 } from "@/lib/opportunities/routing";
@@ -15,8 +16,15 @@ interface AuthorSocialImageProps {
 }
 
 export const dynamic = "force-static";
+export const alt = "GitHub author job profile on openings.dev";
+export const size = SOCIAL_CARD_SIZE;
+export const contentType = SOCIAL_CARD_CONTENT_TYPE;
 
 const getAuthor = cache(getSnapshotUserByHandle);
+
+export async function generateStaticParams(): Promise<Array<{ handle: string }>> {
+  return listAuthorSocialCardParams();
+}
 
 async function resolveAuthor(params: AuthorSocialImageProps["params"]) {
   const { handle: routeHandle } = await params;
@@ -30,21 +38,6 @@ async function resolveAuthor(params: AuthorSocialImageProps["params"]) {
   }
 
   return author;
-}
-
-export async function generateImageMetadata({
-  params,
-}: AuthorSocialImageProps) {
-  const author = await resolveAuthor(params);
-
-  return [
-    {
-      id: "primary",
-      alt: `${author.name} (@${author.handle}) — Open jobs on openings.dev`,
-      size: SOCIAL_CARD_SIZE,
-      contentType: SOCIAL_CARD_CONTENT_TYPE,
-    },
-  ];
 }
 
 export default async function AuthorSocialImage({
