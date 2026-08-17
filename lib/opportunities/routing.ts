@@ -1,3 +1,5 @@
+import { PUBLIC_ROUTES } from "@/lib/navigation/routes";
+
 function safeDecode(value: string) {
   try {
     return decodeURIComponent(value);
@@ -49,13 +51,15 @@ export function buildCommunityPath(repository: string) {
   }
 
   const { encodedOwner, encodedName } = segments;
-  return `/community/${encodedOwner}/${encodedName}`;
+  return `${PUBLIC_ROUTES.communities}/${encodedOwner}/${encodedName}`;
 }
 
 export function buildUserPath(handle: string) {
   const normalized = normalizeAuthorHandle(handle);
 
-  return normalized ? `/users/${encodeURIComponent(normalized)}` : "/users";
+  return normalized
+    ? `${PUBLIC_ROUTES.authors}/${encodeURIComponent(normalized)}`
+    : PUBLIC_ROUTES.authors;
 }
 
 export function buildGitHubRepositoryUrl(repository: string) {
