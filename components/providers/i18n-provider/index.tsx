@@ -8,8 +8,12 @@ import {
 } from "@/lib/constants/locales";
 import { getTranslations } from "@/lib/translations/get-translations";
 import { I18nContext } from "./context";
-import { LOCALE_CHANGE_EVENT, LOCALE_STORAGE_KEY } from "./constants";
-import { getStoredLocale, subscribeLocaleStore } from "./helpers";
+import { LOCALE_CHANGE_EVENT } from "./constants";
+import {
+  getStoredLocale,
+  setStoredLocale,
+  subscribeLocaleStore,
+} from "./helpers";
 import type { I18nContextValue } from "./types";
 
 export function I18nProvider({ children }: React.PropsWithChildren): React.ReactNode {
@@ -20,7 +24,7 @@ export function I18nProvider({ children }: React.PropsWithChildren): React.React
   );
 
   const setLocale = React.useCallback((nextLocale: LocaleCode) => {
-    window.localStorage.setItem(LOCALE_STORAGE_KEY, nextLocale);
+    setStoredLocale(nextLocale);
     window.dispatchEvent(new Event(LOCALE_CHANGE_EVENT));
   }, []);
 

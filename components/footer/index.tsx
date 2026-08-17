@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
 import { GithubIcon } from "@/components/icons/github";
 import { cn } from "@/lib/utils/tailwind";
@@ -22,11 +21,9 @@ export function Footer({
   supportText,
   copyrightText,
   signature,
-  lightLogoSrc = "/light-mode-favicon.svg",
-  darkLogoSrc = "/dark-mode-favicon.svg",
   linkGroups,
   socialLinks,
-}: FooterProps) {
+}: FooterProps): React.ReactNode {
   const { messages } = useI18n();
   const footerMessages = messages.footer;
   const year = new Date().getFullYear().toString();
@@ -35,22 +32,20 @@ export function Footer({
     {
       id: "project",
       title: footerMessages.groups.project,
+      ariaLabel: footerMessages.groupAriaLabels.project,
       links: [
         { label: footerMessages.links.overview, href: "/overview" },
+        { label: footerMessages.links.designSystem, href: "/design-system" },
         { label: footerMessages.links.communities, href: "/community" },
         { label: footerMessages.links.maintainers, href: "/docs/maintainers" },
         { label: footerMessages.links.users, href: "/users" },
         { label: footerMessages.links.apiReference, href: "/docs/api" },
-        {
-          label: footerMessages.links.status,
-          href: "https://status.openings.dev",
-          external: true,
-        },
       ],
     },
     {
       id: "open-source",
       title: footerMessages.groups.openSource,
+      ariaLabel: footerMessages.groupAriaLabels.openSource,
       links: [
         {
           label: footerMessages.links.github,
@@ -63,7 +58,7 @@ export function Footer({
         },
         {
           label: footerMessages.links.reportIssue,
-          href: "https://github.com/openings-dev/openings/issues/new",
+          href: "https://github.com/openings-dev/openings/issues/new/choose",
           external: true,
         },
       ],
@@ -71,6 +66,7 @@ export function Footer({
     {
       id: "legal",
       title: footerMessages.groups.legal,
+      ariaLabel: footerMessages.groupAriaLabels.legal,
       links: [
         { label: footerMessages.links.privacyPolicy, href: "/privacy" },
         { label: footerMessages.links.termsOfService, href: "/terms" },
@@ -111,28 +107,25 @@ export function Footer({
       .replace("{brand}", brandName);
 
   return (
-    <footer className={cn("relative mt-16 border-t-2 border-border bg-accent text-foreground", className)}>
-
-      <div className="relative mx-auto flex w-full max-w-[90rem] flex-col gap-8 px-4 pb-7 pt-9 sm:px-6 lg:px-8 xl:px-10">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="grid gap-8 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.45fr)] md:gap-10"
-        >
+    <footer
+      className={cn(
+        "focus-context-inverse relative mt-20 bg-night text-night-foreground",
+        className,
+      )}
+    >
+      <div className="relative mx-auto flex w-full max-w-[90rem] flex-col gap-12 px-4 pb-8 pt-14 sm:px-6 sm:pb-10 sm:pt-16 lg:px-8 lg:pt-20 xl:px-10">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
           <FooterBrand
+            className="lg:col-span-5"
             href={brandHref}
             brandName={brandName}
             brandTagline={resolvedBrandTagline}
             description={resolvedDescription}
-            lightLogoSrc={lightLogoSrc}
-            darkLogoSrc={darkLogoSrc}
             socialLinks={resolvedSocialLinks}
             socialLinksAriaLabel={footerMessages.social.linksAriaLabel}
           />
-          <FooterLinks groups={resolvedLinkGroups} />
-        </motion.div>
+          <FooterLinks className="lg:col-span-7" groups={resolvedLinkGroups} />
+        </div>
 
         <FooterBottom
           supportEmail={supportEmail}

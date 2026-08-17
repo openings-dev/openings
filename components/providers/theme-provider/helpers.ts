@@ -1,6 +1,8 @@
 import { THEME_CHANGE_EVENT, THEME_STORAGE_KEY } from "./constants";
 import { ResolvedTheme, Theme } from "./types";
 
+let volatileTheme: Theme | null = null;
+
 export function getSystemTheme(): ResolvedTheme {
   if (typeof window === "undefined") return ResolvedTheme.Light;
   return window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -24,8 +26,25 @@ export function isTheme(value: string | null): value is Theme {
 
 export function getStoredTheme(defaultTheme: Theme): Theme {
   if (typeof window === "undefined") return defaultTheme;
-  const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
-  return isTheme(storedTheme) ? storedTheme : defaultTheme;
+
+  try {
+    const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+    if (isTheme(storedTheme)) return storedTheme;
+  } catch {
+    // Storage can be unavailable in sandboxed or privacy-restricted contexts.
+  }
+
+  return volatileTheme ?? defaultTheme;
+}
+
+export function setStoredTheme(theme: Theme): void {
+  volatileTheme = theme;
+
+  try {
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+  } catch {
+    // The in-memory value keeps the control functional for this document.
+  }
 }
 
 export function subscribeThemeStore(onStoreChange: () => void): () => void {

@@ -11,6 +11,7 @@ export interface FooterLink {
 export interface FooterLinkGroup {
   id: string;
   title: string;
+  ariaLabel?: string;
   links: FooterLink[];
 }
 
@@ -35,7 +36,9 @@ export interface FooterProps {
   supportText?: string;
   copyrightText?: string;
   signature?: string;
+  /** @deprecated Footer now renders the canonical wordmark. */
   lightLogoSrc?: string;
+  /** @deprecated Footer now renders the canonical wordmark. */
   darkLogoSrc?: string;
   linkGroups?: FooterLinkGroup[];
   socialLinks?: FooterSocialLink[];
@@ -47,8 +50,10 @@ export interface FooterBrandProps {
   brandName: string;
   brandTagline: string;
   description: string;
-  lightLogoSrc: string;
-  darkLogoSrc: string;
+  /** @deprecated FooterBrand now renders the canonical wordmark. */
+  lightLogoSrc?: string;
+  /** @deprecated FooterBrand now renders the canonical wordmark. */
+  darkLogoSrc?: string;
   socialLinks: FooterSocialLink[];
   socialLinksAriaLabel: string;
 }

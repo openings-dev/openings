@@ -1,12 +1,12 @@
 import { cva } from "class-variance-authority";
 
 export const footerSocialButtonStyles = cva(
-  "size-10 rounded-lg border-2 border-border bg-card text-foreground shadow-soft-sm transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-soft-md",
+  "size-11 rounded-control border border-night-foreground/20 bg-transparent text-night-foreground hover:border-night-foreground/35 hover:bg-night-foreground/10",
   {
     variants: {
       tone: {
         default: "",
-        subtle: "bg-surface",
+        subtle: "bg-night-foreground/5",
       },
     },
     defaultVariants: { tone: "default" },
@@ -14,12 +14,12 @@ export const footerSocialButtonStyles = cva(
 );
 
 export const footerLinkStyles = cva(
-  "inline-flex rounded-sm text-sm font-semibold text-muted-foreground decoration-2 underline-offset-4 transition-colors duration-200 hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted",
+  "inline-flex min-h-11 items-center rounded-control text-sm font-medium text-night-muted-foreground underline-offset-4 transition-colors duration-200 hover:text-night-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
   {
     variants: {
       intent: {
         default: "",
-        prominent: "text-foreground/90 hover:text-foreground",
+        prominent: "text-night-foreground hover:text-night-foreground",
       },
     },
     defaultVariants: { intent: "default" },

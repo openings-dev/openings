@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import * as React from "react";
 import { toast } from "sonner";
 import { Select } from "@/components/ui/select";
 import { SelectContent } from "@/components/ui/select/select-content";
@@ -8,32 +8,21 @@ import { SelectItem } from "@/components/ui/select/select-item";
 import { SelectTrigger } from "@/components/ui/select/select-trigger";
 import { SelectValue } from "@/components/ui/select/select-value";
 import type { LanguageSwitcherProps } from "../types";
-import { FlagBR } from "./flag-br";
-import { FlagDE } from "./flag-de";
-import { FlagES } from "./flag-es";
-import { FlagFR } from "./flag-fr";
-import { FlagIT } from "./flag-it";
-import { FlagUS } from "./flag-us";
-
-const LOCALE_FLAGS: Record<string, React.ReactNode> = {
-  en: <FlagUS className="rounded-[2px] shadow-sm" />,
-  pt: <FlagBR className="rounded-[2px] shadow-sm" />,
-  es: <FlagES className="rounded-[2px] shadow-sm" />,
-  it: <FlagIT className="rounded-[2px] shadow-sm" />,
-  fr: <FlagFR className="rounded-[2px] shadow-sm" />,
-  de: <FlagDE className="rounded-[2px] shadow-sm" />,
-};
 
 export function LanguageSwitcher({
   className,
+  portalContainer,
   locale,
   locales,
-  placeholder = "Language",
-  ariaLabel = "Select language",
-  changedTemplate = "Language set to {language}.",
+  placeholder,
+  ariaLabel,
+  changedTemplate,
   announceChange = true,
+  feedbackMode = "toast",
   onLocaleChange,
-}: LanguageSwitcherProps) {
+}: LanguageSwitcherProps): React.ReactNode {
+  const [inlineAnnouncement, setInlineAnnouncement] = React.useState("");
+
   const handleValueChange = (value: string) => {
     const nextLocale = locales.find((entry) => entry.code === value);
     if (!nextLocale) {
@@ -43,43 +32,50 @@ export function LanguageSwitcher({
     onLocaleChange(nextLocale.code);
 
     if (announceChange) {
-      toast.success(nextLocale.nativeLabel, {
-        description: changedTemplate.replace(
-          "{language}",
-          nextLocale.nativeLabel,
-        ),
-        duration: 1600,
-      });
+      const announcement = changedTemplate.replace(
+        "{language}",
+        nextLocale.nativeLabel,
+      );
+
+      if (feedbackMode === "inline") {
+        setInlineAnnouncement(announcement);
+      } else {
+        toast.success(nextLocale.nativeLabel, {
+          description: announcement,
+          duration: 1600,
+        });
+      }
     }
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.24, ease: "easeOut" }}
-      className={className}
-    >
+    <div className={className}>
       <Select value={locale} onValueChange={handleValueChange}>
         <SelectTrigger
           aria-label={ariaLabel}
-          className="h-10 gap-1.5 rounded-lg border-2 border-border bg-card px-2 text-sm font-bold text-foreground shadow-none hover:bg-accent focus:ring-2 focus:ring-ring data-[state=open]:bg-accent"
+          className="min-w-[8.5rem] gap-1.5 bg-transparent px-2.5 font-medium hover:bg-surface-muted"
         >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
-        <SelectContent className="min-w-[150px]" align="end">
+        <SelectContent
+          className="min-w-[150px]"
+          align="end"
+          portalContainer={portalContainer}
+        >
           {locales.map((entry) => (
             <SelectItem key={entry.code} value={entry.code}>
-              <span className="flex items-center gap-2">
-                <span className="flex size-4 items-center justify-center text-base leading-none">
-                  {LOCALE_FLAGS[entry.code]}
-                </span>
-                <span className="text-[13px] font-medium">{entry.nativeLabel}</span>
+              <span lang={entry.code} className="text-[13px] font-medium">
+                {entry.nativeLabel}
               </span>
             </SelectItem>
           ))}
         </SelectContent>
       </Select>
-    </motion.div>
+      {feedbackMode === "inline" ? (
+        <p className="sr-only" aria-live="polite" aria-atomic="true">
+          {inlineAnnouncement}
+        </p>
+      ) : null}
+    </div>
   );
 }

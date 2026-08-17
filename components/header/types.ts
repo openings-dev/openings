@@ -15,8 +15,11 @@ export interface BrandLogoProps {
   className?: string;
   href?: string;
   brandName?: string;
+  /** @deprecated BrandLogo now renders the canonical wordmark without a tagline. */
   brandTagline?: string;
+  /** @deprecated BrandLogo now renders the canonical inline vector. */
   lightLogoSrc?: string;
+  /** @deprecated BrandLogo now renders the canonical inline vector. */
   darkLogoSrc?: string;
 }
 
@@ -26,11 +29,13 @@ export interface ThemeToggleProps {
 
 export interface LanguageSwitcherProps {
   className?: string;
+  portalContainer?: HTMLElement | null;
   locale: LocaleCode;
   locales: readonly LocaleOption[];
-  placeholder?: string;
-  ariaLabel?: string;
-  changedTemplate?: string;
+  placeholder: string;
+  ariaLabel: string;
+  changedTemplate: string;
   announceChange?: boolean;
+  feedbackMode?: "inline" | "toast";
   onLocaleChange: (locale: LocaleCode) => void;
 }

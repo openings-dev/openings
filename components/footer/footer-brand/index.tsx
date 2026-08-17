@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
+import { Wordmark } from "@/components/brand/wordmark";
+import { WordmarkSize } from "@/components/brand/wordmark/types";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils/tailwind";
 import type { FooterBrandProps } from "../types";
@@ -14,61 +14,38 @@ export function FooterBrand({
   brandName,
   brandTagline,
   description,
-  lightLogoSrc,
-  darkLogoSrc,
   socialLinks,
   socialLinksAriaLabel,
 }: FooterBrandProps): React.ReactNode {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.35 }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className={cn("space-y-4", className)}
-    >
-      <Link href={href} className="inline-flex items-center gap-3 rounded-lg px-1 py-1 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-muted">
-        <span className="relative size-10 overflow-hidden rounded-lg border-2 border-border bg-card shadow-soft-sm">
-          <Image
-            src={lightLogoSrc}
-            alt={`${brandName} light logo`}
-            fill
-            sizes="36px"
-            className="object-contain dark:hidden"
-          />
-          <Image
-            src={darkLogoSrc}
-            alt={`${brandName} dark logo`}
-            fill
-            sizes="36px"
-            className="hidden object-contain dark:block"
-          />
-        </span>
-        <span className="flex flex-col leading-none">
-          <span className="font-display text-sm font-bold tracking-[-0.025em] text-foreground">{brandName}</span>
-          <span className="text-xs text-muted-foreground">{brandTagline}</span>
-        </span>
+    <div className={cn("space-y-6", className)}>
+      <Link
+        href={href}
+        className="inline-flex rounded-control focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        aria-label={brandName}
+      >
+        <Wordmark
+          size={WordmarkSize.Display}
+          className="h-12 w-auto text-night-foreground sm:h-14 lg:h-16"
+        />
       </Link>
 
-      <p className="max-w-sm text-sm leading-6 text-muted-foreground">{description}</p>
+      <div className="max-w-md space-y-2">
+        <p className="text-base font-semibold text-night-foreground">
+          {brandTagline}
+        </p>
+        <p className="text-sm leading-6 text-night-muted-foreground sm:text-base sm:leading-7">
+          {description}
+        </p>
+      </div>
 
       <ul className="flex items-center gap-2" aria-label={socialLinksAriaLabel}>
-        {socialLinks.map((socialLink, index) => {
+        {socialLinks.map((socialLink) => {
           const Icon = socialLink.icon;
           const isExternal = socialLink.external ?? true;
 
           return (
-            <motion.li
-              key={`${socialLink.label}-${socialLink.href}`}
-              initial={{ opacity: 0, y: 6 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.25,
-                delay: index * 0.04,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
+            <li key={`${socialLink.label}-${socialLink.href}`}>
               <Button
                 asChild
                 variant="ghost"
@@ -85,10 +62,10 @@ export function FooterBrand({
                   <span className="sr-only">{socialLink.label}</span>
                 </Link>
               </Button>
-            </motion.li>
+            </li>
           );
         })}
       </ul>
-    </motion.div>
+    </div>
   );
 }

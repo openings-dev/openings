@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
+import { Figtree, Geist_Mono, Newsreader } from "next/font/google";
 import { AppShell } from "@/app/_components/app-shell";
 import { I18nProvider } from "@/components/providers/i18n-provider";
-import { Geist, Geist_Mono, Manrope } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ThemeScript } from "@/components/providers/theme-provider/theme-script";
 import { Theme } from "@/components/providers/theme-provider/types";
 import { Toaster } from "@/components/ui/sonner";
+import {
+  createPageMetadata,
+  SITE_DEFAULT_DESCRIPTION,
+  SITE_ORIGIN,
+} from "@/lib/metadata/site-metadata";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const figtree = Figtree({
+  variable: "--font-figtree",
+  subsets: ["latin", "latin-ext"],
+  weight: "variable",
 });
 
 const geistMono = Geist_Mono({
@@ -17,32 +24,24 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const manrope = Manrope({
-  variable: "--font-manrope",
-  subsets: ["latin"],
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin", "latin-ext"],
+  weight: "variable",
+  axes: ["opsz"],
+  preload: false,
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://openings.dev"),
+  ...createPageMetadata({
+    title: "openings.dev — Jobs from public GitHub communities",
+    description: SITE_DEFAULT_DESCRIPTION,
+    path: "/",
+  }),
+  metadataBase: SITE_ORIGIN,
   title: {
-    default: "openings.dev",
+    default: "openings.dev — Jobs from public GitHub communities",
     template: "%s | openings.dev",
-  },
-  description:
-    "Discover technology opportunities published by trusted GitHub communities.",
-  openGraph: {
-    type: "website",
-    title: "openings.dev",
-    description:
-      "Technology opportunities shared by GitHub communities, gathered in one place.",
-    url: "/",
-    siteName: "openings.dev",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "openings.dev",
-    description:
-      "Technology opportunities shared by GitHub communities, gathered in one place.",
   },
   icons: {
     icon: [
@@ -75,14 +74,15 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${manrope.variable} h-full antialiased`}
+      className={`${figtree.variable} ${newsreader.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <ThemeScript />
       <body className="min-h-full bg-background text-foreground">
         <ThemeProvider defaultTheme={Theme.System} enableSystem>
           <I18nProvider>
             <AppShell>{children}</AppShell>
           </I18nProvider>
-          <Toaster position="top-right" richColors={false} />
+          <Toaster position="bottom-right" richColors={false} />
         </ThemeProvider>
       </body>
     </html>

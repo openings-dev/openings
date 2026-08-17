@@ -1,13 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { THEME_CHANGE_EVENT, THEME_STORAGE_KEY } from "./constants";
+import { THEME_CHANGE_EVENT } from "./constants";
 import { ThemeContext } from "./context";
 import {
   applyTheme,
   getStoredTheme,
   getSystemTheme,
   resolveTheme,
+  setStoredTheme,
   subscribeSystemTheme,
   subscribeThemeStore,
 } from "./helpers";
@@ -43,7 +44,7 @@ export function ThemeProvider({
   React.useEffect(() => applyTheme(resolvedTheme), [resolvedTheme]);
 
   const setTheme = React.useCallback((nextTheme: Theme) => {
-    window.localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+    setStoredTheme(nextTheme);
     window.dispatchEvent(new Event(THEME_CHANGE_EVENT));
   }, []);
 

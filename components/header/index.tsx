@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
 import { GithubIcon } from "@/components/icons/github";
+import { Button } from "@/components/ui/button";
 import { AVAILABLE_LOCALES } from "@/lib/constants/locales";
 import { cn } from "@/lib/utils/tailwind";
 import { BrandLogo } from "./brand-logo";
@@ -24,7 +24,7 @@ export function Header({
   locales,
   position = "sticky",
   onLocaleChange,
-}: HeaderProps) {
+}: HeaderProps): React.ReactNode {
   const { locale: currentLocale, messages, setLocale } = useI18n();
   const activeLocale = locale ?? currentLocale;
   const availableLocales = locales?.length ? locales : AVAILABLE_LOCALES;
@@ -49,13 +49,8 @@ export function Header({
   );
 
   return (
-    <motion.header
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className={cn(headerStyles({ position }), className)}
-    >
-      <div className="mx-auto grid h-15 w-full max-w-[90rem] grid-cols-[auto_1fr_auto] items-center gap-3 px-4 sm:px-6 lg:px-8 xl:px-10">
+    <header className={cn(headerStyles({ position }), className)}>
+      <div className="mx-auto grid h-18 w-full max-w-[90rem] grid-cols-[auto_1fr_auto] items-center gap-3 px-4 sm:px-6 lg:px-8 xl:px-10">
         <BrandLogo href={logoHref} brandName={messages.header.brandName} />
         <HeaderNav
           items={navItems}
@@ -72,35 +67,49 @@ export function Header({
             changedTemplate={messages.header.languageChanged}
             onLocaleChange={handleLocaleChange}
           />
-          <a
-            href="https://github.com/openings-dev/openings"
-            target="_blank"
-            rel="noreferrer"
-            className="hidden h-9 items-center gap-1.5 rounded-md border-2 border-border bg-card px-3 text-sm font-bold text-foreground shadow-soft-sm transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-soft-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring lg:inline-flex"
-            aria-label={messages.footer.social.githubAriaLabel}
+          <Button
+            asChild
+            variant="ghost"
+            size="sm"
+            className="hidden xl:inline-flex"
           >
-            <GithubIcon className="size-4" />
-            <span>GitHub</span>
-            <ExternalLink className="size-3.5" />
-          </a>
+            <a
+              href="https://github.com/openings-dev/openings"
+              target="_blank"
+              rel="noreferrer"
+              aria-label={messages.footer.social.githubAriaLabel}
+            >
+              <GithubIcon className="size-4" aria-hidden="true" />
+              <span>GitHub</span>
+              <ExternalLink className="size-3.5" aria-hidden="true" />
+            </a>
+          </Button>
           <MobileNavigation
             items={navItems}
             ariaLabel={messages.header.primaryNavigationAriaLabel}
+            openMenuAriaLabel={messages.header.openNavigationMenuAriaLabel}
+            closeMenuAriaLabel={messages.header.closeNavigationMenuAriaLabel}
             githubAriaLabel={messages.footer.social.githubAriaLabel}
           >
-            <ThemeToggle />
-            <LanguageSwitcher
-              className="min-w-0 flex-1"
-              locale={activeLocale}
-              locales={availableLocales}
-              placeholder={messages.header.languagePlaceholder}
-              ariaLabel={messages.header.languageAriaLabel}
-              changedTemplate={messages.header.languageChanged}
-              onLocaleChange={handleLocaleChange}
-            />
+            {(portalContainer) => (
+              <>
+                <ThemeToggle className="md:hidden" />
+                <LanguageSwitcher
+                  className="min-w-0 flex-1"
+                  portalContainer={portalContainer}
+                  locale={activeLocale}
+                  locales={availableLocales}
+                  placeholder={messages.header.languagePlaceholder}
+                  ariaLabel={messages.header.languageAriaLabel}
+                  changedTemplate={messages.header.languageChanged}
+                  feedbackMode="inline"
+                  onLocaleChange={handleLocaleChange}
+                />
+              </>
+            )}
           </MobileNavigation>
         </div>
       </div>
-    </motion.header>
+    </header>
   );
 }
