@@ -5,14 +5,15 @@ export const SITE_ORIGIN = new URL("https://openings.dev");
 export const SITE_DEFAULT_DESCRIPTION =
   "Find tech jobs shared by public GitHub communities, then open the original listing to verify current details.";
 export const DEFAULT_SOCIAL_IMAGE = {
-  url: "/opengraph-image",
+  url: "/opengraph-image.png",
+  type: "image/png",
   width: 1200,
   height: 630,
   alt: "openings.dev — Technology jobs shared by public GitHub communities",
 } as const;
 export const DEFAULT_TWITTER_IMAGE = {
   ...DEFAULT_SOCIAL_IMAGE,
-  url: "/twitter-image",
+  url: "/twitter-image.png",
 } as const;
 
 type OpenGraphType = "website" | "article";
@@ -30,7 +31,8 @@ function createRouteSocialImage(path: string, alt: string) {
   const normalizedPath = pathname === "/" ? "" : pathname.replace(/\/+$/u, "");
 
   return {
-    url: resolvePublicSiteUrl(`${normalizedPath}/opengraph-image`),
+    url: resolvePublicSiteUrl(`${normalizedPath}/opengraph-image.png`),
+    type: "image/png",
     width: 1200,
     height: 630,
     alt,

@@ -7,9 +7,10 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && node tooling/publish-social-images.mjs",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:metadata": "node tooling/validate-metadata-export.mjs"
   },
   "dependencies": {
     "@radix-ui/react-select": "^2.2.6",
