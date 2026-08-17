@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Check, Monitor, Smartphone, Tablet } from "lucide-react";
+import { PUBLIC_ROUTES } from "@/lib/navigation/routes";
 import type { TranslationMessages } from "@/lib/translations/types";
 import {
   ContentSpecimens,
@@ -238,7 +239,7 @@ export function DesignSystemShowcase(): React.ReactNode {
         <p className="mt-6 text-sm leading-6 text-muted-foreground">
           <LocalizedCopy select={(messages) => messages.designSystem.guidance.usage} />
         </p>
-        <Link href="/overview" className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-control text-sm font-semibold text-primary-deep underline decoration-primary/45 underline-offset-4 hover:text-foreground">
+        <Link href={PUBLIC_ROUTES.overview} className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-control text-sm font-semibold text-primary-deep underline decoration-primary/45 underline-offset-4 hover:text-foreground">
           <LocalizedCopy select={(messages) => messages.documents.overview.title} /> <ArrowRight className="size-4" aria-hidden="true" />
         </Link>
       </ShowcaseSection>

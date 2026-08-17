@@ -4,7 +4,7 @@ export const PUBLIC_ROUTES = {
   authors: "/authors",
   docs: "/docs",
   design: "/design",
-  overview: "/overview",
+  overview: "/docs/overview",
   apiReference: "/docs/api",
   communityGuide: "/docs/maintainers",
   contributing: "/docs/contributing",
@@ -13,6 +13,7 @@ export const PUBLIC_ROUTES = {
 } as const;
 
 export const LEGACY_ROUTES = {
+  overview: "/overview",
   communities: "/community",
   authors: "/users",
   design: "/design-system",

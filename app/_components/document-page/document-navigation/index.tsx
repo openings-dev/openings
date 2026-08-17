@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PUBLIC_ROUTES } from "@/lib/navigation/routes";
 import { cn } from "@/lib/utils/tailwind";
 import type { DocumentPageKey } from "../types";
 import type { DocumentNavigationProps } from "./types";
@@ -7,12 +8,12 @@ const DOCUMENT_DESTINATIONS: ReadonlyArray<{
   key: DocumentPageKey;
   href: string;
 }> = [
-  { key: "overview", href: "/overview" },
-  { key: "apiReference", href: "/docs/api" },
-  { key: "maintainers", href: "/docs/maintainers" },
-  { key: "contributing", href: "/docs/contributing" },
-  { key: "privacy", href: "/privacy" },
-  { key: "terms", href: "/terms" },
+  { key: "overview", href: PUBLIC_ROUTES.overview },
+  { key: "apiReference", href: PUBLIC_ROUTES.apiReference },
+  { key: "maintainers", href: PUBLIC_ROUTES.communityGuide },
+  { key: "contributing", href: PUBLIC_ROUTES.contributing },
+  { key: "privacy", href: PUBLIC_ROUTES.privacy },
+  { key: "terms", href: PUBLIC_ROUTES.terms },
 ];
 
 export function DocumentNavigation({

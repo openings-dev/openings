@@ -73,9 +73,10 @@ Key boundaries:
 - `/authors` and `/authors/[handle]` — GitHub-author directory and profiles
 - `/jobs/[id]` — canonical job detail and sharing pages
 - `/design` — production design-system showcase
-- `/overview`, `/docs/*`, `/privacy`, and `/terms` — project documentation
+- `/docs`, `/docs/overview`, `/docs/api`, `/docs/maintainers`, and `/docs/contributing` — project documentation
+- `/privacy` and `/terms` — project policies
 
-The previous `/community`, `/users`, and `/design-system` addresses remain as
+The previous `/overview`, `/community`, `/users`, and `/design-system` addresses remain as
 non-indexable compatibility pages and forward visitors to the canonical routes.
 
 ## Data Source
