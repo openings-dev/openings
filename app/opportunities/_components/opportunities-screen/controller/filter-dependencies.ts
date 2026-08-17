@@ -11,6 +11,10 @@ type OpportunityLocationScope = Pick<
   "repository" | "region" | "country"
 >;
 
+interface NormalizeFilterDependencyOptions {
+  allowLocationWithRepository?: boolean;
+}
+
 function countryBelongsToRegion(
   country: string,
   region: string,
@@ -23,10 +27,14 @@ function countryBelongsToRegion(
 export function normalizeFilterDependencies<TFilters extends OpportunityLocationScope>(
   filters: TFilters,
   registry: RepositoryFilterRegistry | null = null,
+  options: NormalizeFilterDependencyOptions = {},
 ): TFilters {
   const next = { ...filters };
 
-  if (next.repository !== ALL_FILTER_VALUE) {
+  if (
+    next.repository !== ALL_FILTER_VALUE &&
+    !options.allowLocationWithRepository
+  ) {
     next.region = ALL_FILTER_VALUE;
     next.country = ALL_FILTER_VALUE;
     return next;
@@ -48,6 +56,7 @@ export function applyFilterFieldChange<TField extends keyof OpportunityFiltersSt
   field: TField,
   value: OpportunityFiltersState[TField],
   registry: RepositoryFilterRegistry | null = null,
+  options: NormalizeFilterDependencyOptions = {},
 ) {
   if (Object.is(previous[field], value)) {
     return previous;
@@ -68,7 +77,7 @@ export function applyFilterFieldChange<TField extends keyof OpportunityFiltersSt
     next.page = 1;
   }
 
-  return normalizeFilterDependencies(next, registry);
+  return normalizeFilterDependencies(next, registry, options);
 }
 
 export function createFilterFieldChangeHandler(params: {
@@ -90,7 +99,9 @@ export function createFilterFieldChangeHandler(params: {
         return previous;
       }
 
-      return applyFilterFieldChange(previous, field, value, params.registry);
+      return applyFilterFieldChange(previous, field, value, params.registry, {
+        allowLocationWithRepository: Boolean(params.forcedRepository),
+      });
     });
   } satisfies OnFilterFieldChange;
 }

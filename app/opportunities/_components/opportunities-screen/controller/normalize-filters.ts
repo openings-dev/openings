@@ -37,7 +37,9 @@ export function normalizeFilters(
         registry.countries.has(filters.country)
         ? filters.country
         : ALL_FILTER_VALUE,
-  }, registry);
+  }, registry, {
+    allowLocationWithRepository: Boolean(forcedRepository),
+  });
 
   return {
     ...filters,

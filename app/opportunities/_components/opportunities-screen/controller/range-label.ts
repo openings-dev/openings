@@ -2,8 +2,7 @@ import { formatTemplate } from "@/lib/utils/format-template";
 
 interface RangeLabelParams {
   totalCount: number;
-  currentPage: number;
-  itemsPerPage: number;
+  visibleCount: number;
   locale: string;
   zeroResultsLabel: string;
   rangeTemplate: string;
@@ -11,8 +10,7 @@ interface RangeLabelParams {
 
 export function buildRangeLabel({
   totalCount,
-  currentPage,
-  itemsPerPage,
+  visibleCount,
   locale,
   zeroResultsLabel,
   rangeTemplate,
@@ -21,7 +19,7 @@ export function buildRangeLabel({
     return zeroResultsLabel;
   }
 
-  const end = Math.min(currentPage * itemsPerPage, totalCount);
+  const end = Math.min(visibleCount, totalCount);
   return formatTemplate(rangeTemplate, {
     start: (1).toLocaleString(locale),
     end: end.toLocaleString(locale),

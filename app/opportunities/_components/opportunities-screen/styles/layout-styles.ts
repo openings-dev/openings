@@ -4,26 +4,22 @@ export const opportunitiesScreenStyles = "mx-auto flex w-full max-w-[90rem] flex
 
 export const opportunitiesBodyStyles = "grid grid-cols-1 gap-5";
 
-export const opportunitiesSidebarStyles = "hidden";
-
 export const opportunitiesMainStyles = "flex min-w-0 flex-col gap-4";
 
-export const opportunitiesSnapshotStatusStyles = "rounded-xl border-2 border-border bg-[#fdf2aa] px-4 py-3 text-[#231f20] shadow-soft-sm dark:bg-[#645911] dark:text-foreground sm:px-5";
+export const opportunitiesHeaderStyles = "max-w-5xl space-y-3 border-b border-line pb-8 sm:pb-10";
 
-export const opportunitiesHeaderStyles = "max-w-5xl space-y-2.5 rounded-xl border-2 border-border bg-accent p-6 shadow-soft-lg sm:p-8";
+export const opportunitiesKickerStyles = "text-label font-semibold text-primary-deep";
 
-export const opportunitiesKickerStyles = "text-[11px] font-black uppercase tracking-[0.16em] text-accent-foreground";
-
-export const opportunitiesTitleStyles = "font-display text-balance text-3xl font-black leading-[1.04] tracking-[-0.05em] text-foreground sm:text-5xl lg:text-[3.4rem]";
+export const opportunitiesTitleStyles = "font-display text-balance text-page-title font-semibold tracking-[-0.045em] text-foreground";
 
 export const opportunitiesDescriptionStyles = "max-w-2xl text-[15px] leading-6 text-muted-foreground sm:text-base sm:leading-7";
 
-export const panelStyles = "rounded-xl border-2 border-border bg-surface-elevated p-4 shadow-soft-md";
+export const panelStyles = "rounded-floating border border-line bg-surface-elevated p-4 shadow-floating-md";
 
-export const splitViewStyles = cva("grid gap-4", {
+export const splitViewStyles = cva("grid gap-5", {
   variants: {
     open: {
-      true: "xl:grid-cols-[minmax(0,1fr)_minmax(360px,420px)]",
+      true: "xl:grid-cols-[minmax(0,1fr)_minmax(440px,500px)]",
       false: "grid-cols-1",
     },
   },

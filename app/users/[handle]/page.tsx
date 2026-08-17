@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { OpportunitiesPage } from "@/app/opportunities/_components/opportunities-page";
+import { ShareableProfileKind } from "@/app/opportunities/_components/opportunities-screen/types";
 import {
   authorHandleFromRoute,
   buildUserPath,
@@ -9,13 +10,13 @@ import {
   getSnapshotUserByHandle,
   listSnapshotUsers,
 } from "@/lib/opportunities/users";
+import { createPublisherProfileMetadata } from "@/lib/metadata/profile-metadata";
 import { loadSafely } from "@/lib/utils/load-safely";
 
 interface UserProfilePageProps {
   params: Promise<{ handle: string }>;
 }
 
-export const revalidate = 10800;
 export const dynamicParams = false;
 
 export async function generateStaticParams(): Promise<Array<{ handle: string }>> {
@@ -24,61 +25,38 @@ export async function generateStaticParams(): Promise<Array<{ handle: string }>>
 }
 
 async function resolveUserProfile(params: UserProfilePageProps["params"]) {
-  const { handle } = await params;
-  return loadSafely({
-    load: () => getSnapshotUserByHandle(authorHandleFromRoute(handle)),
+  const { handle: routeHandle } = await params;
+  const handle = authorHandleFromRoute(routeHandle);
+  const profile = await loadSafely({
+    load: () => getSnapshotUserByHandle(handle),
     defaultValue: null,
   });
+
+  return { profile, handle };
 }
 
 export async function generateMetadata({
   params,
 }: UserProfilePageProps): Promise<Metadata> {
-  const profile = await resolveUserProfile(params);
+  const { profile, handle } = await resolveUserProfile(params);
 
-  if (!profile) {
-    return {
-      title: "Publisher profile",
-      description: "Browse technology opportunities shared by a community publisher.",
-    };
-  }
-
-  const title = `Opportunities shared by ${profile.name}`;
-  const description = `Browse open roles shared by @${profile.handle} across public GitHub community repositories.`;
-  const canonical = buildUserPath(profile.handle);
-
-  return {
-    title,
-    description,
-    alternates: { canonical },
-    openGraph: {
-      type: "profile",
-      title,
-      description,
-      url: canonical,
-      siteName: "openings.dev",
-      images: profile.avatarUrl ? [{ url: profile.avatarUrl, alt: profile.name }] : undefined,
-    },
-    twitter: {
-      card: "summary",
-      title,
-      description,
-      images: profile.avatarUrl ? [profile.avatarUrl] : undefined,
-    },
-  };
+  return createPublisherProfileMetadata({
+    profile,
+    handle,
+    path: buildUserPath(profile?.handle ?? handle),
+  });
 }
 
 export default async function UserProfilePage({
   params,
 }: UserProfilePageProps): Promise<React.ReactNode> {
-  const profile = await resolveUserProfile(params);
+  const { profile } = await resolveUserProfile(params);
 
   if (!profile) notFound();
 
   return (
     <OpportunitiesPage
-      forcedAuthor={profile.handle}
-      forcedAuthorProfile={profile}
+      profile={{ kind: ShareableProfileKind.Publisher, profile }}
     />
   );
 }

@@ -1,17 +1,29 @@
 import type { OpportunitySalary } from "@/lib/opportunities/types";
+import { formatTemplate } from "@/lib/utils/format-template";
 
-interface PeriodLabels {
+interface SalaryLabels {
   month: string;
   year: string;
   hour: string;
+  from: string;
+  upTo: string;
+  range: string;
 }
 
 export function formatSalary(
   salary: OpportunitySalary | undefined,
   locale: string,
-  periodLabels: PeriodLabels,
+  labels: SalaryLabels,
 ) {
-  if (!salary || (!salary.min && !salary.max)) {
+  const minimum = salary?.min;
+  const maximum = salary?.max;
+  const hasMinimum = typeof minimum === "number" && Number.isFinite(minimum) && minimum >= 0;
+  const hasMaximum = typeof maximum === "number" && Number.isFinite(maximum) && maximum >= 0;
+
+  if (!salary || (!hasMinimum && !hasMaximum)) {
+    return "";
+  }
+  if (hasMinimum && hasMaximum && minimum > maximum) {
     return "";
   }
 
@@ -20,15 +32,25 @@ export function formatSalary(
     currency: salary.currency,
     maximumFractionDigits: 0,
   });
-  const period = periodLabels[salary.period];
+  const period = labels[salary.period];
 
-  if (salary.min && salary.max) {
-    return `${formatter.format(salary.min)} – ${formatter.format(salary.max)} / ${period}`;
+  if (hasMinimum && hasMaximum) {
+    return formatTemplate(labels.range, {
+      minimum: formatter.format(minimum),
+      maximum: formatter.format(maximum),
+      period,
+    });
   }
 
-  if (salary.min) {
-    return `${formatter.format(salary.min)}+ / ${period}`;
+  if (hasMinimum) {
+    return formatTemplate(labels.from, {
+      amount: formatter.format(minimum),
+      period,
+    });
   }
 
-  return `${formatter.format(salary.max ?? 0)} / ${period}`;
+  return formatTemplate(labels.upTo, {
+    amount: formatter.format(maximum!),
+    period,
+  });
 }

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { openingsDataRepositoryUrl } from "@/lib/opportunities/static-api";
+import { openingsDataRepositoryUrl } from "@/lib/opportunities/data-source";
 
 interface RepositoryCatalogEntry {
   repository: string;

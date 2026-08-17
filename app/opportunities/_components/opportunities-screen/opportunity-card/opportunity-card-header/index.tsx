@@ -1,21 +1,37 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { OpportunityViewMode } from "@/app/opportunities/_components/opportunities-screen/types";
+import { cn } from "@/lib/utils/tailwind";
 
 interface OpportunityCardHeaderProps {
   title: string;
   excerpt: string;
+  titleId: string;
+  viewMode: OpportunityViewMode;
 }
 
 export function OpportunityCardHeader({
   title,
   excerpt,
-}: OpportunityCardHeaderProps) {
+  titleId,
+  viewMode,
+}: OpportunityCardHeaderProps): React.ReactNode {
+  const isList = viewMode === OpportunityViewMode.List;
+
   return (
     <div className="space-y-2">
-      <p className="font-display text-lg font-black leading-snug tracking-[-0.035em] text-foreground sm:text-xl">
+      <h3
+        id={titleId}
+        className="font-display text-card-title font-semibold tracking-[-0.025em] text-foreground sm:text-xl"
+      >
         {title}
-      </p>
-      <div className="line-clamp-2 max-w-[62ch] text-sm leading-5.5 text-muted-foreground">
+      </h3>
+      <div
+        className={cn(
+          "max-w-[62ch] text-sm leading-5.5 text-muted-foreground",
+          isList ? "line-clamp-2" : "line-clamp-3",
+        )}
+      >
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           components={{

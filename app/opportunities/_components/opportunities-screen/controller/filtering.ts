@@ -4,11 +4,12 @@ import {
   type OpportunityFiltersState,
   type OpportunityItem,
 } from "@/app/opportunities/_components/opportunities-screen/types";
+import { normalizeOpportunitySearchText } from "@/lib/opportunities/index-operations";
 import { canonicalTagValue } from "./tag-normalization";
 
 export function matchesSearch(opportunity: OpportunityItem, searchText: string) {
   if (!searchText.trim()) return true;
-  const query = searchText.trim().toLowerCase();
+  const query = normalizeOpportunitySearchText(searchText);
   const searchableText = [
     opportunity.title,
     opportunity.excerpt,
@@ -22,9 +23,9 @@ export function matchesSearch(opportunity: OpportunityItem, searchText: string) 
     opportunity.tags.join(" "),
   ]
     .filter(Boolean)
-    .join(" ")
-    .toLowerCase();
-  return searchableText.includes(query);
+    .join(" ");
+  const normalizedSearchableText = normalizeOpportunitySearchText(searchableText);
+  return normalizedSearchableText.includes(query);
 }
 
 export function getFilteredOpportunities(

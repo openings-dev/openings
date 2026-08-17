@@ -2,13 +2,8 @@
 
 import * as React from "react";
 import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
-import { panelStyles, resultsGridStyles } from "@/app/opportunities/_components/opportunities-screen/styles";
-import { formatTemplate } from "@/lib/utils/format-template";
-import { cn } from "@/lib/utils/tailwind";
-import {
-  OpportunityViewMode,
-  type OpportunitiesListProps,
-} from "@/app/opportunities/_components/opportunities-screen/types";
+import { resultsGridStyles } from "@/app/opportunities/_components/opportunities-screen/styles";
+import type { OpportunitiesListProps } from "@/app/opportunities/_components/opportunities-screen/types";
 import { EmptyState } from "./empty-state";
 import { ListFooter } from "./list-footer";
 import { OpportunitySkeleton } from "./opportunity-skeleton";
@@ -19,12 +14,11 @@ export function OpportunitiesList({
   viewMode,
   selectedOpportunityId,
   isLoading,
+  hasLoadError,
+  hasLoadMoreError,
   isFetchingMore,
   hasMore,
   hasActiveFilters,
-  rangeLabel,
-  currentPage,
-  totalPages,
   skeletonCount,
   onLoadMore,
   onClearFilters,
@@ -33,8 +27,8 @@ export function OpportunitiesList({
   onAuthorSelect,
   hideCommunityIdentity,
   hideAuthorIdentity,
-}: OpportunitiesListProps) {
-  const { locale, messages } = useI18n();
+}: OpportunitiesListProps): React.ReactNode {
+  const { messages } = useI18n();
   const listMessages = messages.opportunities.list;
   const sentinelRef = React.useRef<HTMLDivElement | null>(null);
 
@@ -60,14 +54,34 @@ export function OpportunitiesList({
   }, [hasMore, isFetchingMore, isLoading, onLoadMore]);
 
   return (
-    <section className={cn(panelStyles, "space-y-4 p-3 sm:p-4")}>
-      <p className="font-tabular px-1 text-xs font-medium text-subtle-foreground">{rangeLabel}</p>
-
+    <section
+      className="space-y-4"
+      aria-labelledby="opportunity-results-heading"
+      aria-busy={isLoading || isFetchingMore}
+    >
+      <h2 id="opportunity-results-heading" className="sr-only">
+        {messages.opportunities.header.opportunitiesLabel}
+      </h2>
+      <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+        {isLoading
+          ? listMessages.loading
+          : isFetchingMore
+            ? listMessages.loadingMore
+            : ""}
+      </p>
       {isLoading ? (
         <div className={resultsGridStyles({ viewMode })}>
           {Array.from({ length: skeletonCount }).map((_, index) => (
-            <OpportunitySkeleton key={`skeleton-${index}`} compact={viewMode === OpportunityViewMode.Grid} />
+            <OpportunitySkeleton key={`skeleton-${index}`} viewMode={viewMode} />
           ))}
+        </div>
+      ) : hasLoadError ? (
+        <div className="rounded-card border border-line bg-surface-muted px-5 py-8 text-center text-sm text-muted-foreground" role="alert">
+          {messages.opportunities.feedback.loadError}
+        </div>
+      ) : hasLoadMoreError && items.length === 0 ? (
+        <div className="rounded-card border border-line bg-surface-muted px-5 py-8 text-center text-sm text-muted-foreground" role="alert">
+          {messages.opportunities.feedback.partialLoadError}
         </div>
       ) : items.length === 0 ? (
         <EmptyState
@@ -97,14 +111,12 @@ export function OpportunitiesList({
           <ListFooter
             viewMode={viewMode}
             hasMore={hasMore}
+            hasLoadMoreError={hasLoadMoreError}
             isFetchingMore={isFetchingMore}
-            loadedPageLabel={formatTemplate(listMessages.loadedPage, {
-              page: currentPage.toLocaleString(locale),
-              totalPages: totalPages.toLocaleString(locale),
-            })}
             scrollToLoadMoreLabel={listMessages.scrollToLoadMore}
             allResultsLoadedLabel={listMessages.allResultsLoaded}
             loadingMoreLabel={listMessages.loadingMore}
+            partialLoadErrorLabel={messages.opportunities.feedback.partialLoadError}
             skeletonCount={skeletonCount}
           />
           <div ref={sentinelRef} className="h-px w-full" aria-hidden />

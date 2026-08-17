@@ -18,7 +18,7 @@ export function ViewModeToggle({ value, onChange }: ViewModeToggleProps): React.
 
   return (
     <div
-      className={toggleGroupStyles}
+      className={cn(toggleGroupStyles, "hidden md:inline-flex")}
       role="group"
       aria-label={viewModeMessages.ariaLabel}
     >
@@ -28,7 +28,7 @@ export function ViewModeToggle({ value, onChange }: ViewModeToggleProps): React.
         onClick={() => onChange(OpportunityViewMode.List)}
         aria-pressed={value === OpportunityViewMode.List}
       >
-        <Rows3 className="size-4" />
+        <Rows3 className="size-4" aria-hidden="true" />
         {viewModeMessages.list}
       </button>
       <button
@@ -37,7 +37,7 @@ export function ViewModeToggle({ value, onChange }: ViewModeToggleProps): React.
         onClick={() => onChange(OpportunityViewMode.Grid)}
         aria-pressed={value === OpportunityViewMode.Grid}
       >
-        <LayoutGrid className="size-4" />
+        <LayoutGrid className="size-4" aria-hidden="true" />
         {viewModeMessages.grid}
       </button>
     </div>

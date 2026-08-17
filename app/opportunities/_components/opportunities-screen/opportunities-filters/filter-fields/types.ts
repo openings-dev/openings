@@ -5,31 +5,23 @@ export interface FilterFieldsLabels {
   scopeSectionLabel: string;
   taxonomySectionLabel: string;
   displaySectionLabel: string;
-  searchLabel: string;
-  searchPlaceholder: string;
   repositoryLabel: string;
   repositoryPlaceholder: string;
   allRepositories: string;
   regionLabel: string;
   regionPlaceholder: string;
   allRegions: string;
-  countryLabel: string;
-  countryPlaceholder: string;
-  allCountries: string;
   workModeLabel: string;
   workModePlaceholder: string;
-  stackLabel: string;
-  stackPlaceholder: string;
   seniorityLabel: string;
   seniorityPlaceholder: string;
   otherTagsLabel: string;
   otherTagsPlaceholder: string;
-  tagsLabel: string;
-  tagsPlaceholder: string;
   noTagsSelected: string;
   authorLabel: string;
   authorPlaceholder: string;
   noAuthorsSelected: string;
+  removeFilter: string;
   itemsPerPageLabel: string;
   itemsPerPagePlaceholder: string;
   itemsPerPageOption: string;
@@ -40,10 +32,9 @@ export interface FilterFieldsLabels {
 }
 
 export interface FilterFieldsProps extends OpportunitiesFiltersProps {
-  advancedOnly?: boolean;
+  locale: string;
   labels: FilterFieldsLabels;
-  tagPickerVersion: number;
-  authorPickerVersion: number;
+  portalContainer?: HTMLElement | null;
   onTagSelected: (tag: string) => void;
   onAuthorSelected: (authorHandle: string) => void;
 }

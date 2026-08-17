@@ -1,16 +1,22 @@
 "use client";
 
 import * as React from "react";
+import { Building2 } from "lucide-react";
 import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
+import { Avatar } from "@/components/ui/avatar";
 import { formatSalary } from "@/app/opportunities/_components/opportunities-screen/shared/format-salary";
-import { formatTemplate } from "@/lib/utils/format-template";
 import { cn } from "@/lib/utils/tailwind";
+import { formatTemplate } from "@/lib/utils/format-template";
 import { opportunityCardStyles } from "@/app/opportunities/_components/opportunities-screen/styles";
-import type { OpportunityCardProps } from "@/app/opportunities/_components/opportunities-screen/types";
+import {
+  OpportunityViewMode,
+  type OpportunityCardProps,
+} from "@/app/opportunities/_components/opportunities-screen/types";
 import { OpportunityCardFooter } from "./opportunity-card-footer";
 import { OpportunityCardHeader } from "./opportunity-card-header";
 import { OpportunityCardMeta } from "./opportunity-card-meta";
 import { OpportunityCardTags } from "./opportunity-card-tags";
+import { getOpportunityDetailsElementIds } from "./trigger-contract";
 
 export function OpportunityCard({
   item,
@@ -25,15 +31,25 @@ export function OpportunityCard({
   const { locale, messages } = useI18n();
   const cardMessages = messages.opportunities.card;
   const dateFormatter = React.useMemo(
-    () => new Intl.DateTimeFormat(locale, { dateStyle: "medium" }),
+    () => new Intl.DateTimeFormat(locale, {
+      dateStyle: "medium",
+      timeZone: "UTC",
+    }),
     [locale],
   );
   const salaryLabel = formatSalary(item.salary, locale, {
     month: cardMessages.salaryPeriodMonth,
     year: cardMessages.salaryPeriodYear,
     hour: cardMessages.salaryPeriodHour,
+    from: cardMessages.salaryFrom,
+    upTo: cardMessages.salaryUpTo,
+    range: cardMessages.salaryRange,
   });
   const showCommunity = !hideCommunityIdentity;
+  const showContext = showCommunity || Boolean(item.companyName);
+  const isList = viewMode === OpportunityViewMode.List;
+  const titleId = React.useId();
+  const detailsElementIds = getOpportunityDetailsElementIds(item.id);
   const handleCommunityClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     event.preventDefault();
@@ -41,61 +57,91 @@ export function OpportunityCard({
   };
 
   return (
-    <article className={cn(opportunityCardStyles({ viewMode, selected: isSelected }))}>
+    <article
+      className={cn(opportunityCardStyles({ viewMode, selected: isSelected }))}
+      aria-labelledby={titleId}
+    >
       <button
         type="button"
-        className="absolute inset-0 z-10 rounded-xl focus-visible:outline-none"
-        aria-label={`${cardMessages.detailsLabel}: ${item.title}`}
-        aria-pressed={isSelected}
+        data-opportunity-trigger={item.id}
+        className="absolute inset-0 z-10 rounded-card focus-visible:outline-none"
+        aria-label={formatTemplate(cardMessages.openDetailsAriaLabel, {
+          title: item.title,
+        })}
+        aria-expanded={isSelected}
+        aria-controls={`${detailsElementIds.panel} ${detailsElementIds.dialog}`}
         onClick={() => onSelectOpportunity(item)}
       />
-      <div className="pointer-events-none relative flex h-full flex-col gap-3">
-        <div className="flex min-w-0 items-start gap-3">
-          {showCommunity ? (
-            <button
-              type="button"
-              className="pointer-events-auto relative z-20 mt-0.5 shrink-0 rounded-full transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-card"
-              onClick={handleCommunityClick}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={item.community.avatarUrl}
-                alt={formatTemplate(cardMessages.communityAvatarAlt, {
-                  name: item.community.name,
-                })}
-                className="size-9 rounded-full border-2 border-border bg-muted object-cover"
-              />
-            </button>
-          ) : null}
-          <div className="min-w-0 flex-1 space-y-1.5">
-            {showCommunity ? (
-              <button
-                type="button"
-                className="pointer-events-auto relative z-20 block max-w-full truncate text-xs text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                onClick={handleCommunityClick}
-              >
-                {item.community.repository}
-              </button>
+      <div className="pointer-events-none relative flex h-full flex-col gap-4">
+        <div
+          className={cn(
+            "min-w-0 gap-4",
+            isList
+              ? "grid lg:grid-cols-[minmax(0,1.35fr)_minmax(15rem,0.65fr)] lg:items-start"
+              : "flex flex-1 flex-col",
+          )}
+        >
+          <div className="min-w-0 space-y-3">
+            {showContext ? (
+              <div className="flex min-h-8 min-w-0 flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                {showCommunity ? (
+                  <button
+                    type="button"
+                    className="pointer-events-auto relative z-20 -my-1.5 inline-flex min-h-11 min-w-0 items-center gap-2 rounded-control px-1.5 font-medium text-foreground transition-colors hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    aria-label={formatTemplate(cardMessages.showCommunityJobs, {
+                      name: item.community.name || item.repository,
+                    })}
+                    onClick={handleCommunityClick}
+                  >
+                    <Avatar
+                      src={item.community.avatarUrl}
+                      fallback={item.community.name || item.repository}
+                      width={28}
+                      height={28}
+                      className="size-7 text-[0.6875rem]"
+                    />
+                    <span className="truncate">{item.community.name}</span>
+                  </button>
+                ) : null}
+                {item.companyName ? (
+                  <span className="inline-flex min-w-0 items-center gap-1.5">
+                    <Building2 className="size-3.5 shrink-0" aria-hidden="true" />
+                    <span className="truncate">{item.companyName}</span>
+                  </span>
+                ) : null}
+              </div>
             ) : null}
-            <OpportunityCardHeader title={item.title} excerpt={item.excerpt} />
+            <OpportunityCardHeader
+              title={item.title}
+              excerpt={item.excerpt}
+              titleId={titleId}
+              viewMode={viewMode}
+            />
+          </div>
+
+          <div className={cn("space-y-3", !isList && "mt-auto pt-2")}>
+            <OpportunityCardMeta item={item} salaryLabel={salaryLabel} locale={locale} />
+            <OpportunityCardTags
+              tags={item.tags}
+              viewMode={viewMode}
+              locale={locale}
+              moreTagLabel={cardMessages.moreTag}
+              moreTagsLabel={cardMessages.moreTags}
+            />
           </div>
         </div>
-        <OpportunityCardTags tags={item.tags} />
-        <OpportunityCardMeta
-          item={item}
-          salaryLabel={salaryLabel}
-          dateLabel={dateFormatter.format(new Date(item.createdAt))}
-          showRepository={!hideCommunityIdentity}
-        />
-        <div className="pointer-events-auto relative z-20">
+
+        <div className="pointer-events-none relative z-20">
           <OpportunityCardFooter
             item={item}
-            communityAvatarAltTemplate={cardMessages.communityAvatarAlt}
-            authorAvatarAltTemplate={cardMessages.authorAvatarAlt}
-            onCommunitySelect={onCommunitySelect}
+            dateLabel={dateFormatter.format(new Date(item.createdAt))}
+            detailsLabel={cardMessages.viewDetails}
+            authorActionLabel={formatTemplate(cardMessages.showAuthorJobs, {
+              handle: item.author.handle,
+            })}
             onAuthorSelect={onAuthorSelect}
-            showCommunityIdentity={false}
             showAuthorIdentity={!hideAuthorIdentity}
+            showRepository={!hideCommunityIdentity}
           />
         </div>
       </div>

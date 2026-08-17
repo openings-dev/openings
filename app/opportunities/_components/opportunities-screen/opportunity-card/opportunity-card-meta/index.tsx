@@ -1,54 +1,52 @@
 import {
-  Building2,
-  CalendarDays,
-  Landmark,
   MapPin,
   Wallet,
 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import {
+  classifyOpportunityTags,
+  OPPORTUNITY_TAG_BADGE_TONES,
+} from "@/app/opportunities/_components/opportunities-screen/controller/tag-categories";
+import { canonicalTagLabel } from "@/app/opportunities/_components/opportunities-screen/controller/tag-labels";
 import { metadataRowStyles } from "@/app/opportunities/_components/opportunities-screen/styles";
 import type { OpportunityItem } from "@/app/opportunities/_components/opportunities-screen/types";
 
 interface OpportunityCardMetaProps {
   item: OpportunityItem;
   salaryLabel: string;
-  dateLabel: string;
-  showRepository?: boolean;
+  locale: string;
 }
 
 export function OpportunityCardMeta({
   item,
   salaryLabel,
-  dateLabel,
-  showRepository = true,
-}: OpportunityCardMetaProps) {
+  locale,
+}: OpportunityCardMetaProps): React.ReactNode {
+  const { workModel } = classifyOpportunityTags(item.tags);
+
   return (
     <div className={metadataRowStyles}>
       {salaryLabel ? (
-        <span className="inline-flex items-center gap-1 rounded-md border-2 border-border bg-accent px-2 py-1 font-black text-accent-foreground">
-          <Wallet className="size-3.5 text-primary" />
+        <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground">
+          <Wallet className="size-4 text-positive-foreground" aria-hidden="true" />
           {salaryLabel}
         </span>
       ) : null}
-      {item.companyName ? (
-        <span className="inline-flex items-center gap-1">
-          <Building2 className="size-3.5" />
-          {item.companyName}
+      {workModel.slice(0, 1).map((tag) => (
+        <Badge
+          key={`${tag.canonicalValue}-${tag.value}`}
+          tone={OPPORTUNITY_TAG_BADGE_TONES[tag.category]}
+          size="compact"
+        >
+          {canonicalTagLabel(tag.canonicalValue, tag.value, locale)}
+        </Badge>
+      ))}
+      {item.country ? (
+        <span className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
+          <MapPin className="size-4" aria-hidden="true" />
+          {item.country}
         </span>
       ) : null}
-      {showRepository ? (
-        <span className="inline-flex items-center gap-1">
-          <Landmark className="size-3.5" />
-          {item.community.repository}
-        </span>
-      ) : null}
-      <span className="inline-flex items-center gap-1">
-        <MapPin className="size-3.5" />
-        {item.country}
-      </span>
-      <span className="inline-flex items-center gap-1">
-          <CalendarDays className="size-3.5" />
-          {dateLabel}
-      </span>
     </div>
   );
 }

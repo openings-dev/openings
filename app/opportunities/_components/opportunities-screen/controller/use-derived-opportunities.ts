@@ -64,15 +64,13 @@ export function useDerivedOpportunities(params: UseDerivedOpportunitiesParams) {
     () =>
       buildRangeLabel({
         totalCount,
-        currentPage,
-        itemsPerPage: normalizedFilters.itemsPerPage,
+        visibleCount: visibleOpportunities.length,
         locale: params.locale,
         zeroResultsLabel: params.rangeMessages.zeroResults,
         rangeTemplate: params.rangeMessages.rangeOfTotal,
       }),
     [
-      currentPage,
-      normalizedFilters.itemsPerPage,
+      visibleOpportunities.length,
       params.locale,
       params.rangeMessages.rangeOfTotal,
       params.rangeMessages.zeroResults,

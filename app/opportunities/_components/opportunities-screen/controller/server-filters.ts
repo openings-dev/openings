@@ -49,5 +49,7 @@ export function buildServerFilters(
     searchText: filters.searchText.trim(),
     tags: [...new Set(filters.tags.map((tag) => canonicalTagValue(tag)).filter(Boolean))],
     authors: forcedAuthor ? [forcedAuthor] : uniqueValues(filters.authors),
-  }, registry);
+  }, registry, {
+    allowLocationWithRepository: Boolean(forcedRepository),
+  });
 }

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { toast } from "sonner";
 import {
   fetchOpportunitiesPage,
   type OpportunityServerFilters,
@@ -16,8 +15,14 @@ import {
 interface UseRemoteOpportunitiesParams {
   serverFilters: OpportunityServerFilters;
   enabled: boolean;
-  messages: { loadError: string; rateLimited: string; loadMoreError: string };
   onBeforeReload: () => void;
+}
+
+interface InFlightLoadMoreRequest {
+  id: number;
+  cursor: string;
+  filtersKey: string;
+  controller: AbortController;
 }
 
 function itemMatchesServerFilters(
@@ -58,7 +63,6 @@ function resolveRemoteFilteredCount(
 export function useRemoteOpportunities({
   serverFilters,
   enabled,
-  messages,
   onBeforeReload,
 }: UseRemoteOpportunitiesParams) {
   const [opportunities, setOpportunities] = React.useState<OpportunityItem[]>([]);
@@ -70,9 +74,14 @@ export function useRemoteOpportunities({
   const [nextCursor, setNextCursor] = React.useState<string | null>(null);
   const [hasMoreRemote, setHasMoreRemote] = React.useState(true);
   const [isLoading, setIsLoading] = React.useState(true);
+  const [settledFiltersKey, setSettledFiltersKey] = React.useState<string | null>(null);
+  const [failedFiltersKey, setFailedFiltersKey] = React.useState<string | null>(null);
+  const [hasLoadMoreError, setHasLoadMoreError] = React.useState(false);
   const [isFetchingMore, setIsFetchingMore] = React.useState(false);
+  const opportunitiesRef = React.useRef<OpportunityItem[]>([]);
   const fetchAbortRef = React.useRef<AbortController | null>(null);
-  const inFlightCursorRef = React.useRef<string | null>(null);
+  const loadMoreRequestRef = React.useRef<InFlightLoadMoreRequest | null>(null);
+  const loadMoreRequestSequenceRef = React.useRef(0);
   const exhaustedCursorsRef = React.useRef(new Set<string>());
   const previousFiltersKeyRef = React.useRef<string | null>(null);
   const activeFiltersKeyRef = React.useRef<string | null>(null);
@@ -95,20 +104,23 @@ export function useRemoteOpportunities({
     activeFiltersKeyRef.current = serverFiltersKey;
     fetchAbortRef.current?.abort();
     fetchAbortRef.current = controller;
+    loadMoreRequestRef.current?.controller.abort();
+    loadMoreRequestRef.current = null;
 
     queueMicrotask(() => {
       if (controller.signal.aborted) return;
       setIsLoading(true);
       setIsFetchingMore(false);
+      setHasLoadMoreError(false);
       setHasMoreRemote(true);
       setNextCursor(null);
+      opportunitiesRef.current = [];
       setOpportunities([]);
       setFacetCounts(null);
       setFilteredCount(null);
       setTotalCount(null);
       setSnapshotGeneratedAt(null);
       setLastUpdatedAt(null);
-      inFlightCursorRef.current = null;
       exhaustedCursorsRef.current.clear();
 
       if (shouldRunBeforeReload) {
@@ -123,6 +135,7 @@ export function useRemoteOpportunities({
     })
       .then((payload) => {
         if (controller.signal.aborted) return;
+        opportunitiesRef.current = payload.items;
         setOpportunities(payload.items);
         setFacetCounts(payload.meta.facets);
         setFilteredCount(
@@ -135,24 +148,28 @@ export function useRemoteOpportunities({
         setTotalCount(payload.meta.totalCount);
         setSnapshotGeneratedAt(payload.meta.snapshotGeneratedAt);
         setLastUpdatedAt(payload.meta.lastUpdatedAt);
-        setNextCursor(payload.rateLimited ? null : payload.nextCursor);
-        setHasMoreRemote(payload.rateLimited ? false : payload.hasMore);
-        if (payload.rateLimited) toast.error(messages.rateLimited);
+        const missingNextCursor = payload.hasMore && !payload.nextCursor;
+        const hasPartialLoadError = payload.rateLimited || missingNextCursor;
+        setNextCursor(hasPartialLoadError ? null : payload.nextCursor);
+        setHasMoreRemote(hasPartialLoadError ? false : payload.hasMore);
+        setHasLoadMoreError(hasPartialLoadError);
+        setFailedFiltersKey(null);
+        setSettledFiltersKey(serverFiltersKey);
       })
       .catch(() => {
         if (controller.signal.aborted) return;
         setHasMoreRemote(false);
-        toast.error(messages.loadError);
+        setFailedFiltersKey(serverFiltersKey);
       })
       .finally(() => {
-        if (!controller.signal.aborted) setIsLoading(false);
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
       });
 
     return () => controller.abort();
   }, [
     enabled,
-    messages.loadError,
-    messages.rateLimited,
     onBeforeReload,
     serverFilters,
     serverFiltersKey,
@@ -161,24 +178,35 @@ export function useRemoteOpportunities({
   const loadMoreFromApi = React.useCallback(async () => {
     if (!nextCursor || !hasMoreRemote) return false;
     const requestedCursor = nextCursor;
-    if (inFlightCursorRef.current === requestedCursor) return false;
+    if (loadMoreRequestRef.current) return false;
     if (exhaustedCursorsRef.current.has(requestedCursor)) return false;
 
-    inFlightCursorRef.current = requestedCursor;
     const requestFiltersKey = serverFiltersKey;
+    const controller = new AbortController();
+    const request: InFlightLoadMoreRequest = {
+      id: ++loadMoreRequestSequenceRef.current,
+      cursor: requestedCursor,
+      filtersKey: requestFiltersKey,
+      controller,
+    };
+    loadMoreRequestRef.current = request;
+    setIsFetchingMore(true);
 
     try {
       const payload = await fetchOpportunitiesPage(serverFilters, {
         cursor: requestedCursor,
         limit: LOAD_MORE_BATCH_SIZE,
+        signal: controller.signal,
       });
-      if (activeFiltersKeyRef.current !== requestFiltersKey) return false;
-      let hasNewItems = false;
-      setOpportunities((previous) => {
-        const merged = dedupeOpportunities([...previous, ...payload.items]);
-        hasNewItems = merged.length > previous.length;
-        return merged;
-      });
+      if (
+        controller.signal.aborted ||
+        activeFiltersKeyRef.current !== requestFiltersKey
+      ) return false;
+      const previous = opportunitiesRef.current;
+      const merged = dedupeOpportunities([...previous, ...payload.items]);
+      const hasNewItems = merged.length > previous.length;
+      opportunitiesRef.current = merged;
+      setOpportunities(merged);
       setFacetCounts(payload.meta.facets);
       setFilteredCount(
         resolveRemoteFilteredCount(
@@ -192,29 +220,37 @@ export function useRemoteOpportunities({
       setLastUpdatedAt(payload.meta.lastUpdatedAt);
       const nextCursorValue = payload.rateLimited ? null : payload.nextCursor;
       const stalledCursor = nextCursorValue !== null && nextCursorValue === requestedCursor;
+      const missingNextCursor = payload.hasMore && !nextCursorValue;
+      const hasPartialLoadError =
+        payload.rateLimited || stalledCursor || missingNextCursor;
       const canContinue = !payload.rateLimited &&
         payload.hasMore &&
         Boolean(nextCursorValue) &&
         !stalledCursor;
       setNextCursor(canContinue ? nextCursorValue : null);
       setHasMoreRemote(canContinue);
-      if (!canContinue) exhaustedCursorsRef.current.add(requestedCursor);
-      if (payload.rateLimited) toast.error(messages.rateLimited);
+      setHasLoadMoreError(hasPartialLoadError);
+      if (!canContinue && !hasPartialLoadError) {
+        exhaustedCursorsRef.current.add(requestedCursor);
+      }
       return hasNewItems;
     } catch {
+      if (
+        controller.signal.aborted ||
+        activeFiltersKeyRef.current !== requestFiltersKey
+      ) return false;
       setHasMoreRemote(false);
-      exhaustedCursorsRef.current.add(requestedCursor);
-      toast.error(messages.loadMoreError);
+      setNextCursor(null);
+      setHasLoadMoreError(true);
       return false;
     } finally {
-      if (inFlightCursorRef.current === requestedCursor) {
-        inFlightCursorRef.current = null;
+      if (loadMoreRequestRef.current?.id === request.id) {
+        loadMoreRequestRef.current = null;
+        setIsFetchingMore(false);
       }
     }
   }, [
     hasMoreRemote,
-    messages.loadMoreError,
-    messages.rateLimited,
     nextCursor,
     serverFilters,
     serverFiltersKey,
@@ -229,9 +265,14 @@ export function useRemoteOpportunities({
     lastUpdatedAt,
     nextCursor,
     hasMoreRemote,
-    isLoading,
+    isLoading:
+      !enabled ||
+      (settledFiltersKey !== serverFiltersKey &&
+        failedFiltersKey !== serverFiltersKey) ||
+      isLoading,
+    hasLoadError: failedFiltersKey === serverFiltersKey,
+    hasLoadMoreError,
     isFetchingMore,
-    setIsFetchingMore,
     loadMoreFromApi,
   };
 }

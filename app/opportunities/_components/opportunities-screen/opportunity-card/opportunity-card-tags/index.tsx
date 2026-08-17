@@ -1,28 +1,65 @@
-import { chipStyles } from "@/app/opportunities/_components/opportunities-screen/styles";
+import { Badge } from "@/components/ui/badge";
+import {
+  classifyOpportunityTags,
+  OPPORTUNITY_TAG_BADGE_TONES,
+} from "@/app/opportunities/_components/opportunities-screen/controller/tag-categories";
+import { canonicalTagLabel } from "@/app/opportunities/_components/opportunities-screen/controller/tag-labels";
+import { OpportunityViewMode } from "@/app/opportunities/_components/opportunities-screen/types";
+import { formatTemplate } from "@/lib/utils/format-template";
 
 interface OpportunityCardTagsProps {
   tags: string[];
+  viewMode: OpportunityViewMode;
+  locale: string;
+  moreTagLabel: string;
+  moreTagsLabel: string;
 }
 
-export function OpportunityCardTags({ tags }: OpportunityCardTagsProps): React.ReactNode {
-  if (tags.length === 0) {
+export function OpportunityCardTags({
+  tags,
+  viewMode,
+  locale,
+  moreTagLabel,
+  moreTagsLabel,
+}: OpportunityCardTagsProps): React.ReactNode {
+  const classified = classifyOpportunityTags(tags);
+  const supportingTags = [
+    ...classified.workModel.slice(1),
+    ...classified.seniority,
+    ...classified.stack,
+    ...classified.other,
+  ];
+
+  if (supportingTags.length === 0) {
     return null;
   }
 
-  const visibleTags = tags.slice(0, 3);
-  const overflowCount = tags.length - visibleTags.length;
+  const visibleLimit = viewMode === OpportunityViewMode.List ? 2 : 3;
+  const visibleTags = supportingTags.slice(0, visibleLimit);
+  const overflowCount = supportingTags.length - visibleTags.length;
+  const formattedOverflowCount = overflowCount.toLocaleString(locale);
 
   return (
     <div className="flex flex-wrap gap-1.5">
-      {visibleTags.map((tag) => (
-        <span key={tag} className={chipStyles({ active: false })}>
-          {tag}
-        </span>
+      {visibleTags.map((tag, index) => (
+        <Badge
+          key={`${tag.canonicalValue}-${tag.value}-${index}`}
+          tone={OPPORTUNITY_TAG_BADGE_TONES[tag.category]}
+          size="compact"
+        >
+          {canonicalTagLabel(tag.canonicalValue, tag.value, locale)}
+        </Badge>
       ))}
       {overflowCount > 0 ? (
-        <span className="inline-flex items-center rounded-md border-2 border-border bg-accent px-2 py-0.5 text-xs font-black text-accent-foreground">
-          +{overflowCount}
-        </span>
+        <Badge
+          tone="neutral"
+          size="compact"
+          aria-label={overflowCount === 1
+            ? moreTagLabel
+            : formatTemplate(moreTagsLabel, { count: formattedOverflowCount })}
+        >
+          +{formattedOverflowCount}
+        </Badge>
       ) : null}
     </div>
   );

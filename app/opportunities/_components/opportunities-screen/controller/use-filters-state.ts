@@ -1,12 +1,15 @@
 import * as React from "react";
 import { toast } from "sonner";
-import { DEFAULT_FILTERS } from "./defaults";
+import { ALL_FILTER_VALUE, DEFAULT_FILTERS } from "./defaults";
 import {
   createFilterFieldChangeHandler,
   normalizeFilterDependencies,
 } from "./filter-dependencies";
 import type { RepositoryFilterRegistry } from "./repository-filter-registry";
-import { parseFiltersFromSearchParams } from "./url-filters";
+import {
+  OPPORTUNITY_QUERY_KEYS,
+  parseFiltersFromSearchParams,
+} from "./url-filters";
 import type { OpportunityFiltersState } from "@/app/opportunities/_components/opportunities-screen/types";
 
 interface UseFiltersStateParams {
@@ -18,10 +21,21 @@ interface UseFiltersStateParams {
 }
 
 function resolveFiltersFromParams(params: UseFiltersStateParams) {
-  const parsed = parseFiltersFromSearchParams(new URLSearchParams(params.searchParamsValue));
+  const searchParams = new URLSearchParams(params.searchParamsValue);
+  const parsed = parseFiltersFromSearchParams(searchParams);
   if (params.forcedRepository) parsed.repository = params.forcedRepository;
-  if (params.forcedAuthor) parsed.authors = [params.forcedAuthor];
-  return normalizeFilterDependencies(parsed, params.registry);
+  if (params.forcedAuthor) {
+    parsed.authors = [params.forcedAuthor];
+  }
+  if (
+    (params.forcedRepository || params.forcedAuthor) &&
+    !searchParams.has(OPPORTUNITY_QUERY_KEYS.country)
+  ) {
+    parsed.country = ALL_FILTER_VALUE;
+  }
+  return normalizeFilterDependencies(parsed, params.registry, {
+    allowLocationWithRepository: Boolean(params.forcedRepository),
+  });
 }
 
 function filtersAreEqual(left: OpportunityFiltersState, right: OpportunityFiltersState) {
@@ -52,6 +66,10 @@ export function useFiltersState(params: UseFiltersStateParams) {
   const [filters, setFilters] = React.useState<OpportunityFiltersState>(() =>
     resolveFiltersFromParams(params),
   );
+  const [appliedSearchParamsValue, setAppliedSearchParamsValue] =
+    React.useState(searchParamsValue);
+  const isApplyingUrlFilters =
+    appliedSearchParamsValue !== searchParamsValue;
 
   React.useEffect(() => {
     const next = resolveFiltersFromParams({
@@ -65,6 +83,7 @@ export function useFiltersState(params: UseFiltersStateParams) {
     let isCurrent = true;
     queueMicrotask(() => {
       if (!isCurrent) return;
+      setAppliedSearchParamsValue(searchParamsValue);
       setFilters((previous) => (filtersAreEqual(previous, next) ? previous : next));
     });
 
@@ -105,20 +124,26 @@ export function useFiltersState(params: UseFiltersStateParams) {
     }));
   }, [forcedAuthor]);
 
-  const handleClearFilters = React.useCallback(() => {
+  const handleClearFilters = React.useCallback((options?: { announce?: boolean }) => {
     setFilters((previous) =>
       normalizeFilterDependencies({
         ...DEFAULT_FILTERS,
         repository: forcedRepository ?? DEFAULT_FILTERS.repository,
+        country: forcedAuthor || forcedRepository
+          ? ALL_FILTER_VALUE
+          : DEFAULT_FILTERS.country,
         authors: forcedAuthor ? [forcedAuthor] : [],
         viewMode: previous.viewMode,
-      }, registry),
+      }, registry, {
+        allowLocationWithRepository: Boolean(forcedRepository),
+      }),
     );
-    toast.success(resetSuccessMessage);
+    if (options?.announce !== false) toast.success(resetSuccessMessage);
   }, [forcedAuthor, forcedRepository, registry, resetSuccessMessage]);
 
   return {
     filters,
+    isApplyingUrlFilters,
     setFilters,
     handleFieldChange,
     handleToggleTag,

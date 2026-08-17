@@ -12,7 +12,6 @@ interface UseLoadMoreHandlerParams {
   isFetchingMore: boolean;
   hasMoreRemote: boolean;
   nextCursor: string | null;
-  setIsFetchingMore: Dispatch<SetStateAction<boolean>>;
   setFilters: Dispatch<SetStateAction<OpportunityFiltersState>>;
   loadMoreFromApi: () => Promise<boolean>;
 }
@@ -28,7 +27,6 @@ export function useLoadMoreHandler(params: UseLoadMoreHandlerParams) {
     isFetchingMore,
     hasMoreRemote,
     nextCursor,
-    setIsFetchingMore,
     setFilters,
     loadMoreFromApi,
   } = params;
@@ -50,7 +48,6 @@ export function useLoadMoreHandler(params: UseLoadMoreHandlerParams) {
       }
 
       loadLockRef.current = true;
-      setIsFetchingMore(true);
       try {
         const hasNewItems = await loadMoreFromApi();
 
@@ -61,7 +58,6 @@ export function useLoadMoreHandler(params: UseLoadMoreHandlerParams) {
           }));
         }
       } finally {
-        setIsFetchingMore(false);
         loadLockRef.current = false;
       }
       return;
@@ -70,7 +66,6 @@ export function useLoadMoreHandler(params: UseLoadMoreHandlerParams) {
     if (!hasMoreRemote || !nextCursor) return;
 
     loadLockRef.current = true;
-    setIsFetchingMore(true);
     try {
       const hasNewItems = await loadMoreFromApi();
 
@@ -78,7 +73,6 @@ export function useLoadMoreHandler(params: UseLoadMoreHandlerParams) {
         setFilters((previous) => ({ ...previous, page: previous.page + 1 }));
       }
     } finally {
-      setIsFetchingMore(false);
       loadLockRef.current = false;
     }
   }, [
@@ -91,7 +85,6 @@ export function useLoadMoreHandler(params: UseLoadMoreHandlerParams) {
     loadMoreFromApi,
     nextCursor,
     setFilters,
-    setIsFetchingMore,
     totalCount,
     totalPages,
   ]);

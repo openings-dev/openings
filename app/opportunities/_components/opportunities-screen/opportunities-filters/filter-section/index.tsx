@@ -9,10 +9,15 @@ interface FilterSectionProps {
 
 export function FilterSection({ label, className, children }: FilterSectionProps): React.ReactNode {
   return (
-    <section className={cn("space-y-2.5 rounded-lg border-2 border-border bg-surface p-4", className)}>
-      <p className="text-[10px] font-semibold uppercase tracking-[0.11em] text-foreground/72">
+    <section
+      className={cn(
+        "min-w-0 space-y-3 border-t border-line pt-5 first:border-t-0 first:pt-0 md:border-t-0 md:pt-0",
+        className,
+      )}
+    >
+      <h3 className="text-label font-semibold text-foreground">
         {label}
-      </p>
+      </h3>
       {children}
     </section>
   );

@@ -1,9 +1,9 @@
+import { Field } from "@/components/ui/field";
 import { Select } from "@/components/ui/select";
 import { SelectContent } from "@/components/ui/select/select-content";
 import { SelectItem } from "@/components/ui/select/select-item";
 import { SelectTrigger } from "@/components/ui/select/select-trigger";
 import { SelectValue } from "@/components/ui/select/select-value";
-import { compactSelectTriggerStyles } from "@/app/opportunities/_components/opportunities-screen/styles";
 import { formatTemplate } from "@/lib/utils/format-template";
 import { FilterSection } from "../filter-section";
 import {
@@ -13,6 +13,7 @@ import {
 } from "@/app/opportunities/_components/opportunities-screen/types";
 
 interface FilterDisplayGroupProps {
+  locale: string;
   state: OpportunityFiltersState;
   options: OpportunityFilterOptions;
   labels: {
@@ -27,49 +28,56 @@ interface FilterDisplayGroupProps {
   };
   onItemsPerPageChange: (value: number) => void;
   onSortOrderChange: (value: OpportunitySortOrder) => void;
+  portalContainer?: HTMLElement | null;
 }
 
 export function FilterDisplayGroup({
+  locale,
   state,
   options,
   labels,
   onItemsPerPageChange,
   onSortOrderChange,
-}: FilterDisplayGroupProps) {
+  portalContainer,
+}: FilterDisplayGroupProps): React.ReactNode {
   return (
     <FilterSection label={labels.section}>
       <div className="grid grid-cols-1 gap-3">
-        <div className="space-y-1">
-          <p className="text-xs text-muted-foreground/85">{labels.itemsPerPage}</p>
-          <Select
-            value={String(state.itemsPerPage)}
-            onValueChange={(value) => onItemsPerPageChange(Number(value))}
-          >
-            <SelectTrigger className={compactSelectTriggerStyles}>
-              <SelectValue placeholder={labels.itemsPerPagePlaceholder} />
-            </SelectTrigger>
-            <SelectContent>
-              {options.itemsPerPage.map((value) => (
-                <SelectItem key={value} value={String(value)}>
-                  {formatTemplate(labels.itemsPerPageOption, { count: value })}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        <Field label={labels.itemsPerPage}>
+          {(controlProps) => (
+            <Select
+              value={String(state.itemsPerPage)}
+              onValueChange={(value) => onItemsPerPageChange(Number(value))}
+            >
+              <SelectTrigger {...controlProps}>
+                <SelectValue placeholder={labels.itemsPerPagePlaceholder} />
+              </SelectTrigger>
+              <SelectContent portalContainer={portalContainer ?? undefined}>
+                {options.itemsPerPage.map((value) => (
+                  <SelectItem key={value} value={String(value)}>
+                    {formatTemplate(labels.itemsPerPageOption, {
+                      count: value.toLocaleString(locale),
+                    })}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+        </Field>
 
-        <div className="space-y-1">
-          <p className="text-xs text-muted-foreground/85">{labels.sort}</p>
-          <Select value={state.sortOrder} onValueChange={onSortOrderChange}>
-            <SelectTrigger className={compactSelectTriggerStyles}>
-              <SelectValue placeholder={labels.sortPlaceholder} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={OpportunitySortOrder.Recent}>{labels.sortRecent}</SelectItem>
-              <SelectItem value={OpportunitySortOrder.Oldest}>{labels.sortOldest}</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+        <Field label={labels.sort}>
+          {(controlProps) => (
+            <Select value={state.sortOrder} onValueChange={onSortOrderChange}>
+              <SelectTrigger {...controlProps}>
+                <SelectValue placeholder={labels.sortPlaceholder} />
+              </SelectTrigger>
+              <SelectContent portalContainer={portalContainer ?? undefined}>
+                <SelectItem value={OpportunitySortOrder.Recent}>{labels.sortRecent}</SelectItem>
+                <SelectItem value={OpportunitySortOrder.Oldest}>{labels.sortOldest}</SelectItem>
+              </SelectContent>
+            </Select>
+          )}
+        </Field>
       </div>
     </FilterSection>
   );

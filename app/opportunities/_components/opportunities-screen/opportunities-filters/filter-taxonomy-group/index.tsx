@@ -1,25 +1,31 @@
+import { Field } from "@/components/ui/field";
+import { Badge } from "@/components/ui/badge";
+import { LockKeyhole } from "lucide-react";
 import { Select } from "@/components/ui/select";
 import { SelectContent } from "@/components/ui/select/select-content";
 import { SelectItem } from "@/components/ui/select/select-item";
 import { SelectTrigger } from "@/components/ui/select/select-trigger";
 import { SelectValue } from "@/components/ui/select/select-value";
-import { compactSelectTriggerStyles } from "@/app/opportunities/_components/opportunities-screen/styles";
+import {
+  classifyOpportunityTag,
+  OpportunityTagCategory,
+} from "@/app/opportunities/_components/opportunities-screen/controller/tag-categories";
+import type {
+  OpportunityFilterOptions,
+  OpportunityFiltersState,
+} from "@/app/opportunities/_components/opportunities-screen/types";
 import { FilterSection } from "../filter-section";
 import { SelectedChipList } from "../selected-chip-list";
 import { TagCategoryPicker } from "./tag-category-picker";
-import type { OpportunityFilterOptions, OpportunityFiltersState } from "@/app/opportunities/_components/opportunities-screen/types";
 
 interface FilterTaxonomyGroupProps {
+  locale: string;
   state: OpportunityFiltersState;
   options: OpportunityFilterOptions;
-  tagPickerVersion: number;
-  authorPickerVersion: number;
   labels: {
     section: string;
     workModeLabel: string;
     workModePlaceholder: string;
-    stackLabel: string;
-    stackPlaceholder: string;
     seniorityLabel: string;
     seniorityPlaceholder: string;
     otherTagsLabel: string;
@@ -28,92 +34,129 @@ interface FilterTaxonomyGroupProps {
     authors: string;
     authorPlaceholder: string;
     noAuthorsSelected: string;
+    removeFilter: string;
   };
+  portalContainer?: HTMLElement | null;
+  authorsLocked?: boolean;
   onTagSelected: (tag: string) => void;
   onToggleTag: (tag: string) => void;
   onAuthorSelected: (author: string) => void;
   onToggleAuthor: (author: string) => void;
-  hideStack?: boolean;
 }
 
 export function FilterTaxonomyGroup({
+  locale,
   state,
   options,
-  tagPickerVersion,
-  authorPickerVersion,
   labels,
+  portalContainer,
+  authorsLocked,
   onTagSelected,
   onToggleTag,
   onAuthorSelected,
   onToggleAuthor,
-  hideStack = false,
-}: FilterTaxonomyGroupProps) {
-  const selectedTags = state.tags.map((tag) => ({
-    key: tag,
-    label: options.tags.find((option) => option.value === tag)?.label ?? tag,
-  }));
-
+}: FilterTaxonomyGroupProps): React.ReactNode {
+  const selectedTags = state.tags
+    .filter(
+      (tag) =>
+        classifyOpportunityTag(tag).category !== OpportunityTagCategory.Stack,
+    )
+    .map((tag) => ({
+      key: tag,
+      label: options.tags.find((option) => option.value === tag)?.label ?? tag,
+    }));
   const selectedAuthors = state.authors.map((author) => ({
     key: author,
-    label: options.authors.find((option) => option.value === author)?.label ?? author,
+    label:
+      options.authors.find((option) => option.value === author)?.label ?? author,
   }));
 
   return (
     <FilterSection label={labels.section}>
-      <div className="grid grid-cols-1 gap-3">
-        {!hideStack ? <TagCategoryPicker
-          selectKey={`work-model-${tagPickerVersion}`}
+      <div className="grid grid-cols-1 gap-4">
+        <TagCategoryPicker
+          locale={locale}
+          controlId="advanced-work-model-filter"
           label={labels.workModeLabel}
           placeholder={labels.workModePlaceholder}
           options={options.tagCategories.workModel}
-          onSelect={onTagSelected}
-        /> : null}
-        <TagCategoryPicker
-          selectKey={`stack-${tagPickerVersion}`}
-          label={labels.stackLabel}
-          placeholder={labels.stackPlaceholder}
-          options={options.tagCategories.stack}
+          portalContainer={portalContainer}
           onSelect={onTagSelected}
         />
         <TagCategoryPicker
-          selectKey={`seniority-${tagPickerVersion}`}
+          locale={locale}
+          controlId="advanced-seniority-filter"
           label={labels.seniorityLabel}
           placeholder={labels.seniorityPlaceholder}
           options={options.tagCategories.seniority}
+          portalContainer={portalContainer}
           onSelect={onTagSelected}
         />
         <TagCategoryPicker
-          selectKey={`other-tags-${tagPickerVersion}`}
+          locale={locale}
+          controlId="advanced-other-tags-filter"
           label={labels.otherTagsLabel}
           placeholder={labels.otherTagsPlaceholder}
           options={options.tagCategories.other}
+          portalContainer={portalContainer}
           onSelect={onTagSelected}
         />
         <SelectedChipList
           items={selectedTags}
           emptyLabel={labels.noTagsSelected}
+          removeLabel={labels.removeFilter}
           onRemove={onToggleTag}
+          fallbackFocusId="advanced-work-model-filter"
         />
 
-        <div className="space-y-1">
-          <p className="text-xs text-muted-foreground/85">{labels.authors}</p>
-          <Select key={authorPickerVersion} onValueChange={onAuthorSelected}>
-            <SelectTrigger className={compactSelectTriggerStyles}>
-              <SelectValue placeholder={labels.authorPlaceholder} />
-            </SelectTrigger>
-            <SelectContent>
-              {options.authors.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label} ({option.count})
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <SelectedChipList
-            items={selectedAuthors}
-            emptyLabel={labels.noAuthorsSelected}
-            onRemove={onToggleAuthor}
-          />
+        <div className="grid gap-1.5 border-t border-line pt-4">
+          {authorsLocked ? (
+            <Field label={labels.authors}>
+              <div className="flex min-h-11 items-center">
+                {selectedAuthors.length > 0 ? (
+                  selectedAuthors.map((author) => (
+                    <Badge key={author.key} tone="primary" className="min-h-11 px-3">
+                      <LockKeyhole aria-hidden="true" />
+                      @{author.key}
+                    </Badge>
+                  ))
+                ) : (
+                  <span className="text-xs text-muted-foreground">
+                    {labels.noAuthorsSelected}
+                  </span>
+                )}
+              </div>
+            </Field>
+          ) : (
+            <>
+              <Field label={labels.authors} controlId="advanced-author-filter">
+                {(controlProps) => (
+                  <Select
+                    value=""
+                    onValueChange={onAuthorSelected}
+                  >
+                    <SelectTrigger {...controlProps}>
+                      <SelectValue placeholder={labels.authorPlaceholder} />
+                    </SelectTrigger>
+                    <SelectContent portalContainer={portalContainer ?? undefined}>
+                      {options.authors.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label} ({option.count.toLocaleString(locale)})
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
+              </Field>
+              <SelectedChipList
+                items={selectedAuthors}
+                emptyLabel={labels.noAuthorsSelected}
+                removeLabel={labels.removeFilter}
+                onRemove={onToggleAuthor}
+                fallbackFocusId="advanced-author-filter"
+              />
+            </>
+          )}
         </div>
       </div>
     </FilterSection>

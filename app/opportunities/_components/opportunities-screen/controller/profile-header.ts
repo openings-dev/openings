@@ -1,75 +1,93 @@
-import type { LocaleCode } from "@/lib/constants/locales";
-import type {
-  CommunityProfileSummary,
-  UserProfileSummary,
-} from "@/lib/opportunities/types";
+import {
+  buildCommunityPath,
+  buildGitHubRepositoryUrl,
+  buildGitHubUserUrl,
+  buildUserPath,
+} from "@/lib/opportunities/routing";
+import type { TranslationMessages } from "@/lib/translations/types";
+import { uniqueLocationSegments } from "@/lib/opportunities/summary-helpers";
 import { formatTemplate } from "@/lib/utils/format-template";
+import {
+  ShareableProfileKind,
+  type ShareableProfileLocation,
+  type ShareableProfilePresentation,
+  type ShareableProfileSource,
+} from "@/app/opportunities/_components/opportunities-screen/types";
 
-export interface ProfileHeaderData {
-  title: string;
-  subtitle: string;
-  avatarUrl: string;
-  opportunitiesSummary: string;
-  locationSummary: string;
-  lastPostedSummary: string;
+type ProfileMessages = TranslationMessages["profiles"];
+
+function optionalText(value: string | null | undefined) {
+  return value?.trim() || undefined;
 }
 
-interface ProfileHeaderLabels {
-  opportunitiesCount: string;
-  country: string;
-  region: string;
-  postedAt: string;
-  updatedUnavailable: string;
+function optionalActivity(value: string | null | undefined) {
+  const normalized = optionalText(value);
+  if (!normalized) return undefined;
+
+  const timestamp = Date.parse(normalized);
+  return Number.isFinite(timestamp) ? new Date(timestamp).toISOString() : undefined;
 }
 
-function formatLastPostedAt(
-  lastPostedAt: string | null,
-  locale: LocaleCode,
-  labels: ProfileHeaderLabels,
-) {
-  if (!lastPostedAt) return labels.updatedUnavailable;
-  return formatTemplate(labels.postedAt, {
-    date: new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(
-      new Date(lastPostedAt),
-    ),
-  });
-}
+function optionalLocation(
+  countryValue: string | undefined,
+  regionValue: string | undefined,
+): ShareableProfileLocation | undefined {
+  const [country] = uniqueLocationSegments([countryValue]);
+  const [regionValueNormalized] = uniqueLocationSegments([regionValue]);
+  const distinctSegments = uniqueLocationSegments([
+    country,
+    regionValueNormalized,
+  ]);
+  const region = regionValueNormalized &&
+    (!country || distinctSegments.length > 1)
+    ? regionValueNormalized
+    : undefined;
 
-function formatSharedProfileFields(
-  profile: CommunityProfileSummary | UserProfileSummary,
-  locale: LocaleCode,
-  labels: ProfileHeaderLabels,
-) {
+  if (!country && !region) return undefined;
   return {
-    avatarUrl: profile.avatarUrl,
-    opportunitiesSummary: formatTemplate(labels.opportunitiesCount, {
-      count: profile.opportunitiesCount.toLocaleString(locale),
+    ...(country ? { country } : {}),
+    ...(region ? { region } : {}),
+  };
+}
+
+export function buildShareableProfilePresentation(
+  source: ShareableProfileSource,
+  messages: ProfileMessages,
+): ShareableProfilePresentation {
+  const shared = {
+    avatarUrl: optionalText(source.profile.avatarUrl),
+    location: optionalLocation(source.profile.country, source.profile.region),
+    opportunityCount: source.profile.opportunitiesCount,
+    latestActivity: optionalActivity(source.profile.lastPostedAt),
+  };
+
+  if (source.kind === ShareableProfileKind.Community) {
+    const profile = source.profile;
+    return {
+      kind: ShareableProfileKind.Community,
+      repository: profile.repository,
+      displayName: profile.name,
+      identity: profile.repository,
+      description: formatTemplate(messages.communityDescription, {
+        name: profile.name,
+      }),
+      canonicalPath: buildCommunityPath(profile.repository),
+      githubSourceUrl: buildGitHubRepositoryUrl(profile.repository),
+      ...shared,
+    };
+  }
+
+  const profile = source.profile;
+  return {
+    kind: ShareableProfileKind.Publisher,
+    handle: profile.handle,
+    displayName: profile.name,
+    identity: `@${profile.handle}`,
+    description: formatTemplate(messages.publisherDescription, {
+      handle: profile.handle,
     }),
-    locationSummary: `${labels.country}: ${profile.country} • ${labels.region}: ${profile.region}`,
-    lastPostedSummary: formatLastPostedAt(profile.lastPostedAt, locale, labels),
-  };
-}
-
-export function buildUserProfileHeader(
-  profile: UserProfileSummary,
-  locale: LocaleCode,
-  labels: ProfileHeaderLabels,
-): ProfileHeaderData {
-  return {
-    title: profile.name,
-    subtitle: `@${profile.handle}`,
-    ...formatSharedProfileFields(profile, locale, labels),
-  };
-}
-
-export function buildCommunityProfileHeader(
-  profile: CommunityProfileSummary,
-  locale: LocaleCode,
-  labels: ProfileHeaderLabels,
-): ProfileHeaderData {
-  return {
-    title: profile.name,
-    subtitle: profile.repository,
-    ...formatSharedProfileFields(profile, locale, labels),
+    canonicalPath: buildUserPath(profile.handle),
+    githubSourceUrl: buildGitHubUserUrl(profile.handle),
+    ...shared,
   };
 }

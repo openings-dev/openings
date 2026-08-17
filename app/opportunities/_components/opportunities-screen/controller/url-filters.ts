@@ -81,15 +81,24 @@ export function parseFiltersFromSearchParams(searchParams: URLSearchParams) {
   } satisfies OpportunityFiltersState;
 }
 
-export function buildSearchParamsFromFilters(state: OpportunityFiltersState) {
+interface BuildSearchParamsOptions {
+  defaultCountry?: string;
+}
+
+export function buildSearchParamsFromFilters(
+  state: OpportunityFiltersState,
+  options: BuildSearchParamsOptions = {},
+) {
   const params = new URLSearchParams();
+  const defaultCountry = options.defaultCountry ?? DEFAULT_FILTERS.country;
   if (state.repository !== DEFAULT_FILTERS.repository) params.set(OPPORTUNITY_QUERY_KEYS.repository, state.repository);
   if (state.region !== DEFAULT_FILTERS.region) params.set(OPPORTUNITY_QUERY_KEYS.region, state.region);
   const countryIsImplicitAll =
     state.country === ALL_FILTER_VALUE &&
-    (state.repository !== DEFAULT_FILTERS.repository ||
+    (defaultCountry === ALL_FILTER_VALUE ||
+      state.repository !== DEFAULT_FILTERS.repository ||
       state.region !== DEFAULT_FILTERS.region);
-  if (state.country !== DEFAULT_FILTERS.country && !countryIsImplicitAll) {
+  if (state.country !== defaultCountry && !countryIsImplicitAll) {
     params.set(OPPORTUNITY_QUERY_KEYS.country, state.country);
   }
   if (state.tags.length > 0) params.set(OPPORTUNITY_QUERY_KEYS.tags, state.tags.join(","));

@@ -1,16 +1,16 @@
 const LOCALIZED_CANONICAL_LABELS = {
   en: {
     junior: "Junior",
-    pleno: "Mid-Level",
+    pleno: "Mid-level",
     senior: "Senior",
     especialista: "Specialist",
-    estagio: "Internship / Trainee",
+    estagio: "Internship / trainee",
     lead: "Lead",
     principal: "Principal",
     staff: "Staff",
     remote: "Remote",
     hybrid: "Hybrid",
-    "on-site": "On-Site",
+    "on-site": "On-site",
   },
   pt: {
     junior: "Júnior",
@@ -49,7 +49,7 @@ const LOCALIZED_CANONICAL_LABELS = {
     staff: "Staff",
     remote: "Télétravail",
     hybrid: "Hybride",
-    "on-site": "Sur Site",
+    "on-site": "Sur site",
   },
   it: {
     junior: "Junior",
@@ -62,7 +62,7 @@ const LOCALIZED_CANONICAL_LABELS = {
     staff: "Staff",
     remote: "Remoto",
     hybrid: "Ibrido",
-    "on-site": "In Sede",
+    "on-site": "In sede",
   },
   de: {
     junior: "Junior",
@@ -113,9 +113,9 @@ const UNIVERSAL_CANONICAL_LABELS: Record<string, string> = {
   docker: "Docker",
   kubernetes: "Kubernetes",
   terraform: "Terraform",
-  frontend: "Front-End",
-  backend: "Back-End",
-  fullstack: "Full Stack",
+  frontend: "Front end",
+  backend: "Back end",
+  fullstack: "Full stack",
   mobile: "Mobile",
   devops: "DevOps",
   qa: "QA",
@@ -144,5 +144,5 @@ export function canonicalTagLabel(canonical: string, fallback: string, locale: s
   const localeKey = resolveLocale(locale);
   return LOCALIZED_CANONICAL_LABELS[localeKey][canonical as keyof typeof LOCALIZED_CANONICAL_LABELS[typeof localeKey]]
     ?? UNIVERSAL_CANONICAL_LABELS[canonical]
-    ?? toLocaleTitleCase(fallback, locale);
+    ?? fallback.trim();
 }

@@ -4,11 +4,13 @@ import { buildSearchParamsFromFilters } from "./url-filters";
 import type { OpportunityFiltersState } from "@/app/opportunities/_components/opportunities-screen/types";
 
 interface UseUrlSyncParams {
+  enabled?: boolean;
   pathname: string;
   currentSearch: string;
   router: AppRouterInstance;
   filtersForUrl: OpportunityFiltersState;
   preservedParams?: Record<string, string | null | undefined>;
+  defaultCountry?: string;
 }
 
 function normalizeSearchValue(value: string) {
@@ -30,8 +32,9 @@ function normalizeSearchValue(value: string) {
 function serializeSearchParams(
   filtersForUrl: OpportunityFiltersState,
   preservedParams: Record<string, string | null | undefined> = {},
+  defaultCountry?: string,
 ) {
-  const params = buildSearchParamsFromFilters(filtersForUrl);
+  const params = buildSearchParamsFromFilters(filtersForUrl, { defaultCountry });
 
   for (const [key, value] of Object.entries(preservedParams)) {
     params.delete(key);
@@ -46,15 +49,17 @@ function serializeSearchParams(
 }
 
 export function useUrlSync({
+  enabled = true,
   pathname,
   currentSearch,
   router,
   filtersForUrl,
   preservedParams,
+  defaultCountry,
 }: UseUrlSyncParams) {
   const serializedSearch = React.useMemo(
-    () => serializeSearchParams(filtersForUrl, preservedParams),
-    [filtersForUrl, preservedParams],
+    () => serializeSearchParams(filtersForUrl, preservedParams, defaultCountry),
+    [defaultCountry, filtersForUrl, preservedParams],
   );
   const normalizedCurrentSearch = React.useMemo(
     () => normalizeSearchValue(currentSearch),
@@ -70,6 +75,8 @@ export function useUrlSync({
   } | null>(null);
 
   React.useEffect(() => {
+    if (!enabled) return;
+
     if (normalizedSerializedFilters === normalizedCurrentSearch) {
       pendingReplaceRef.current = null;
       return;
@@ -89,6 +96,7 @@ export function useUrlSync({
     router.replace(href, { scroll: false });
   }, [
     currentSearch,
+    enabled,
     normalizedCurrentSearch,
     normalizedSerializedFilters,
     pathname,

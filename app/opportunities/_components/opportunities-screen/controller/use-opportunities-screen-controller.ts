@@ -1,7 +1,7 @@
 import * as React from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
-import { DEFAULT_FILTERS } from "./defaults";
+import { ALL_FILTER_VALUE, DEFAULT_FILTERS } from "./defaults";
 import { buildServerFilters } from "./server-filters";
 import { normalizeFilterDependencies } from "./filter-dependencies";
 import { normalizeForcedAuthor } from "./normalize-forced-author";
@@ -13,25 +13,20 @@ import { useForcedAuthorAutoload } from "./use-forced-author-autoload";
 import { useLoadMoreHandler } from "./use-load-more-handler";
 import { useRemoteOpportunities } from "./use-remote-opportunities";
 import { useUrlSync } from "./use-url-sync";
-import { useSelectedOpportunity } from "./use-selected-opportunity";
-import { formatTemplate } from "@/lib/utils/format-template";
+import {
+  useSelectedOpportunity,
+  useSelectedOpportunityId,
+} from "./use-selected-opportunity";
 import type { OpportunitiesScreenProps } from "@/app/opportunities/_components/opportunities-screen/types";
 import {
   normalizeSelectedOpportunityId,
-  resolveCommunityProfileSummary,
-  resolveUserProfileSummary,
+  profileScopeFromScreenProps,
 } from "./profile-summary";
-import {
-  buildCommunityProfileHeader,
-  buildUserProfileHeader,
-  type ProfileHeaderData,
-} from "./profile-header";
+import { focusOpportunityResults } from "@/app/opportunities/_components/opportunities-screen/opportunity-card/trigger-contract";
 
 export function useOpportunitiesScreenController({
   forcedRepository,
   forcedAuthor,
-  forcedAuthorProfile,
-  forcedRepositoryProfile,
 }: OpportunitiesScreenProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -43,7 +38,15 @@ export function useOpportunitiesScreenController({
   const selectedOpportunityIdFromUrl = normalizeSelectedOpportunityId(searchParams.get("job"));
   const repositoryRegistry = useRepositoryFilterRegistry();
   const [filtersModalOpen, setFiltersModalOpen] = React.useState(false);
-  const { filters, setFilters, handleFieldChange, handleToggleTag, handleToggleAuthor, handleClearFilters } = useFiltersState({
+  const {
+    filters,
+    isApplyingUrlFilters,
+    setFilters,
+    handleFieldChange,
+    handleToggleTag,
+    handleToggleAuthor,
+    handleClearFilters,
+  } = useFiltersState({
     searchParamsValue: searchParams.toString(),
     forcedRepository: normalizedForcedRepository,
     forcedAuthor: normalizedForcedAuthor,
@@ -80,13 +83,10 @@ export function useOpportunitiesScreenController({
     ],
   );
   const {
-    selectedOpportunity,
     selectedOpportunityId,
+    isApplyingSelectedIdFromUrl,
     setSelectedOpportunityId,
-  } = useSelectedOpportunity({
-    loadedOpportunity: null,
-    selectedIdFromUrl: selectedOpportunityIdFromUrl,
-  });
+  } = useSelectedOpportunityId(selectedOpportunityIdFromUrl);
   const handleBeforeReload = React.useCallback(() => {
     setSelectedOpportunityId(null);
     setFilters((previous) => (previous.page === 1 ? previous : { ...previous, page: 1 }));
@@ -95,7 +95,6 @@ export function useOpportunitiesScreenController({
     serverFilters,
     enabled: !repositoryRegistry.isLoading,
     onBeforeReload: handleBeforeReload,
-    messages: opportunitiesMessages.feedback,
   });
   const derived = useDerivedOpportunities({
     opportunities: remote.opportunities,
@@ -109,102 +108,65 @@ export function useOpportunitiesScreenController({
     locale,
     rangeMessages: opportunitiesMessages.range,
   });
-  const userProfileSummary = React.useMemo(
-    () =>
-      resolveUserProfileSummary({
-        forcedAuthor: normalizedForcedAuthor,
-        forcedAuthorProfile,
-        opportunities: remote.opportunities,
-      }),
-    [forcedAuthorProfile, normalizedForcedAuthor, remote.opportunities],
+  const {
+    selectedOpportunity,
+    selectionStatus,
+  } = useSelectedOpportunity({
+    loadedOpportunity: derived.selectedOpportunity,
+    selectedOpportunityId,
+    forcedRepository: normalizedForcedRepository,
+    forcedAuthor: normalizedForcedAuthor,
+  });
+  const forcedScope = React.useMemo(
+    () => profileScopeFromScreenProps(
+      normalizedForcedRepository,
+      normalizedForcedAuthor,
+    ),
+    [normalizedForcedAuthor, normalizedForcedRepository],
   );
-  const communityProfileSummary = React.useMemo(
-    () =>
-      resolveCommunityProfileSummary({
-        forcedRepository: normalizedForcedRepository,
-        forcedRepositoryProfile,
-        opportunities: remote.opportunities,
-      }),
-    [forcedRepositoryProfile, normalizedForcedRepository, remote.opportunities],
-  );
-  const isUserProfileScope = Boolean(normalizedForcedAuthor);
-  const isCommunityProfileScope = !isUserProfileScope && Boolean(normalizedForcedRepository);
-  const headerKicker = isUserProfileScope
-    ? messages.users.header.profileKicker
-    : isCommunityProfileScope
-      ? messages.communities.header.profileKicker
-      : opportunitiesMessages.header.kicker;
-  const headerTitle = isUserProfileScope
-    ? formatTemplate(messages.users.header.profileTitle, {
-      name: userProfileSummary?.name || normalizedForcedAuthor || "",
-    })
-    : isCommunityProfileScope
-      ? formatTemplate(messages.communities.header.profileTitle, {
-        name: communityProfileSummary?.name || normalizedForcedRepository || "",
-      })
-      : opportunitiesMessages.header.title;
-  const headerDescription = isUserProfileScope
-    ? formatTemplate(messages.users.header.profileDescription, {
-      handle: userProfileSummary?.handle || normalizedForcedAuthor || "",
-    })
-    : isCommunityProfileScope
-      ? formatTemplate(messages.communities.header.profileDescription, {
-        name: communityProfileSummary?.name || normalizedForcedRepository || "",
-      })
-      : opportunitiesMessages.header.description;
-  const profileHeader = React.useMemo<ProfileHeaderData | null>(() => {
-    if (isUserProfileScope && userProfileSummary) {
-      return buildUserProfileHeader(userProfileSummary, locale, {
-        opportunitiesCount: messages.users.list.opportunitiesCount,
-        country: messages.users.list.countryLabel,
-        region: messages.users.list.regionLabel,
-        postedAt: opportunitiesMessages.card.postedAt,
-        updatedUnavailable: opportunitiesMessages.status.updatedUnavailable,
-      });
-    }
-
-    if (isCommunityProfileScope && communityProfileSummary) {
-      return buildCommunityProfileHeader(communityProfileSummary, locale, {
-        opportunitiesCount: messages.communities.list.opportunitiesCount,
-        country: messages.communities.list.countryLabel,
-        region: messages.communities.list.regionLabel,
-        postedAt: opportunitiesMessages.card.postedAt,
-        updatedUnavailable: opportunitiesMessages.status.updatedUnavailable,
-      });
-    }
-
-    return null;
-  }, [
-    communityProfileSummary,
-    isCommunityProfileScope,
-    isUserProfileScope,
-    locale,
-    messages.communities.list,
-    messages.users.list,
-    opportunitiesMessages.card.postedAt,
-    opportunitiesMessages.status.updatedUnavailable,
-    userProfileSummary,
-  ]);
   const filtersForUrl = React.useMemo(
-    () =>
-      normalizeFilterDependencies(
-        { ...filters, page: derived.currentPage },
-        repositoryRegistry.registry,
-      ),
-    [derived.currentPage, filters, repositoryRegistry.registry],
+    () => {
+      const normalized = {
+        ...derived.normalizedFilters,
+        page: derived.currentPage,
+      };
+
+      return {
+        ...normalized,
+        repository: normalizedForcedRepository
+          ? DEFAULT_FILTERS.repository
+          : normalized.repository,
+        authors: normalizedForcedAuthor ? [] : normalized.authors,
+      };
+    },
+    [
+      derived.currentPage,
+      derived.normalizedFilters,
+      normalizedForcedAuthor,
+      normalizedForcedRepository,
+    ],
   );
   const preservedParamsForUrl = React.useMemo(
     () => ({ job: selectedOpportunityId }),
     [selectedOpportunityId],
   );
   useUrlSync({
+    enabled:
+      !isApplyingUrlFilters &&
+      !isApplyingSelectedIdFromUrl &&
+      !remote.isLoading &&
+      !remote.hasLoadError,
     pathname,
     router,
     currentSearch: searchParams.toString(),
     filtersForUrl,
     preservedParams: preservedParamsForUrl,
+    defaultCountry: normalizedForcedAuthor || normalizedForcedRepository
+      ? ALL_FILTER_VALUE
+      : DEFAULT_FILTERS.country,
   });
-  const hasMore = derived.currentPage < derived.totalPages || remote.hasMoreRemote;
+  const hasMore = !remote.hasLoadMoreError &&
+    (derived.currentPage < derived.totalPages || remote.hasMoreRemote);
   useEnsurePageLoaded({
     currentPage: derived.currentPage,
     itemsPerPage: derived.normalizedFilters.itemsPerPage,
@@ -214,7 +176,6 @@ export function useOpportunitiesScreenController({
     isFetchingMore: remote.isFetchingMore,
     hasMoreRemote: remote.hasMoreRemote,
     nextCursor: remote.nextCursor,
-    setIsFetchingMore: remote.setIsFetchingMore,
     loadMoreFromApi: remote.loadMoreFromApi,
   });
   const handleLoadMore = useLoadMoreHandler({
@@ -227,7 +188,6 @@ export function useOpportunitiesScreenController({
     isFetchingMore: remote.isFetchingMore,
     hasMoreRemote: remote.hasMoreRemote,
     nextCursor: remote.nextCursor,
-    setIsFetchingMore: remote.setIsFetchingMore,
     setFilters,
     loadMoreFromApi: remote.loadMoreFromApi,
   });
@@ -242,10 +202,10 @@ export function useOpportunitiesScreenController({
   });
   return {
     opportunitiesMessages,
-    headerKicker,
-    headerTitle,
-    headerDescription,
-    profileHeader,
+    headerKicker: opportunitiesMessages.header.kicker,
+    headerTitle: opportunitiesMessages.header.title,
+    headerDescription: opportunitiesMessages.header.description,
+    forcedScope,
     hideCommunityIdentity: Boolean(normalizedForcedRepository),
     hideAuthorIdentity: Boolean(normalizedForcedAuthor),
     lastUpdatedAt: remote.lastUpdatedAt ?? remote.snapshotGeneratedAt,
@@ -257,8 +217,10 @@ export function useOpportunitiesScreenController({
     handleClearFilters,
     handleLoadMore,
     hasMore,
+    hasLoadMoreError: remote.hasLoadMoreError,
     selectedOpportunity,
-    isDetailsOpen: Boolean(selectedOpportunity),
+    selectionStatus,
+    isDetailsOpen: Boolean(selectedOpportunityId),
     selectedOpportunityId,
     options: derived.options,
     normalizedFilters: derived.normalizedFilters,
@@ -270,33 +232,64 @@ export function useOpportunitiesScreenController({
     hasActiveFilters: derived.hasActiveFilters,
     visibleOpportunities: derived.visibleOpportunities,
     isLoading: remote.isLoading,
+    hasLoadError: remote.hasLoadError,
     isFetchingMore: remote.isFetchingMore,
     setSelectedOpportunityId,
     onCommunitySelect: (repository: string) => {
+      if (
+        normalizedForcedRepository &&
+        repository === normalizedForcedRepository
+      ) {
+        return;
+      }
+
       setSelectedOpportunityId(null);
+      focusOpportunityResults();
       setFilters((previous) =>
         normalizeFilterDependencies(
           {
             ...DEFAULT_FILTERS,
             repository,
+            country: normalizedForcedAuthor || normalizedForcedRepository
+              ? ALL_FILTER_VALUE
+              : DEFAULT_FILTERS.country,
+            authors: normalizedForcedAuthor ? [normalizedForcedAuthor] : [],
             viewMode: previous.viewMode,
           },
           repositoryRegistry.registry,
+          {
+            allowLocationWithRepository: Boolean(normalizedForcedRepository),
+          },
         ),
       );
     },
     onAuthorSelect: (authorHandle: string) => {
       const normalizedAuthorHandle = normalizeForcedAuthor(authorHandle);
 
+      if (
+        normalizedForcedAuthor &&
+        normalizedAuthorHandle === normalizedForcedAuthor
+      ) {
+        return;
+      }
+
       setSelectedOpportunityId(null);
+      focusOpportunityResults();
       setFilters((previous) =>
         normalizeFilterDependencies(
           {
             ...DEFAULT_FILTERS,
+            repository: normalizedForcedRepository ?? DEFAULT_FILTERS.repository,
+            country: normalizedForcedAuthor || normalizedForcedRepository
+              ? ALL_FILTER_VALUE
+              : DEFAULT_FILTERS.country,
             authors: normalizedAuthorHandle ? [normalizedAuthorHandle] : [],
             viewMode: previous.viewMode,
           },
           repositoryRegistry.registry,
+          {
+            allowLocationWithRepository: Boolean(normalizedForcedRepository),
+          },
         ),
       );
     },

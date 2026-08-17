@@ -1,8 +1,10 @@
+import { Field } from "@/components/ui/field";
 import { FilterSelect } from "../filter-select";
 import { FilterSection } from "../filter-section";
 import type { OpportunityFilterOptions, OpportunityFiltersState } from "@/app/opportunities/_components/opportunities-screen/types";
 
 interface FilterScopeGroupProps {
+  locale: string;
   state: OpportunityFiltersState;
   options: OpportunityFilterOptions;
   labels: {
@@ -11,29 +13,34 @@ interface FilterScopeGroupProps {
     repositoryPlaceholder: string;
     allRepositories: string;
   };
+  portalContainer?: HTMLElement | null;
+  locked?: boolean;
   onFieldChange: (field: "repository", value: string) => void;
 }
 
 export function FilterScopeGroup({
+  locale,
   state,
   options,
   labels,
+  portalContainer,
+  locked,
   onFieldChange,
 }: FilterScopeGroupProps) {
   return (
     <FilterSection label={labels.section}>
-      <div className="grid grid-cols-1 gap-3">
-        <div className="space-y-1">
-          <p className="text-xs text-muted-foreground/85">{labels.repository}</p>
-          <FilterSelect
-            value={state.repository}
-            placeholder={labels.repositoryPlaceholder}
-            allLabel={labels.allRepositories}
-            options={options.repositories}
-            onValueChange={(value) => onFieldChange("repository", value)}
-          />
-        </div>
-      </div>
+      <Field label={labels.repository}>
+        <FilterSelect
+          locale={locale}
+          value={state.repository}
+          placeholder={labels.repositoryPlaceholder}
+          allLabel={labels.allRepositories}
+          options={options.repositories}
+          portalContainer={portalContainer}
+          disabled={locked}
+          onValueChange={(value) => onFieldChange("repository", value)}
+        />
+      </Field>
     </FilterSection>
   );
 }

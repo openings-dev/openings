@@ -4,39 +4,66 @@ import * as React from "react";
 import { SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
+import { formatTemplate } from "@/lib/utils/format-template";
 import type { OpportunitiesFiltersProps } from "@/app/opportunities/_components/opportunities-screen/types";
+import { ADVANCED_FILTERS_DIALOG_ID } from "./constants";
 import { FilterFields } from "./filter-fields";
 
 export function OpportunitiesFilters(props: OpportunitiesFiltersProps): React.ReactNode {
-  const { messages } = useI18n();
+  const { locale, messages } = useI18n();
   const filterMessages = messages.opportunities.filters;
-  const { open, resultCount, activeFiltersCount, onOpenChange, onToggleTag, onToggleAuthor, onClearFilters } = props;
-  const dialogRef = React.useRef<HTMLDialogElement>(null);
-  const [tagPickerVersion, setTagPickerVersion] = React.useState(0);
-  const [authorPickerVersion, setAuthorPickerVersion] = React.useState(0);
+  const {
+    open,
+    resultCount,
+    isLoading = false,
+    hasLoadError = false,
+    hasLoadMoreError = false,
+    activeFiltersCount,
+    onOpenChange,
+    onToggleTag,
+    onToggleAuthor,
+    onClearFilters,
+  } = props;
+  const [dialogElement, setDialogElement] = React.useState<HTMLDialogElement | null>(null);
+  const [resetAnnouncement, setResetAnnouncement] = React.useState("");
 
   React.useEffect(() => {
-    const dialog = dialogRef.current;
+    const dialog = dialogElement;
     if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
-    if (!open && dialog.open) dialog.close();
-  }, [open]);
 
-  const handleTagSelected = React.useCallback((tag: string) => {
-    onToggleTag(tag);
-    setTagPickerVersion((value) => value + 1);
-  }, [onToggleTag]);
+    if (!open) {
+      if (dialog.open) dialog.close();
+      return;
+    }
 
-  const handleAuthorSelected = React.useCallback((authorHandle: string) => {
-    onToggleAuthor(authorHandle);
-    setAuthorPickerVersion((value) => value + 1);
-  }, [onToggleAuthor]);
+    const previouslyFocused = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
+    const documentElementOverflow = document.documentElement.style.overflow;
+    const bodyOverflow = document.body.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    if (!dialog.open) dialog.showModal();
+
+    const frameId = window.requestAnimationFrame(() => {
+      dialog.querySelector<HTMLElement>("[data-advanced-filters-close]")?.focus();
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      if (dialog.open) dialog.close();
+      document.documentElement.style.overflow = documentElementOverflow;
+      document.body.style.overflow = bodyOverflow;
+      previouslyFocused?.focus();
+    };
+  }, [dialogElement, open]);
 
   return (
     <dialog
-      ref={dialogRef}
+      id={ADVANCED_FILTERS_DIALOG_ID}
+      ref={setDialogElement}
       aria-labelledby="advanced-filters-title"
-      className="m-auto max-h-[92dvh] w-[min(960px,calc(100%-2rem))] overflow-hidden rounded-xl border-2 border-border bg-card p-0 text-foreground shadow-soft-lg backdrop:bg-foreground/55 backdrop:backdrop-blur-[2px] max-sm:h-[calc(100dvh-1rem)] max-sm:max-h-none max-sm:w-[calc(100%-1rem)]"
+      className="m-auto w-[min(60rem,calc(100%-2rem))] overflow-visible bg-transparent p-0 text-foreground backdrop:bg-overlay backdrop:backdrop-blur-[2px] max-sm:w-[calc(100%-1rem)]"
       onCancel={(event) => {
         event.preventDefault();
         onOpenChange(false);
@@ -46,56 +73,49 @@ export function OpportunitiesFilters(props: OpportunitiesFiltersProps): React.Re
         if (event.target === event.currentTarget) onOpenChange(false);
       }}
     >
-      <div className="flex max-h-[92dvh] flex-col max-sm:h-full max-sm:max-h-none">
-        <header className="flex items-start justify-between gap-6 border-b-2 border-border bg-accent px-5 py-4 sm:px-7 sm:py-5">
+      <div className="flex max-h-[calc(100dvh-2rem)] flex-col overflow-hidden rounded-floating border border-line bg-surface-elevated shadow-floating-lg max-sm:h-[calc(100dvh-1rem)] max-sm:max-h-none">
+        <header className="flex items-start justify-between gap-6 border-b border-line bg-surface-elevated px-5 py-4 sm:px-7 sm:py-5">
           <div>
-            <div className="mb-2 flex items-center gap-2 text-xs font-black uppercase tracking-[0.16em] text-accent-foreground">
-              <SlidersHorizontal className="size-4" />
+            <div className="mb-2 flex items-center gap-2 text-label font-medium text-primary-deep">
+              <SlidersHorizontal className="size-4" aria-hidden="true" />
               {filterMessages.ariaLabel}
             </div>
-            <h2 id="advanced-filters-title" className="text-2xl font-black tracking-tight sm:text-3xl">
+            <h2 id="advanced-filters-title" className="font-display text-product-title font-semibold tracking-[-0.03em]">
               {filterMessages.title}
             </h2>
           </div>
-          <Button type="button" variant="outline" size="icon" aria-label={filterMessages.hide} onClick={() => onOpenChange(false)}>
-            <X className="size-5" />
+          <Button data-advanced-filters-close type="button" variant="outline" size="icon" aria-label={filterMessages.hide} onClick={() => onOpenChange(false)}>
+            <X className="size-5" aria-hidden="true" />
           </Button>
         </header>
 
         <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5 sm:px-7 sm:py-6">
           <FilterFields
             {...props}
-            advancedOnly
+            locale={locale}
+            portalContainer={dialogElement}
             labels={{
               locationSectionLabel: filterMessages.locationSectionLabel,
               scopeSectionLabel: filterMessages.repositorySectionLabel,
               taxonomySectionLabel: filterMessages.tagsLabel,
               displaySectionLabel: filterMessages.itemsPerPageLabel,
-              searchLabel: filterMessages.searchLabel,
-              searchPlaceholder: filterMessages.searchPlaceholder,
               repositoryLabel: filterMessages.repositoryLabel,
               repositoryPlaceholder: filterMessages.repositoryPlaceholder,
               allRepositories: filterMessages.allRepositories,
               regionLabel: filterMessages.regionLabel,
               regionPlaceholder: filterMessages.regionPlaceholder,
               allRegions: filterMessages.allRegions,
-              countryLabel: filterMessages.countryLabel,
-              countryPlaceholder: filterMessages.countryPlaceholder,
-              allCountries: filterMessages.allCountries,
               workModeLabel: filterMessages.workModeLabel,
               workModePlaceholder: filterMessages.workModePlaceholder,
-              stackLabel: filterMessages.stackLabel,
-              stackPlaceholder: filterMessages.stackPlaceholder,
               seniorityLabel: filterMessages.seniorityLabel,
               seniorityPlaceholder: filterMessages.seniorityPlaceholder,
               otherTagsLabel: filterMessages.otherTagsLabel,
               otherTagsPlaceholder: filterMessages.otherTagsPlaceholder,
-              tagsLabel: filterMessages.tagsLabel,
-              tagsPlaceholder: filterMessages.tagsPlaceholder,
               noTagsSelected: filterMessages.noTagsSelected,
               authorLabel: filterMessages.authorLabel,
               authorPlaceholder: filterMessages.authorPlaceholder,
               noAuthorsSelected: filterMessages.noAuthorsSelected,
+              removeFilter: filterMessages.removeFilter,
               itemsPerPageLabel: filterMessages.itemsPerPageLabel,
               itemsPerPagePlaceholder: filterMessages.itemsPerPagePlaceholder,
               itemsPerPageOption: filterMessages.itemsPerPageOption,
@@ -104,20 +124,54 @@ export function OpportunitiesFilters(props: OpportunitiesFiltersProps): React.Re
               sortRecent: filterMessages.sortRecent,
               sortOldest: filterMessages.sortOldest,
             }}
-            tagPickerVersion={tagPickerVersion}
-            authorPickerVersion={authorPickerVersion}
-            onTagSelected={handleTagSelected}
-            onAuthorSelected={handleAuthorSelected}
+            onTagSelected={onToggleTag}
+            onAuthorSelected={onToggleAuthor}
           />
         </div>
 
-        <footer className="flex flex-col-reverse gap-3 border-t-2 border-border bg-surface px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
-          <Button type="button" variant="ghost" onClick={onClearFilters} disabled={activeFiltersCount === 0}>
+        <footer className="sticky bottom-0 flex flex-col-reverse gap-3 border-t border-line bg-surface-elevated/95 px-5 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between sm:px-7">
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={() => {
+              onClearFilters({ announce: false });
+              setResetAnnouncement(messages.opportunities.feedback.filtersReset);
+            }}
+            disabled={activeFiltersCount === 0}
+          >
             {filterMessages.reset}
           </Button>
-          <Button type="button" onClick={() => onOpenChange(false)}>
-            {filterMessages.show} · {resultCount}
-          </Button>
+          <p className="sr-only" aria-live="polite" aria-atomic="true">
+            {resetAnnouncement}
+          </p>
+          {isLoading || hasLoadError || hasLoadMoreError ? (
+            <div className="flex max-w-md flex-col items-stretch gap-3 sm:items-end">
+              <p
+                role={isLoading ? "status" : "alert"}
+                aria-atomic="true"
+                className="text-sm font-medium text-muted-foreground sm:text-right"
+              >
+                {isLoading
+                  ? messages.opportunities.toolbar.loading
+                  : hasLoadMoreError
+                    ? messages.opportunities.feedback.partialLoadError
+                    : messages.opportunities.feedback.loadError}
+              </p>
+              {!isLoading ? (
+                <Button type="button" variant="secondary" onClick={() => onOpenChange(false)}>
+                  {filterMessages.hide}
+                </Button>
+              ) : null}
+            </div>
+          ) : (
+            <Button type="button" onClick={() => onOpenChange(false)}>
+              {formatTemplate(resultCount === 1
+                ? filterMessages.showResultOne
+                : filterMessages.showResults, {
+                count: resultCount.toLocaleString(locale),
+              })}
+            </Button>
+          )}
         </footer>
       </div>
     </dialog>

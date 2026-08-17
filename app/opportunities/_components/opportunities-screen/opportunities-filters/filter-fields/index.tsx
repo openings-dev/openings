@@ -1,27 +1,28 @@
 import type { OpportunitySortOrder } from "@/app/opportunities/_components/opportunities-screen/types";
+import { ShareableProfileKind } from "@/app/opportunities/_components/opportunities-screen/types";
 import { FilterDisplayGroup } from "../filter-display-group";
 import { FilterLocationGroup } from "../filter-location-group";
 import { FilterScopeGroup } from "../filter-scope-group";
-import { FilterSearch } from "../filter-search";
 import { FilterTaxonomyGroup } from "../filter-taxonomy-group";
 import type { FilterFieldsProps } from "./types";
 
 export function FilterFields({
+  locale,
   state,
   options,
   labels,
-  tagPickerVersion,
-  authorPickerVersion,
+  portalContainer,
   onFieldChange,
   onToggleTag,
   onToggleAuthor,
   onTagSelected,
   onAuthorSelected,
-  advancedOnly = false,
+  forcedScope,
 }: FilterFieldsProps) {
   return (
     <div className="grid gap-4 md:grid-cols-2 md:items-start">
       <FilterLocationGroup
+        locale={locale}
         state={state}
         options={options}
         labels={{
@@ -29,22 +30,12 @@ export function FilterFields({
           region: labels.regionLabel,
           regionPlaceholder: labels.regionPlaceholder,
           allRegions: labels.allRegions,
-          country: labels.countryLabel,
-          countryPlaceholder: labels.countryPlaceholder,
-          allCountries: labels.allCountries,
         }}
+        portalContainer={portalContainer}
         onFieldChange={onFieldChange}
-        hideCountry={advancedOnly}
       />
-      {!advancedOnly ? (
-        <FilterSearch
-          label={labels.searchLabel}
-          placeholder={labels.searchPlaceholder}
-          value={state.searchText}
-          onChange={(value) => onFieldChange("searchText", value)}
-        />
-      ) : null}
       <FilterScopeGroup
+        locale={locale}
         state={state}
         options={options}
         labels={{
@@ -53,17 +44,18 @@ export function FilterFields({
           repositoryPlaceholder: labels.repositoryPlaceholder,
           allRepositories: labels.allRepositories,
         }}
+        portalContainer={portalContainer}
+        locked={forcedScope?.kind === ShareableProfileKind.Community}
         onFieldChange={onFieldChange}
       />
       <FilterTaxonomyGroup
+        locale={locale}
         state={state}
         options={options}
         labels={{
           section: labels.taxonomySectionLabel,
           workModeLabel: labels.workModeLabel,
           workModePlaceholder: labels.workModePlaceholder,
-          stackLabel: labels.stackLabel,
-          stackPlaceholder: labels.stackPlaceholder,
           seniorityLabel: labels.seniorityLabel,
           seniorityPlaceholder: labels.seniorityPlaceholder,
           otherTagsLabel: labels.otherTagsLabel,
@@ -72,16 +64,17 @@ export function FilterFields({
           authors: labels.authorLabel,
           authorPlaceholder: labels.authorPlaceholder,
           noAuthorsSelected: labels.noAuthorsSelected,
+          removeFilter: labels.removeFilter,
         }}
-        tagPickerVersion={tagPickerVersion}
-        authorPickerVersion={authorPickerVersion}
+        portalContainer={portalContainer}
+        authorsLocked={forcedScope?.kind === ShareableProfileKind.Publisher}
         onTagSelected={onTagSelected}
         onToggleTag={onToggleTag}
         onAuthorSelected={onAuthorSelected}
         onToggleAuthor={onToggleAuthor}
-        hideStack={advancedOnly}
       />
       <FilterDisplayGroup
+        locale={locale}
         state={state}
         options={options}
         labels={{
@@ -94,6 +87,7 @@ export function FilterFields({
           sortRecent: labels.sortRecent,
           sortOldest: labels.sortOldest,
         }}
+        portalContainer={portalContainer}
         onItemsPerPageChange={(value) => onFieldChange("itemsPerPage", value)}
         onSortOrderChange={(value) =>
           onFieldChange("sortOrder", value as OpportunitySortOrder)

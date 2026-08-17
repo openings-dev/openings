@@ -1,5 +1,6 @@
 import { SearchX } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { focusOpportunityResults } from "@/app/opportunities/_components/opportunities-screen/opportunity-card/trigger-contract";
 
 interface EmptyStateProps {
   hasActiveFilters: boolean;
@@ -19,16 +20,16 @@ export function EmptyState({
   noResultsDescription,
   clearFiltersLabel,
   onClearFilters,
-}: EmptyStateProps) {
+}: EmptyStateProps): React.ReactNode {
   return (
-    <div className="flex min-h-64 flex-col items-center justify-center rounded-xl border-2 border-dashed border-border bg-accent px-4 text-center shadow-soft-sm">
-      <div className="mb-4 inline-flex size-10 items-center justify-center rounded-xl bg-accent text-accent-foreground">
-        <SearchX className="size-4" />
+    <div className="flex min-h-56 flex-col items-center justify-center border-y border-line px-4 py-10 text-center">
+      <div className="mb-4 inline-flex size-10 items-center justify-center rounded-control bg-primary-soft text-primary-deep">
+        <SearchX className="size-4" aria-hidden="true" />
       </div>
-      <h3 className="font-display text-base font-bold tracking-[-0.02em] text-foreground">
+      <h3 className="font-display text-lg font-semibold tracking-[-0.02em] text-foreground">
         {hasActiveFilters ? noMatchesTitle : noResultsTitle}
       </h3>
-      <p className="mt-1 max-w-sm text-xs leading-5 text-muted-foreground">
+      <p className="mt-2 max-w-md text-sm leading-6 text-muted-foreground">
         {hasActiveFilters ? noMatchesDescription : noResultsDescription}
       </p>
       {hasActiveFilters ? (
@@ -37,7 +38,10 @@ export function EmptyState({
           variant="outline"
           size="sm"
           className="mt-4"
-          onClick={onClearFilters}
+          onClick={() => {
+            onClearFilters();
+            focusOpportunityResults();
+          }}
         >
           {clearFiltersLabel}
         </Button>

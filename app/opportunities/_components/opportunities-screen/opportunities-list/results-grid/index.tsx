@@ -1,4 +1,3 @@
-import { AnimatePresence, motion } from "framer-motion";
 import { resultsGridStyles } from "@/app/opportunities/_components/opportunities-screen/styles";
 import type {
   OpportunityItem,
@@ -26,36 +25,23 @@ export function ResultsGrid({
   onAuthorSelect,
   hideCommunityIdentity,
   hideAuthorIdentity,
-}: ResultsGridProps) {
+}: ResultsGridProps): React.ReactNode {
   return (
-    <motion.div
-      layout
-      transition={{ duration: 0.2, ease: "easeOut" }}
-      className={resultsGridStyles({ viewMode })}
-    >
-      <AnimatePresence mode="popLayout" initial={false}>
-        {items.map((item) => (
-          <motion.div
-            key={item.id}
-            layout
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 6 }}
-            transition={{ duration: 0.16, ease: "easeOut" }}
-          >
-            <OpportunityCard
-              item={item}
-              viewMode={viewMode}
-              isSelected={selectedOpportunityId === item.id}
-              onSelectOpportunity={onSelectOpportunity}
-              onCommunitySelect={onCommunitySelect}
-              onAuthorSelect={onAuthorSelect}
-              hideCommunityIdentity={hideCommunityIdentity}
-              hideAuthorIdentity={hideAuthorIdentity}
-            />
-          </motion.div>
-        ))}
-      </AnimatePresence>
-    </motion.div>
+    <ul className={resultsGridStyles({ viewMode })}>
+      {items.map((item) => (
+        <li key={item.id} className="min-w-0">
+          <OpportunityCard
+            item={item}
+            viewMode={viewMode}
+            isSelected={selectedOpportunityId === item.id}
+            onSelectOpportunity={onSelectOpportunity}
+            onCommunitySelect={onCommunitySelect}
+            onAuthorSelect={onAuthorSelect}
+            hideCommunityIdentity={hideCommunityIdentity}
+            hideAuthorIdentity={hideAuthorIdentity}
+          />
+        </li>
+      ))}
+    </ul>
   );
 }
