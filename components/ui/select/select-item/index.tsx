@@ -14,17 +14,19 @@ export function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "relative flex min-h-9 w-full cursor-default select-none items-center gap-2 rounded-lg py-2 pl-8 pr-2.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-40",
+        "relative flex min-h-11 w-full min-w-0 cursor-default select-none items-center gap-2 rounded-control py-2 pl-8 pr-2.5 text-sm text-foreground outline-none transition-colors duration-150 focus:bg-primary-soft focus:text-primary-deep data-[disabled]:pointer-events-none data-[disabled]:opacity-40 data-[state=checked]:bg-primary-soft data-[state=checked]:font-medium data-[state=checked]:text-primary-deep",
         className,
       )}
       {...props}
     >
       <span className="absolute left-2 flex size-4 items-center justify-center">
         <SelectPrimitive.ItemIndicator>
-          <Check className="size-3.5 text-primary" aria-hidden="true" />
+          <Check className="size-3.5 text-primary-deep" aria-hidden="true" />
         </SelectPrimitive.ItemIndicator>
       </span>
-      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+      <SelectPrimitive.ItemText className="min-w-0 flex-1 truncate">
+        {children}
+      </SelectPrimitive.ItemText>
     </SelectPrimitive.Item>
   );
 }

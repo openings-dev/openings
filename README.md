@@ -1,11 +1,14 @@
 <p align="center">
   <a href="https://openings.dev">
-    <img src="public/logo-dark.png" alt="openings.dev" width="190" />
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="public/openings-wordmark-dark.svg" />
+      <img src="public/openings-wordmark-light.svg" alt="openings.dev" width="260" />
+    </picture>
   </a>
 </p>
 
 <p align="center">
-  A static Next.js application for discovering technology opportunities published in GitHub community repositories.
+  Find technology jobs shared through public GitHub communities, then continue at the original source.
 </p>
 
 <p align="center">
@@ -16,9 +19,9 @@
 
 ## Overview
 
-`openings.dev` is the front-end for a global jobs index built from public GitHub issue data. The application is exported as static pages and reads its runtime dataset from raw JSON files published by the separate [`openings-dev/data`](https://github.com/openings-dev/data) repository.
+`openings.dev` is a public search interface for technology jobs shared through supported GitHub communities. It keeps each result connected to its original listing without replacing the source. The application is exported as static pages and reads raw JSON files published by the separate [`openings-dev/data`](https://github.com/openings-dev/data) repository.
 
-The front-end does not keep local job data, mocks, fixtures, or JSON snapshots. All opportunity, facet, repository, community, user, and job-detail data is loaded through remote raw URLs.
+The production job catalog does not use local job data, mocks, fixtures, or JSON snapshots. All opportunity, facet, repository, community, user, and job-detail data is loaded through remote raw URLs.
 
 ## Architecture
 
@@ -29,7 +32,7 @@ app/
   community/               community directory and repository routes
   docs/                    rendered project documentation pages
   opportunities/           opportunities screen and feature UI
-  users/                   author directory and profile routes
+  users/                   GitHub author directory and profile routes
 components/
   footer/                  global footer components
   header/                  global header components
@@ -116,6 +119,10 @@ npm run build
 ```
 
 `npm run build` runs the production Next.js static export and writes the generated site to `out/`.
+
+Community and GitHub-author directory pages, profile summaries, metadata, and
+route lists are generated during that build. Publishing a new data snapshot
+therefore requires a fresh site build; these pages do not update through ISR.
 
 ## Contributing
 
