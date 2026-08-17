@@ -57,6 +57,11 @@ export const ptTranslations: TranslationMessages = {
     description: "O link pode estar desatualizado ou a página pode ter mudado.",
     action: "Ver vagas abertas",
   },
+  legacyRedirect: {
+    title: "Esta página mudou de endereço",
+    description: "Estamos levando você para o novo endereço.",
+    action: "Continuar",
+  },
   communities: {
     header: {
       kicker: "Comunidades",

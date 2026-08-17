@@ -56,6 +56,11 @@ export const deTranslations: TranslationMessages = {
     description: "Der Link ist möglicherweise veraltet oder die Seite wurde verschoben.",
     action: "Offene Stellen suchen",
   },
+  legacyRedirect: {
+    title: "Diese Seite ist umgezogen",
+    description: "Wir leiten dich zur neuen Adresse weiter.",
+    action: "Weiter",
+  },
   communities: {
     header: {
       kicker: "Communities",

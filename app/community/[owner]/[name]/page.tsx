@@ -1,24 +1,15 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { OpportunitiesPage } from "@/app/opportunities/_components/opportunities-page";
-import { ShareableProfileKind } from "@/app/opportunities/_components/opportunities-screen/types";
-import {
-  getSnapshotCommunityByRepository,
-  listSnapshotCommunities,
-} from "@/lib/opportunities/communities";
+import { LegacyRouteRedirect } from "@/app/_components/legacy-route-redirect";
+import { createLegacyRouteMetadata } from "@/lib/metadata/legacy-route-metadata";
+import { listSnapshotCommunities } from "@/lib/opportunities/communities";
 import {
   buildCommunityPath,
   communityRouteSegmentsFromRepository,
   repositoryFromCommunitySegments,
 } from "@/lib/opportunities/routing";
-import { createCommunityProfileMetadata } from "@/lib/metadata/profile-metadata";
-import { loadSafely } from "@/lib/utils/load-safely";
 
-interface CommunityRepositoryPageProps {
-  params: Promise<{
-    owner: string;
-    name: string;
-  }>;
+interface LegacyCommunityPageProps {
+  params: Promise<{ owner: string; name: string }>;
 }
 
 export const dynamicParams = false;
@@ -29,52 +20,27 @@ export async function generateStaticParams() {
 
   for (const community of communities) {
     const segments = communityRouteSegmentsFromRepository(community.repository);
-
-    if (segments) {
-      params.push({ owner: segments.owner, name: segments.name });
-    }
+    if (segments) params.push({ owner: segments.owner, name: segments.name });
   }
 
   return params;
 }
 
-async function resolveCommunityProfile(
-  params: CommunityRepositoryPageProps["params"],
-) {
+async function resolveDestination(params: LegacyCommunityPageProps["params"]) {
   const { owner, name } = await params;
-  const repository = repositoryFromCommunitySegments([owner, name]);
-  const profile = await loadSafely({
-    load: () => getSnapshotCommunityByRepository(repository),
-    defaultValue: null,
-  });
-
-  return { profile, repository };
+  return buildCommunityPath(
+    repositoryFromCommunitySegments([owner, name]),
+  );
 }
 
 export async function generateMetadata({
   params,
-}: CommunityRepositoryPageProps): Promise<Metadata> {
-  const { profile, repository } = await resolveCommunityProfile(params);
-
-  return createCommunityProfileMetadata({
-    profile,
-    repository,
-    path: buildCommunityPath(profile?.repository ?? repository),
-  });
+}: LegacyCommunityPageProps): Promise<Metadata> {
+  return createLegacyRouteMetadata(await resolveDestination(params));
 }
 
-export default async function CommunityRepositoryPage({
+export default async function LegacyCommunityPage({
   params,
-}: CommunityRepositoryPageProps): Promise<React.ReactNode> {
-  const { profile } = await resolveCommunityProfile(params);
-
-  if (!profile) {
-    notFound();
-  }
-
-  return (
-    <OpportunitiesPage
-      profile={{ kind: ShareableProfileKind.Community, profile }}
-    />
-  );
+}: LegacyCommunityPageProps): Promise<React.ReactNode> {
+  return <LegacyRouteRedirect destinationPath={await resolveDestination(params)} />;
 }

@@ -56,6 +56,11 @@ export const enTranslations: TranslationMessages = {
     description: "The link may be outdated, or the page may have moved.",
     action: "Browse current jobs",
   },
+  legacyRedirect: {
+    title: "This page has moved",
+    description: "We’re taking you to its new address.",
+    action: "Continue",
+  },
   communities: {
     header: {
       kicker: "Communities",

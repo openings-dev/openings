@@ -1,25 +1,12 @@
 import type { Metadata } from "next";
-import { CommunitiesScreen } from "@/app/community/_components/communities-screen";
-import { createPageMetadata } from "@/lib/metadata/site-metadata";
-import { LoadResultStatus, loadWithStatus } from "@/lib/utils/load-safely";
-import { listSnapshotCommunities } from "@/lib/opportunities/communities";
+import { LegacyRouteRedirect } from "@/app/_components/legacy-route-redirect";
+import { createLegacyRouteMetadata } from "@/lib/metadata/legacy-route-metadata";
+import { PUBLIC_ROUTES } from "@/lib/navigation/routes";
 
-export const metadata: Metadata = createPageMetadata({
-  title: "GitHub communities sharing tech jobs",
-  description:
-    "Browse public GitHub communities with open tech jobs, then check any listing at its original source.",
-  path: "/community",
-});
+export const metadata: Metadata = createLegacyRouteMetadata(
+  PUBLIC_ROUTES.communities,
+);
 
-export default async function CommunityIndexPage(): Promise<React.ReactNode> {
-  const result = await loadWithStatus({
-    load: () => listSnapshotCommunities(),
-  });
-
-  return (
-    <CommunitiesScreen
-      communities={result.status === LoadResultStatus.Success ? result.data : []}
-      sourceUnavailable={result.status === LoadResultStatus.Failure}
-    />
-  );
+export default function LegacyCommunityIndexPage(): React.ReactNode {
+  return <LegacyRouteRedirect destinationPath={PUBLIC_ROUTES.communities} />;
 }

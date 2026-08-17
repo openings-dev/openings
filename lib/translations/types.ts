@@ -56,6 +56,11 @@ export interface TranslationMessages {
     description: string;
     action: string;
   };
+  legacyRedirect: {
+    title: string;
+    description: string;
+    action: string;
+  };
   communities: {
     header: {
       kicker: string;

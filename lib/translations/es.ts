@@ -56,6 +56,11 @@ export const esTranslations: TranslationMessages = {
     description: "Puede que el enlace haya cambiado o que la página ya no esté disponible.",
     action: "Buscar vacantes abiertas",
   },
+  legacyRedirect: {
+    title: "Esta página ha cambiado de dirección",
+    description: "Te llevamos a su nueva dirección.",
+    action: "Continuar",
+  },
   communities: {
     header: {
       kicker: "Comunidades",

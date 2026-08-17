@@ -57,6 +57,11 @@ export const frTranslations: TranslationMessages = {
     description: "Le lien est peut-être obsolète, ou la page a été déplacée.",
     action: "Rechercher des offres",
   },
+  legacyRedirect: {
+    title: "Cette page a changé d’adresse",
+    description: "Nous vous redirigeons vers sa nouvelle adresse.",
+    action: "Continuer",
+  },
   communities: {
     header: {
       kicker: "Communautés",

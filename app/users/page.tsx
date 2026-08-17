@@ -1,25 +1,12 @@
 import type { Metadata } from "next";
-import { UsersScreen } from "@/app/users/_components/users-screen";
-import { createPageMetadata } from "@/lib/metadata/site-metadata";
-import { LoadResultStatus, loadWithStatus } from "@/lib/utils/load-safely";
-import { listSnapshotUsers } from "@/lib/opportunities/users";
+import { LegacyRouteRedirect } from "@/app/_components/legacy-route-redirect";
+import { createLegacyRouteMetadata } from "@/lib/metadata/legacy-route-metadata";
+import { PUBLIC_ROUTES } from "@/lib/navigation/routes";
 
-export const metadata: Metadata = createPageMetadata({
-  title: "GitHub authors sharing tech jobs",
-  description:
-    "Browse the GitHub accounts that authored public job listings in community repositories and view the jobs linked to each account.",
-  path: "/users",
-});
+export const metadata: Metadata = createLegacyRouteMetadata(
+  PUBLIC_ROUTES.authors,
+);
 
-export default async function UsersIndexPage(): Promise<React.ReactNode> {
-  const result = await loadWithStatus({
-    load: () => listSnapshotUsers(),
-  });
-
-  return (
-    <UsersScreen
-      users={result.status === LoadResultStatus.Success ? result.data : []}
-      sourceUnavailable={result.status === LoadResultStatus.Failure}
-    />
-  );
+export default function LegacyUsersIndexPage(): React.ReactNode {
+  return <LegacyRouteRedirect destinationPath={PUBLIC_ROUTES.authors} />;
 }

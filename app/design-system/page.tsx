@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
-import { createPageMetadata } from "@/lib/metadata/site-metadata";
-import { DesignSystemShowcase } from "./_components/design-system-showcase";
+import { LegacyRouteRedirect } from "@/app/_components/legacy-route-redirect";
+import { createLegacyRouteMetadata } from "@/lib/metadata/legacy-route-metadata";
+import { PUBLIC_ROUTES } from "@/lib/navigation/routes";
 
-export const metadata: Metadata = createPageMetadata({
-  title: "Design system",
-  description:
-    "Review the brand foundations, shared components, content standards, UI states, and responsive rules used by openings.dev.",
-  path: "/design-system",
-});
+export const metadata: Metadata = createLegacyRouteMetadata(
+  PUBLIC_ROUTES.design,
+);
 
-export default function DesignSystemPage(): React.ReactNode {
-  return <DesignSystemShowcase />;
+export default function LegacyDesignSystemPage(): React.ReactNode {
+  return <LegacyRouteRedirect destinationPath={PUBLIC_ROUTES.design} />;
 }
