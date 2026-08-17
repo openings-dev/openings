@@ -4,9 +4,8 @@ export interface DocumentMessages {
 }
 
 export interface TranslationMessages {
-  meta: {
-    title: string;
-    description: string;
+  accessibility: {
+    skipToContent: string;
   };
   header: {
     brandName: string;
@@ -17,8 +16,11 @@ export interface TranslationMessages {
       users: string;
     };
     primaryNavigationAriaLabel: string;
+    openNavigationMenuAriaLabel: string;
+    closeNavigationMenuAriaLabel: string;
     switchToLightMode: string;
     switchToDarkMode: string;
+    themeControlAriaLabel: string;
     languagePlaceholder: string;
     languageAriaLabel: string;
     languageChanged: string;
@@ -27,6 +29,26 @@ export interface TranslationMessages {
     kicker: string;
     title: string;
     description: string;
+    primaryAction: string;
+    sourceStatement: string;
+    proof: {
+      sourceLabel: string;
+      sourceValue: string;
+      searchLabel: string;
+      searchValue: string;
+      destinationLabel: string;
+      destinationValue: string;
+    };
+    network: {
+      ariaLabel: string;
+      repository: string;
+      publicIssue: string;
+      indexedForSearch: string;
+      opportunity: string;
+      stack: string;
+      location: string;
+      originalSource: string;
+    };
   };
   notFound: {
     kicker: string;
@@ -44,7 +66,9 @@ export interface TranslationMessages {
       profileDescription: string;
     };
     filters: {
+      discoveryLabel: string;
       title: string;
+      searchLabel: string;
       country: string;
       region: string;
       allCountries: string;
@@ -60,12 +84,24 @@ export interface TranslationMessages {
       sortName: string;
     };
     list: {
+      summaryOne: string;
       summary: string;
-      emptyTitle: string;
-      emptyDescription: string;
-      repositoryLabel: string;
-      countryLabel: string;
-      regionLabel: string;
+      listLabel: string;
+      emptySourceTitle: string;
+      emptySourceDescription: string;
+      unavailableTitle: string;
+      unavailableDescription: string;
+      emptyQueryTitle: string;
+      emptyQueryDescription: string;
+      emptyGeographyTitle: string;
+      emptyGeographyDescription: string;
+      emptyCombinedTitle: string;
+      emptyCombinedDescription: string;
+      clearAll: string;
+      browseJobs: string;
+      locationLabel: string;
+      latestActivityLabel: string;
+      opportunityCountOne: string;
       opportunitiesCount: string;
       openCommunity: string;
     };
@@ -80,7 +116,9 @@ export interface TranslationMessages {
       profileDescription: string;
     };
     filters: {
+      discoveryLabel: string;
       title: string;
+      searchLabel: string;
       country: string;
       region: string;
       allCountries: string;
@@ -96,15 +134,50 @@ export interface TranslationMessages {
       sortName: string;
     };
     list: {
+      summaryOne: string;
       summary: string;
-      emptyTitle: string;
-      emptyDescription: string;
-      handleLabel: string;
-      countryLabel: string;
-      regionLabel: string;
+      listLabel: string;
+      emptySourceTitle: string;
+      emptySourceDescription: string;
+      unavailableTitle: string;
+      unavailableDescription: string;
+      emptyQueryTitle: string;
+      emptyQueryDescription: string;
+      emptyGeographyTitle: string;
+      emptyGeographyDescription: string;
+      emptyCombinedTitle: string;
+      emptyCombinedDescription: string;
+      clearAll: string;
+      browseJobs: string;
+      locationLabel: string;
+      latestActivityLabel: string;
+      opportunityCountOne: string;
       opportunitiesCount: string;
-      openUser: string;
+      openPublisher: string;
     };
+  };
+  profiles: {
+    communityEyebrow: string;
+    publisherEyebrow: string;
+    communityDescription: string;
+    publisherDescription: string;
+    openRoleSingular: string;
+    openRolesPlural: string;
+    locationLabel: string;
+    latestActivityLabel: string;
+    publicSourceLabel: string;
+    summaryScope: string;
+    seeOpenRoles: string;
+    shareProfile: string;
+    openCommunityOnGitHub: string;
+    openPublisherOnGitHub: string;
+    shareCommunityText: string;
+    sharePublisherText: string;
+    shareShared: string;
+    shareCopied: string;
+    shareFailed: string;
+    workspaceCommunityScope: string;
+    workspacePublisherScope: string;
   };
   opportunities: {
     header: {
@@ -119,7 +192,11 @@ export interface TranslationMessages {
       filtersReset: string;
       loadError: string;
       loadMoreError: string;
+      partialLoadError: string;
       rateLimited: string;
+      selectedLoading: string;
+      selectedNotFound: string;
+      selectedLoadError: string;
     };
     range: {
       zeroResults: string;
@@ -139,7 +216,10 @@ export interface TranslationMessages {
       activeCount: string;
       hide: string;
       show: string;
+      showResultOne: string;
+      showResults: string;
       reset: string;
+      removeFilter: string;
       searchLabel: string;
       searchPlaceholder: string;
       locationSectionLabel: string;
@@ -157,6 +237,10 @@ export interface TranslationMessages {
       workModePlaceholder: string;
       stackLabel: string;
       stackPlaceholder: string;
+      anyStack: string;
+      applyStack: string;
+      clearStack: string;
+      stackSelectedCount: string;
       seniorityLabel: string;
       seniorityPlaceholder: string;
       otherTagsLabel: string;
@@ -177,7 +261,9 @@ export interface TranslationMessages {
     };
     toolbar: {
       opportunitiesCount: string;
+      pageSummaryOne: string;
       pageSummary: string;
+      loading: string;
       sortPlaceholder: string;
       sortRecent: string;
       sortOldest: string;
@@ -189,9 +275,9 @@ export interface TranslationMessages {
       noMatchesDescription: string;
       noResultsDescription: string;
       clearFilters: string;
-      loadedPage: string;
       scrollToLoadMore: string;
       allResultsLoaded: string;
+      loading: string;
       loadingMore: string;
     };
     viewMode: {
@@ -201,19 +287,28 @@ export interface TranslationMessages {
     };
     card: {
       statusOpen: string;
-      detailsLabel: string;
+      detailsTitle: string;
+      viewDetails: string;
+      openDetailsAriaLabel: string;
       closeDetails: string;
       postedAt: string;
       updatedAt: string;
       openOriginal: string;
+      showCommunityJobs: string;
+      showAuthorJobs: string;
+      noDescription: string;
       share: string;
+      shareShared: string;
       shareCopied: string;
       shareFailed: string;
+      salaryFrom: string;
+      salaryUpTo: string;
+      salaryRange: string;
       salaryPeriodMonth: string;
       salaryPeriodYear: string;
       salaryPeriodHour: string;
-      communityAvatarAlt: string;
-      authorAvatarAlt: string;
+      moreTag: string;
+      moreTags: string;
     };
   };
   footer: {
@@ -230,18 +325,23 @@ export interface TranslationMessages {
       openSource: string;
       legal: string;
     };
+    groupAriaLabels: {
+      project: string;
+      openSource: string;
+      legal: string;
+    };
     links: {
       overview: string;
       communities: string;
       users: string;
       apiReference: string;
       maintainers: string;
-      status: string;
       github: string;
       contributing: string;
       reportIssue: string;
       privacyPolicy: string;
       termsOfService: string;
+      designSystem: string;
     };
     social: {
       linksAriaLabel: string;
@@ -250,11 +350,160 @@ export interface TranslationMessages {
   };
   documents: {
     sourceLabel: string;
+    breadcrumb: string;
+    navigationLabel: string;
+    navigationSummary: string;
+    tableOfContentsLabel: string;
+    tableOfContentsSummary: string;
+    skipToContent: string;
+    unavailableTitle: string;
+    unavailableDescription: string;
     overview: DocumentMessages;
     apiReference: DocumentMessages;
     maintainers: DocumentMessages;
     contributing: DocumentMessages;
     privacy: DocumentMessages;
     terms: DocumentMessages;
+  };
+  designSystem: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    navigationLabel: string;
+    sections: {
+      foundations: string;
+      brand: string;
+      primitives: string;
+      productPatterns: string;
+      content: string;
+      states: string;
+      responsive: string;
+      usage: string;
+    };
+    guidance: {
+      foundations: string;
+      brand: string;
+      primitives: string;
+      productPatterns: string;
+      content: string;
+      states: string;
+      responsive: string;
+      usage: string;
+    };
+    labels: {
+      specimen: string;
+      representativeData: string;
+      lightSurface: string;
+      inverseSurface: string;
+      defaultState: string;
+      selectedState: string;
+      disabledState: string;
+      invalidState: string;
+      loadingState: string;
+      emptyState: string;
+      destructiveState: string;
+      interactiveExamples: string;
+    };
+    actions: {
+      primary: string;
+      secondary: string;
+      showToast: string;
+      openFilters: string;
+      openSheet: string;
+      demonstrateLoading: string;
+      close: string;
+    };
+    interactive: {
+      selectLabel: string;
+      selectHint: string;
+      selectPlaceholder: string;
+      selectOption: string;
+      invalidLabel: string;
+      invalidError: string;
+      toastTitle: string;
+      toastDescription: string;
+      sheetTitle: string;
+      sheetDescription: string;
+      sheetLabel: string;
+      loadingComplete: string;
+    };
+    specimens: {
+      semanticColors: string;
+      themeComparison: string;
+      typographyRoles: string;
+      displaySample: string;
+      bodySample: string;
+      editorialSample: string;
+      spacingShapeElevation: string;
+      iconContract: string;
+      searchWithLabel: string;
+      productConcept: string;
+      sourceLink: string;
+      iconHelpAriaLabel: string;
+      wordmarkFirstTitle: string;
+      wordmarkFirstDescription: string;
+      compactMarkTitle: string;
+      compactMarkDescription: string;
+      oneIdentityTitle: string;
+      oneIdentityDescription: string;
+      buttonsAndLinks: string;
+      secondaryButton: string;
+      outlineButton: string;
+      quietButton: string;
+      removeButton: string;
+      searchTermsLabel: string;
+      searchTermsHint: string;
+      searchTermsPlaceholder: string;
+      badgesAndStatus: string;
+      needsReview: string;
+      publicSource: string;
+      profileSpecimenLabel: string;
+      directoryCount: string;
+      directoryAction: string;
+      messageThesis: string;
+      claimsBoundary: string;
+      actionVocabulary: string;
+      avoid: string;
+      avoidDescription: string;
+      mobileGuidance: string;
+      tabletGuidance: string;
+      wideGuidance: string;
+      emptyTitle: string;
+      emptyDescription: string;
+      clearSpecimenFilters: string;
+      longOpportunityTitle: string;
+      liveResponsiveComposition: string;
+      colorLimits: string;
+      controlGuidance: {
+        keyboard: string;
+        accessibleName: string;
+        errorAssociation: string;
+        loadingAnnouncement: string;
+        reducedMotion: string;
+      };
+      values: {
+        region: string;
+        country: string;
+        remote: string;
+        seniority: string;
+        company: string;
+        global: string;
+      };
+      colorPurposes: {
+        canvas: string;
+        paper: string;
+        surface: string;
+        elevated: string;
+        overlay: string;
+        foreground: string;
+        muted: string;
+        line: string;
+        primary: string;
+        lavender: string;
+        mint: string;
+        peach: string;
+        status: string;
+      };
+    };
   };
 }

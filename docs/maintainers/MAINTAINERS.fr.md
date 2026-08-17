@@ -1,14 +1,16 @@
-# Pour mainteneurs
+# Partager la page Openings de votre communauté
 
-openings.dev offre une vue publique plus claire pour les offres que votre communaute publie deja sous forme d'issues GitHub. Il ne remplace pas votre depot, ne modifie pas les issues, ne recoit pas de candidatures et ne stocke pas de donnees privees.
+Si votre communauté figure dans Openings, elle dispose d’une page publique consacrée aux offres déjà publiées dans ses sources GitHub configurées. Cette page facilite la recherche et le partage, tout en renvoyant chaque annonce vers sa source d’origine.
 
-Utilisez le modele d'URL ci-dessous et remplacez `OWNER/REPO` par le nom du depot GitHub:
+Openings ne modifie pas le contenu source, ne reçoit pas de candidature et n’accède à aucun dépôt privé ni à aucune donnée de candidature.
+
+Pour une communauté déjà incluse, remplacez `OWNER/REPO` par le nom de son dépôt GitHub :
 
 ```txt
 https://openings.dev/community/OWNER/REPO
 ```
 
-Exemple:
+Exemple :
 
 ```txt
 https://openings.dev/community/qa-brasil/vagas
@@ -17,28 +19,26 @@ https://openings.dev/community/qa-brasil/vagas
 ## Lien pour le README
 
 ```md
-[Voir les offres de cette communaute sur openings.dev](https://openings.dev/community/OWNER/REPO)
+[Voir les offres de cette communauté sur openings.dev](https://openings.dev/community/OWNER/REPO)
 ```
 
 ## Badge pour le README
 
 ```md
-[![Offres sur openings.dev](https://img.shields.io/badge/openings.dev-voir_offres-111827?logo=github)](https://openings.dev/community/OWNER/REPO)
+[![Offres ouvertes sur openings.dev](https://img.shields.io/badge/openings.dev-open_jobs-111827?logo=github)](https://openings.dev/community/OWNER/REPO)
 ```
 
-## Message court suggere
+## Message court
 
 ```md
-Nous avons ajoute une vue openings.dev pour cette communaute:
+Les offres publiques de cette communauté sont également consultables sur openings.dev :
 https://openings.dev/community/OWNER/REPO
 
-Elle indexe les issues publiques d'offres de ce depot et facilite la recherche, les filtres et le partage. Les issues originales sur GitHub restent la source officielle.
+Cette page permet de rechercher, filtrer et partager les annonces. Pour vérifier les informations actuelles et la marche à suivre, consultez la source d’origine indiquée sur l’offre.
 ```
 
-## Corrections ou retrait
+## Correction ou retrait
 
-Si la communaute souhaite corriger ou retirer la fiche, ouvrez une issue dans le depot openings.dev:
+Pour demander une correction ou le retrait d’une page, utilisez le formulaire public en indiquant l’URL concernée et la modification souhaitée. Si la demande ne doit pas être publique, écrivez à `support@openings.dev` :
 
-```txt
-https://github.com/openings-dev/openings/issues/new
-```
+- [Formulaire de correction ou de retrait](https://github.com/openings-dev/openings/issues/new?template=content_correction.yml)

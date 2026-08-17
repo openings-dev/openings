@@ -1,6 +1,6 @@
-# For maintainers
+# Share your community’s Openings page
 
-openings.dev gives your community a cleaner public view for job issues already posted in your GitHub repository. It does not replace your repository, edit issues, accept applications, or store private data.
+openings.dev makes public job listings from supported GitHub community repositories easier to search and share. It does not replace your repository, edit listings, accept applications, or access private GitHub repositories or application data.
 
 Use the repository URL pattern below and replace `OWNER/REPO` with your GitHub repository name:
 
@@ -29,16 +29,16 @@ https://openings.dev/community/qa-brasil/vagas
 ## Suggested short message
 
 ```md
-We added an openings.dev view for this community:
+This community’s public job listings are easier to browse on openings.dev:
 https://openings.dev/community/OWNER/REPO
 
-It indexes the public job issues from this repository and makes them easier to search, filter, and share. The original GitHub issues remain the source of truth.
+The page makes those listings easier to search, filter, and share. Each result still links to its original source for current details and next steps.
 ```
 
 ## Corrections or removal
 
-If your community wants the listing adjusted or removed, open an issue in the openings.dev repository:
+To request a correction or removal, use the dedicated public form. For a request that should not be public, email `support@openings.dev`.
 
 ```txt
-https://github.com/openings-dev/openings/issues/new
+https://github.com/openings-dev/openings/issues/new?template=content_correction.yml
 ```

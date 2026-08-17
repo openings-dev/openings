@@ -1,51 +1,43 @@
 # Privacy Policy
 
-_Last updated: April 22, 2026_
+_Effective date: August 17, 2026_
 
-openings.dev is built to make community-published tech job listings easier to discover. This policy explains what data we handle and why.
+Openings makes public technology job listings easier to find. This policy explains what information the site displays, what it saves in your browser, and when your browser connects to external services.
 
-## 1. Data we process
+## 1. Public data displayed by Openings
 
-openings.dev primarily processes **public job data** from GitHub repositories that publish openings as issues.
+Openings reads public data published by the `openings-dev/data` repository. A listing can include its title, description, excerpt, tags, job location, salary information, dates, source URL, repository, and community identity.
 
-For platform operations, we may process limited technical metadata such as:
+Openings also displays public GitHub account information attached to a listing, including the author’s name, handle, and avatar URL. Openings derives the GitHub profile link from the public handle. Author profile pages are generated from these public listing records. They do not indicate that Openings has verified, represents, or is affiliated with the person, organization, or employer shown.
 
-- Request logs
-- Basic performance and error telemetry
-- Aggregate usage signals
+## 2. Preferences stored in your browser
 
-## 2. How we use data
+Openings stores your language and theme preferences in your browser’s local storage. These preferences restore the interface you selected and are not used to identify you. They remain in that browser until you change them or clear the browser’s site data.
 
-We use data to:
+The site does not set analytics cookies or load analytics scripts.
 
-- Index and display job openings
-- Improve search quality and filtering
-- Maintain platform reliability and security
+## 3. External requests and links
 
-We do not sell personal data.
+The site reads its public job index from GitHub-hosted raw files. When an avatar is available, your browser requests the remote image URL included in the public data; that image can be hosted by GitHub or another domain. Opening a listing, repository, profile, discussion, or other external link takes you to the destination service, which handles the request under its own terms and privacy policy.
 
-## 3. Public-source principle
+## 4. How the data is used
 
-Most job content shown in openings.dev originates from public repositories and remains subject to the original source context and repository terms.
+Openings uses the public records above to provide search, filters, community pages, author pages, job details, and links back to each original source. Openings does not accept job applications, create candidate accounts, or verify employers and listings.
 
-## 4. Security
+## 5. Questions, corrections, and removal requests
 
-We apply reasonable technical and organizational measures to protect infrastructure, logs, and service integrity.
+If public information is inaccurate or should be removed from the index, use the [content correction or removal form](https://github.com/openings-dev/openings/issues/new?template=content_correction.yml) or email support@openings.dev. Include the affected Openings URL and original source URL so contributors can investigate.
 
-## 5. Retention
+Information you choose to send through email or GitHub is handled by that channel so contributors can respond to your request. Do not include sensitive personal information that is not necessary for the request.
 
-Technical logs and operational data are retained only for as long as necessary for security, debugging, and service maintenance.
+## 6. Data changes and retention
 
-## 6. Third-party services
+Job and author information changes when its public source and the published Openings data change. Theme and language preferences remain in your browser until you change them or clear local storage.
 
-openings.dev may rely on infrastructure providers for hosting, analytics, and monitoring. Those providers process data under their own terms and security standards.
+## 7. Security
 
-## 7. Contact
-
-For privacy questions, contact:
-
-- support@openings.dev
+Security vulnerabilities should be reported privately to security@openings.dev rather than in a public issue. Response times can vary because the project is maintained by contributors.
 
 ## 8. Policy updates
 
-This policy may be updated over time. Material changes will be reflected by updating the date at the top of this document.
+This policy can change as the product or its data handling changes. The effective date at the top identifies the current published version.

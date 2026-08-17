@@ -2,8 +2,7 @@
 
 ## Supported Versions
 
-As a young project, we currently provide security updates for the latest
-version on the `main` branch.
+Security updates apply to the latest version published from the `main` branch.
 
 ## Reporting a Vulnerability
 
@@ -18,5 +17,6 @@ Include:
 - impact assessment
 - suggested remediation (optional)
 
-You can expect an acknowledgment within 72 hours and regular status updates
-until resolution.
+Reports are reviewed by project contributors. Response times may vary, so do
+not include secrets or personal data beyond what is necessary to explain the
+vulnerability.

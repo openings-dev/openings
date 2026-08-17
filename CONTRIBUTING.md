@@ -88,4 +88,4 @@ npm run build
 
 ## Code of Conduct
 
-By participating, you agree to follow the [Code of Conduct](./CODE_OF_CONDUCT.md).
+By participating, you agree to follow the [Code of Conduct](https://github.com/openings-dev/openings/blob/main/CODE_OF_CONDUCT.md).

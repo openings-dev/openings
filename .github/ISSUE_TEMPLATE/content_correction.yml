@@ -1,0 +1,57 @@
+name: Content correction or removal
+description: Request a correction to indexed public information or removal of an Openings page
+title: "[content]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for public information indexed by openings.dev. Issues are public, so do not include sensitive personal information.
+
+  - type: dropdown
+    id: request_type
+    attributes:
+      label: Request type
+      options:
+        - Correct indexed information
+        - Remove an Openings page
+        - Other content request
+    validations:
+      required: true
+
+  - type: input
+    id: openings_url
+    attributes:
+      label: Openings URL
+      description: Link to the listing, community page, or author page affected by this request
+      placeholder: https://openings.dev/...
+    validations:
+      required: true
+
+  - type: input
+    id: source_url
+    attributes:
+      label: Original source URL
+      description: Add the public source link when one is available
+      placeholder: https://github.com/...
+
+  - type: textarea
+    id: requested_change
+    attributes:
+      label: Requested change
+      description: Explain what is inaccurate or what should be removed
+    validations:
+      required: true
+
+  - type: input
+    id: relationship
+    attributes:
+      label: Relationship to the content
+      description: Optional context that helps contributors understand the request
+
+  - type: checkboxes
+    id: public_request
+    attributes:
+      label: Public request
+      options:
+        - label: I understand that this issue and its contents will be public.
+          required: true

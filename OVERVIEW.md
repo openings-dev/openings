@@ -1,32 +1,32 @@
 # openings.dev Overview
 
-`openings.dev` is a static jobs discovery application for technology opportunities published in public GitHub community repositories.
+Openings helps people find technology jobs shared through public GitHub communities. It makes those listings searchable without replacing their original source.
 
-The front-end is a Next.js App Router project exported as static pages. It does not store opportunity data locally. The application consumes raw JSON files published by the separate `openings-dev/data` repository and uses those files as its public data API.
+The front-end is a Next.js App Router project exported as static pages. It does not store opportunity data locally. The application reads raw JSON files published by the separate `openings-dev/data` repository as a public static-data interface.
 
 ## What the Platform Does
 
-- Lists open technology opportunities from curated GitHub issue repositories.
+- Lists open technology jobs from configured public GitHub repositories.
 - Provides filters for repository, region, country, tags, authors, sort order, and view mode.
-- Generates static community, user, and job detail pages from the remote dataset.
+- Generates static community and user pages from the remote dataset. Job details open in the discovery route through the `?job=<id>` query.
 - Renders project documentation and policy pages from local markdown content.
-- Keeps source provenance by linking back to the original GitHub issue and repository.
+- Keeps source provenance by linking back to the original public listing and repository.
 
 ## Data Flow
 
 1. The `openings-dev/data` pipeline reads configured public GitHub repositories.
-2. The data pipeline normalizes issues, builds facets, writes paginated static API files, and publishes snapshots to GitHub.
+2. The data pipeline normalizes public listings, builds facets, writes paginated static data files, and publishes them to GitHub.
 3. The front-end reads those files from `raw.githubusercontent.com`.
 4. UI filtering and pagination resolve IDs, pages, and job detail buckets from the remote static API.
-5. Static params for community, user, and job pages are generated from the same remote dataset at build time.
+5. Static params for community and user pages are generated from the same remote dataset at build time.
 
 ## Current Boundaries
 
 - Front-end: `openings-dev/openings`.
-- Data pipeline and raw static API: `openings-dev/data`.
+- Data pipeline and raw static data: `openings-dev/data`.
 - Local front-end data files: none.
 - Local opportunity API route: none.
-- Supported source type today: public GitHub data.
+- Supported source types: public GitHub issues, discussions, and community boards.
 
 ## Architecture Summary
 

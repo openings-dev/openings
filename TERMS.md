@@ -1,45 +1,46 @@
 # Terms of Service
 
-_Last updated: April 22, 2026_
+_Effective date: August 17, 2026_
 
-By using openings.dev, you agree to the terms below.
+These terms describe the current scope and conditions for using openings.dev.
 
 ## 1. Service scope
 
-openings.dev is an index and discovery layer for tech jobs published in community GitHub repositories.
+openings.dev is a search and discovery interface for technology job listings published through supported public GitHub communities. It links each result to its original public source.
 
-We do not guarantee that listings are complete, accurate, or currently open, and we are not a hiring intermediary between candidates and companies.
+Openings does not accept applications, act as a recruiter or employer, verify employers, or guarantee that a listing is complete, accurate, safe, or still open. Check the original listing before relying on its details or taking a next step.
 
 ## 2. Acceptable use
 
 You agree not to:
 
-- Abuse or disrupt platform infrastructure
-- Attempt unauthorized access to systems or data
-- Use the service in violation of applicable law
+- disrupt or misuse the service or its supporting infrastructure;
+- attempt to gain unauthorized access to systems or data;
+- use the service to mislead, harass, discriminate against, or harm others; or
+- use the service in violation of applicable law or third-party rights.
 
-## 3. Content origin
+## 3. Public content and attribution
 
-Job postings are sourced from public repositories and remain the responsibility of their original authors and maintainers.
+Listings, repository details, and GitHub account information originate from public sources. Openings presents that information for discovery and preserves links to the source. Inclusion does not imply verification, endorsement, partnership, or affiliation.
 
-## 4. Availability
+Rights in third-party content remain with their respective rights holders. If you believe indexed information is inaccurate or should be removed, use the [content correction or removal form](https://github.com/openings-dev/openings/issues/new?template=content_correction.yml) or email support@openings.dev.
 
-We may change, suspend, or discontinue parts of the service at any time, including API behavior and indexing coverage.
+## 4. Static data and availability
 
-## 5. Liability
+The site and its public static data can change, be delayed, become incomplete, or be unavailable. Index coverage is limited to supported sources and is not a complete record of all technology jobs. Features, file formats, and indexing coverage can change or be discontinued.
 
-The service is provided "as is" without warranties of any kind. To the maximum extent permitted by law, openings.dev disclaims liability for direct or indirect damages resulting from use of the platform.
+## 5. External services and applications
 
-## 6. External links
+Openings links to repositories, profiles, listings, and other third-party services. Those destinations control their own content, availability, privacy practices, and application processes. Review their terms before using them or submitting information.
 
-openings.dev may link to third-party websites and repositories. We are not responsible for external content, policies, or uptime.
+## 6. No warranties
+
+The service is provided “as is” and “as available,” without warranties to the extent permitted by applicable law. Use your own judgment when evaluating a listing, organization, or external destination.
 
 ## 7. Changes to these terms
 
-These terms may be updated periodically. Continued use of openings.dev after updates means you accept the revised version.
+These terms can change as the product changes. The effective date at the top identifies the current published version. Continuing to use the service after a change means you accept the updated terms to the extent permitted by applicable law.
 
 ## 8. Contact
 
-For legal or platform questions:
-
-- support@openings.dev
+For questions about the service or these terms, email support@openings.dev.

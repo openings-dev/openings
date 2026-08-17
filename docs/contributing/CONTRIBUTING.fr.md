@@ -1,31 +1,91 @@
-# Contribution
+# Contribuer à openings.dev
 
-Ce depot contient uniquement le front-end statique de openings.dev.
+Merci de contribuer à l’amélioration d’`openings.dev`.
 
-Utilisez ce projet pour les changements d'UI, de routes, d'accessibilite, de services distants dans `lib/opportunities` et de documentation front-end. Les changements de catalogue de sources, pipeline de donnees et snapshots appartiennent au depot `openings-dev/data`.
+## Périmètre
 
-## Regles de donnees
+Ce dépôt contient le front-end statique Next.js. Il ne stocke ni ne génère les données des offres.
 
-- N'ajoutez pas de donnees locales d'opportunites, mocks, fixtures, `db.json` ou snapshots JSON.
-- N'importez pas de fichiers `.json` locaux pour les opportunites.
-- Ne recreez pas d'endpoint local `/api/opportunities`.
-- Gardez les URLs raw dans `lib/opportunities/static-api.ts`.
-- Gardez les lectures de l'API statique dans `lib/opportunities/api.ts`.
+Utilisez ce dépôt pour :
 
-## Setup
+- Les améliorations de l’interface et de l’expérience utilisateur.
+- Les corrections de routage, de pages statiques et d’accessibilité.
+- Les améliorations des services de données distants dans `lib/opportunities`.
+- Les mises à jour de la documentation du front-end.
+
+Utilisez [`openings-dev/data`](https://github.com/openings-dev/data) pour :
+
+- Les changements apportés au catalogue des dépôts sources.
+- La logique d’ingestion et de normalisation des données GitHub.
+- La génération des instantanés et des fichiers de l’API statique.
+
+## Règles relatives aux données
+
+- N’ajoutez pas au front-end de données d’offres locales, de jeux de données factices, de fixtures, de fichier `db.json` ou d’instantanés JSON.
+- N’importez pas de fichiers `.json` locaux pour les données des offres.
+- Ne réintroduisez pas de route locale `/api/opportunities`.
+- Conservez la construction des URL de données brutes dans `lib/opportunities/static-api.ts`.
+- Conservez la lecture de l’API statique dans `lib/opportunities/api.ts`.
+- Conservez la lecture des instantanés dans `lib/opportunities/snapshot.ts`.
+
+## Environnement de développement
+
+Prérequis :
+
+- Node.js `>=20.9.0`
+- npm
 
 ```bash
 npm install
 npm run dev
 ```
 
-Utilisez Node.js `>=20.9.0`.
+Ouvrez `http://localhost:3000`.
 
-## Validation
+Ne créez `.env.local` que pour tester une autre branche de données distante :
+
+```bash
+NEXT_PUBLIC_OPENINGS_DATA_BASE_URL=https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities
+NEXT_PUBLIC_OPENINGS_DATA_REPOSITORY_BASE_URL=https://raw.githubusercontent.com/openings-dev/data/main
+```
+
+## Structure du projet
+
+```txt
+app/                      routes de l’App Router et interface propre à chaque route
+components/               shell partagé, providers, icônes et composants d’interface
+lib/opportunities/        services de données distants, utilitaires de routage et types du domaine
+lib/translations/         messages localisés de l’interface
+lib/utils/                utilitaires partagés
+docs/                     fichiers Markdown localisés affichés par l’application
+```
+
+## Processus de pull request
+
+1. Créez une branche depuis `main`.
+2. Limitez la modification à un objectif précis.
+3. Exécutez les vérifications :
 
 ```bash
 npm run lint
 npm run build
 ```
 
-Ajoutez des captures pour les changements visuels et listez les commandes executees dans la PR.
+4. Ouvrez une pull request en ajoutant :
+
+- Un résumé clair.
+- Des captures d’écran pour les changements visuels.
+- Des notes de validation qui indiquent les commandes exécutées.
+- Toute substitution de source de données utilisée pendant les vérifications.
+
+## Liste de contrôle de la pull request
+
+- [ ] Aucun fichier de données local ni import JSON n’a été ajouté.
+- [ ] L’accès aux données distantes reste centralisé dans `lib/opportunities`.
+- [ ] Les composants restent ciblés et réutilisables.
+- [ ] La documentation a été mise à jour lorsque le comportement ou la configuration a changé.
+- [ ] `npm run lint` et `npm run build` s’exécutent sans erreur en local.
+
+## Code de conduite
+
+En participant, vous acceptez de respecter le [Code de conduite](https://github.com/openings-dev/openings/blob/main/CODE_OF_CONDUCT.md).

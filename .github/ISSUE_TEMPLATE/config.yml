@@ -3,6 +3,6 @@ contact_links:
   - name: Security report
     url: mailto:security@openings.dev
     about: Report vulnerabilities privately
-  - name: Community support
-    url: https://github.com/openings-dev/openings/discussions
-    about: Ask questions and share ideas
+  - name: Private support
+    url: mailto:support@openings.dev
+    about: Ask a question or send a request that should not be public

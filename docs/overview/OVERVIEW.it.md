@@ -1,26 +1,41 @@
 # Panoramica di openings.dev
 
-openings.dev e una applicazione statica per scoprire opportunita tech pubblicate in repository pubblici di community GitHub.
+`openings.dev` aiuta a trovare offerte di lavoro tech già condivise nelle comunità pubbliche su GitHub. Raccoglie gli annunci in un'interfaccia di ricerca e mantiene il link alla fonte originale di ogni offerta.
 
-Il front-end e un progetto Next.js App Router esportato come pagine statiche. Non conserva dati di opportunita localmente. L'applicazione consuma file JSON remoti pubblicati dal repository `openings-dev/data`.
+La disponibilità e le modalità di candidatura possono cambiare. Controllale sempre nella pubblicazione originale.
 
-## Cosa fa la piattaforma
+## Cosa puoi fare
 
-- Elenca opportunita aperte da repository GitHub curati.
-- Offre filtri per repository, regione, paese, tag, autori e ordinamento.
-- Genera pagine statiche di community, utenti e dettagli opportunita dal dataset remoto.
-- Mantiene link alla issue e al repository originale.
+- Cercare offerte aperte per testo, repository, località, tag o account GitHub autore dell'annuncio.
+- Ordinare i risultati e scegliere tra la vista elenco e la griglia.
+- Consultare le pagine delle comunità e degli autori generate dai rispettivi annunci indicizzati.
+- Aprire un'offerta con il parametro condivisibile `?job=<id>` nella pagina di ricerca.
+- Tornare alla pubblicazione e al repository di origine per controllare i dettagli aggiornati.
 
-## Flusso dati
+## Come funziona
 
-1. Il pipeline `openings-dev/data` legge repository pubblici configurati.
-2. Il pipeline normalizza issue e genera facet, pagine e snapshot segmentati.
-3. Il front-end legge questi file via `raw.githubusercontent.com`.
-4. La UI risolve liste, filtri e dettagli usando la API statica remota.
+1. La pipeline separata `openings-dev/data` legge le fonti pubbliche delle comunità GitHub configurate.
+2. Normalizza gli annunci supportati e genera file JSON statici con pagine, facet, indici di ricerca e dettagli delle offerte.
+3. Pubblica questi file su GitHub. Il front-end li legge da `raw.githubusercontent.com`.
+4. L'interfaccia risolve ricerca, filtri, ordinamento e paginazione a partire da questi file.
+5. Le pagine statiche delle comunità e degli autori vengono generate dallo stesso insieme di dati durante la build.
 
-## Confini attuali
+## Architettura del front-end
+
+Il front-end usa Next.js App Router ed è esportato come sito statico. Non contiene un'API locale per le offerte e non conserva una copia locale dell'inventario.
+
+- `app/` contiene le route e le schermate specifiche di ciascuna route.
+- `components/` contiene la struttura condivisa e i componenti riutilizzabili.
+- `lib/opportunities/` gestisce gli URL remoti, la validazione, la normalizzazione, le query e i tipi di dominio.
+- `lib/utils/` contiene utility indipendenti dal framework.
+- `docs/` e i file Markdown nella directory principale forniscono i contenuti della documentazione e delle policy.
+
+## Confini del prodotto
 
 - Front-end: `openings-dev/openings`.
-- Pipeline e API statica raw: `openings-dev/data`.
-- Dati locali di opportunita nel front-end: nessuno.
-- Endpoint locale di opportunita: nessuno.
+- Pipeline dei dati e file JSON statici: `openings-dev/data`.
+- Fonti: pubblicazioni pubbliche supportate delle comunità GitHub.
+- Dati locali sulle offerte nel front-end: nessuno.
+- Route API locale per le offerte: nessuna.
+
+Openings è uno strumento di ricerca. Non verifica i datori di lavoro, non riceve candidature e non sostituisce la pubblicazione originale.

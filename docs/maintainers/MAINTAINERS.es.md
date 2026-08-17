@@ -1,8 +1,12 @@
-# Para mantenedores
+# Comparte la página de tu comunidad
 
-openings.dev ofrece una vista publica mas clara para las oportunidades que tu comunidad ya publica como issues en GitHub. No reemplaza el repositorio, no edita issues, no recibe postulaciones y no almacena datos privados.
+Si una comunidad está incluida en Openings, su página reúne las vacantes públicas indexadas desde su repositorio de GitHub. Cada anuncio conserva el enlace a la fuente original.
 
-Usa el siguiente patron de URL y reemplaza `OWNER/REPO` por el nombre del repositorio en GitHub:
+Openings no edita las publicaciones de la comunidad, no recibe candidaturas y no accede a repositorios privados ni a datos de candidaturas.
+
+## URL de la comunidad
+
+Sustituye `OWNER/REPO` por el nombre del repositorio en GitHub:
 
 ```txt
 https://openings.dev/community/OWNER/REPO
@@ -14,31 +18,33 @@ Ejemplo:
 https://openings.dev/community/qa-brasil/vagas
 ```
 
+Comprueba que la página existe antes de compartirla.
+
 ## Enlace para el README
 
 ```md
-[Ver oportunidades de esta comunidad en openings.dev](https://openings.dev/community/OWNER/REPO)
+[Ver las vacantes de esta comunidad en openings.dev](https://openings.dev/community/OWNER/REPO)
 ```
 
 ## Badge para el README
 
 ```md
-[![Oportunidades en openings.dev](https://img.shields.io/badge/openings.dev-ver_oportunidades-111827?logo=github)](https://openings.dev/community/OWNER/REPO)
+[![Vacantes abiertas en openings.dev](https://img.shields.io/badge/openings.dev-open_jobs-111827?logo=github)](https://openings.dev/community/OWNER/REPO)
 ```
 
-## Mensaje corto sugerido
+## Mensaje breve
 
 ```md
-Agregamos una vista en openings.dev para esta comunidad:
+Consulta las vacantes abiertas de esta comunidad en openings.dev:
 https://openings.dev/community/OWNER/REPO
 
-Indexa las issues publicas de oportunidades de este repositorio y facilita la busqueda, los filtros y el uso compartido. Las issues originales en GitHub siguen siendo la fuente oficial.
+Openings facilita la búsqueda de los anuncios públicos de la comunidad y mantiene el enlace a la fuente original de cada vacante.
 ```
 
-## Correcciones o eliminacion
+## Corrección o eliminación
 
-Si la comunidad quiere ajustar o eliminar la lista, abre una issue en el repositorio de openings.dev:
+Para corregir la información de una comunidad o solicitar que se retire su página, utiliza el formulario público e incluye el enlace afectado y el cambio solicitado. Si la solicitud no debe ser pública, escribe a `support@openings.dev`.
 
 ```txt
-https://github.com/openings-dev/openings/issues/new
+https://github.com/openings-dev/openings/issues/new?template=content_correction.yml
 ```

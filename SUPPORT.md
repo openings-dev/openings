@@ -1,17 +1,19 @@
 # Support
 
-## Questions and discussions
+## Questions and feedback
 
-- Open a GitHub Discussion (recommended for ideas and product feedback)
-- Open an Issue (for reproducible bugs and concrete feature requests)
+- Email `support@openings.dev` for questions and requests that should not be public.
+- [Open an issue](https://github.com/openings-dev/openings/issues/new/choose) for reproducible bugs, content corrections, source requests, and concrete feature proposals.
 
-## Before opening an issue
+## Before reporting a bug
 
 - Search existing issues first
 - Share reproduction steps
 - Include environment details (OS, browser, Node version)
 
+For a content correction or removal request, use the [dedicated form](https://github.com/openings-dev/openings/issues/new?template=content_correction.yml) and include the affected Openings URL, the original source when available, and the requested change. GitHub issues are public; email `support@openings.dev` if the request should not be public.
+
 ## Response expectations
 
 This is an open source project maintained by contributors, so response times may
-vary. High-quality reports are triaged faster.
+vary. Including the relevant details helps contributors investigate the report.
