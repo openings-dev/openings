@@ -54,11 +54,13 @@ export function DetailsDialog({
       document.body.style.overflow = previousBodyOverflow;
 
       frameId = window.requestAnimationFrame(() => {
-        if (previouslyFocused?.isConnected) {
-          previouslyFocused.focus();
-          return;
-        }
-        restoreOpportunityTriggerFocus(returnFocusOpportunityId);
+        frameId = window.requestAnimationFrame(() => {
+          if (previouslyFocused?.isConnected) {
+            previouslyFocused.focus();
+            return;
+          }
+          restoreOpportunityTriggerFocus(returnFocusOpportunityId);
+        });
       });
     };
   }, [open, returnFocusOpportunityId]);
@@ -73,6 +75,11 @@ export function DetailsDialog({
       ref={dialogRef}
       aria-label={dialogLabel}
       className="fixed inset-0 m-0 h-dvh max-h-none w-screen max-w-none overflow-hidden bg-surface-elevated p-0 text-foreground backdrop:bg-overlay open:block"
+      onKeyDown={(event) => {
+        if (event.key !== "Escape") return;
+        event.preventDefault();
+        onCloseRef.current();
+      }}
       onCancel={(event) => {
         event.preventDefault();
         onCloseRef.current();

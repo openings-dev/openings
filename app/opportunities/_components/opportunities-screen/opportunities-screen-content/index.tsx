@@ -17,12 +17,6 @@ interface OpportunitiesScreenContentProps {
 export function OpportunitiesScreenContent({
   controller,
 }: OpportunitiesScreenContentProps): React.ReactNode {
-  const { setSelectedOpportunityId } = controller;
-  const handleCloseDetails = React.useCallback(
-    () => setSelectedOpportunityId(null),
-    [setSelectedOpportunityId],
-  );
-
   return (
     <>
       <OpportunitiesQuickFilters
@@ -77,7 +71,7 @@ export function OpportunitiesScreenContent({
             selectionStatus={controller.selectionStatus}
             hideCommunityIdentity={controller.hideCommunityIdentity}
             hideAuthorIdentity={controller.hideAuthorIdentity}
-            onClose={handleCloseDetails}
+            onClose={controller.closeSelectedOpportunity}
             onCommunitySelect={controller.onCommunitySelect}
             onAuthorSelect={controller.onAuthorSelect}
           />

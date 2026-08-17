@@ -87,6 +87,17 @@ export function useOpportunitiesScreenController({
     isApplyingSelectedIdFromUrl,
     setSelectedOpportunityId,
   } = useSelectedOpportunityId(selectedOpportunityIdFromUrl);
+  const closeSelectedOpportunity = React.useCallback(() => {
+    setSelectedOpportunityId(null);
+
+    const nextSearchParams = new URLSearchParams(searchParams.toString());
+    nextSearchParams.delete("job");
+    const nextSearch = nextSearchParams.toString();
+
+    router.replace(nextSearch ? `${pathname}?${nextSearch}` : pathname, {
+      scroll: false,
+    });
+  }, [pathname, router, searchParams, setSelectedOpportunityId]);
   const handleBeforeReload = React.useCallback(() => {
     setSelectedOpportunityId(null);
     setFilters((previous) => (previous.page === 1 ? previous : { ...previous, page: 1 }));
@@ -235,6 +246,7 @@ export function useOpportunitiesScreenController({
     hasLoadError: remote.hasLoadError,
     isFetchingMore: remote.isFetchingMore,
     setSelectedOpportunityId,
+    closeSelectedOpportunity,
     onCommunitySelect: (repository: string) => {
       if (
         normalizedForcedRepository &&
@@ -243,7 +255,7 @@ export function useOpportunitiesScreenController({
         return;
       }
 
-      setSelectedOpportunityId(null);
+      closeSelectedOpportunity();
       focusOpportunityResults();
       setFilters((previous) =>
         normalizeFilterDependencies(
@@ -273,7 +285,7 @@ export function useOpportunitiesScreenController({
         return;
       }
 
-      setSelectedOpportunityId(null);
+      closeSelectedOpportunity();
       focusOpportunityResults();
       setFilters((previous) =>
         normalizeFilterDependencies(
