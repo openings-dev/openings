@@ -13,7 +13,21 @@ export interface TranslationMessages {
     nav: {
       discover: string;
       communities: string;
-      users: string;
+      authors: string;
+    };
+    mobileNavigation: {
+      groups: {
+        primary: string;
+        resources: string;
+        help: string;
+      };
+      support: string;
+      githubStar: {
+        title: string;
+        description: string;
+        action: string;
+        ariaLabel: string;
+      };
     };
     primaryNavigationAriaLabel: string;
     openNavigationMenuAriaLabel: string;

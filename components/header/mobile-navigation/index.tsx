@@ -3,12 +3,11 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ExternalLink, Menu, X } from "lucide-react";
+import { ExternalLink, Menu, Star, X } from "lucide-react";
 import { Wordmark } from "@/components/brand/wordmark";
 import { Button } from "@/components/ui/button";
-import { GithubIcon } from "@/components/icons/github";
 import { cn } from "@/lib/utils/tailwind";
-import type { MobileNavigationProps } from "./types";
+import type { MobileNavigationItem, MobileNavigationProps } from "./types";
 
 function isActivePath(pathname: string, href: string): boolean {
   if (href === "/") {
@@ -20,12 +19,66 @@ function isActivePath(pathname: string, href: string): boolean {
 
 const MOBILE_NAVIGATION_DIALOG_ID = "mobile-navigation-dialog";
 
+interface MobileNavigationLinkProps {
+  item: MobileNavigationItem;
+  pathname: string;
+  onNavigate: () => void;
+}
+
+function MobileNavigationLink({
+  item,
+  pathname,
+  onNavigate,
+}: MobileNavigationLinkProps): React.ReactNode {
+  const internal = item.href.startsWith("/");
+  const active = internal && isActivePath(pathname, item.href);
+  const className = cn(
+    "relative flex min-h-11 min-w-0 items-center gap-2 rounded-control px-3 text-sm font-medium transition-colors before:absolute before:bottom-2.5 before:left-0 before:top-2.5 before:w-0.5 before:rounded-full before:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+    active
+      ? "bg-primary-soft font-semibold text-primary-deep before:opacity-100"
+      : "text-muted-foreground before:opacity-0 hover:bg-surface-muted hover:text-foreground",
+  );
+  const content = (
+    <>
+      <span className="min-w-0 flex-1 [overflow-wrap:anywhere]">{item.label}</span>
+      {item.external ? (
+        <ExternalLink className="size-3.5 shrink-0" aria-hidden="true" />
+      ) : null}
+    </>
+  );
+
+  if (internal) {
+    return (
+      <Link
+        href={item.href}
+        onClick={onNavigate}
+        className={className}
+        aria-current={active ? "page" : undefined}
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <a
+      href={item.href}
+      target={item.external ? "_blank" : undefined}
+      rel={item.external ? "noreferrer" : undefined}
+      onClick={onNavigate}
+      className={className}
+    >
+      {content}
+    </a>
+  );
+}
+
 export function MobileNavigation({
-  items,
+  groups,
+  githubStar,
   ariaLabel,
   openMenuAriaLabel,
   closeMenuAriaLabel,
-  githubAriaLabel,
   children,
 }: MobileNavigationProps): React.ReactNode {
   const pathname = usePathname();
@@ -115,38 +168,65 @@ export function MobileNavigation({
               <X className="size-5" aria-hidden="true" />
             </Button>
           </header>
-          <nav className="flex-1 space-y-1 overflow-y-auto p-4" aria-label={ariaLabel}>
-            {items.map((item) => {
-              const active = isActivePath(pathname, item.href);
+          <nav className="flex-1 space-y-6 overflow-y-auto p-4" aria-label={ariaLabel}>
+            {groups.map((group) => {
+              const headingId = `mobile-navigation-${group.id}`;
               return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={close}
-                  className={cn(
-                    "relative flex min-h-12 items-center rounded-control px-4 text-base font-medium transition-colors before:absolute before:bottom-3 before:left-1 before:top-3 before:w-0.5 before:rounded-full before:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                    active
-                      ? "bg-primary-soft font-semibold text-primary-deep before:opacity-100"
-                      : "text-muted-foreground before:opacity-0 hover:bg-surface-muted hover:text-foreground",
-                  )}
-                  aria-current={active ? "page" : undefined}
-                >
-                  {item.label}
-                </Link>
+                <section key={group.id} aria-labelledby={headingId}>
+                  <h2
+                    id={headingId}
+                    className="px-3 pb-2 text-label font-semibold text-foreground"
+                  >
+                    {group.label}
+                  </h2>
+                  <ul className="space-y-0.5">
+                    {group.items.map((item) => (
+                      <li key={`${group.id}-${item.href}`}>
+                        <MobileNavigationLink
+                          item={item}
+                          pathname={pathname}
+                          onNavigate={close}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </section>
               );
             })}
           </nav>
           <footer className="space-y-3 border-t border-line bg-surface p-4">
+            <section className="rounded-card border border-primary/40 bg-primary-soft p-4">
+              <div className="flex items-start gap-3">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                  <Star className="size-4" aria-hidden="true" />
+                </span>
+                <div className="min-w-0 space-y-1">
+                  <h2 className="text-sm font-semibold text-foreground">
+                    {githubStar.title}
+                  </h2>
+                  <p className="text-xs leading-5 text-muted-foreground">
+                    {githubStar.description}
+                  </p>
+                </div>
+              </div>
+              <Button asChild size="sm" className="mt-4 w-full">
+                <a
+                  href={githubStar.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={githubStar.ariaLabel}
+                >
+                  <Star className="size-4" aria-hidden="true" />
+                  {githubStar.action}
+                  <ExternalLink className="size-3.5" aria-hidden="true" />
+                </a>
+              </Button>
+            </section>
             <div className="flex min-w-0 items-center gap-2">
               {typeof children === "function"
                 ? children(dialogElement)
                 : children}
             </div>
-            <Button asChild variant="outline" className="w-full">
-              <a href="https://github.com/openings-dev/openings" target="_blank" rel="noreferrer" aria-label={githubAriaLabel}>
-                <GithubIcon className="size-4" aria-hidden="true" /> GitHub <ExternalLink className="size-4" aria-hidden="true" />
-              </a>
-            </Button>
           </footer>
         </div>
       </dialog>

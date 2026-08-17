@@ -10,7 +10,22 @@ export const itTranslations: TranslationMessages = {
     nav: {
       discover: "Offerte",
       communities: "Comunità",
-      users: "Chi pubblica",
+      authors: "Autori",
+    },
+    mobileNavigation: {
+      groups: {
+        primary: "Esplora",
+        resources: "Risorse",
+        help: "Aiuto",
+      },
+      support: "Assistenza",
+      githubStar: {
+        title: "Sostieni openings.dev",
+        description:
+          "Aggiungi una stella su GitHub e aiuta altre comunità a trovare il progetto.",
+        action: "Stella su GitHub",
+        ariaLabel: "Apri openings.dev su GitHub per aggiungere una stella al progetto",
+      },
     },
     primaryNavigationAriaLabel: "Navigazione principale",
     openNavigationMenuAriaLabel: "Apri il menu di navigazione",
