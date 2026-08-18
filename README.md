@@ -8,150 +8,103 @@
 </p>
 
 <p align="center">
-  Find technology jobs shared through public GitHub communities, then continue at the original source.
+  <strong>Find tech jobs shared by GitHub communities.</strong>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/stars/openings-dev/openings" alt="GitHub stars" />
-  <img src="https://img.shields.io/github/license/openings-dev/openings" alt="License" />
-  <img src="https://img.shields.io/github/contributors/openings-dev/openings" alt="Contributors" />
+  Openings brings public job listings into one focused search experience<br />
+  while keeping every opportunity connected to its original source.
 </p>
 
-## Overview
+<p align="center">
+  <a href="https://openings.dev/#opportunity-results"><strong>Search open jobs</strong></a>
+  ·
+  <a href="https://openings.dev/communities">Browse communities</a>
+  ·
+  <a href="https://openings.dev/docs/overview">Read the overview</a>
+  ·
+  <a href="https://github.com/openings-dev/openings">Star on GitHub</a>
+</p>
 
-`openings.dev` is a public search interface for technology jobs shared through supported GitHub communities. It keeps each result connected to its original listing without replacing the source. The application is exported as static pages and reads raw JSON files published by the separate [`openings-dev/data`](https://github.com/openings-dev/data) repository.
+<p align="center">
+  <a href="https://github.com/openings-dev/openings/stargazers"><img src="https://img.shields.io/github/stars/openings-dev/openings" alt="GitHub stars" /></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/github/license/openings-dev/openings" alt="MIT license" /></a>
+  <a href="https://github.com/openings-dev/openings/graphs/contributors"><img src="https://img.shields.io/github/contributors/openings-dev/openings" alt="Project contributors" /></a>
+</p>
 
-The production job catalog does not use local job data, mocks, fixtures, or JSON snapshots. All opportunity, facet, repository, community, user, and job-detail data is loaded through remote raw URLs.
+<p align="center">
+  <a href="https://openings.dev/#opportunity-results">
+    <img src="https://openings.dev/opengraph-image.png" alt="Openings makes technology jobs shared through public GitHub communities easier to search and review" width="100%" />
+  </a>
+</p>
 
-## Architecture
+## The jobs are already out there
 
-```txt
-app/
-  _components/             shared route-level components
-  _hooks/                  route-level React hooks
-  authors/                 canonical GitHub-author directory and profiles
-  communities/             canonical community directory and profiles
-  community/               legacy route compatibility and community UI modules
-  design/                  canonical design-system showcase
-  design-system/           legacy route compatibility and showcase modules
-  docs/                    rendered project documentation pages
-  jobs/                    canonical static job pages and social images
-  opportunities/           opportunities screen and feature UI
-  users/                   legacy route compatibility and author UI modules
-components/
-  footer/                  global footer components
-  header/                  global header components
-  icons/                   shared icon components
-  providers/               app providers
-  ui/                      low-level UI primitives
-lib/
-  constants/               locale constants
-  content/                 markdown document loading
-  metadata/                canonical metadata and social-card rendering
-  navigation/              canonical public and external destinations
-  opportunities/           remote data services, routing helpers, and domain types
-  translations/            UI copy by locale
-  utils/                   framework-agnostic utilities
-docs/
-  */                       localized markdown rendered by the app
+Technology communities publish job openings in public GitHub issues. Those listings are useful, direct, and easy to miss when they are spread across many repositories.
+
+Openings makes that public activity easier to discover. Instead of checking communities one by one, candidates get a searchable view of supported listings, with the repository, community, author, location, work model, seniority, and stack still attached.
+
+You spend less time jumping between repositories and get a clearer path to the listings worth opening.
+
+## Find the role. Keep the context.
+
+With Openings, you can:
+
+- search jobs by title, stack, seniority, location, and work model;
+- browse dedicated pages for [communities](https://openings.dev/communities) and [GitHub authors](https://openings.dev/authors);
+- read each job in a clean, consistent layout;
+- share a direct job or community page;
+- continue to the original public listing for current details and next steps.
+
+Openings is a discovery layer, not another job board asking communities to publish the same role twice.
+
+## How it works
+
+The public [`openings-dev/data`](https://github.com/openings-dev/data) project connects GitHub communities to the Openings experience.
+
+1. **Communities publish jobs.** Maintainers and members share openings through public issues in supported GitHub repositories.
+2. **The data project organizes them.** The community catalog and generated public data files turn those scattered issues into a consistent index.
+3. **Openings makes them discoverable.** The website presents searchable jobs and dedicated profiles, then sends candidates back to the original listing.
+
+```text
+Public GitHub issues → openings-dev/data → openings.dev → original listing
 ```
 
-Key boundaries:
+The data pipeline and the frontend are both public. Anyone can inspect how a listing reaches the product.
 
-- `app/**/page.tsx` files define App Router routes and static params.
-- `app/opportunities/_components/**` owns the opportunities feature UI and UI-only controller hooks.
-- `lib/opportunities/api.ts` reads the remote static API files.
-- `lib/opportunities/snapshot.ts` reads the remote segmented snapshot index for static community/user route generation.
-- `lib/opportunities/static-api.ts` centralizes raw data base URLs.
-- `lib/opportunities/types.ts` owns shared opportunity domain types.
-- `lib/metadata/social-card.tsx` renders the shared Product Sheet social image.
+## Built for candidates and communities
 
-## Public routes
+### For candidates
 
-- `/` — job discovery
-- `/communities` and `/communities/[owner]/[name]` — community directory and profiles
-- `/authors` and `/authors/[handle]` — GitHub-author directory and profiles
-- `/jobs/[id]` — canonical job detail and sharing pages
-- `/design` — production design-system showcase
-- `/docs`, `/docs/overview`, `/docs/api`, `/docs/maintainers`, and `/docs/contributing` — project documentation
-- `/privacy` and `/terms` — project policies
+Openings reduces the work of monitoring separate repositories. You can narrow the catalog quickly, compare relevant context, and decide which original listings are worth opening.
 
-The previous `/overview`, `/community`, `/users`, and `/design-system` addresses remain as
-non-indexable compatibility pages and forward visitors to the canonical routes.
+### For communities
 
-## Data Source
+Each supported community gets a shareable page for its open jobs. That page can live in a README, website, or social profile while the original GitHub issue remains the destination for complete details.
 
-Default remote data endpoints:
+[Find your community](https://openings.dev/communities) or read the [community listing guide](https://openings.dev/docs/maintainers).
 
-```txt
-https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities
-https://raw.githubusercontent.com/openings-dev/data/main
-```
+## The original listing remains the source of truth
 
-The app consumes:
+Openings helps people discover public job listings. It does not own those listings, verify employers, guarantee that a role is still available, or manage applications.
 
-- `api/manifest.json` for metadata, facets, and static API file pointers.
-- `api/order/recent.json` for ordered opportunity IDs.
-- `api/page-lookup.json` and `api/pages/*.json` for paginated list loading.
-- `api/jobs/*.json` and `api/job-ids.json` for opportunity-detail lookup and static identifiers.
-- `index.json` plus `countries/*` shards for community and user static params.
-- `src/modules/catalog/repositories.json` through the remote repository base URL for valid filter options.
+Before applying, candidates should confirm the requirements, availability, contact information, and next steps in the original public source.
 
-There is no local API route for opportunities and no local JSON import in the front-end.
+## Built in public
 
-## Configuration
+Openings grows through two open repositories:
 
-Create `.env.local` only when you need to override the production data source:
+- [`openings-dev/openings`](https://github.com/openings-dev/openings) contains the product experience;
+- [`openings-dev/data`](https://github.com/openings-dev/data) contains the community catalog and public data workflow.
 
-```bash
-NEXT_PUBLIC_OPENINGS_DATA_BASE_URL=https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities
-NEXT_PUBLIC_OPENINGS_DATA_REPOSITORY_BASE_URL=https://raw.githubusercontent.com/openings-dev/data/main
-```
+You can help by improving the experience, refining the documentation, or expanding the supported community catalog. Start with the [contribution guide](./CONTRIBUTING.md), and leave a star if you want to follow the project as it grows.
 
-Server-side equivalents are also supported for build-time usage:
+## Want the technical details?
 
-```bash
-OPENINGS_DATA_BASE_URL=https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities
-OPENINGS_DATA_REPOSITORY_BASE_URL=https://raw.githubusercontent.com/openings-dev/data/main
-OPENINGS_DATA_SNAPSHOT_URL=https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities/index.json
-```
+Architecture, public data files, local development, integration details, and contribution workflows live in the product documentation.
 
-## Development
-
-Requirements:
-
-- Node.js `>=20.9.0`
-- npm
-
-Install and run locally:
-
-```bash
-npm install
-npm run dev
-```
-
-Open `http://localhost:3000`.
-
-## Validation
-
-```bash
-npm run lint
-npm run build
-```
-
-`npm run build` runs the production Next.js static export and writes the generated site to `out/`.
-
-Job pages, community and GitHub-author profiles, route-specific social images,
-metadata, and route lists are generated during that build. Publishing a new
-data snapshot therefore requires a fresh site build; these pages do not update
-through ISR.
-
-## Contributing
-
-Read [CONTRIBUTING.md](./CONTRIBUTING.md) before opening a pull request.
-
-Source repository and snapshot changes belong in the [`openings-dev/data`](https://github.com/openings-dev/data) repository. Front-end changes should keep data access centralized in `lib/opportunities` and must not add local datasets or mock JSON files.
+**[Read the Openings project overview →](https://openings.dev/docs/overview)**
 
 ## License
 
-[MIT](./LICENSE)
+Openings is available under the [MIT License](./LICENSE).
