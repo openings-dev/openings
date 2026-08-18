@@ -37,6 +37,7 @@ interface StaticArtifactView {
 
 interface PendingStaticArtifactRecovery {
   baseKey: string | null;
+  attempt: number;
 }
 
 class StaticArtifactViewChangedError extends Error {
@@ -104,14 +105,29 @@ function buildStaticArtifactView(sourceManifest: StaticManifest): StaticArtifact
   return view;
 }
 
+function manifestPathForRecovery(
+  recovery: PendingStaticArtifactRecovery | null,
+): string {
+  if (!recovery) return MANIFEST_PATH;
+
+  return versionStaticArtifactPath(
+    MANIFEST_PATH,
+    [
+      "recovery",
+      recovery.baseKey ?? "unknown-view",
+      recovery.attempt,
+      staticArtifactViewSequence + 1,
+    ].join(":"),
+  );
+}
+
 function loadStaticArtifactView(): Promise<StaticArtifactView> {
   if (activeStaticArtifactView) return Promise.resolve(activeStaticArtifactView);
   if (activeStaticArtifactViewRequest) return activeStaticArtifactViewRequest;
 
   const recovery = pendingStaticArtifactRecovery;
-  const request = fetchStaticJson(MANIFEST_PATH, {
-    cache: recovery ? "no-store" : "force-cache",
-  })
+  const manifestPath = manifestPathForRecovery(recovery);
+  const request = fetchStaticJson(manifestPath, { cache: "force-cache" })
     .then((payload) => parseStaticOpportunityManifest(payload, MANIFEST_PATH))
     .then((manifest) => {
       const view = buildStaticArtifactView(manifest);
@@ -120,8 +136,9 @@ function loadStaticArtifactView(): Promise<StaticArtifactView> {
       return view;
     })
     .catch((error) => {
-      pendingStaticArtifactRecovery = recovery ?? {
-        baseKey: null,
+      pendingStaticArtifactRecovery = {
+        baseKey: recovery?.baseKey ?? null,
+        attempt: (recovery?.attempt ?? 0) + 1,
       };
       clearStaticArtifactCaches();
       throw new StaticArtifactViewChangedError(
@@ -148,6 +165,7 @@ function invalidateStaticArtifactView(
 
   pendingStaticArtifactRecovery = {
     baseKey: view.baseKey,
+    attempt: 1,
   };
   activeStaticArtifactView = null;
   activeStaticArtifactViewRequest = null;
