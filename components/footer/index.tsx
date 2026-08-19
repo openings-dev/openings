@@ -37,11 +37,23 @@ export function Footer({
       links: [
         { label: messages.header.nav.docs, href: PUBLIC_ROUTES.docs },
         { label: footerMessages.links.overview, href: PUBLIC_ROUTES.overview },
-        { label: footerMessages.links.designSystem, href: PUBLIC_ROUTES.design },
-        { label: footerMessages.links.communities, href: PUBLIC_ROUTES.communities },
-        { label: footerMessages.links.maintainers, href: PUBLIC_ROUTES.communityGuide },
+        {
+          label: footerMessages.links.designSystem,
+          href: PUBLIC_ROUTES.design,
+        },
+        {
+          label: footerMessages.links.communities,
+          href: PUBLIC_ROUTES.communities,
+        },
+        {
+          label: footerMessages.links.maintainers,
+          href: PUBLIC_ROUTES.communityGuide,
+        },
         { label: footerMessages.links.users, href: PUBLIC_ROUTES.authors },
-        { label: footerMessages.links.apiReference, href: PUBLIC_ROUTES.apiReference },
+        {
+          label: footerMessages.links.apiReference,
+          href: PUBLIC_ROUTES.apiReference,
+        },
       ],
     },
     {
@@ -70,8 +82,14 @@ export function Footer({
       title: footerMessages.groups.legal,
       ariaLabel: footerMessages.groupAriaLabels.legal,
       links: [
-        { label: footerMessages.links.privacyPolicy, href: PUBLIC_ROUTES.privacy },
-        { label: footerMessages.links.termsOfService, href: PUBLIC_ROUTES.terms },
+        {
+          label: footerMessages.links.privacyPolicy,
+          href: PUBLIC_ROUTES.privacy,
+        },
+        {
+          label: footerMessages.links.termsOfService,
+          href: PUBLIC_ROUTES.terms,
+        },
       ],
     },
   ];

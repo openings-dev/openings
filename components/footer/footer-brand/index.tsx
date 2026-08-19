@@ -4,9 +4,7 @@ import { WordmarkSize } from "@/components/brand/wordmark/types";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils/tailwind";
 import type { FooterBrandProps } from "../types";
-import {
-  footerSocialButtonStyles,
-} from "../styles";
+import { footerSocialButtonStyles } from "../styles";
 
 export function FooterBrand({
   className,

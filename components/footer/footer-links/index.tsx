@@ -1,13 +1,19 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils/tailwind";
 import type { FooterLinksProps } from "../types";
-import {
-  footerLinkStyles,
-} from "../styles";
+import { footerLinkStyles } from "../styles";
 
-export function FooterLinks({ className, groups }: FooterLinksProps): React.ReactNode {
+export function FooterLinks({
+  className,
+  groups,
+}: FooterLinksProps): React.ReactNode {
   return (
-    <div className={cn("grid gap-x-8 gap-y-8 sm:grid-cols-3 lg:gap-x-12", className)}>
+    <div
+      className={cn(
+        "grid gap-x-8 gap-y-8 sm:grid-cols-3 lg:gap-x-12",
+        className,
+      )}
+    >
       {groups.map((group) => (
         <nav
           key={group.id}
