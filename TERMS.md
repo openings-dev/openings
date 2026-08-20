@@ -23,7 +23,7 @@ You agree not to:
 
 Listings, repository details, and GitHub account information originate from public sources. Openings presents that information for discovery and preserves links to the source. Inclusion does not imply verification, endorsement, partnership, or affiliation.
 
-Rights in third-party content remain with their respective rights holders. If you believe indexed information is inaccurate or should be removed, use the [content correction or removal form](https://github.com/openings-dev/openings/issues/new?template=content_correction.yml) or email support@openings.dev.
+Rights in third-party content remain with their respective rights holders. If you believe indexed information is inaccurate or should be removed, use the [content correction or removal form](https://github.com/openings-dev/web/issues/new?template=content_correction.yml) or email support@openings.dev.
 
 ## 4. Static data and availability
 

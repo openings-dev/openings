@@ -14,7 +14,7 @@ La disponibilità e le modalità di candidatura possono cambiare. Controllale se
 
 ## Come funziona
 
-1. La pipeline separata `openings-dev/data` legge le fonti pubbliche delle comunità GitHub configurate.
+1. La pipeline separata `openings-dev/data-pipeline` legge le fonti pubbliche delle comunità GitHub configurate.
 2. Normalizza gli annunci supportati e genera file JSON statici con pagine, facet, indici di ricerca e dettagli delle offerte.
 3. Pubblica questi file su GitHub. Il front-end li legge da `raw.githubusercontent.com`.
 4. L'interfaccia risolve ricerca, filtri, ordinamento e paginazione a partire da questi file.
@@ -32,8 +32,8 @@ Il front-end usa Next.js App Router ed è esportato come sito statico. Non conti
 
 ## Confini del prodotto
 
-- Front-end: `openings-dev/openings`.
-- Pipeline dei dati e file JSON statici: `openings-dev/data`.
+- Front-end: `openings-dev/web`.
+- Pipeline dei dati e file JSON statici: `openings-dev/data-pipeline`.
 - Fonti: pubblicazioni pubbliche supportate delle comunità GitHub.
 - Dati locali sulle offerte nel front-end: nessuno.
 - Route API locale per le offerte: nessuna.

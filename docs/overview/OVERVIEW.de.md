@@ -2,7 +2,7 @@
 
 `openings.dev` bündelt Tech-Stellen aus öffentlichen GitHub-Communities, damit sie leichter zu finden und zu vergleichen sind. Jede Stelle bleibt mit ihrer Originalquelle verknüpft. Dort können Interessierte aktuelle Angaben und die nächsten Schritte prüfen.
 
-Das Frontend nutzt den Next.js App Router und wird als statische Website exportiert. Es enthält keine lokale Kopie der Stellenanzeigen, sondern liest die öffentlichen JSON-Dateien aus dem separaten Repository `openings-dev/data`.
+Das Frontend nutzt den Next.js App Router und wird als statische Website exportiert. Es enthält keine lokale Kopie der Stellenanzeigen, sondern liest die öffentlichen JSON-Dateien aus dem separaten Repository `openings-dev/data-pipeline`.
 
 ## Was Openings leistet
 
@@ -15,7 +15,7 @@ Das Frontend nutzt den Next.js App Router und wird als statische Website exporti
 
 ## Datenfluss
 
-1. Die Pipeline `openings-dev/data` liest die konfigurierten öffentlichen GitHub-Quellen.
+1. Die Pipeline `openings-dev/data-pipeline` liest die konfigurierten öffentlichen GitHub-Quellen.
 2. Sie normalisiert die Anzeigen, erstellt Suchfacetten und veröffentlicht paginierte statische JSON-Dateien.
 3. Das Frontend liest diese Dateien von `raw.githubusercontent.com`.
 4. Die Suche ordnet Filter den IDs und Dateien mit den passenden Stellen zu.
@@ -23,8 +23,8 @@ Das Frontend nutzt den Next.js App Router und wird als statische Website exporti
 
 ## Aktuelle Grenzen
 
-- Frontend: `openings-dev/openings`.
-- Pipeline und öffentliche Datendateien: `openings-dev/data`.
+- Frontend: `openings-dev/web`.
+- Pipeline und öffentliche Datendateien: `openings-dev/data-pipeline`.
 - Lokale Stellendateien im Frontend: keine.
 - Lokale API-Route für Stellen: keine.
 - Unterstützte Quellen: Anzeigen aus konfigurierten öffentlichen GitHub-Quellen.

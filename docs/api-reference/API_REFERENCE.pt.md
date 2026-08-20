@@ -1,14 +1,14 @@
 # Referência de dados estáticos
 
-O front-end do openings.dev consome arquivos JSON estáticos versionados, publicados pelo repositório `openings-dev/data` por meio de URLs brutas do GitHub.
+O front-end do openings.dev consome arquivos JSON estáticos versionados, publicados pelo repositório `openings-dev/data-pipeline` por meio de URLs brutas do GitHub.
 
 Não existe um endpoint local `/api/opportunities` no front-end. Os consumidores devem ler os arquivos estáticos brutos diretamente.
 
 ## URLs base
 
 ```txt
-https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities
-https://raw.githubusercontent.com/openings-dev/data/main
+https://raw.githubusercontent.com/openings-dev/data-pipeline/main/snapshots/opportunities
+https://raw.githubusercontent.com/openings-dev/data-pipeline/main
 ```
 
 Use a primeira URL base para os arquivos do índice de vagas. Use a segunda ao ler os metadados do catálogo de repositórios.
@@ -48,7 +48,7 @@ Exemplo:
 
 ```ts
 const baseUrl =
-  "https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities";
+  "https://raw.githubusercontent.com/openings-dev/data-pipeline/main/snapshots/opportunities";
 
 const response = await fetch(`${baseUrl}/api/manifest.json`);
 if (!response.ok) throw new Error(`Falha ao carregar o manifest: ${response.status}`);
@@ -108,7 +108,7 @@ const opportunity = details.items[id];
 A validação do filtro de repositórios lê o catálogo em:
 
 ```txt
-https://raw.githubusercontent.com/openings-dev/data/main/src/modules/catalog/repositories.json
+https://raw.githubusercontent.com/openings-dev/data-pipeline/main/src/modules/catalog/repositories.json
 ```
 
 ## Observações sobre o contrato de dados
@@ -125,4 +125,4 @@ https://raw.githubusercontent.com/openings-dev/data/main/src/modules/catalog/rep
 
 Abra uma issue para tirar dúvidas sobre os dados estáticos ou propor mudanças no contrato:
 
-- [Formulários de issue no GitHub](https://github.com/openings-dev/openings/issues/new/choose)
+- [Formulários de issue no GitHub](https://github.com/openings-dev/web/issues/new/choose)

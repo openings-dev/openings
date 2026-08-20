@@ -46,5 +46,5 @@ Openings facilita la búsqueda de los anuncios públicos de la comunidad y manti
 Para corregir la información de una comunidad o solicitar que se retire su página, utiliza el formulario público e incluye el enlace afectado y el cambio solicitado. Si la solicitud no debe ser pública, escribe a `support@openings.dev`.
 
 ```txt
-https://github.com/openings-dev/openings/issues/new?template=content_correction.yml
+https://github.com/openings-dev/web/issues/new?template=content_correction.yml
 ```

@@ -23,13 +23,13 @@
   ·
   <a href="https://openings.dev/docs/overview">Read the overview</a>
   ·
-  <a href="https://github.com/openings-dev/openings">Star on GitHub</a>
+  <a href="https://github.com/openings-dev/web">Star on GitHub</a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/openings-dev/openings/stargazers"><img src="https://img.shields.io/github/stars/openings-dev/openings" alt="GitHub stars" /></a>
-  <a href="./LICENSE"><img src="https://img.shields.io/github/license/openings-dev/openings" alt="MIT license" /></a>
-  <a href="https://github.com/openings-dev/openings/graphs/contributors"><img src="https://img.shields.io/github/contributors/openings-dev/openings" alt="Project contributors" /></a>
+  <a href="https://github.com/openings-dev/web/stargazers"><img src="https://img.shields.io/github/stars/openings-dev/web" alt="GitHub stars" /></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/github/license/openings-dev/web" alt="MIT license" /></a>
+  <a href="https://github.com/openings-dev/web/graphs/contributors"><img src="https://img.shields.io/github/contributors/openings-dev/web" alt="Project contributors" /></a>
 </p>
 
 <p align="center">
@@ -60,14 +60,14 @@ Openings is a discovery layer, not another job board asking communities to publi
 
 ## How it works
 
-The public [`openings-dev/data`](https://github.com/openings-dev/data) project connects GitHub communities to the Openings experience.
+The public [`openings-dev/data-pipeline`](https://github.com/openings-dev/data-pipeline) project connects GitHub communities to the Openings experience.
 
 1. **Communities publish jobs.** Maintainers and members share openings through public issues in supported GitHub repositories.
 2. **The data project organizes them.** The community catalog and generated public data files turn those scattered issues into a consistent index.
 3. **Openings makes them discoverable.** The website presents searchable jobs and dedicated profiles, then sends candidates back to the original listing.
 
 ```text
-Public GitHub issues → openings-dev/data → openings.dev → original listing
+Public GitHub issues → openings-dev/data-pipeline → openings.dev → original listing
 ```
 
 The data pipeline and the frontend are both public. Anyone can inspect how a listing reaches the product.
@@ -94,8 +94,8 @@ Before applying, candidates should confirm the requirements, availability, conta
 
 Openings grows through two open repositories:
 
-- [`openings-dev/openings`](https://github.com/openings-dev/openings) contains the product experience;
-- [`openings-dev/data`](https://github.com/openings-dev/data) contains the community catalog and public data workflow.
+- [`openings-dev/web`](https://github.com/openings-dev/web) contains the product experience;
+- [`openings-dev/data-pipeline`](https://github.com/openings-dev/data-pipeline) contains the community catalog and public data workflow.
 
 You can help by improving the experience, refining the documentation, or expanding the supported community catalog. Start with the [contribution guide](./CONTRIBUTING.md), and leave a star if you want to follow the project as it grows.
 

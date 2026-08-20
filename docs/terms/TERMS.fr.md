@@ -23,7 +23,7 @@ Vous acceptez de ne pas :
 
 Les annonces, les détails des dépôts et les informations des comptes GitHub proviennent de sources publiques. Openings présente ces informations à des fins de découverte et préserve les liens vers la source. Leur inclusion n’implique ni vérification, ni approbation, ni partenariat, ni affiliation.
 
-Les droits sur le contenu de tiers restent détenus par leurs titulaires respectifs. Si vous estimez que des informations indexées sont inexactes ou doivent être retirées, utilisez le [formulaire de correction ou de retrait de contenu](https://github.com/openings-dev/openings/issues/new?template=content_correction.yml) ou écrivez à support@openings.dev.
+Les droits sur le contenu de tiers restent détenus par leurs titulaires respectifs. Si vous estimez que des informations indexées sont inexactes ou doivent être retirées, utilisez le [formulaire de correction ou de retrait de contenu](https://github.com/openings-dev/web/issues/new?template=content_correction.yml) ou écrivez à support@openings.dev.
 
 ## 4. Données statiques et disponibilité
 

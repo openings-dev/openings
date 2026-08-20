@@ -14,7 +14,7 @@ La disponibilidad y los pasos para presentar una candidatura pueden cambiar. Com
 
 ## Cómo funciona
 
-1. El pipeline independiente `openings-dev/data` lee las fuentes públicas de las comunidades de GitHub configuradas.
+1. El pipeline independiente `openings-dev/data-pipeline` lee las fuentes públicas de las comunidades de GitHub configuradas.
 2. Normaliza los anuncios compatibles y genera archivos JSON estáticos con páginas, facetas, índices de búsqueda y detalles de las vacantes.
 3. Publica esos archivos en GitHub. El front-end los lee desde `raw.githubusercontent.com`.
 4. La interfaz resuelve la búsqueda, los filtros, el orden y la paginación a partir de esos archivos.
@@ -32,8 +32,8 @@ El front-end usa Next.js App Router y se exporta como sitio estático. No contie
 
 ## Límites del producto
 
-- Front-end: `openings-dev/openings`.
-- Pipeline de datos y archivos JSON estáticos: `openings-dev/data`.
+- Front-end: `openings-dev/web`.
+- Pipeline de datos y archivos JSON estáticos: `openings-dev/data-pipeline`.
 - Fuentes: publicaciones públicas compatibles de comunidades de GitHub.
 - Datos locales de vacantes en el front-end: ninguno.
 - Ruta local de API para vacantes: ninguna.

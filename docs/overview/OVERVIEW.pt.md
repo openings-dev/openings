@@ -2,7 +2,7 @@
 
 O Openings ajuda pessoas a encontrar vagas de tecnologia publicadas em comunidades públicas no GitHub. Os anúncios ficam mais fáceis de buscar sem substituir sua fonte original.
 
-O front-end usa o Next.js App Router e é exportado como páginas estáticas. Ele não armazena dados de vagas localmente. A aplicação consome arquivos JSON brutos publicados pelo repositório separado `openings-dev/data` como uma interface pública de dados estáticos.
+O front-end usa o Next.js App Router e é exportado como páginas estáticas. Ele não armazena dados de vagas localmente. A aplicação consome arquivos JSON brutos publicados pelo repositório separado `openings-dev/data-pipeline` como uma interface pública de dados estáticos.
 
 ## O que a plataforma faz
 
@@ -14,7 +14,7 @@ O front-end usa o Next.js App Router e é exportado como páginas estáticas. El
 
 ## Fluxo de dados
 
-1. O pipeline `openings-dev/data` lê os repositórios públicos do GitHub configurados.
+1. O pipeline `openings-dev/data-pipeline` lê os repositórios públicos do GitHub configurados.
 2. O pipeline normaliza os anúncios públicos, cria as facetas, grava os arquivos paginados e os publica no GitHub.
 3. O front-end lê esses arquivos em `raw.githubusercontent.com`.
 4. A filtragem e a paginação da interface resolvem IDs, páginas e grupos de detalhes de vagas por meio dos dados estáticos remotos.
@@ -22,8 +22,8 @@ O front-end usa o Next.js App Router e é exportado como páginas estáticas. El
 
 ## Limites atuais
 
-- Front-end: `openings-dev/openings`.
-- Pipeline e dados estáticos brutos: `openings-dev/data`.
+- Front-end: `openings-dev/web`.
+- Pipeline e dados estáticos brutos: `openings-dev/data-pipeline`.
 - Arquivos locais de dados de vagas no front-end: nenhum.
 - Rota local de API para vagas: nenhuma.
 - Tipos de fonte aceitos: issues, discussões e painéis públicos de comunidades no GitHub.

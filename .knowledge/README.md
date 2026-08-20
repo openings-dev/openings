@@ -4,7 +4,7 @@
 
 ## Current product
 
-Openings is a statically exported Next.js application for discovering technology opportunities published in public GitHub community repositories. It loads generated JSON from the separate `openings-dev/data` repository and does not own a backend or a local opportunity dataset.
+Openings is a statically exported Next.js application for discovering technology opportunities published in public GitHub community repositories. It loads generated JSON from the separate `openings-dev/data-pipeline` repository and does not own a backend or a local opportunity dataset.
 
 ## Documentation map
 

@@ -2,7 +2,7 @@
 
 `openings.dev` rassemble des offres d’emploi tech partagées dans des communautés GitHub publiques afin de les rendre plus faciles à rechercher et à comparer. Chaque offre reste liée à sa source d’origine, où les candidats peuvent vérifier les informations actuelles et la marche à suivre.
 
-Le front-end utilise l’App Router de Next.js et produit des pages statiques. Il ne contient pas de copie locale des offres : il lit les fichiers JSON publics publiés par le dépôt distinct `openings-dev/data`.
+Le front-end utilise l’App Router de Next.js et produit des pages statiques. Il ne contient pas de copie locale des offres : il lit les fichiers JSON publics publiés par le dépôt distinct `openings-dev/data-pipeline`.
 
 ## Ce que fait Openings
 
@@ -15,7 +15,7 @@ Le front-end utilise l’App Router de Next.js et produit des pages statiques. I
 
 ## Flux de données
 
-1. Le pipeline `openings-dev/data` lit les sources GitHub publiques configurées.
+1. Le pipeline `openings-dev/data-pipeline` lit les sources GitHub publiques configurées.
 2. Il normalise les annonces, construit les facettes de recherche et publie des fichiers JSON statiques paginés.
 3. Le front-end lit ces fichiers depuis `raw.githubusercontent.com`.
 4. La recherche associe les filtres aux identifiants et aux fichiers qui contiennent les offres correspondantes.
@@ -23,8 +23,8 @@ Le front-end utilise l’App Router de Next.js et produit des pages statiques. I
 
 ## Limites actuelles
 
-- Front-end : `openings-dev/openings`.
-- Pipeline et fichiers de données publics : `openings-dev/data`.
+- Front-end : `openings-dev/web`.
+- Pipeline et fichiers de données publics : `openings-dev/data-pipeline`.
 - Fichiers d’offres locaux dans le front-end : aucun.
 - Route API locale pour les offres : aucune.
 - Sources prises en charge : annonces issues de sources GitHub publiques configurées.

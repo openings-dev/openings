@@ -13,7 +13,7 @@ Utilisez ce dépôt pour :
 - Les améliorations des services de données distants dans `lib/opportunities`.
 - Les mises à jour de la documentation du front-end.
 
-Utilisez [`openings-dev/data`](https://github.com/openings-dev/data) pour :
+Utilisez [`openings-dev/data-pipeline`](https://github.com/openings-dev/data-pipeline) pour :
 
 - Les changements apportés au catalogue des dépôts sources.
 - La logique d’ingestion et de normalisation des données GitHub.
@@ -45,8 +45,8 @@ Ouvrez `http://localhost:3000`.
 Ne créez `.env.local` que pour tester une autre branche de données distante :
 
 ```bash
-NEXT_PUBLIC_OPENINGS_DATA_BASE_URL=https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities
-NEXT_PUBLIC_OPENINGS_DATA_REPOSITORY_BASE_URL=https://raw.githubusercontent.com/openings-dev/data/main
+NEXT_PUBLIC_OPENINGS_DATA_BASE_URL=https://raw.githubusercontent.com/openings-dev/data-pipeline/main/snapshots/opportunities
+NEXT_PUBLIC_OPENINGS_DATA_REPOSITORY_BASE_URL=https://raw.githubusercontent.com/openings-dev/data-pipeline/main
 ```
 
 ## Structure du projet
@@ -88,4 +88,4 @@ npm run build
 
 ## Code de conduite
 
-En participant, vous acceptez de respecter le [Code de conduite](https://github.com/openings-dev/openings/blob/main/CODE_OF_CONDUCT.md).
+En participant, vous acceptez de respecter le [Code de conduite](https://github.com/openings-dev/web/blob/main/CODE_OF_CONDUCT.md).

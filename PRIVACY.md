@@ -6,7 +6,7 @@ Openings makes public technology job listings easier to find. This policy explai
 
 ## 1. Public data displayed by Openings
 
-Openings reads public data published by the `openings-dev/data` repository. A listing can include its title, description, excerpt, tags, job location, salary information, dates, source URL, repository, and community identity.
+Openings reads public data published by the `openings-dev/data-pipeline` repository. A listing can include its title, description, excerpt, tags, job location, salary information, dates, source URL, repository, and community identity.
 
 Openings also displays public GitHub account information attached to a listing, including the author’s name, handle, and avatar URL. Openings derives the GitHub profile link from the public handle. Author profile pages are generated from these public listing records. They do not indicate that Openings has verified, represents, or is affiliated with the person, organization, or employer shown.
 
@@ -26,7 +26,7 @@ Openings uses the public records above to provide search, filters, community pag
 
 ## 5. Questions, corrections, and removal requests
 
-If public information is inaccurate or should be removed from the index, use the [content correction or removal form](https://github.com/openings-dev/openings/issues/new?template=content_correction.yml) or email support@openings.dev. Include the affected Openings URL and original source URL so contributors can investigate.
+If public information is inaccurate or should be removed from the index, use the [content correction or removal form](https://github.com/openings-dev/web/issues/new?template=content_correction.yml) or email support@openings.dev. Include the affected Openings URL and original source URL so contributors can investigate.
 
 Information you choose to send through email or GitHub is handled by that channel so contributors can respond to your request. Do not include sensitive personal information that is not necessary for the request.
 

@@ -41,4 +41,4 @@ Die Seite macht die Anzeigen durchsuchbar, filterbar und teilbar. Prüfe aktuell
 
 Wenn eine Seite korrigiert oder entfernt werden soll, nutze das öffentliche Formular. Nenne dort die betroffene URL und die gewünschte Änderung. Falls die Anfrage nicht öffentlich sein soll, schreibe an `support@openings.dev`:
 
-- [Formular für Korrektur oder Entfernung](https://github.com/openings-dev/openings/issues/new?template=content_correction.yml)
+- [Formular für Korrektur oder Entfernung](https://github.com/openings-dev/web/issues/new?template=content_correction.yml)

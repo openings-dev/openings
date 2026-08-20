@@ -1,19 +1,19 @@
 # Référence des fichiers de données publics
 
-Le front-end d’openings.dev lit des fichiers JSON statiques publiés par le dépôt `openings-dev/data` via les URL de contenu brut de GitHub. Il ne propose pas de service applicatif ni de route locale `/api/opportunities`.
+Le front-end d’openings.dev lit des fichiers JSON statiques publiés par le dépôt `openings-dev/data-pipeline` via les URL de contenu brut de GitHub. Il ne propose pas de service applicatif ni de route locale `/api/opportunities`.
 
 Ces fichiers forment un contrat de données public. Un client doit vérifier la réponse HTTP et la version du schéma avant d’utiliser son contenu.
 
 ## URL de base
 
 ```txt
-https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities
+https://raw.githubusercontent.com/openings-dev/data-pipeline/main/snapshots/opportunities
 ```
 
 Le catalogue des dépôts se trouve sous une seconde base :
 
 ```txt
-https://raw.githubusercontent.com/openings-dev/data/main
+https://raw.githubusercontent.com/openings-dev/data-pipeline/main
 ```
 
 ## Fichiers principaux
@@ -38,7 +38,7 @@ countries/<country-code>/repositories/<repository-slug>.json
 
 ```ts
 const baseUrl =
-  "https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities";
+  "https://raw.githubusercontent.com/openings-dev/data-pipeline/main/snapshots/opportunities";
 
 async function readJson(path: string) {
   const response = await fetch(`${baseUrl}/${path}`);
@@ -105,7 +105,7 @@ const opportunity = details.items[id];
 Le catalogue utilisé pour valider le filtre par dépôt est publié à cette adresse :
 
 ```txt
-https://raw.githubusercontent.com/openings-dev/data/main/src/modules/catalog/repositories.json
+https://raw.githubusercontent.com/openings-dev/data-pipeline/main/src/modules/catalog/repositories.json
 ```
 
 ## Règles d’utilisation du contrat
@@ -120,4 +120,4 @@ https://raw.githubusercontent.com/openings-dev/data/main/src/modules/catalog/rep
 
 Pour poser une question sur les fichiers ou proposer une évolution du contrat, ouvrez un ticket :
 
-- [Formulaires de signalement d’openings.dev](https://github.com/openings-dev/openings/issues/new/choose)
+- [Formulaires de signalement d’openings.dev](https://github.com/openings-dev/web/issues/new/choose)

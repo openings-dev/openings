@@ -1,12 +1,12 @@
 # Referencia de datos estáticos
 
-El front-end de openings.dev lee archivos JSON estáticos publicados por el repositorio `openings-dev/data` mediante URLs sin procesar de GitHub. No existe un endpoint local `/api/opportunities` ni un servidor de API propio del front-end.
+El front-end de openings.dev lee archivos JSON estáticos publicados por el repositorio `openings-dev/data-pipeline` mediante URLs sin procesar de GitHub. No existe un endpoint local `/api/opportunities` ni un servidor de API propio del front-end.
 
 ## URLs base
 
 ```txt
-https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities
-https://raw.githubusercontent.com/openings-dev/data/main
+https://raw.githubusercontent.com/openings-dev/data-pipeline/main/snapshots/opportunities
+https://raw.githubusercontent.com/openings-dev/data-pipeline/main
 ```
 
 La primera URL contiene los archivos de vacantes publicados. La segunda permite acceder a los metadatos del catálogo de repositorios.
@@ -43,7 +43,7 @@ Comprueba siempre el estado HTTP y la versión del contrato antes de consumir lo
 
 ```ts
 const baseUrl =
-  "https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities";
+  "https://raw.githubusercontent.com/openings-dev/data-pipeline/main/snapshots/opportunities";
 
 const response = await fetch(`${baseUrl}/api/manifest.json`);
 
@@ -107,7 +107,7 @@ const opportunity = details.items[id];
 La validación del filtro de repositorios lee el catálogo desde:
 
 ```txt
-https://raw.githubusercontent.com/openings-dev/data/main/src/modules/catalog/repositories.json
+https://raw.githubusercontent.com/openings-dev/data-pipeline/main/src/modules/catalog/repositories.json
 ```
 
 ## Notas sobre el contrato
@@ -122,4 +122,4 @@ https://raw.githubusercontent.com/openings-dev/data/main/src/modules/catalog/rep
 
 Para plantear una duda sobre los archivos o proponer un cambio de contrato, abre una incidencia en:
 
-- [Formularios de incidencias de openings.dev](https://github.com/openings-dev/openings/issues/new/choose)
+- [Formularios de incidencias de openings.dev](https://github.com/openings-dev/web/issues/new/choose)

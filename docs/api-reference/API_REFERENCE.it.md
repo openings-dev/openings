@@ -1,12 +1,12 @@
 # Riferimento dei dati statici
 
-Il front-end di openings.dev legge file JSON statici pubblicati dal repository `openings-dev/data` tramite gli URL raw di GitHub. Non esistono un endpoint locale `/api/opportunities` o un server API gestito dal front-end.
+Il front-end di openings.dev legge file JSON statici pubblicati dal repository `openings-dev/data-pipeline` tramite gli URL raw di GitHub. Non esistono un endpoint locale `/api/opportunities` o un server API gestito dal front-end.
 
 ## URL base
 
 ```txt
-https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities
-https://raw.githubusercontent.com/openings-dev/data/main
+https://raw.githubusercontent.com/openings-dev/data-pipeline/main/snapshots/opportunities
+https://raw.githubusercontent.com/openings-dev/data-pipeline/main
 ```
 
 Il primo URL contiene i file pubblicati delle offerte. Il secondo permette di accedere ai metadati del catalogo dei repository.
@@ -43,7 +43,7 @@ Controlla sempre lo stato HTTP e la versione del contratto prima di leggere gli 
 
 ```ts
 const baseUrl =
-  "https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities";
+  "https://raw.githubusercontent.com/openings-dev/data-pipeline/main/snapshots/opportunities";
 
 const response = await fetch(`${baseUrl}/api/manifest.json`);
 
@@ -107,7 +107,7 @@ const opportunity = details.items[id];
 La validazione del filtro dei repository legge il catalogo da:
 
 ```txt
-https://raw.githubusercontent.com/openings-dev/data/main/src/modules/catalog/repositories.json
+https://raw.githubusercontent.com/openings-dev/data-pipeline/main/src/modules/catalog/repositories.json
 ```
 
 ## Note sul contratto
@@ -122,4 +122,4 @@ https://raw.githubusercontent.com/openings-dev/data/main/src/modules/catalog/rep
 
 Per fare una domanda sui file o proporre una modifica al contratto, apri una segnalazione tramite:
 
-- [Moduli di segnalazione di openings.dev](https://github.com/openings-dev/openings/issues/new/choose)
+- [Moduli di segnalazione di openings.dev](https://github.com/openings-dev/web/issues/new/choose)

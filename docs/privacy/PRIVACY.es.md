@@ -6,7 +6,7 @@ Openings facilita la búsqueda de ofertas públicas de empleo tecnológico. Esta
 
 ## 1. Datos públicos que muestra Openings
 
-Openings lee datos públicos publicados por el repositorio `openings-dev/data`. Una oferta puede incluir su título, descripción, extracto, etiquetas, ubicación del puesto, información salarial, fechas, URL de origen, repositorio e identidad de la comunidad.
+Openings lee datos públicos publicados por el repositorio `openings-dev/data-pipeline`. Una oferta puede incluir su título, descripción, extracto, etiquetas, ubicación del puesto, información salarial, fechas, URL de origen, repositorio e identidad de la comunidad.
 
 Openings también muestra información pública de cuentas de GitHub asociada a una oferta, incluidos el nombre, identificador y URL de avatar del autor. Openings obtiene el enlace al perfil de GitHub a partir del identificador público. Las páginas de perfil de los autores se generan a partir de estos registros públicos de ofertas. No indican que Openings haya verificado, represente o esté afiliado a la persona, organización o empleador mostrados.
 
@@ -26,7 +26,7 @@ Openings utiliza los registros públicos anteriores para ofrecer búsquedas, fil
 
 ## 5. Preguntas, correcciones y solicitudes de eliminación
 
-Si la información pública es inexacta o debe eliminarse del índice, usa el [formulario de corrección o eliminación de contenido](https://github.com/openings-dev/openings/issues/new?template=content_correction.yml) o escribe a support@openings.dev. Incluye la URL de Openings afectada y la URL de la fuente original para que los colaboradores puedan investigarlo.
+Si la información pública es inexacta o debe eliminarse del índice, usa el [formulario de corrección o eliminación de contenido](https://github.com/openings-dev/web/issues/new?template=content_correction.yml) o escribe a support@openings.dev. Incluye la URL de Openings afectada y la URL de la fuente original para que los colaboradores puedan investigarlo.
 
 La información que decidas enviar por correo electrónico o GitHub se gestiona a través de ese canal para que los colaboradores puedan responder a tu solicitud. No incluyas información personal sensible que no sea necesaria para la solicitud.
 

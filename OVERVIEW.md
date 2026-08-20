@@ -2,7 +2,7 @@
 
 Openings helps people find technology jobs shared through public GitHub communities. It makes those listings searchable without replacing their original source.
 
-The front-end is a Next.js App Router project exported as static pages. It does not store opportunity data locally. The application reads raw JSON files published by the separate `openings-dev/data` repository as a public static-data interface.
+The front-end is a Next.js App Router project exported as static pages. It does not store opportunity data locally. The application reads raw JSON files published by the separate `openings-dev/data-pipeline` repository as a public static-data interface.
 
 ## What the Platform Does
 
@@ -14,7 +14,7 @@ The front-end is a Next.js App Router project exported as static pages. It does 
 
 ## Data Flow
 
-1. The `openings-dev/data` pipeline reads configured public GitHub repositories.
+1. The `openings-dev/data-pipeline` pipeline reads configured public GitHub repositories.
 2. The data pipeline normalizes public listings, builds facets, writes paginated static data files, and publishes them to GitHub.
 3. The front-end reads those files from `raw.githubusercontent.com`.
 4. UI filtering and pagination resolve IDs, pages, and job detail buckets from the remote static API.
@@ -22,8 +22,8 @@ The front-end is a Next.js App Router project exported as static pages. It does 
 
 ## Current Boundaries
 
-- Front-end: `openings-dev/openings`.
-- Data pipeline and raw static data: `openings-dev/data`.
+- Front-end: `openings-dev/web`.
+- Data pipeline and raw static data: `openings-dev/data-pipeline`.
 - Local front-end data files: none.
 - Local opportunity API route: none.
 - Supported source types: public GitHub issues, discussions, and community boards.

@@ -13,7 +13,7 @@ Use this repository for:
 - Remote data service improvements under `lib/opportunities`.
 - Documentation updates for the front-end.
 
-Use [`openings-dev/data`](https://github.com/openings-dev/data) for:
+Use [`openings-dev/data-pipeline`](https://github.com/openings-dev/data-pipeline) for:
 
 - Source repository catalog changes.
 - GitHub ingestion and normalization logic.
@@ -45,8 +45,8 @@ Open `http://localhost:3000`.
 Only create `.env.local` when testing another remote data branch:
 
 ```bash
-NEXT_PUBLIC_OPENINGS_DATA_BASE_URL=https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities
-NEXT_PUBLIC_OPENINGS_DATA_REPOSITORY_BASE_URL=https://raw.githubusercontent.com/openings-dev/data/main
+NEXT_PUBLIC_OPENINGS_DATA_BASE_URL=https://raw.githubusercontent.com/openings-dev/data-pipeline/main/snapshots/opportunities
+NEXT_PUBLIC_OPENINGS_DATA_REPOSITORY_BASE_URL=https://raw.githubusercontent.com/openings-dev/data-pipeline/main
 ```
 
 ## Project Structure
@@ -88,4 +88,4 @@ npm run build
 
 ## Code of Conduct
 
-By participating, you agree to follow the [Code of Conduct](https://github.com/openings-dev/openings/blob/main/CODE_OF_CONDUCT.md).
+By participating, you agree to follow the [Code of Conduct](https://github.com/openings-dev/web/blob/main/CODE_OF_CONDUCT.md).

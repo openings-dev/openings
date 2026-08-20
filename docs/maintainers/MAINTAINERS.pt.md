@@ -40,5 +40,5 @@ A página facilita a busca, a filtragem e o compartilhamento desses anúncios. C
 Para pedir uma correção ou remoção, use o formulário público específico. Se o pedido não puder ser público, escreva para `support@openings.dev`.
 
 ```txt
-https://github.com/openings-dev/openings/issues/new?template=content_correction.yml
+https://github.com/openings-dev/web/issues/new?template=content_correction.yml
 ```

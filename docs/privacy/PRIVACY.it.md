@@ -6,7 +6,7 @@ Openings rende più facile trovare offerte di lavoro tecnologiche pubbliche. Que
 
 ## 1. Dati pubblici visualizzati da Openings
 
-Openings legge dati pubblici pubblicati dal repository `openings-dev/data`. Un'offerta può includere titolo, descrizione, estratto, tag, località di lavoro, informazioni retributive, date, URL della fonte, repository e identità della comunità.
+Openings legge dati pubblici pubblicati dal repository `openings-dev/data-pipeline`. Un'offerta può includere titolo, descrizione, estratto, tag, località di lavoro, informazioni retributive, date, URL della fonte, repository e identità della comunità.
 
 Openings visualizza anche le informazioni pubbliche dell'account GitHub associate a un'offerta, inclusi nome, identificativo e URL dell'avatar dell'autore. Openings ricava il link al profilo GitHub dall'identificativo pubblico. Le pagine del profilo degli autori sono generate da questi record pubblici delle offerte. Non indicano che Openings abbia verificato, rappresenti o sia affiliato alla persona, all'organizzazione o al datore di lavoro mostrati.
 
@@ -26,7 +26,7 @@ Openings usa i record pubblici sopra indicati per offrire ricerca, filtri, pagin
 
 ## 5. Domande, correzioni e richieste di rimozione
 
-Se le informazioni pubbliche sono inesatte o devono essere rimosse dall'indice, usa il [modulo per la correzione o rimozione dei contenuti](https://github.com/openings-dev/openings/issues/new?template=content_correction.yml) oppure scrivi a support@openings.dev. Includi l'URL di Openings interessato e l'URL della fonte originale, così i collaboratori potranno svolgere verifiche.
+Se le informazioni pubbliche sono inesatte o devono essere rimosse dall'indice, usa il [modulo per la correzione o rimozione dei contenuti](https://github.com/openings-dev/web/issues/new?template=content_correction.yml) oppure scrivi a support@openings.dev. Includi l'URL di Openings interessato e l'URL della fonte originale, così i collaboratori potranno svolgere verifiche.
 
 Le informazioni che scegli di inviare tramite email o GitHub vengono gestite tramite quel canale affinché i collaboratori possano rispondere alla richiesta. Non includere informazioni personali sensibili non necessarie per la richiesta.
 

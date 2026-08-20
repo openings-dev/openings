@@ -23,7 +23,7 @@ Du verpflichtest dich, Folgendes zu unterlassen:
 
 Stellenanzeigen, Repository-Details und GitHub-Kontoinformationen stammen aus öffentlichen Quellen. Openings stellt diese Informationen zur Auffindbarkeit bereit und bewahrt die Links zur Quelle. Die Aufnahme bedeutet keine Überprüfung, Billigung, Partnerschaft oder Zugehörigkeit.
 
-Rechte an Inhalten Dritter verbleiben bei ihren jeweiligen Rechteinhabern. Wenn du der Ansicht bist, dass indexierte Informationen unzutreffend sind oder entfernt werden sollten, nutze das [Formular für Inhaltskorrektur oder -entfernung](https://github.com/openings-dev/openings/issues/new?template=content_correction.yml) oder schreibe an support@openings.dev.
+Rechte an Inhalten Dritter verbleiben bei ihren jeweiligen Rechteinhabern. Wenn du der Ansicht bist, dass indexierte Informationen unzutreffend sind oder entfernt werden sollten, nutze das [Formular für Inhaltskorrektur oder -entfernung](https://github.com/openings-dev/web/issues/new?template=content_correction.yml) oder schreibe an support@openings.dev.
 
 ## 4. Statische Daten und Verfügbarkeit
 

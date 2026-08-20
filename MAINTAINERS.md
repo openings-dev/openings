@@ -40,5 +40,5 @@ The page makes those listings easier to search, filter, and share. Each result s
 To request a correction or removal, use the dedicated public form. For a request that should not be public, email `support@openings.dev`.
 
 ```txt
-https://github.com/openings-dev/openings/issues/new?template=content_correction.yml
+https://github.com/openings-dev/web/issues/new?template=content_correction.yml
 ```

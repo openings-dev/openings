@@ -1,19 +1,19 @@
 # Referenz der öffentlichen Datendateien
 
-Das Frontend von openings.dev liest statische JSON-Dateien, die das Repository `openings-dev/data` über die Rohdaten-URLs von GitHub veröffentlicht. Es stellt weder einen Anwendungsdienst noch eine lokale Route `/api/opportunities` bereit.
+Das Frontend von openings.dev liest statische JSON-Dateien, die das Repository `openings-dev/data-pipeline` über die Rohdaten-URLs von GitHub veröffentlicht. Es stellt weder einen Anwendungsdienst noch eine lokale Route `/api/opportunities` bereit.
 
 Die Dateien bilden einen öffentlichen Datenvertrag. Clients sollten den HTTP-Status und die Schemaversion prüfen, bevor sie Inhalte verarbeiten.
 
 ## Basis-URL
 
 ```txt
-https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities
+https://raw.githubusercontent.com/openings-dev/data-pipeline/main/snapshots/opportunities
 ```
 
 Der Repository-Katalog liegt unter einer zweiten Basis-URL:
 
 ```txt
-https://raw.githubusercontent.com/openings-dev/data/main
+https://raw.githubusercontent.com/openings-dev/data-pipeline/main
 ```
 
 ## Kerndateien
@@ -38,7 +38,7 @@ countries/<country-code>/repositories/<repository-slug>.json
 
 ```ts
 const baseUrl =
-  "https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities";
+  "https://raw.githubusercontent.com/openings-dev/data-pipeline/main/snapshots/opportunities";
 
 async function readJson(path: string) {
   const response = await fetch(`${baseUrl}/${path}`);
@@ -105,7 +105,7 @@ const opportunity = details.items[id];
 Der Katalog zur Prüfung des Repository-Filters ist hier veröffentlicht:
 
 ```txt
-https://raw.githubusercontent.com/openings-dev/data/main/src/modules/catalog/repositories.json
+https://raw.githubusercontent.com/openings-dev/data-pipeline/main/src/modules/catalog/repositories.json
 ```
 
 ## Regeln für den Datenvertrag
@@ -120,4 +120,4 @@ https://raw.githubusercontent.com/openings-dev/data/main/src/modules/catalog/rep
 
 Stelle Fragen zu den Dateien und Vorschläge zum Datenvertrag über ein Issue-Formular:
 
-- [Issue-Formulare von openings.dev](https://github.com/openings-dev/openings/issues/new/choose)
+- [Issue-Formulare von openings.dev](https://github.com/openings-dev/web/issues/new/choose)

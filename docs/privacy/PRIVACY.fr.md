@@ -6,7 +6,7 @@ Openings facilite la recherche d’offres d’emploi tech publiques. Cette polit
 
 ## 1. Données publiques affichées par Openings
 
-Openings lit les données publiques publiées par le dépôt `openings-dev/data`. Une annonce peut inclure son titre, sa description, son extrait, ses tags, le lieu de travail, des informations de rémunération, des dates, l’URL de la source, le dépôt et l’identité de la communauté.
+Openings lit les données publiques publiées par le dépôt `openings-dev/data-pipeline`. Une annonce peut inclure son titre, sa description, son extrait, ses tags, le lieu de travail, des informations de rémunération, des dates, l’URL de la source, le dépôt et l’identité de la communauté.
 
 Openings affiche également les informations publiques du compte GitHub associé à une annonce, notamment le nom de l’auteur, son identifiant et l’URL de son avatar. Openings déduit le lien vers le profil GitHub à partir de l’identifiant public. Les pages de profil des auteurs sont générées à partir de ces enregistrements publics. Elles ne signifient pas qu’Openings a vérifié la personne, l’organisation ou l’employeur affiché, qu’il les représente ou qu’il y est affilié.
 
@@ -26,7 +26,7 @@ Openings utilise les enregistrements publics ci-dessus pour proposer la recherch
 
 ## 5. Questions, corrections et demandes de retrait
 
-Si des informations publiques sont inexactes ou doivent être retirées de l’index, utilisez le [formulaire de correction ou de retrait de contenu](https://github.com/openings-dev/openings/issues/new?template=content_correction.yml) ou écrivez à support@openings.dev. Indiquez l’URL Openings concernée et l’URL de la source d’origine afin que les contributeurs puissent examiner la demande.
+Si des informations publiques sont inexactes ou doivent être retirées de l’index, utilisez le [formulaire de correction ou de retrait de contenu](https://github.com/openings-dev/web/issues/new?template=content_correction.yml) ou écrivez à support@openings.dev. Indiquez l’URL Openings concernée et l’URL de la source d’origine afin que les contributeurs puissent examiner la demande.
 
 Les informations que vous choisissez d’envoyer par e-mail ou via GitHub sont traitées par ce canal afin que les contributeurs puissent répondre à votre demande. N’incluez pas d’informations personnelles sensibles qui ne sont pas nécessaires à la demande.
 

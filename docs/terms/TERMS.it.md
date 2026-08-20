@@ -23,7 +23,7 @@ Accetti di non:
 
 Le offerte, i dettagli dei repository e le informazioni degli account GitHub provengono da fonti pubbliche. Openings presenta tali informazioni per facilitarne la scoperta e conserva i link alla fonte. L'inclusione non implica verifica, approvazione, collaborazione o affiliazione.
 
-I diritti sui contenuti di terzi restano ai rispettivi titolari. Se ritieni che le informazioni indicizzate siano inesatte o debbano essere rimosse, usa il [modulo per la correzione o rimozione dei contenuti](https://github.com/openings-dev/openings/issues/new?template=content_correction.yml) oppure scrivi a support@openings.dev.
+I diritti sui contenuti di terzi restano ai rispettivi titolari. Se ritieni che le informazioni indicizzate siano inesatte o debbano essere rimosse, usa il [modulo per la correzione o rimozione dei contenuti](https://github.com/openings-dev/web/issues/new?template=content_correction.yml) oppure scrivi a support@openings.dev.
 
 ## 4. Dati statici e disponibilità
 

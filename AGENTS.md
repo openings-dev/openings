@@ -10,7 +10,7 @@ This project uses Next.js 16.2. Before changing framework behavior, inspect the 
 
 ## Product and stack
 
-Openings is a statically exported Next.js application for discovering technology opportunities published in public GitHub community repositories. It reads generated public JSON from the separate `openings-dev/data` repository. Do not add local opportunity datasets, mocks, API routes, a backend proxy, authentication, or credentials.
+Openings is a statically exported Next.js application for discovering technology opportunities published in public GitHub community repositories. It reads generated public JSON from the separate `openings-dev/data-pipeline` repository. Do not add local opportunity datasets, mocks, API routes, a backend proxy, authentication, or credentials.
 
 - Next.js 16.2 App Router with `output: "export"`
 - React 19 and strict TypeScript

@@ -55,8 +55,8 @@ const SPECIMEN_OPPORTUNITY: Omit<OpportunityItem, "region" | "country"> = Object
   description: "",
   excerpt: "",
   issueState: OpportunityIssueState.Open,
-  repository: "openings-dev/openings",
-  repositoryUrl: "https://github.com/openings-dev/openings",
+  repository: "openings-dev/web",
+  repositoryUrl: "https://github.com/openings-dev/web",
   tags: ["TypeScript", "React"],
   author: {
     id: "specimen-author",
@@ -68,12 +68,12 @@ const SPECIMEN_OPPORTUNITY: Omit<OpportunityItem, "region" | "country"> = Object
     id: "specimen-community",
     name: "openings.dev/specimen",
     avatarUrl: "/light-mode-favicon.svg",
-    repository: "openings-dev/openings",
-    url: "https://github.com/openings-dev/openings",
+    repository: "openings-dev/web",
+    url: "https://github.com/openings-dev/web",
   },
   createdAt: "2026-08-12T12:00:00.000Z",
   updatedAt: "2026-08-15T12:00:00.000Z",
-  url: "https://github.com/openings-dev/openings",
+  url: "https://github.com/openings-dev/web",
   sourceType: OpportunitySourceType.GithubIssue,
 });
 
@@ -87,7 +87,7 @@ export function InteractiveSpecimens(): React.ReactNode {
   const [loadingState, setLoadingState] = React.useState(LoadingSpecimenState.Idle);
   const loadingTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const localizedFilterOptions = React.useMemo<OpportunityFilterOptions>(() => ({
-    repositories: [{ value: "openings-dev/openings", label: "openings-dev/openings", count: 24 }],
+    repositories: [{ value: "openings-dev/web", label: "openings-dev/web", count: 24 }],
     regions: [{ value: "Latin America", label: copy.specimens.values.region, count: 18 }],
     countries: [{ value: "Brazil", label: copy.specimens.values.country, count: 12 }],
     tags: [

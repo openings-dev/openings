@@ -1,7 +1,7 @@
 const DEFAULT_DATA_BASE_URL =
-  "https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities";
+  "https://raw.githubusercontent.com/openings-dev/data-pipeline/main/snapshots/opportunities";
 const DEFAULT_DATA_REPOSITORY_BASE_URL =
-  "https://raw.githubusercontent.com/openings-dev/data/main";
+  "https://raw.githubusercontent.com/openings-dev/data-pipeline/main";
 
 export function getOpeningsDataBaseUrl() {
   return (

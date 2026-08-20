@@ -41,4 +41,4 @@ Cette page permet de rechercher, filtrer et partager les annonces. Pour vérifie
 
 Pour demander une correction ou le retrait d’une page, utilisez le formulaire public en indiquant l’URL concernée et la modification souhaitée. Si la demande ne doit pas être publique, écrivez à `support@openings.dev` :
 
-- [Formulaire de correction ou de retrait](https://github.com/openings-dev/openings/issues/new?template=content_correction.yml)
+- [Formulaire de correction ou de retrait](https://github.com/openings-dev/web/issues/new?template=content_correction.yml)

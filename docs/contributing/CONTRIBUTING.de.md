@@ -13,7 +13,7 @@ Nutze dieses Repository für:
 - Verbesserungen an Diensten für entfernte Daten unter `lib/opportunities`.
 - Aktualisierungen der Frontend-Dokumentation.
 
-Nutze [`openings-dev/data`](https://github.com/openings-dev/data) für:
+Nutze [`openings-dev/data-pipeline`](https://github.com/openings-dev/data-pipeline) für:
 
 - Änderungen am Katalog der Quell-Repositories.
 - Logik für das Einlesen und Normalisieren von GitHub-Daten.
@@ -45,8 +45,8 @@ npm run dev
 Erstelle `.env.local` nur, wenn du einen anderen entfernten Daten-Branch testest:
 
 ```bash
-NEXT_PUBLIC_OPENINGS_DATA_BASE_URL=https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities
-NEXT_PUBLIC_OPENINGS_DATA_REPOSITORY_BASE_URL=https://raw.githubusercontent.com/openings-dev/data/main
+NEXT_PUBLIC_OPENINGS_DATA_BASE_URL=https://raw.githubusercontent.com/openings-dev/data-pipeline/main/snapshots/opportunities
+NEXT_PUBLIC_OPENINGS_DATA_REPOSITORY_BASE_URL=https://raw.githubusercontent.com/openings-dev/data-pipeline/main
 ```
 
 ## Projektstruktur
@@ -88,4 +88,4 @@ npm run build
 
 ## Verhaltenskodex
 
-Mit deiner Teilnahme erklärst du dich mit dem [Verhaltenskodex](https://github.com/openings-dev/openings/blob/main/CODE_OF_CONDUCT.md) einverstanden.
+Mit deiner Teilnahme erklärst du dich mit dem [Verhaltenskodex](https://github.com/openings-dev/web/blob/main/CODE_OF_CONDUCT.md) einverstanden.

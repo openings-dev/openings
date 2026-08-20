@@ -20,8 +20,8 @@ export const LEGACY_ROUTES = {
 } as const;
 
 export const EXTERNAL_ROUTES = {
-  githubRepository: "https://github.com/openings-dev/openings",
+  githubRepository: "https://github.com/openings-dev/web",
   reportIssue:
-    "https://github.com/openings-dev/openings/issues/new/choose",
+    "https://github.com/openings-dev/web/issues/new/choose",
   support: "mailto:support@openings.dev",
 } as const;

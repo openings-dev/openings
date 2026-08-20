@@ -23,7 +23,7 @@ Aceptas no:
 
 Las ofertas, los detalles de los repositorios y la información de cuentas de GitHub proceden de fuentes públicas. Openings presenta esa información para facilitar su descubrimiento y conserva los enlaces a la fuente. Su inclusión no implica verificación, aval, asociación ni afiliación.
 
-Los derechos sobre el contenido de terceros siguen perteneciendo a sus respectivos titulares. Si crees que la información indexada es inexacta o debe eliminarse, usa el [formulario de corrección o eliminación de contenido](https://github.com/openings-dev/openings/issues/new?template=content_correction.yml) o escribe a support@openings.dev.
+Los derechos sobre el contenido de terceros siguen perteneciendo a sus respectivos titulares. Si crees que la información indexada es inexacta o debe eliminarse, usa el [formulario de corrección o eliminación de contenido](https://github.com/openings-dev/web/issues/new?template=content_correction.yml) o escribe a support@openings.dev.
 
 ## 4. Datos estáticos y disponibilidad
 

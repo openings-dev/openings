@@ -6,7 +6,7 @@ O Openings facilita a busca por anúncios públicos de vagas de tecnologia. Esta
 
 ## 1. Dados públicos exibidos pelo Openings
 
-O Openings lê dados públicos publicados pelo repositório `openings-dev/data`. Um anúncio pode incluir título, descrição, resumo, tags, localização da vaga, informações salariais, datas, URL da fonte, repositório e identidade da comunidade.
+O Openings lê dados públicos publicados pelo repositório `openings-dev/data-pipeline`. Um anúncio pode incluir título, descrição, resumo, tags, localização da vaga, informações salariais, datas, URL da fonte, repositório e identidade da comunidade.
 
 O Openings também exibe informações públicas da conta no GitHub associada ao anúncio, como nome do autor, usuário e URL do avatar. O link para o perfil no GitHub é derivado do usuário público. As páginas de autores são geradas a partir desses registros públicos. Elas não indicam que o Openings verificou, representa ou tem vínculo com a pessoa, organização ou empresa exibida.
 
@@ -26,7 +26,7 @@ O Openings usa os registros públicos descritos acima para oferecer busca, filtr
 
 ## 5. Dúvidas, correções e pedidos de remoção
 
-Se uma informação pública estiver incorreta ou precisar ser removida do índice, use o [formulário de correção ou remoção](https://github.com/openings-dev/openings/issues/new?template=content_correction.yml) ou escreva para support@openings.dev. Inclua a URL afetada no Openings e a URL da fonte original para que os contribuidores possam investigar.
+Se uma informação pública estiver incorreta ou precisar ser removida do índice, use o [formulário de correção ou remoção](https://github.com/openings-dev/web/issues/new?template=content_correction.yml) ou escreva para support@openings.dev. Inclua a URL afetada no Openings e a URL da fonte original para que os contribuidores possam investigar.
 
 As informações que você decidir enviar por e-mail ou GitHub serão tratadas por esse canal para que os contribuidores respondam ao pedido. Não envie dados pessoais sensíveis que não sejam necessários.
 

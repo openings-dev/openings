@@ -1,14 +1,14 @@
 # Static Data Reference
 
-The openings.dev front-end consumes versioned static JSON files published by the `openings-dev/data` repository through raw GitHub URLs.
+The openings.dev front-end consumes versioned static JSON files published by the `openings-dev/data-pipeline` repository through raw GitHub URLs.
 
 There is no local `/api/opportunities` endpoint in the front-end. Consumers should read the raw static files directly.
 
 ## Base URLs
 
 ```txt
-https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities
-https://raw.githubusercontent.com/openings-dev/data/main
+https://raw.githubusercontent.com/openings-dev/data-pipeline/main/snapshots/opportunities
+https://raw.githubusercontent.com/openings-dev/data-pipeline/main
 ```
 
 Use the first base URL for job-index files. Use the second base URL when reading repository catalog metadata.
@@ -48,7 +48,7 @@ Example:
 
 ```ts
 const baseUrl =
-  "https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities";
+  "https://raw.githubusercontent.com/openings-dev/data-pipeline/main/snapshots/opportunities";
 
 const response = await fetch(`${baseUrl}/api/manifest.json`);
 if (!response.ok) throw new Error(`Manifest request failed: ${response.status}`);
@@ -108,7 +108,7 @@ const opportunity = details.items[id];
 Repository filter validation reads the catalog from:
 
 ```txt
-https://raw.githubusercontent.com/openings-dev/data/main/src/modules/catalog/repositories.json
+https://raw.githubusercontent.com/openings-dev/data-pipeline/main/src/modules/catalog/repositories.json
 ```
 
 ## Data Contract Notes
@@ -125,4 +125,4 @@ https://raw.githubusercontent.com/openings-dev/data/main/src/modules/catalog/rep
 
 Open an issue for static-data questions or contract proposals:
 
-- [GitHub issue forms](https://github.com/openings-dev/openings/issues/new/choose)
+- [GitHub issue forms](https://github.com/openings-dev/web/issues/new/choose)

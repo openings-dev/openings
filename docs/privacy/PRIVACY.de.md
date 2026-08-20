@@ -6,7 +6,7 @@ Openings erleichtert das Auffinden öffentlicher Tech-Stellenanzeigen. Diese Erk
 
 ## 1. Von Openings angezeigte öffentliche Daten
 
-Openings liest öffentliche Daten aus dem Repository `openings-dev/data`. Eine Stellenanzeige kann Titel, Beschreibung, Auszug, Tags, Arbeitsort, Vergütungsangaben, Daten, Quell-URL, Repository und Community-Identität enthalten.
+Openings liest öffentliche Daten aus dem Repository `openings-dev/data-pipeline`. Eine Stellenanzeige kann Titel, Beschreibung, Auszug, Tags, Arbeitsort, Vergütungsangaben, Daten, Quell-URL, Repository und Community-Identität enthalten.
 
 Openings zeigt außerdem öffentliche GitHub-Kontoinformationen an, die einer Stellenanzeige zugeordnet sind, darunter Name, Benutzername und Avatar-URL der Autorin oder des Autors. Den Link zum GitHub-Profil leitet Openings aus dem öffentlichen Benutzernamen ab. Autorprofilseiten werden aus diesen öffentlichen Stellenanzeigendaten erstellt. Sie bedeuten nicht, dass Openings die angezeigte Person, Organisation oder den Arbeitgeber überprüft hat, vertritt oder mit ihnen verbunden ist.
 
@@ -26,7 +26,7 @@ Openings verwendet die oben genannten öffentlichen Einträge, um Suche, Filter,
 
 ## 5. Fragen, Korrekturen und Entfernungsanfragen
 
-Wenn öffentliche Informationen unzutreffend sind oder aus dem Index entfernt werden sollen, nutze das [Formular für Inhaltskorrektur oder -entfernung](https://github.com/openings-dev/openings/issues/new?template=content_correction.yml) oder schreibe an support@openings.dev. Gib die betroffene Openings-URL und die URL der Originalquelle an, damit Mitwirkende die Anfrage prüfen können.
+Wenn öffentliche Informationen unzutreffend sind oder aus dem Index entfernt werden sollen, nutze das [Formular für Inhaltskorrektur oder -entfernung](https://github.com/openings-dev/web/issues/new?template=content_correction.yml) oder schreibe an support@openings.dev. Gib die betroffene Openings-URL und die URL der Originalquelle an, damit Mitwirkende die Anfrage prüfen können.
 
 Informationen, die du per E-Mail oder über GitHub sendest, werden über den jeweiligen Kanal verarbeitet, damit Mitwirkende auf deine Anfrage antworten können. Teile keine sensiblen personenbezogenen Informationen mit, die für die Anfrage nicht erforderlich sind.
 

@@ -4,7 +4,7 @@
 
 ## Sources
 
-The default snapshot base is `https://raw.githubusercontent.com/openings-dev/data/main/snapshots/opportunities`. The default repository base is `https://raw.githubusercontent.com/openings-dev/data/main`.
+The default snapshot base is `https://raw.githubusercontent.com/openings-dev/data-pipeline/main/snapshots/opportunities`. The default repository base is `https://raw.githubusercontent.com/openings-dev/data-pipeline/main`.
 
 Browser-safe overrides use `NEXT_PUBLIC_OPENINGS_DATA_BASE_URL` and `NEXT_PUBLIC_OPENINGS_DATA_REPOSITORY_BASE_URL`. Build-time overrides use `OPENINGS_DATA_BASE_URL`, `OPENINGS_DATA_REPOSITORY_BASE_URL`, and `OPENINGS_DATA_SNAPSHOT_URL`. Preserve the precedence implemented in `lib/opportunities/static-api.ts` and `lib/opportunities/snapshot.ts`.
 

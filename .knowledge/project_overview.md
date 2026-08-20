@@ -6,7 +6,7 @@
 
 Openings indexes technology job listings shared through public GitHub communities. Supported sources include GitHub issues, discussions, and community boards. Visitors can browse and filter jobs, inspect communities and listing authors, switch language and theme, and read project documents.
 
-The frontend owns presentation, filtering interaction, route generation, localization, and consumption of generated data. The separate `openings-dev/data` repository owns collection, normalization, and publication of the dataset.
+The frontend owns presentation, filtering interaction, route generation, localization, and consumption of generated data. The separate `openings-dev/data-pipeline` repository owns collection, normalization, and publication of the dataset.
 
 ## Stack
 

@@ -14,7 +14,7 @@ const COMMUNITY_PROFILE_SPECIMEN: ShareableProfileSource = Object.freeze({
   kind: ShareableProfileKind.Community,
   profile: {
     repository: "openings-dev/community-opportunities-and-maintainers",
-    repositoryUrl: "https://github.com/openings-dev/openings",
+    repositoryUrl: "https://github.com/openings-dev/web",
     name: "openings.dev/specimen",
     opportunitiesCount: 24,
     lastPostedAt: "2026-08-15T12:00:00.000Z",
@@ -44,7 +44,7 @@ ${messages.designSystem.guidance.content}
 | paper | ${messages.designSystem.specimens.colorPurposes.paper} |
 | line | ${messages.designSystem.specimens.colorPurposes.line} |
 
-\`font-mono\` · github.com/openings-dev/openings`;
+\`font-mono\` · github.com/openings-dev/web`;
 }
 
 export function ProductPatternSpecimens(): React.ReactNode {
@@ -66,7 +66,7 @@ export function ProductPatternSpecimens(): React.ReactNode {
           avatarUrl=""
           avatarFallback="O"
           title="openings.dev/specimen"
-          subtitle="openings-dev/openings"
+          subtitle="openings-dev/web"
           opportunitiesLabel={<LocalizedCopy select={(messages) => messages.designSystem.specimens.directoryCount} />}
           actionLabel={<LocalizedCopy select={(messages) => messages.designSystem.specimens.directoryAction} />}
           details={[
