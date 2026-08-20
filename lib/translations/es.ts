@@ -379,6 +379,8 @@ export const esTranslations: TranslationMessages = {
       apiReference: "Referencia de datos estáticos",
       maintainers: "Para comunidades",
       github: "GitHub",
+      bluesky: "Bluesky",
+      mastodon: "Mastodon",
       contributing: "Contribuir",
       reportIssue: "Reportar problema",
       privacyPolicy: "Política de privacidad",
@@ -388,6 +390,8 @@ export const esTranslations: TranslationMessages = {
     social: {
       linksAriaLabel: "Enlaces sociales",
       githubAriaLabel: "Abrir openings.dev en GitHub",
+      blueskyAriaLabel: "Abrir openings.dev en Bluesky",
+      mastodonAriaLabel: "Abrir openings.dev en Mastodon",
     },
   },
   docsHub: {

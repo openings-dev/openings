@@ -1,7 +1,9 @@
 "use client";
 
 import { useI18n } from "@/components/providers/i18n-provider/use-i18n";
+import { BlueskyIcon } from "@/components/icons/bluesky";
 import { GithubIcon } from "@/components/icons/github";
+import { MastodonIcon } from "@/components/icons/mastodon";
 import { EXTERNAL_ROUTES, PUBLIC_ROUTES } from "@/lib/navigation/routes";
 import { cn } from "@/lib/utils/tailwind";
 import { FooterBottom } from "./footer-bottom";
@@ -101,6 +103,20 @@ export function Footer({
       icon: GithubIcon,
       external: true,
       ariaLabel: footerMessages.social.githubAriaLabel,
+    },
+    {
+      label: footerMessages.links.bluesky,
+      href: EXTERNAL_ROUTES.bluesky,
+      icon: BlueskyIcon,
+      external: true,
+      ariaLabel: footerMessages.social.blueskyAriaLabel,
+    },
+    {
+      label: footerMessages.links.mastodon,
+      href: EXTERNAL_ROUTES.mastodon,
+      icon: MastodonIcon,
+      external: true,
+      ariaLabel: footerMessages.social.mastodonAriaLabel,
     },
   ];
 

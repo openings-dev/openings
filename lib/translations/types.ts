@@ -357,6 +357,8 @@ export interface TranslationMessages {
       apiReference: string;
       maintainers: string;
       github: string;
+      bluesky: string;
+      mastodon: string;
       contributing: string;
       reportIssue: string;
       privacyPolicy: string;
@@ -366,6 +368,8 @@ export interface TranslationMessages {
     social: {
       linksAriaLabel: string;
       githubAriaLabel: string;
+      blueskyAriaLabel: string;
+      mastodonAriaLabel: string;
     };
   };
   docsHub: {
