@@ -35,10 +35,11 @@ export interface StaticManifestTotals {
   repositories: number;
   countries: number;
   regions: number;
+  communities: number;
 }
 
 export interface StaticManifest {
-  schemaVersion: 3;
+  schemaVersion: 4;
   generatedAt: string;
   dataHash: string;
   pageSize: number;
@@ -49,9 +50,29 @@ export interface StaticManifest {
     search: string;
     jobIds: string;
     order: string;
+    communities: string;
   };
   facets: OpportunityFilterFacets;
   pages: StaticManifestPage[];
+}
+
+export interface StaticCommunity {
+  repository: string;
+  repositoryUrl: string;
+  name: string;
+  avatarUrl: string;
+  region: string;
+  country: string;
+  countryCode: string;
+  locale: string;
+  scope: string;
+  opportunitiesCount: number;
+  lastPostedAt: string | null;
+}
+
+export interface StaticCommunities {
+  generatedAt: string;
+  items: StaticCommunity[];
 }
 
 export interface StaticFacetIndex {

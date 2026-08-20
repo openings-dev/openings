@@ -40,7 +40,7 @@ export interface StaticOpportunityBucket {
 type UnknownRecord = Record<string, unknown>;
 type ArtifactValidator<T extends object> = (value: unknown) => value is T;
 
-const STATIC_OPPORTUNITY_SCHEMA_VERSION = 3;
+const STATIC_OPPORTUNITY_SCHEMA_VERSION = 4;
 const ISO_CURRENCY_PATTERN = /^[A-Za-z]{3}$/;
 const DATA_HASH_PATTERN = /^[a-f\d]{64}$/i;
 
@@ -251,12 +251,14 @@ function isStaticManifest(value: unknown): value is StaticManifest {
     isNonNegativeInteger(totals.repositories) &&
     isNonNegativeInteger(totals.countries) &&
     isNonNegativeInteger(totals.regions) &&
+    isNonNegativeInteger(totals.communities) &&
     isRecord(files) &&
     isNonEmptyString(files.facets) &&
     isNonEmptyString(files.pageLookup) &&
     isNonEmptyString(files.search) &&
     isNonEmptyString(files.jobIds) &&
     isNonEmptyString(files.order) &&
+    isNonEmptyString(files.communities) &&
     isOpportunityFilterFacets(value.facets) &&
     Array.isArray(value.pages) &&
     value.pages.every((page) =>
@@ -281,6 +283,7 @@ function isStaticManifest(value: unknown): value is StaticManifest {
     files.search,
     files.jobIds,
     files.order,
+    files.communities,
     ...pageFiles,
   ] as string[];
   const pageCount = value.pages.reduce(

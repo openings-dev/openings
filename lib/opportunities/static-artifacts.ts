@@ -1,8 +1,10 @@
 import type {
+  StaticCommunities,
   StaticFacetIndex,
   StaticManifest,
   StaticSearchIndex,
 } from "./api-types";
+import { parseStaticCommunities } from "./community-artifact-validation";
 import {
   parseStaticOpportunityBucket,
   parseStaticOpportunityFacetIndex,
@@ -55,6 +57,7 @@ const MANIFEST_PATH = "api/manifest.json";
 // dependent artifacts; a reload or rebuild starts a fresh view. Any failed
 // fetch, parse, or generation mismatch invalidates that view atomically.
 const FACET_INDEX_CACHE = new Map<string, Promise<StaticFacetIndex>>();
+const COMMUNITIES_CACHE = new Map<string, Promise<StaticCommunities>>();
 const SEARCH_INDEX_CACHE = new Map<string, Promise<StaticSearchIndex>>();
 const ORDER_CACHE = new Map<string, Promise<StaticOpportunityOrder>>();
 const JOB_IDS_CACHE = new Map<string, Promise<StaticOpportunityOrder>>();
@@ -71,6 +74,7 @@ let staticArtifactViewSequence = 0;
 
 function clearStaticArtifactCaches() {
   FACET_INDEX_CACHE.clear();
+  COMMUNITIES_CACHE.clear();
   SEARCH_INDEX_CACHE.clear();
   ORDER_CACHE.clear();
   JOB_IDS_CACHE.clear();
@@ -282,6 +286,15 @@ export async function withStaticArtifactRecovery<T>(
 
 export async function loadOpportunityManifest() {
   return (await loadStaticArtifactView()).manifest;
+}
+
+export function loadOpportunityCommunities(manifest: StaticManifest) {
+  return loadVersionedStaticArtifact(
+    manifest.files.communities,
+    manifest,
+    parseStaticCommunities,
+    COMMUNITIES_CACHE,
+  );
 }
 
 export function loadOpportunityFacetIndex(
